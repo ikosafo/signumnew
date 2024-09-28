@@ -23,3 +23,12 @@
     </script>
 </head>
 
+<style>
+	body {
+		margin: 0;
+		height: 100vh;
+		background: url('<?php echo URLROOT ?>/assets/images/property/bg.jpg') no-repeat center center fixed; 
+		background-size: cover;
+	}
+</style>
+<body>

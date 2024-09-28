@@ -22,7 +22,7 @@ class Pages extends Controller
     }  
     
     public function propertyCategories() {
-        new Guard();
+        new Guard();  
         $this->view("pages/propertyCategories");
     }  
     

@@ -102,6 +102,64 @@ class Properties extends tableDataObject
     }
 
 
+    public static function saveCategory($categoryName,$description) {
+
+        global $healthdb;
+
+        $getName = "SELECT * FROM `propertyCategory` WHERE `categoryName` = '$categoryName' AND `status` = 1";
+        $healthdb->prepare($getName);
+        $resultName = $healthdb->singleRecord();
+
+        if ($resultName) {
+            //Already exists
+            echo 2;
+        }
+        else {
+            $query = "INSERT INTO `propertycategory`
+            (`categoryName`,
+             `description`,
+              `createdAt`
+             )
+            VALUES ('$categoryName',
+                    '$description',
+                    NOW()
+                    )";
+
+                $healthdb->prepare($query);
+                $healthdb->execute();
+                echo 1;  // Successfully inserted
+        }
+       
+    }
+
+
+    public static function editCategory($categoryName,$description,$catid) {
+
+        global $healthdb;
+
+        $getName = "SELECT * FROM `propertyCategory` WHERE `categoryName` = '$categoryName' AND `status` = 1";
+        $healthdb->prepare($getName);
+        $resultName = $healthdb->singleRecord();
+
+        if ($resultName) {
+            //Already exists
+            echo 2;
+        }
+        else {
+            $query = "UPDATE `propertycategory` 
+            SET `categoryName` = '$categoryName',
+            `updatedAt` = NOW(),
+            `description` = '$description'
+            WHERE `categoryId` = '$catid'";
+
+            $healthdb->prepare($query);
+            $healthdb->execute();
+            echo 1;  // Successfully updated
+        }
+       
+    }
+
+
     public static function saveOwnerDetails($ownerFullName,
                                     $ownerEmail,
                                     $ownerPhone,
@@ -129,5 +187,28 @@ class Properties extends tableDataObject
         $healthdb->execute();
         echo 1;  // Successfully updated
 
+    }
+
+    public static function listPropertyCategory() {
+        global $healthdb;
+
+        $getList = "SELECT * FROM `propertyCategory` where `status` = 1 ORDER BY `categoryId` DESC";
+        $healthdb->prepare($getList);
+        $resultList = $healthdb->resultSet();
+        return $resultList;
+    }
+
+    public static function categoryDetails($catid) {
+        global $healthdb;
+
+        $getList = "SELECT * FROM `propertyCategory` where `categoryId` = '$catid'";
+        $healthdb->prepare($getList);
+        $resultRec = $healthdb->singleRecord();
+        $categoryName = $resultRec->categoryName;
+        $description = $resultRec->description;
+        return [
+            'categoryName' => $categoryName,
+            'description' => $description
+        ];
     }
 }

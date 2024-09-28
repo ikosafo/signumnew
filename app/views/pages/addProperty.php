@@ -1,32 +1,6 @@
 <?php include ('includes/header.php');
 $uuid = Tools::generateUUID();
 ?>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.sumoselect/3.0.2/sumoselect.min.css" rel="stylesheet" />
-
-<style>
-    .media-body h6 {
-        font-weight: 300;
-    }
-
-    .SumoSelect .select-all {
-        border-radius: 3px 3px 0 0;
-        position: relative;
-        border-bottom: 1px solid #ddd;
-        background-color: #fff;
-        padding: 8px 0 1px 35px;
-        height: 40px;
-        cursor: pointer;
-    }
-
-    .wizard-box .wizard-step-container .wizard-form-details p {
-        margin-bottom: 5px;
-    }
-
-    .SumoSelect {
-        width: 330px;
-    }
-
-</style>
 
         <div class="content-body">
             <div class="container-fluid">
@@ -253,58 +227,21 @@ $uuid = Tools::generateUUID();
                 </div>
             </div>
         </div>
-       
-        <div class="footer">
-            <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="<?php echo URLROOT ?>/assets/http://dexignzone.com/" target="_blank">DexignZone</a> <span class="current-year">2024</span></p>
-            </div>
-        </div>
-        <!--**********************************
-            Footer end
-        ***********************************-->
 
-        <!--**********************************
-           Support ticket button start
-        ***********************************-->
+<?php include ('includes/footer.php'); ?>
 
-        <!--**********************************
-           Support ticket button end
-        ***********************************-->
-
-        
-    </div>
-    <!--**********************************
-        Main wrapper end
-    ***********************************-->
-
-    <!--**********************************
-        Scripts
-    ***********************************-->
-    <!-- Required vendors -->
-    <script src="<?php echo URLROOT ?>/assets/vendor/global/global.min.js"></script>
-	<script src="<?php echo URLROOT ?>/assets/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-	<script src="<?php echo URLROOT ?>/assets/vendor/bootstrap-datepicker-master/js/bootstrap-datepicker.min.js"></script>
-	<script src="<?php echo URLROOT ?>/assets/vendor/dropzone/dist/dropzone.js"></script>
-	<script src="<?php echo URLROOT ?>/assets/js/user-wizard.js"></script>
-    <script src="<?php echo URLROOT ?>/assets/js/custom.min.js"></script>
-	<script src="<?php echo URLROOT ?>/assets/js/deznav-init.js"></script>
-    <script src="<?php echo URLROOT ?>/assets/js/general.js"></script>
-    <script src="<?php echo URLROOT ?>/assets/js/notify.js"></script>
-    <script src="<?php echo URLROOT ?>/assets/js/jquery.blockUI.js"></script>
-    <script src="<?php echo URLROOT ?>/assets/js/flatpickr.js"></script>
-    <script src="<?php echo URLROOT ?>/assets/js/jquery.sumoselect.min.js"></script>
-
-    <script>
+<script>
+    
        $("#availabilityDate").flatpickr();
        $('#facilities').SumoSelect({
-                placeholder: 'Select options',
-                selectAll: true,
-                search: true,
-                okCancelInMulti: true
-            });
+            placeholder: 'Select options',
+            selectAll: true,
+            search: true,
+            okCancelInMulti: true
+        });
 
 
-       $("#saveProperty").on("click", function() {
+       	$("#saveProperty").on("click", function() {
             event.preventDefault(); 
 
             var formData = {
@@ -451,11 +388,4 @@ $uuid = Tools::generateUUID();
         });
 
 
-   
-   
-   
-   </script>
-	
-</body>
-
-</html>
+</script>

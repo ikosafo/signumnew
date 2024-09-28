@@ -22,11 +22,38 @@
     <link href="<?php echo URLROOT ?>/assets/css/style.css" rel="stylesheet">
 	<link href="<?php echo URLROOT ?>/assets/css/flatpickr.min.css" rel="stylesheet" type="text/css">
 	<link href="<?php echo URLROOT ?>/assets/css/sumoselect.min.css" rel="stylesheet" type="text/css" />
+	<link href="<?php echo URLROOT ?>/assets/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+	<link href="<?php echo URLROOT ?>/assets/vendor/datatables/responsive/responsive.css" rel="stylesheet">
 
 	<script>
 		var cvhead = <?php echo json_encode(unserialize(JSVARS)); ?>;
 		const urlroot = cvhead.urlroot;
 	</script>
+
+	<style>
+		.media-body h6 {
+			font-weight: 300;
+		}
+
+		.SumoSelect .select-all {
+			border-radius: 3px 3px 0 0;
+			position: relative;
+			border-bottom: 1px solid #ddd;
+			background-color: #fff;
+			padding: 8px 0 1px 35px;
+			height: 40px;
+			cursor: pointer;
+		}
+
+		.wizard-box .wizard-step-container .wizard-form-details p {
+			margin-bottom: 5px;
+		}
+
+		.SumoSelect {
+			width: 325px;
+		}
+
+	</style>
 
 </head>
 <body>
@@ -884,8 +911,8 @@
                     
                 </ul>
             
-				<div class="copyright">
-					<p>&copy; <span class="current-year"><?= date ('Y') ?></span> <strong>Signum Properties Ltd</strong> </p>
+				<div class="copyright mt-5">
+					<p></p>
 				</div>
 			</div>
         </div>

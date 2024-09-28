@@ -35,6 +35,21 @@ class Property extends PostController
 
     }
 
+    public function saveCategory()
+    {
+        $categoryName = $_POST['categoryName'];
+        $description = $_POST['description'];
+        Properties::saveCategory($categoryName,$description);
+    }
+
+    public function editCategory()
+    {
+        $catid = $_POST['catid'];
+        $categoryName = $_POST['categoryName'];
+        $description = $_POST['description'];
+        Properties::editCategory($categoryName,$description,$catid);
+    }
+
     public function saveOwnerDetails()
     {
         $ownerFullName = $_POST['ownerFullName'];

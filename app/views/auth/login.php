@@ -1,13 +1,5 @@
 <?php include ('includes/authheader.php'); ?>
-<style>
-	body {
-    margin: 0;
-    height: 100vh;
-    background: url('<?php echo URLROOT ?>/assets/images/property/bg.jpg') no-repeat center center fixed; 
-    background-size: cover;
-}
-</style>
-<body>
+
     <div class="fix-wrapper">
         <div class="container">
             <div class="row justify-content-center">
@@ -54,15 +46,4 @@
         </div>
     </div>
 
-    <script src="<?php echo URLROOT ?>/assets/vendor/global/global.min.js"></script>
-	<script src="<?php echo URLROOT ?>/assets/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-    <script src="<?php echo URLROOT ?>/assets/js/custom.min.js"></script>
-    <script src="<?php echo URLROOT ?>/assets/js/deznav-init.js"></script>
-	<script src="<?php echo URLROOT ?>/assets/js/notify.js"></script>
-	<script src="<?php echo URLROOT ?>/assets/js/jquery.blockUI.js"></script>
-	<script src="<?php echo URLROOT ?>/assets/js/general.js"></script>
-	<script src="<?php echo URLROOT ?>/pages-js/auth.js"></script>
-	
-</body>
-
-</html>
+<?php include ('includes/authfooter.php'); ?>
