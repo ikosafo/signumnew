@@ -31,6 +31,8 @@
 	<script src="<?php echo URLROOT ?>/assets/js/dashboard/dashboard-1.js"></script>
 	<script src="<?php echo URLROOT ?>/assets/vendor/datatables/js/jquery.dataTables.min.js"></script>
 	<script src="<?php echo URLROOT ?>/assets/vendor/datatables/responsive/responsive.js"></script>
+	<script src="<?php echo URLROOT ?>/assets/vendor/datatables/responsive/responsive.js"></script>
+	<script src="<?php echo URLROOT ?>/assets/jquery-confirm/js/jquery-confirm.js"></script>
 
 	<script>
 		function carouselReview(){

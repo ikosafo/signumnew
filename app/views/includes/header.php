@@ -24,6 +24,7 @@
 	<link href="<?php echo URLROOT ?>/assets/css/sumoselect.min.css" rel="stylesheet" type="text/css" />
 	<link href="<?php echo URLROOT ?>/assets/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
 	<link href="<?php echo URLROOT ?>/assets/vendor/datatables/responsive/responsive.css" rel="stylesheet">
+	<link href="<?php echo URLROOT ?>/assets/jquery-confirm/css/jquery-confirm.css" rel="stylesheet">
 
 	<script>
 		var cvhead = <?php echo json_encode(unserialize(JSVARS)); ?>;

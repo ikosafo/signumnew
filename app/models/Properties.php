@@ -159,6 +159,21 @@ class Properties extends tableDataObject
        
     }
 
+    
+    public static function deleteCategory($catid) {
+
+        global $healthdb;
+            $query = "UPDATE `propertycategory` 
+            SET `status` = 0,
+            `updatedAt` = NOW()
+            WHERE `categoryId` = '$catid'";
+
+            $healthdb->prepare($query);
+            $healthdb->execute();
+            echo 1;  // Successfully updated
+       
+    }
+
 
     public static function saveOwnerDetails($ownerFullName,
                                     $ownerEmail,
