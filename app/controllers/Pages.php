@@ -18,13 +18,30 @@ class Pages extends Controller
 
     public function addProperty() {
         new Guard();
-        $this->view("pages/addProperty");
+        $listPropertyCategory = Properties::listPropertyCategory();
+        $this->view("pages/addProperty",[
+            'listPropertyCategory' => $listPropertyCategory
+        ]);
+    }  
+
+
+    public function addUser() {
+        new Guard();
+        $listUsers = Users::listUsers();
+        $this->view("pages/addUser",[
+            'listUsers' => $listUsers
+        ]);
     }  
     
     public function propertyCategories() {
         new Guard();  
         $this->view("pages/propertyCategories");
     }  
+
+    public function companyDepartments() {
+        new Guard();  
+        $this->view("pages/companyDepartments");
+    } 
     
 
     public function lock()

@@ -7,8 +7,8 @@ extract($data);
             <div class="container-fluid">
                 <div class="page-titles">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="#">PROPERTY</a></li>
-						<li class="breadcrumb-item active"><a href="#">Add Property</a></li>
+						<li class="breadcrumb-item"><a href="#">USER MANAGEMENT</a></li>
+						<li class="breadcrumb-item active"><a href="#">Add User</a></li>
 					</ol>
                 </div>
                 <!-- row -->
@@ -28,8 +28,8 @@ extract($data);
                                                         <span>1</span>
                                                     </div>
                                                     <div class="media-body">
-                                                        <h5>Property Details</h5>
-                                                        <h6>Get started with the property</h6>
+                                                        <h5>Personal Information</h5>
+                                                        <h6>Enter your personal details</h6>
                                                     </div>
                                                 </div>
                                             </li>
@@ -40,8 +40,8 @@ extract($data);
                                                         <span>2</span>
                                                     </div>
                                                     <div class="media-body">
-                                                        <h5>Ownership Information</h5>
-                                                        <h6>Provide ownership details</h6>
+                                                        <h5>Account Information</h5>
+                                                        <h6>Set up your account credentials</h6>
                                                     </div>
                                                 </div>
                                             </li>
@@ -52,8 +52,8 @@ extract($data);
                                                         <span>3</span>
                                                     </div>
                                                     <div class="media-body">
-                                                        <h5>Rental Information</h5>
-                                                        <h6>Enter rental details</h6>
+                                                        <h5>Permissions & Access Control</h5>
+                                                        <h6>Manage user roles and access</h6>
                                                     </div>
                                                 </div>
                                             </li>
@@ -64,8 +64,20 @@ extract($data);
                                             <div class="wizard-step-1 d-block">
                                                 <form class="row" id="needs-validation" novalidate="" autocomplete="off">
                                                     <div class="mb-3 col-md-4 col-sm-12">
-                                                        <label class="form-label required">Property Name/Title</label>
-                                                        <input type="text" name="propertyName" class="form-control" placeholder="Green Valley Apartments" required>
+                                                        <label class="form-label required">First Name</label>
+                                                        <input type="text" name="firstName" class="form-control" placeholder="Enter first name" required>
+                                                    </div>
+                                                    <div class="mb-3 col-md-4 col-sm-12">
+                                                        <label class="form-label required">Last Name</label>
+                                                        <input type="text" name="lastName" class="form-control" placeholder="Enter last name" required>
+                                                    </div>
+                                                    <div class="mb-3 col-md-4 col-sm-12">
+                                                        <label class="form-label required">Email Address</label>
+                                                        <input type="text" name="emailAddress" class="form-control" placeholder="Enter email address" required>
+                                                    </div>
+                                                    <div class="mb-3 col-md-4 col-sm-12">
+                                                        <label class="form-label required">Date of Birth</label>
+                                                        <input type="text" name="dateBirth" class="form-control" placeholder="Select date" required>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Property Type</label>

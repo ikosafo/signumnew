@@ -204,6 +204,7 @@ class Properties extends tableDataObject
 
     }
 
+
     public static function listPropertyCategory() {
         global $healthdb;
 
@@ -213,6 +214,7 @@ class Properties extends tableDataObject
         return $resultList;
     }
 
+    
     public static function categoryDetails($catid) {
         global $healthdb;
 

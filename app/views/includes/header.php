@@ -25,6 +25,7 @@
 	<link href="<?php echo URLROOT ?>/assets/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
 	<link href="<?php echo URLROOT ?>/assets/vendor/datatables/responsive/responsive.css" rel="stylesheet">
 	<link href="<?php echo URLROOT ?>/assets/jquery-confirm/css/jquery-confirm.css" rel="stylesheet">
+	<link href="<?php echo URLROOT ?>/assets/css/select2.min.css" rel="stylesheet">
 
 	<script>
 		var cvhead = <?php echo json_encode(unserialize(JSVARS)); ?>;
@@ -836,8 +837,8 @@
 							
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="<?php echo URLROOT ?>/pages/addManager">Add Property Manager</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/listManagers">List of Managers</a></li>
+                            <li><a href="<?php echo URLROOT ?>/pages/addUser">Add Admin User</a></li>
+                            <li><a href="<?php echo URLROOT ?>/pages/listUsers">List of Users</a></li>
                             <li><a href="<?php echo URLROOT ?>/pages/userPermissions">User Permissions</a></li>
                         </ul>
                     </li>
@@ -903,7 +904,8 @@
 							<span class="nav-text">SETTINGS</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="<?php echo URLROOT ?>/pages/propertyCategories">Property Categories</a></li>
+                            <li><a href="<?php echo URLROOT ?>/pages/companyDepartments">Company Departments</a></li>
+							<li><a href="<?php echo URLROOT ?>/pages/propertyCategories">Property Categories</a></li>
                             <li><a href="<?php echo URLROOT ?>/pages/rentReminders">Rent Reminders</a></li>
                             <li><a href="<?php echo URLROOT ?>/pages/notificationSettings">Notification Settings</a></li>
                             <li><a href="<?php echo URLROOT ?>/pages/paymentOptions">Payment Options</a></li>

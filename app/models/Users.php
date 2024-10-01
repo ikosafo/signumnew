@@ -14,6 +14,16 @@ class Users extends tableDataObject
         return $result->count;
     }
 
+    public static function listUsers() {
+        global $healthdb;
+
+        $getList = "SELECT * FROM `adminusers` where `status` = 1 ORDER BY `firstName`, `lastName`";
+        $healthdb->prepare($getList);
+        $resultList = $healthdb->resultSet();
+        return $resultList;
+    }
+
+
     public static function getLastLogin(){
         global $healthdb;
     
@@ -169,7 +179,7 @@ class Users extends tableDataObject
             // Compose the verification email
             $message = "Hello $fullname, <br>Please use the following code to verify your email address: <strong>$verificationCode</strong>";
 
-            SendEmail::compose($emailaddress, 'AHPC User Verification', $message);
+            //SendEmail::compose($emailaddress, 'AHPC User Verification', $message);
             echo 1;
 
         }

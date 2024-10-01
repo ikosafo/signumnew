@@ -8,4 +8,9 @@ class Forms extends Controller
         $this->view("forms/propertyCategories");
     }
 
+    public function companyDepartments()
+    {
+        $this->view("forms/companyDepartments");
+    }
+
 }

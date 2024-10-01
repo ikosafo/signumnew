@@ -15,4 +15,18 @@ class Forms extends PostController
          ]);
     }
 
+
+    public function companyDepartmentsEdit()
+    {
+        $catid = $_POST['catid'];
+        $departmentDetails = Institution::departmentDetails($catid);
+        $departmentName = $departmentDetails['departmentName'];
+        $description = $departmentDetails['description'];
+        $this->view("forms/companyDepartmentsEdit", [
+            'departmentName' => $departmentName,
+            'description' => $description,
+            'catid' => $catid,
+         ]);
+    }
+
 }

@@ -9,4 +9,10 @@ class Tables extends Controller
         $this->view("tables/propertyCategories",['listPropertyCategory' => $listPropertyCategory]);
     }
 
+    public function companyDepartments()
+    {
+        $listCompanyDepartments = Institution::listCompanyDepartments();
+        $this->view("tables/companyDepartments",['listCompanyDepartments' => $listCompanyDepartments]);
+    }
+
 }
