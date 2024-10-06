@@ -35,7 +35,7 @@
             var formData = {
                 departmentName: $("input[name='departmentName']").val(),
                 description: $("textarea[name='description']").val(),
-                catid: '<?php echo $catid; ?>'
+                deptid: '<?php echo $deptid; ?>'
             };
             var url = urlroot + "/company/editDepartment";
 

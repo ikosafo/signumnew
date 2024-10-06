@@ -92,15 +92,15 @@
                                 var formData = {};
                                 formData.deptid = deptid; 
                                 saveForm(formData, "/delete/companyDepartment", function(response) {
-                                    $('#companyDepartmentDiv').html(response);
+                                    $('#departmentTableDiv').html(response);
                                 });
                                 //$("#companyDepartment").DataTable().ajax.reload(null, false);
                                 $('html, body').animate({
-                                    scrollTop: $("#companyDepartmentDiv").offset().top
+                                    scrollTop: $("#departmentTableDiv").offset().top
                                 }, 200);
                                 
                                 loadPage("/tables/companyDepartments", function(response) {
-                                    $('#companyDepartmentDiv').html(response);
+                                    $('#departmentTableDiv').html(response);
                                 });
                                
                             }

@@ -28,8 +28,10 @@ class Pages extends Controller
     public function addUser() {
         new Guard();
         $listUsers = Users::listUsers();
+        $listDepartment = Institution::listDepartment();
         $this->view("pages/addUser",[
-            'listUsers' => $listUsers
+            'listUsers' => $listUsers,
+            'listDepartment' => $listDepartment
         ]);
     }  
     

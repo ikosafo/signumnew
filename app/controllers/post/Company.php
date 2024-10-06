@@ -10,4 +10,12 @@ class Company extends PostController
         Institution::saveDepartment($departmentName,$description);
     }
 
+    public function editDepartment()
+    {
+        $deptid = $_POST['deptid'];
+        $departmentName = $_POST['departmentName'];
+        $description = $_POST['description'];
+        Institution::editDepartment($departmentName,$description,$deptid);
+    }
+
 }

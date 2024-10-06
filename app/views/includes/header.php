@@ -830,19 +830,7 @@
                             <li><a href="<?php echo URLROOT ?>/pages/inspectionHistory">Inspection History</a></li>
                             <li><a href="<?php echo URLROOT ?>/pages/inspectionReports">Inspection Reports</a></li>
                         </ul>
-                    </li>
-					<li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-							<i class="flaticon-381-user-4"></i>
-							<span class="nav-text">USER MANAGEMENT</span>
-							
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="<?php echo URLROOT ?>/pages/addUser">Add Admin User</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/listUsers">List of Users</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/userPermissions">User Permissions</a></li>
-                        </ul>
-                    </li>
-					
+                    </li>					
 					<li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
 							<i class="flaticon-381-database-1"></i>
 							<span class="nav-text">RENT <br>COLLECTION</span>
@@ -855,8 +843,9 @@
                             <li><a href="<?php echo URLROOT ?>/pages/rentReceipts">Rent Receipts</a></li>
                         </ul>
                     </li>
-                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                         <i class="flaticon-381-back-1"></i>
+                    <li>
+						<a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                         	<i class="flaticon-381-back-1"></i>
 							<span class="nav-text">FINANCIALS</span>
 						</a>
                         <ul aria-expanded="false">
@@ -866,7 +855,8 @@
                             <li><a href="<?php echo URLROOT ?>/pages/budgetPlanning">Budget Planning</a></li>
                         </ul>
                     </li>
-                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <li>
+						<a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                             <i class="flaticon-381-battery-5"></i>
 							<span class="nav-text">CONTRACTS</span>
 						</a>
@@ -897,6 +887,17 @@
                             <li><a href="<?php echo URLROOT ?>/pages/maintenanceReports">Maintenance Reports</a></li>
                             <li><a href="<?php echo URLROOT ?>/pages/tenancyReports">Tenant Reports</a></li>
                             <li><a href="<?php echo URLROOT ?>/pages/financialReports">Financial Reports</a></li>
+                        </ul>
+                    </li>
+					<li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+							<i class="flaticon-381-user-4"></i>
+							<span class="nav-text">USER MANAGEMENT</span>
+							
+						</a>
+                        <ul aria-expanded="false">
+                            <li><a href="<?php echo URLROOT ?>/pages/addUser">Add Admin User</a></li>
+                            <li><a href="<?php echo URLROOT ?>/pages/listUsers">List of Users</a></li>
+                            <li><a href="<?php echo URLROOT ?>/pages/userPermissions">User Permissions</a></li>
                         </ul>
                     </li>
                     <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">

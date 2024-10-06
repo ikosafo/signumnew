@@ -9,4 +9,12 @@ class Delete extends PostController
         Properties::deleteCategory($catid);
     }
 
+    public function companyDepartment()
+    {
+        $deptid = $_POST['deptid'];
+        Institution::deleteDepartment($deptid);
+    }
+
+    
+
 }

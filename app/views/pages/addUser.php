@@ -76,80 +76,36 @@ extract($data);
                                                         <input type="text" name="emailAddress" class="form-control" placeholder="Enter email address" required>
                                                     </div>
                                                     <div class="mb-3 col-md-4 col-sm-12">
+                                                        <label class="form-label required">Phone Number</label>
+                                                        <input type="text" name="phoneNumber" class="form-control" placeholder="Enter phone number" required>
+                                                    </div>
+                                                    <div class="mb-3 col-md-4 col-sm-12">
+                                                        <label class="form-label">Alternative Phone Number</label>
+                                                        <input type="text" name="altPhoneNumber" class="form-control" placeholder="Enter alternative phone number">
+                                                    </div>
+                                                    <div class="mb-3 col-md-4 col-sm-12">
                                                         <label class="form-label required">Date of Birth</label>
-                                                        <input type="text" name="dateBirth" class="form-control" placeholder="Select date" required>
+                                                        <input type="text" name="dateBirth" id="dateBirth" readonly class="form-control" placeholder="Select date" required>
+                                                    </div>
+                                                    <div class="mb-3 col-md-4 col-sm-12">
+                                                        <label class="form-label required">Job Title</label>
+                                                        <input type="text" name="jobTitle" id="jobTitle" class="form-control" placeholder="Enter job title" required>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Property Type</label>
-                                                        <select name="propertyType" class="default-select form-control wide" required>
-                                                            <option value="">Select Property Type</option>
-                                                            <option value="apartment">Apartment</option>
-                                                            <option value="house">House</option>
-                                                            <option value="commercial">Commercial</option>
-                                                            <option value="land">Land</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Property Category</label>
-                                                        <select name="propertyCategory" id="propertyCategory" class="form-control" required>
+                                                        <label class="form-label required">Department</label>
+                                                        <select name="department" id="department" class="form-control" required>
                                                             <option></option>
-                                                            <?php foreach ($listPropertyCategory as $record): ?>
-                                                                <option value="<?= $record->categoryId ?>"><?= $record->categoryName ?></option>
+                                                            <?php foreach ($listDepartment as $record): ?>
+                                                                <option value="<?= $record->departmentId ?>"><?= $record->departmentName ?></option>
                                                             <?php endforeach; ?>
                                                         </select>
-
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Property Address</label>
-                                                        <textarea name="propertyAddress" class="form-control" placeholder="Full address including street, city, state, postal code, and country" rows="3" required></textarea>
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Location</label>
-                                                        <input type="text" name="location" class="form-control" placeholder="Location (e.g., city or neighborhood)" required>
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Facilities</label>
-                                                        <select name="facilities" class="form-control" id="facilities" multiple="multiple">
-                                                            <option value="Swimming Pool">Swimming Pool</option>
-                                                            <option value="Gym/Fitness Center">Gym/Fitness Center</option>
-                                                            <option value="Parking Garage">Parking Garage</option>
-                                                            <option value="Elevator">Elevator</option>
-                                                            <option value="24/7 Security">24/7 Security</option>
-                                                            <option value="Children's Playground">Children's Playground</option>
-                                                            <option value="Clubhouse/Community Hall">Clubhouse/Community Hall</option>
-                                                            <option value="Backup Power Generator">Backup Power Generator</option>
-                                                            <option value="CCTV Surveillance">CCTV Surveillance</option>
-                                                            <option value="On-site Laundry Facilities">On-site Laundry Facilities</option>
-                                                        </select>
-
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label">Description</label>
-                                                        <textarea name="description" class="form-control" placeholder="Brief description of the property" rows="3"></textarea>
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Number of Units</label>
-                                                        <input type="number" name="numberOfUnits" class="form-control" placeholder="e.g., 10" required>
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Property Size</label>
-                                                        <input type="text" name="propertySize" class="form-control" placeholder="e.g., 2000 sq ft or 0.5 acres" required>
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Furnishing Status</label>
-                                                        <select name="furnishingStatus" class="default-select form-control wide" required>
-                                                            <option value="">Select Furnishing Status</option>
-                                                            <option value="furnished">Furnished</option>
-                                                            <option value="semi-furnished">Semi-Furnished</option>
-                                                            <option value="unfurnished">Unfurnished</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label">Property Manager</label>
-                                                        <input type="text" name="propertyManager" class="form-control" placeholder="Assign a property manager (optional)">
+                                                        <label class="form-label required">Address</label>
+                                                        <textarea name="address" class="form-control" placeholder="Enter address" rows="3" required></textarea>
                                                     </div>
                                                     <div class="next-btn text-end col-sm-12">
-                                                        <button type="submit" id="saveProperty" class="btn btn-primary btn-sm">Next <i class="fas fa-arrow-right ms-2"></i></button>
+                                                        <button type="submit" id="saveUser" class="btn btn-primary btn-sm">Next <i class="fas fa-arrow-right ms-2"></i></button>
                                                     </div>
                                                 </form>
 
@@ -157,82 +113,106 @@ extract($data);
                                             <div class="wizard-step-2 d-none">
                                                 <form class="row" id="needs-validation1" novalidate="" autocomplete="off">
                                                     <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Owner's Full Name</label>
-                                                        <input type="text" class="form-control" id="ownerFullName" placeholder="Enter owner's full name" required>
+                                                        <label class="form-label required">Username</label>
+                                                        <input type="text" class="form-control" id="username" placeholder="Enter username" required>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Contact Email</label>
-                                                        <input type="email" class="form-control" id="ownerEmail" placeholder="Enter owner's email address" required>
+                                                        <label class="form-label required">Password</label>
+                                                        <input type="password" class="form-control" id="password" placeholder="Enter password" required>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Phone Number</label>
-                                                        <input type="text" class="form-control" id="ownerPhone" placeholder="Enter owner's phone number" required>
+                                                        <label class="form-label required">Confirm Password</label>
+                                                        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" required>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label">Address</label>
-                                                        <input type="text" class="form-control" id="ownerAddress" placeholder="Enter owner's address">
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label">City</label>
-                                                        <input type="text" class="form-control" id="ownerCity" placeholder="Enter owner's city">
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Ownership Type</label>
-                                                        <select class="default-select form-control wide" id="ownershipType" required>
-                                                            <option value="">Select Ownership Type</option>
-                                                            <option value="individual">Individual</option>
-                                                            <option value="company">Company</option>
+                                                        <label class="form-label required">Security Question</label><br>
+                                                        <select class="form-control" id="securityQuestion" style="width: 100%;">
+                                                            <option value="" disabled selected>Select a security question</option>
+                                                            <option value="pet_name">What is the name of your first pet?</option>
+                                                            <option value="birth_city">In what city were you born?</option>
+                                                            <option value="mother_maiden_name">What is your mother's maiden name?</option>
+                                                            <option value="first_school">What was the name of your first school?</option>
+                                                            <option value="favorite_teacher">Who was your favorite teacher?</option>
+                                                            <option value="childhood_nickname">What was your childhood nickname?</option>
+                                                            <option value="favorite_food">What is your favorite food?</option>
+                                                            <option value="father_middle_name">What is your father's middle name?</option>
+                                                            <option value="first_car">What was the make and model of your first car?</option>
+                                                            <option value="favorite_movie">What is your favorite movie?</option>
+                                                            <option value="best_friend">What is the name of your best friend from childhood?</option>
+                                                            <option value="street_grew_up">What street did you grow up on?</option>
                                                         </select>
                                                     </div>
-                                                    <div class="form-group col-sm-12">
-                                                        <label class="form-label">Additional Comments</label>
-                                                        <textarea class="form-control" id="ownerComments" rows="3" placeholder="Any additional details about the ownership"></textarea>
+                                                    <div class="form-group col-md-4 col-sm-12">
+                                                        <label class="form-label required">Answer to Security Question</label>
+                                                        <input type="text" class="form-control" id="securityAnswer" placeholder="Answer security question">
                                                     </div>
                                                     <div class="next-btn d-flex col-sm-12">
                                                         <button type="button" class="btn btn-default prev1 btn-sm"><i class="fas fa-arrow-left me-2"></i> Previous</button>
-                                                        <button type="submit" id="saveOwnership" class="btn btn-primary next2 btn-sm">Next <i class="fas fa-arrow-right ms-2"></i></button>
+                                                        <button type="submit" id="saveUserAccount" class="btn btn-primary next2 btn-sm">Next <i class="fas fa-arrow-right ms-2"></i></button>
                                                     </div>
                                                 </form>
   
                                             </div>
                                             <div class="wizard-step-3 d-none">
-                                               <form class="row" id="needs-validation2" novalidate="" autocomplete="off">
+                                                <form class="row" id="needs-validation2" novalidate="" autocomplete="off">
                                                     <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Rent Amount</label>
-                                                        <input type="number" class="form-control" id="rentAmount" placeholder="Enter rent amount" required>
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label">Deposit Amount</label>
-                                                        <input type="number" class="form-control" id="depositAmount" placeholder="Enter deposit amount">
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Lease Period</label>
-                                                        <input type="text" class="form-control" id="leasePeriod" placeholder="Enter lease period (e.g., 1 year)" required>
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Availability Date</label>
-                                                        <input type="date" class="form-control" placeholder="Select Date" id="availabilityDate" required>
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label">Utilities Included</label>
-                                                        <select class="default-select form-control wide" id="utilitiesIncluded">
-                                                            <option value="">Select</option>
-                                                            <option value="yes">Yes</option>
-                                                            <option value="no">No</option>
+                                                        <label class="form-label required">User Role</label><br>
+                                                        <select class="default-select form-control wide" id="userRole">
+                                                            <option value="" disabled selected>User Role</option>
+                                                            <option value="Admin">Admin</option>
+                                                            <option value="Manager">Manager</option>
+                                                            <option value="Viewer">Viewer</option>
                                                         </select>
                                                     </div>
+
+                                      
                                                     <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Rent Payment Frequency</label>
-                                                        <select class="default-select form-control wide" id="paymentFrequency" required>
-                                                        <option value="">Select Payment Frequency</option>
-                                                            <option value="monthly">Monthly</option>
-                                                            <option value="quarterly">Quarterly</option>
-                                                            <option value="yearly">Yearly</option>
-                                                        </select>
+                                                        <label class="form-label required">Permissions</label>
+
+                                                        <div class="mb-3">
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="check1" value="Property Management">
+                                                                <label class="form-check-label" for="check1">Property Management</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="check2" value="Tenant Management">
+                                                                <label class="form-check-label" for="check2">Tenant Management</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="check3" value="Inspections">
+                                                                <label class="form-check-label" for="check3">Inspections</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="check4" value="Rent Collection">
+                                                                <label class="form-check-label" for="check4">Rent Collection</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="check5" value="Financials">
+                                                                <label class="form-check-label" for="check5">Financials</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="check6" value="Contracts">
+                                                                <label class="form-check-label" for="check6">Contracts</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="check7" value="Maintenance">
+                                                                <label class="form-check-label" for="check7">Maintenance</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="check8" value="Ticketing">
+                                                                <label class="form-check-label" for="check8">Ticketing</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="check9" value="Reports">
+                                                                <label class="form-check-label" for="check9">Reports</label>
+                                                            </div>
+                                                        </div>
+
                                                     </div>
+
                                                     <div class="next-btn d-flex col-sm-12">
                                                         <button type="button" class="btn btn-default prev2 btn-sm"><i class="fas fa-arrow-left me-2"></i> Previous</button>
-                                                        <button type="submit" id="saveRentalInfo" class="btn btn-primary btn-sm">Next <i class="fas fa-arrow-right ms-2"></i></button>
+                                                        <button type="submit" id="saveRole" class="btn btn-success btn-sm">Submit <i class="fas fa-arrow-right ms-2"></i></button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -251,96 +231,106 @@ extract($data);
 
 <script>
     
-       $("#availabilityDate").flatpickr();
-       $('#facilities').SumoSelect({
+       $("#dateBirth").flatpickr();
+
+       $('#permissions').SumoSelect({
             placeholder: 'Select options',
             selectAll: true,
             search: true,
             okCancelInMulti: true
         });
 
-       $("#propertyCategory").select2({
-            placeholder: "Select Category"
-       });
+        $("#department").select2({
+            placeholder: "Select Department"
+       });   
 
-       	$("#saveProperty").on("click", function() {
+       $("#securityQuestion").select2({
+            placeholder: "Select Security Question"
+       });
+       
+
+        $("#saveUser").on("click", function(event) {
             event.preventDefault(); 
 
             var formData = {
-                propertyName: $("input[name='propertyName']").val(),
-                propertyType: $("select[name='propertyType']").val(),
-                propertyCategory: $("#propertyCategory").val(),
-                propertyAddress: $("textarea[name='propertyAddress']").val(),
-                location: $("input[name='location']").val(),
-                description: $("textarea[name='description']").val(),
-                numberOfUnits: $("input[name='numberOfUnits']").val(),
-                propertySize: $("input[name='propertySize']").val(),
-                furnishingStatus: $("select[name='furnishingStatus']").val(),
-                propertyManager: $("input[name='propertyManager']").val(),
-                selectedFacilities: $('#facilities').val(),
+                firstName: $("input[name='firstName']").val(),
+                lastName: $("input[name='lastName']").val(),
+                emailAddress: $("input[name='emailAddress']").val(),
+                phoneNumber: $("input[name='phoneNumber']").val(),
+                altPhoneNumber: $("input[name='altPhoneNumber']").val(),
+                dateBirth: $("input[name='dateBirth']").val(),
+                jobTitle: $("input[name='jobTitle']").val(),
+                department: $("select[name='department']").val(),
+                address: $("textarea[name='address']").val(),
                 uuid: '<?php echo $uuid; ?>'
             };
-            var url = urlroot + "/property/saveProperty";
+            var url = urlroot + "/user/saveUser";
 
             var successCallback = function(response) {
                 response = JSON.parse(response);
-                //alert(response);
 
                 if (response == 1) {
-                    $("#needs-validation").addClass("was-validated");  
+                    $("#needs-validation").addClass("was-validated");
+                    // Proceed to the next step or show success message
                     $('.step-1').removeClass('active').addClass('disabled');
                     $('.step-2').addClass('active');
                     $('.wizard-step-2').addClass('d-block').removeClass('d-none');
                     $('.wizard-step-1').removeClass('d-block').addClass('d-none');
-                }
-                else {
-                    $.notify("Property already exists", {
+                } else {
+                    $.notify("User already exists", {
                         position: "top center",
                         className: "error"
                     });
                 }
-
             };
 
             var validateForm = function(formData) {
                 var error = '';
-                if (!formData.propertyName) {
-                    error += 'Property Name is required\n';
-                    $("input[name='propertyName']").focus();
+
+                if (!formData.firstName) {
+                    error += 'First Name is required\n';
+                    $("input[name='firstName']").focus();
                 }
-                if (!formData.propertyType) {
-                    error += 'Property Type is required\n';
-                    $("select[name='propertyType']").focus();
+                if (!formData.lastName) {
+                    error += 'Last Name is required\n';
+                    $("input[name='lastName']").focus();
                 }
-                if (!formData.propertyCategory) {
-                    error += 'Property Category is required\n';
-                    $("input[name='propertyCategory']").focus();
+                if (!formData.emailAddress) {
+                    error += 'Email Address is required\n';
+                    $("input[name='emailAddress']").focus();
+                } else {
+                    var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                    if (!emailPattern.test(formData.emailAddress)) {
+                        error += 'Invalid Email Address format\n';
+                        $("input[name='emailAddress']").focus();
+                    }
                 }
-                if (!formData.propertyAddress) {
-                    error += 'Property Address is required\n';
-                    $("textarea[name='propertyAddress']").focus();
+                if (!formData.phoneNumber) {
+                    error += 'Phone Number is required\n';
+                    $("input[name='phoneNumber']").focus();
+                } else {
+                    var phonePattern = /^[0-9]{10}$/;  // Regular expression for 10 digits only
+                    if (!phonePattern.test(formData.phoneNumber)) {
+                        error += 'Phone Number must be exactly 10 digits\n';
+                        $("input[name='phoneNumber']").focus();
+                    }
                 }
-                if (!formData.location) {
-                    error += 'Location is required\n';
-                    $("input[name='location']").focus();
+                if (!formData.dateBirth) {
+                    error += 'Date of Birth is required\n';
+                    $("input[name='dateBirth']").focus();
                 }
-                if (!formData.numberOfUnits) {
-                    error += 'Number of Units is required\n';
-                    $("input[name='numberOfUnits']").focus();
+                if (!formData.jobTitle) {
+                    error += 'Job Title is required\n';
+                    $("input[name='jobTitle']").focus();
                 }
-                if (!formData.propertySize) {
-                    error += 'Property Size is required\n';
-                    $("input[name='propertySize']").focus();
+                if (!formData.department) {
+                    error += 'Department is required\n';
+                    $("select[name='department']").focus();
                 }
-                if (!formData.furnishingStatus) {
-                    error += 'Furnishing Status is required\n';
-                    $("select[name='furnishingStatus']").focus();
+                if (!formData.address) {
+                    error += 'Address is required\n';
+                    $("textarea[name='address']").focus();
                 }
-                if (!formData.selectedFacilities || formData.selectedFacilities.length === 0) {
-                    error += 'Facilities are required\n';
-                    $('#facilities').focus();
-                }
-                
                 return error;
             };
 
@@ -348,73 +338,128 @@ extract($data);
         });
 
 
-        //Ownership details
-        $("#saveOwnership").on("click", function(event) {
-            event.preventDefault(); 
 
-            var ownerData = {
-                ownerFullName: $("#ownerFullName").val(),
-                ownerEmail: $("#ownerEmail").val(),
-                ownerPhone: $("#ownerPhone").val(),
-                ownerAddress: $("#ownerAddress").val(),
-                ownerCity: $("#ownerCity").val(),
-                ownershipType: $("#ownershipType").val(),
-                ownerComments: $("#ownerComments").val(),
-                uuid: '<?php echo $uuid; ?>'
+        $("#saveUserAccount").on("click", function(event) {
+            event.preventDefault();
+
+            var accountData = {
+                username: $("#username").val(),
+                password: $("#password").val(),
+                confirmPassword: $("#confirmPassword").val(),
+                securityQuestion: $("#securityQuestion").val(),
+                securityAnswer: $("#securityAnswer").val(),
+                uuid: '<?php echo $uuid ?>'
             };
 
-            var url = urlroot + "/property/saveOwnerDetails";
+            var url = urlroot + "/user/saveUserAccount";
 
             var successCallback = function(response) {
                 response = JSON.parse(response);
-                $("#needs-validation1").addClass("was-validated");
-                $('.step-2').removeClass('active').addClass('disabled');
-                $('.step-3').addClass('active');
-                $('.wizard-step-3').addClass('d-block').removeClass('d-none');
-                $('.wizard-step-2').removeClass('d-block').addClass('d-none');
+ 
+                if (response == 1) {
+                    $("#needs-validation1").addClass("was-validated");
+                    $('.step-2').removeClass('active').addClass('disabled');
+                    $('.step-3').addClass('active');
+                    $('.wizard-step-3').addClass('d-block').removeClass('d-none');
+                    $('.wizard-step-2').removeClass('d-block').addClass('d-none');
+                } else {
+                    $.notify("Username already exists", {
+                        position: "top center",
+                        className: "error"
+                    });
+                }
+
             };
 
-            var validateOwnerForm = function(ownerData) {
+            var validateAccountForm = function(accountData) {
                 var error = '';
-                if (!ownerData.ownerFullName) {
-                    error += 'Owner Full Name is required\n';
-                    $("#ownerFullName").focus();
+
+                if (!accountData.username) {
+                    error += 'Username is required\n';
+                    $("#username").focus();
                 }
-                if (!ownerData.ownerEmail) {
-                    error += 'Owner Contact Email is required\n';
-                    $("#ownerEmail").focus();
-                } else {
-                    // Email format validation
-                    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    if (!emailRegex.test(ownerData.ownerEmail)) {
-                        error += 'Invalid Email Address\n';
-                        $("#ownerEmail").focus();
-                    }
+
+                if (!accountData.password) {
+                    error += 'Password is required\n';
+                    $("#password").focus();
+                } else if (accountData.password.length < 6) {
+                    error += 'Password must be at least 6 characters long\n';
+                    $("#password").focus();
                 }
-                if (!ownerData.ownerPhone) {
-                    error += 'Owner Phone Number is required\n';
-                    $("#ownerPhone").focus();
-                } else {
-                    var phoneRegex = /^[0-9]{10}$/;
-                    if (!phoneRegex.test(ownerData.ownerPhone)) {
-                        error += 'Phone number must be 10 digits long and contain only numbers\n';
-                        $("#ownerPhone").focus();
-                    }
+
+                if (!accountData.confirmPassword) {
+                    error += 'Confirm Password is required\n';
+                    $("#confirmPassword").focus();
+                } else if (accountData.confirmPassword !== accountData.password) {
+                    error += 'Passwords do not match\n';
+                    $("#confirmPassword").focus();
                 }
-                if (!ownerData.ownershipType) {
-                    error += 'Ownership Type is required\n';
-                    $("#ownershipType").focus();
+
+                if (!accountData.securityQuestion) {
+                    error += 'Security question is required\n';
+                    $("#securityQuestion").focus();
+                }
+
+                if (!accountData.securityAnswer) {
+                    error += 'Answer to security question is required\n';
+                    $("#securityAnswer").focus();
+                }
+                return error;
+            };
+
+            saveForm(accountData, url, successCallback, validateAccountForm);
+        });
+
+
+
+        //Roles
+        $("#saveRole").on("click", function(event) {
+            event.preventDefault(); 
+
+            var userData = {
+                userRole: $("#userRole").val(),
+                permissions: [],
+                uuid: '<?php echo $uuid ?>'
+            };
+
+            $("input[type='checkbox']:checked").each(function() {
+                userData.permissions.push($(this).val());
+            });
+
+            var url = urlroot + "/user/saveRole";
+
+            var successCallback = function(response) {
+                response = JSON.parse(response);
+                $.notify("User saved", {
+                    position: "top center",
+                    className: "success"
+                });
+
+                // Delay the reload to allow the notification to be seen
+                setTimeout(function() {
+                    location.reload();
+                }, 2000);  // 2-second delay
+            };
+
+            var validateUserAccount = function(userData) {
+                var error = '';
+                if (!userData.userRole) {
+                    error += 'User Role is required\n';
+                    $("#userRole").focus();
+                }
+                if (userData.permissions.length === 0) {
+                    error += 'At least one permission must be selected\n';
                 }
 
                 return error;
             };
 
-            saveForm(ownerData, url, successCallback, validateOwnerForm);
+            saveForm(userData, url, successCallback, validateUserAccount);
         });
 
 
         // Rental info
-        $("#saveRentalInfo").on("click", function(event) {
+        $("#savePermission").on("click", function(event) {
             // Collect rental info data instead of owner data
                 $("#needs-validation2").addClass("was-validated");
                 $('.step-3').removeClass('active').addClass('disabled');

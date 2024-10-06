@@ -18,14 +18,14 @@ class Forms extends PostController
 
     public function companyDepartmentsEdit()
     {
-        $catid = $_POST['catid'];
-        $departmentDetails = Institution::departmentDetails($catid);
+        $deptid = $_POST['deptid'];
+        $departmentDetails = Institution::departmentDetails($deptid);
         $departmentName = $departmentDetails['departmentName'];
         $description = $departmentDetails['description'];
         $this->view("forms/companyDepartmentsEdit", [
             'departmentName' => $departmentName,
             'description' => $description,
-            'catid' => $catid,
+            'deptid' => $deptid,
          ]);
     }
 

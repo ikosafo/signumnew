@@ -213,7 +213,6 @@ class Properties extends tableDataObject
         $resultList = $healthdb->resultSet();
         return $resultList;
     }
-
     
     public static function categoryDetails($catid) {
         global $healthdb;
