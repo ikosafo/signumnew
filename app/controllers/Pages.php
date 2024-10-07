@@ -34,6 +34,15 @@ class Pages extends Controller
             'listDepartment' => $listDepartment
         ]);
     }  
+
+
+    public function listUsers() {
+        new Guard();
+        $listUsers = Users::listUsers();
+        $this->view("pages/listUsers",[
+            'listUsers' => $listUsers
+        ]);
+    }  
     
     public function propertyCategories() {
         new Guard();  

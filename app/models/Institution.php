@@ -111,16 +111,16 @@ class Institution extends tableDataObject
 
 
     public static function saveUser(
-                            $firstName,
-                            $lastName,
-                            $emailAddress,
-                            $phoneNumber,
-                            $altPhoneNumber,
-                            $dateBirth,
-                            $jobTitle,
-                            $department,
-                            $address,
-                            $uuid)
+                        $firstName,
+                        $lastName,
+                        $emailAddress,
+                        $phoneNumber,
+                        $altPhoneNumber,
+                        $dateBirth,
+                        $department,
+                        $address,
+                        $jobTitle,
+                        $uuid)
                         {
 
         global $healthdb;

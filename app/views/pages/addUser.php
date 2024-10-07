@@ -65,35 +65,35 @@ extract($data);
                                                 <form class="row" id="needs-validation" novalidate="" autocomplete="off">
                                                     <div class="mb-3 col-md-4 col-sm-12">
                                                         <label class="form-label required">First Name</label>
-                                                        <input type="text" name="firstName" class="form-control" placeholder="Enter first name" required>
+                                                        <input type="text" id="firstName" class="form-control" placeholder="Enter first name" required>
                                                     </div>
                                                     <div class="mb-3 col-md-4 col-sm-12">
                                                         <label class="form-label required">Last Name</label>
-                                                        <input type="text" name="lastName" class="form-control" placeholder="Enter last name" required>
+                                                        <input type="text" id="lastName" class="form-control" placeholder="Enter last name" required>
                                                     </div>
                                                     <div class="mb-3 col-md-4 col-sm-12">
                                                         <label class="form-label required">Email Address</label>
-                                                        <input type="text" name="emailAddress" class="form-control" placeholder="Enter email address" required>
+                                                        <input type="text" id="emailAddress" class="form-control" placeholder="Enter email address" required>
                                                     </div>
                                                     <div class="mb-3 col-md-4 col-sm-12">
                                                         <label class="form-label required">Phone Number</label>
-                                                        <input type="text" name="phoneNumber" class="form-control" placeholder="Enter phone number" required>
+                                                        <input type="text" id="phoneNumber" class="form-control" placeholder="Enter phone number" required>
                                                     </div>
                                                     <div class="mb-3 col-md-4 col-sm-12">
                                                         <label class="form-label">Alternative Phone Number</label>
-                                                        <input type="text" name="altPhoneNumber" class="form-control" placeholder="Enter alternative phone number">
+                                                        <input type="text" id="altPhoneNumber" class="form-control" placeholder="Enter alternative phone number">
                                                     </div>
                                                     <div class="mb-3 col-md-4 col-sm-12">
                                                         <label class="form-label required">Date of Birth</label>
-                                                        <input type="text" name="dateBirth" id="dateBirth" readonly class="form-control" placeholder="Select date" required>
+                                                        <input type="text" id="dateBirth" readonly class="form-control" placeholder="Select date" required>
                                                     </div>
                                                     <div class="mb-3 col-md-4 col-sm-12">
                                                         <label class="form-label required">Job Title</label>
-                                                        <input type="text" name="jobTitle" id="jobTitle" class="form-control" placeholder="Enter job title" required>
+                                                        <input type="text" id="jobTitle" class="form-control" placeholder="Enter job title" required>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Department</label>
-                                                        <select name="department" id="department" class="form-control" required>
+                                                        <select id="department" class="form-control" required>
                                                             <option></option>
                                                             <?php foreach ($listDepartment as $record): ?>
                                                                 <option value="<?= $record->departmentId ?>"><?= $record->departmentName ?></option>
@@ -102,7 +102,7 @@ extract($data);
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Address</label>
-                                                        <textarea name="address" class="form-control" placeholder="Enter address" rows="3" required></textarea>
+                                                        <textarea id="address" class="form-control" placeholder="Enter address" rows="3" required></textarea>
                                                     </div>
                                                     <div class="next-btn text-end col-sm-12">
                                                         <button type="submit" id="saveUser" class="btn btn-primary btn-sm">Next <i class="fas fa-arrow-right ms-2"></i></button>
@@ -230,8 +230,36 @@ extract($data);
 <?php include ('includes/footer.php'); ?>
 
 <script>
+
+        $(document).ready(function() {
+            $("#phoneNumber, #altPhoneNumber").on("keypress", function(e) {
+                return isNumber(e);
+            });
+        });
+
+       function isNumber(evt) {
+            evt = evt || window.event;
+            var charCode = evt.which || evt.keyCode;
+
+            var inputField = evt.target;
+            if (inputField.value.length >= 10 && (charCode >= 48 && charCode <= 57)) {
+                return false; 
+            }
+            if (charCode == 8 || charCode == 46 || charCode == 9 || (charCode >= 37 && charCode <= 40)) {
+                return true;
+            }
+            if (charCode < 48 || charCode > 57) {
+                return false;
+            }
+
+            return true;
+        }
+
     
-       $("#dateBirth").flatpickr();
+        $("#dateBirth").flatpickr({
+            maxDate: "today"
+        });
+
 
        $('#permissions').SumoSelect({
             placeholder: 'Select options',
@@ -253,17 +281,18 @@ extract($data);
             event.preventDefault(); 
 
             var formData = {
-                firstName: $("input[name='firstName']").val(),
-                lastName: $("input[name='lastName']").val(),
-                emailAddress: $("input[name='emailAddress']").val(),
-                phoneNumber: $("input[name='phoneNumber']").val(),
-                altPhoneNumber: $("input[name='altPhoneNumber']").val(),
-                dateBirth: $("input[name='dateBirth']").val(),
-                jobTitle: $("input[name='jobTitle']").val(),
-                department: $("select[name='department']").val(),
-                address: $("textarea[name='address']").val(),
+                firstName: $("#firstName").val(),
+                lastName: $("#lastName").val(),
+                emailAddress: $("#emailAddress").val(),
+                phoneNumber: $("#phoneNumber").val(),
+                altPhoneNumber: $("#altPhoneNumber").val(),
+                dateBirth: $("#dateBirth").val(),
+                jobTitle: $("#jobTitle").val(),
+                department: $("#department").val(),
+                address: $("#address").val(),
                 uuid: '<?php echo $uuid; ?>'
             };
+
             var url = urlroot + "/user/saveUser";
 
             var successCallback = function(response) {
@@ -271,7 +300,6 @@ extract($data);
 
                 if (response == 1) {
                     $("#needs-validation").addClass("was-validated");
-                    // Proceed to the next step or show success message
                     $('.step-1').removeClass('active').addClass('disabled');
                     $('.step-2').addClass('active');
                     $('.wizard-step-2').addClass('d-block').removeClass('d-none');
@@ -289,47 +317,54 @@ extract($data);
 
                 if (!formData.firstName) {
                     error += 'First Name is required\n';
-                    $("input[name='firstName']").focus();
+                    $("#firstName").focus();
                 }
                 if (!formData.lastName) {
                     error += 'Last Name is required\n';
-                    $("input[name='lastName']").focus();
+                    $("#lastName").focus();
                 }
                 if (!formData.emailAddress) {
                     error += 'Email Address is required\n';
-                    $("input[name='emailAddress']").focus();
+                    $("#emailAddress").focus();
                 } else {
                     var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
                     if (!emailPattern.test(formData.emailAddress)) {
                         error += 'Invalid Email Address format\n';
-                        $("input[name='emailAddress']").focus();
+                        $("#emailAddress").focus();
                     }
                 }
                 if (!formData.phoneNumber) {
                     error += 'Phone Number is required\n';
-                    $("input[name='phoneNumber']").focus();
+                    $("#phoneNumber").focus();
                 } else {
-                    var phonePattern = /^[0-9]{10}$/;  // Regular expression for 10 digits only
+                    var phonePattern = /^[0-9]{10}$/; // Regular expression for 10 digits only
                     if (!phonePattern.test(formData.phoneNumber)) {
                         error += 'Phone Number must be exactly 10 digits\n';
-                        $("input[name='phoneNumber']").focus();
+                        $("#phoneNumber").focus();
+                    }
+                }
+                if (formData.altPhoneNumber) {
+                    var altPhonePattern = /^[0-9]{10}$/; // Regular expression for 10 digits only
+                    if (!altPhonePattern.test(formData.altPhoneNumber)) {
+                        error += 'Alternative Phone Number must be exactly 10 digits\n';
+                        $("#altPhoneNumber").focus();
                     }
                 }
                 if (!formData.dateBirth) {
                     error += 'Date of Birth is required\n';
-                    $("input[name='dateBirth']").focus();
+                    $("#dateBirth").focus();
                 }
                 if (!formData.jobTitle) {
                     error += 'Job Title is required\n';
-                    $("input[name='jobTitle']").focus();
+                    $("#jobTitle").focus();
                 }
                 if (!formData.department) {
                     error += 'Department is required\n';
-                    $("select[name='department']").focus();
+                    $("#department").focus();
                 }
                 if (!formData.address) {
                     error += 'Address is required\n';
-                    $("textarea[name='address']").focus();
+                    $("#address").focus();
                 }
                 return error;
             };

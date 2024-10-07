@@ -15,4 +15,10 @@ class Tables extends Controller
         $this->view("tables/companyDepartments",['listCompanyDepartments' => $listCompanyDepartments]);
     }
 
+    public function adminUsers()
+    {
+        $listCompanyDepartments = Institution::listCompanyDepartments();
+        $this->view("tables/adminUsers",['listCompanyDepartments' => $listCompanyDepartments]);
+    }
+
 }
