@@ -278,6 +278,7 @@ class Institution extends tableDataObject
 
         $deleteQuery = "DELETE FROM `permission` WHERE `user_id` = '$uuid'";
         $healthdb->prepare($deleteQuery);
+        $healthdb->execute();
 
         foreach ($permissions as $permission) {
             $insertQuery = "INSERT INTO `permission` (`permission`, `user_id`) 
@@ -312,7 +313,9 @@ class Institution extends tableDataObject
             'securityQuestion' => $resultRec->securityQuestion,
             'securityAnswer' => $resultRec->securityAnswer,
             'createdAt' => $resultRec->createdAt,
-            'createdAt' => $resultRec->createdAt
+            'updatedAt' => $resultRec->updatedAt,
+            'uuid' => $resultRec->uuid,
+            'accessLevel' => $resultRec->accessLevel
         ];
     }
     

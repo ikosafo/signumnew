@@ -1,5 +1,5 @@
 <?php extract($data); ?>
-
+<div id="userDetailsDiv"></div>
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
@@ -69,23 +69,17 @@
         var formData = {};
         formData.userid = userid; 
         saveForm(formData, "/forms/adminUserDetails", function(response) {
-            $('#userTableDiv').html(response);
+            $('#userDetailsDiv').html(response);
         });
     });
 
     $(document).on('click', '.editUser', function() {
         var userid = $(this).attr('userid');
-         window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-
-        var formData = {};
-        formData.userid = userid; 
-        saveForm(formData, "/forms/adminUserEdit", function(response) {
-            $('#userFormDiv').html(response);
-        });
+        var hash = btoa(btoa(btoa(userid)));
+        window.location.href = "/pages/editUser?userid=" + hash;
     });
+
+
 
     $(document).off('click', '.deleteUser').on('click', '.deleteUser', function() {
         var userid = $(this).attr('userid');

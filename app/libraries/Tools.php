@@ -423,6 +423,15 @@ class Tools extends tableDataObject{
         $result = $healthdb->fetchColumn();
         return $result;
     }
+
+    public static function decryptUserId($encryptedId, $secretKey) {
+        $data = base64_decode($encryptedId);
+        $iv = substr($data, 0, 16); 
+        $ciphertext = substr($data, 16);
+    
+        $decrypted = openssl_decrypt($ciphertext, 'AES-256-CBC', $secretKey, OPENSSL_RAW_DATA, $iv);
+        return $decrypted;
+    }
     
  
 }

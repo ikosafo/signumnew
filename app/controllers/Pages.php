@@ -35,6 +35,26 @@ class Pages extends Controller
         ]);
     }  
 
+    public function editUser() {
+        new Guard();
+
+        $listUsers = Users::listUsers();
+        $encryptedId = $_GET['userid'];
+        $decryptedUserId = Tools::unlock($encryptedId);
+        $userDetails = Institution::userDetails($decryptedUserId);
+        $uuid = $userDetails['uuid'];
+        $userPermissions = Users::userPermissions($uuid);
+        $listDepartment = Institution::listDepartment();
+        
+        $this->view("pages/editUser",[
+            'listUsers' => $listUsers,
+            'listDepartment' => $listDepartment,
+            'userid' => $decryptedUserId,
+            'userDetails' => $userDetails,
+            'userPermissions' => $userPermissions
+        ]);
+    }  
+
 
     public function listUsers() {
         new Guard();

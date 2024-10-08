@@ -55,9 +55,11 @@ extract($data);
 											</tbody>
 										</table>
                                         
-                                        <button id="listUsers" class="btn-sm btn btn-primary">Back to List</button>
-									</div>
+                                    </div>
+                                        
 								</div>
+                                <button id="listUsers" class="btn-sm btn btn-primary mb-3">Back to List</button>
+									
 							</div>
 							
 						</div>
