@@ -4,31 +4,38 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">Departments</h4>
+                <h4 class="card-title">Users</h4>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                <table class="table table-responsive-md" id="companyDepartment">
+                <table class="table table-responsive-md" id="adminUser">
                     <thead>
                         <tr>
                             <th width="10%">NO.</th>
-                            <th width="30%">DEPARTMENT</th>
-                            <th width="50%">DESCRIPTION</th>
+                            <th width="20%">FULL NAME</th>
+                            <th width="20%">EMAIL ADDRESS</th>
+                            <th width="20%">PHONE NUMBER</th>
+                            <th width="20%">DEPARTMENT</th>
+                            <th width="20%">USER TYPE</th>
                             <th width="10%">ACTION</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
                         $no = 1; // Initialize a counter
-                        foreach ($listCompanyDepartments as $result) { ?>
+                        foreach ($listAdminUsers as $result) { ?>
                             <tr>
                                 <td><strong class="text-black"><?= $no++ ?></strong></td>
-                                <td><?= $result->departmentName ?></td>
-                                <td><?= $result->description ?></td>
+                                <td><?= $result->firstName. ' '. $result->lastName ?></td>
+                                <td><?= $result->emailAddress ?></td>
+                                <td><?= $result->phoneNumber ?></td>
+                                <td><?= Tools::getDepartment($result->department) ?></td>
+                                <td><?= $result->accessLevel ?></td>
                                 <td>
                                     <div class="d-flex">
-                                        <a href="javascript:void(0);" class="btn btn-primary editDepartment shadow btn-xs sharp me-1" deptid='<?= $result->departmentId ?>'><i class="fas fa-pencil-alt"></i></a>
-                                        <a href="javascript:void(0);" class="btn btn-danger deleteDepartment shadow btn-xs sharp" deptid='<?= $result->departmentId ?>'><i class="fas fa-trash"></i></a>
+                                        <a href="javascript:void(0);" class="btn btn-primary viewUser shadow btn-xs sharp me-1" userid='<?= $result->userid ?>'><i class="fas fa-eye"></i></a>
+                                        <a href="javascript:void(0);" class="btn btn-warning editUser shadow btn-xs sharp me-1" userid='<?= $result->userid ?>'><i class="fas fa-pencil-alt"></i></a>
+                                        <a href="javascript:void(0);" class="btn btn-danger deleteUser shadow btn-xs sharp" userid='<?= $result->userid ?>'><i class="fas fa-trash"></i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -43,7 +50,7 @@
 </div>
 
 <script>
-    $("#companyDepartment").DataTable({
+    $("#adminUser").DataTable({
         language: {
             paginate: {
             next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
@@ -52,25 +59,39 @@
         }
     });
 
-    $(document).on('click', '.editDepartment', function() {
-        var deptid = $(this).attr('deptid');
+    $(document).on('click', '.viewUser', function() {
+        var userid = $(this).attr('userid');
          window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
 
         var formData = {};
-        formData.deptid = deptid; 
-        saveForm(formData, "/forms/companyDepartmentsEdit", function(response) {
-            $('#departmentFormDiv').html(response);
+        formData.userid = userid; 
+        saveForm(formData, "/forms/adminUserDetails", function(response) {
+            $('#userTableDiv').html(response);
         });
     });
 
-    $(document).off('click', '.deleteDepartment').on('click', '.deleteDepartment', function() {
-        var deptid = $(this).attr('deptid');
+    $(document).on('click', '.editUser', function() {
+        var userid = $(this).attr('userid');
+         window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+
+        var formData = {};
+        formData.userid = userid; 
+        saveForm(formData, "/forms/adminUserEdit", function(response) {
+            $('#userFormDiv').html(response);
+        });
+    });
+
+    $(document).off('click', '.deleteUser').on('click', '.deleteUser', function() {
+        var userid = $(this).attr('userid');
        
         var formData = {};
-        formData.deptid = deptid; 
+        formData.userid = userid; 
        
             $.confirm({
                     title: 'Delete Record!',
@@ -90,17 +111,17 @@
                             btnClass: 'btn-blue',
                             action: function() {
                                 var formData = {};
-                                formData.deptid = deptid; 
-                                saveForm(formData, "/delete/companyDepartment", function(response) {
-                                    $('#departmentTableDiv').html(response);
+                                formData.userid = userid; 
+                                saveForm(formData, "/delete/adminUser", function(response) {
+                                    $('#userTableDiv').html(response);
                                 });
-                                //$("#companyDepartment").DataTable().ajax.reload(null, false);
+                                //$("#adminUser").DataTable().ajax.reload(null, false);
                                 $('html, body').animate({
-                                    scrollTop: $("#departmentTableDiv").offset().top
+                                    scrollTop: $("#userTableDiv").offset().top
                                 }, 200);
                                 
-                                loadPage("/tables/companyDepartments", function(response) {
-                                    $('#departmentTableDiv').html(response);
+                                loadPage("/tables/adminUsers", function(response) {
+                                    $('#userTableDiv').html(response);
                                 });
                                
                             }

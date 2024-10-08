@@ -13,6 +13,14 @@ class Institution extends tableDataObject
         return $resultList;
     }
 
+    public static function listUsers() {
+        global $healthdb;
+
+        $getList = "SELECT * FROM `adminusers` where `status` = 1 ORDER BY `firstName`,`lastName` DESC";
+        $healthdb->prepare($getList);
+        $resultList = $healthdb->resultSet();
+        return $resultList;
+    }
     
     public static function saveDepartment($departmentName,$description) {
         global $healthdb;
@@ -43,7 +51,6 @@ class Institution extends tableDataObject
        
     }
 
-
     public static function departmentDetails($deptid) {
         global $healthdb;
 
@@ -57,7 +64,6 @@ class Institution extends tableDataObject
             'description' => $description
         ];
     }
-
 
     public static function editDepartment($departmentName,$description,$deptid) {
 
@@ -98,7 +104,6 @@ class Institution extends tableDataObject
             echo 1;  // Successfully updated
        
     }
-
     
     public static function listDepartment() {
         global $healthdb;
@@ -108,7 +113,6 @@ class Institution extends tableDataObject
         $resultList = $healthdb->resultSet();
         return $resultList;
     }
-
 
     public static function saveUser(
                         $firstName,
@@ -201,7 +205,6 @@ class Institution extends tableDataObject
         }
     }
 
-
     public static function saveUserAccount(
                 $username,
                 $password, 
@@ -284,6 +287,33 @@ class Institution extends tableDataObject
         }
 
         
+    }
+
+    public static function userDetails($userid) {
+        global $healthdb;
+    
+        $getList = "SELECT * FROM `adminusers` WHERE `userid` = '$userid'";
+        $healthdb->prepare($getList);
+        $resultRec = $healthdb->singleRecord();
+    
+        return [
+            'firstName' => $resultRec->firstName,
+            'lastName' => $resultRec->lastName,
+            'emailAddress' => $resultRec->emailAddress,
+            'phoneNumber' => $resultRec->phoneNumber,
+            'altPhoneNumber' => $resultRec->altPhoneNumber,
+            'address' => $resultRec->address,
+            'dateBirth' => $resultRec->dateBirth,
+            'username' => $resultRec->username,
+            'accessLevel' => $resultRec->accessLevel,
+            'department' => $resultRec->department,
+            'emergencyContactInfo' => $resultRec->emergencyContactInfo,
+            'jobtitle' => $resultRec->jobtitle,
+            'securityQuestion' => $resultRec->securityQuestion,
+            'securityAnswer' => $resultRec->securityAnswer,
+            'createdAt' => $resultRec->createdAt,
+            'createdAt' => $resultRec->createdAt
+        ];
     }
     
 

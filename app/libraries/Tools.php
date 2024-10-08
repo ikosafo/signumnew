@@ -413,6 +413,16 @@ class Tools extends tableDataObject{
     
         return $str . ' ago';
     }
+
+
+    public static function getDepartment($id) {
+        global $healthdb;
+
+        $getName = "SELECT `departmentName` FROM `companydepartments` WHERE `departmentId` = '$id'";
+        $healthdb->prepare($getName);
+        $result = $healthdb->fetchColumn();
+        return $result;
+    }
     
  
 }

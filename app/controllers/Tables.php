@@ -17,8 +17,8 @@ class Tables extends Controller
 
     public function adminUsers()
     {
-        $listCompanyDepartments = Institution::listCompanyDepartments();
-        $this->view("tables/adminUsers",['listCompanyDepartments' => $listCompanyDepartments]);
+        $listAdminUsers = Institution::listUsers();
+        $this->view("tables/adminUsers",['listAdminUsers' => $listAdminUsers]);
     }
 
 }

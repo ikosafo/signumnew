@@ -29,4 +29,14 @@ class Forms extends PostController
          ]);
     }
 
+
+    public function adminUserDetails()
+    {
+        $userid = $_POST['userid'];
+        $userDetails = Institution::userDetails($userid);
+        $this->view("forms/adminUserDetails", $userDetails);
+    }
+    
+    
+
 }
