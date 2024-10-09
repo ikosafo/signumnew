@@ -112,7 +112,7 @@ $uuid = $userDetails['uuid'];
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">User Role</label><br>
                                                         <select class="default-select form-control wide" id="userRole" required>
-                                                            <option value="" disabled selected>User Role</option>
+                                                            <option value="" disabled selected>Select User Role</option>
                                                             <option value="Admin" <?= ($userDetails['accessLevel'] == 'Admin') ? 'selected' : '' ?>>Admin</option>
                                                             <option value="Manager" <?= ($userDetails['accessLevel'] == 'Manager') ? 'selected' : '' ?>>Manager</option>
                                                             <option value="Viewer" <?= ($userDetails['accessLevel'] == 'Viewer') ? 'selected' : '' ?>>Viewer</option>

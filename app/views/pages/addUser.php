@@ -158,7 +158,7 @@ extract($data);
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">User Role</label><br>
                                                         <select class="default-select form-control wide" id="userRole">
-                                                            <option value="" disabled selected>User Role</option>
+                                                            <option value="" disabled selected>Select User Role</option>
                                                             <option value="Admin">Admin</option>
                                                             <option value="Manager">Manager</option>
                                                             <option value="Viewer">Viewer</option>

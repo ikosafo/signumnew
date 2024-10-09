@@ -49,6 +49,21 @@ class Users extends tableDataObject
     }
 
 
+    public static function deleteAdminUser($userid) {
+
+        global $healthdb;
+            $query = "UPDATE `adminusers` 
+            SET `status` = 0,
+            `updatedAt` = NOW()
+            WHERE `userid` = '$userid'";
+
+            $healthdb->prepare($query);
+            $healthdb->execute();
+            echo 1;  // Successfully updated
+       
+    }
+
+
     public static function userPermissions($userid) {
         global $healthdb;
     

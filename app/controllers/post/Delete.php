@@ -15,6 +15,12 @@ class Delete extends PostController
         Institution::deleteDepartment($deptid);
     }
 
+    public function adminUser()
+    {
+        $userid = $_POST['userid'];
+        Users::deleteAdminUser($userid);
+    }
+
     
 
 }
