@@ -21,4 +21,10 @@ class Tables extends Controller
         $this->view("tables/adminUsers",['listAdminUsers' => $listAdminUsers]);
     }
 
+    public function properties()
+    {
+        $listProperties = Properties::listProperties();
+        $this->view("tables/properties",['listProperties' => $listProperties]);
+    }
+
 }

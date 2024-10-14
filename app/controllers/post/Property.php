@@ -74,4 +74,26 @@ class Property extends PostController
 
     }
 
+    public function saveRentalDetails()
+    {
+        $rentAmount = $_POST['rentAmount'];
+        $depositAmount = $_POST['depositAmount'];
+        $leasePeriod = $_POST['leasePeriod'];
+        $availabilityDate = $_POST['availabilityDate'];
+        $utilitiesIncluded = $_POST['utilitiesIncluded'];
+        $paymentFrequency = $_POST['paymentFrequency'];
+        $uuid = $_POST['uuid'];
+
+        Properties::saveRentalDetails(
+            $rentAmount,
+            $depositAmount,
+            $leasePeriod,
+            $availabilityDate,
+            $utilitiesIncluded,
+            $paymentFrequency,
+            $uuid
+        );
+    }
+
+
 }

@@ -19,6 +19,7 @@ class Properties extends tableDataObject
 
         global $healthdb;
         $facilitiesString = implode(',', $selectedFacilities);
+        $propertyManagerString = implode(',', $propertyManager);
 
         // Query to check if the UUID already exists
         $getByUuid = "SELECT * FROM `properties` WHERE `uuid` = '$uuid'";
@@ -46,7 +47,7 @@ class Properties extends tableDataObject
                             `numberOfUnits` = '$numberOfUnits',
                             `propertySize` = '$propertySize',
                             `furnishingStatus` = '$furnishingStatus',
-                            `propertyManager` = '$propertyManager',
+                            `propertyManager` = '$propertyManagerString',
                             `facilities` = '$facilitiesString',
                             `updated_at` = NOW()
                         WHERE `uuid` = '$uuid'";
@@ -89,7 +90,7 @@ class Properties extends tableDataObject
                                 '$numberOfUnits',
                                 '$propertySize',
                                 '$furnishingStatus',
-                                '$propertyManager',
+                                '$propertyManagerString',
                                 '$facilitiesString',
                                 NOW(),
                                 '$uuid')";
@@ -205,6 +206,34 @@ class Properties extends tableDataObject
     }
 
 
+    public static function saveRentalDetails($rentAmount,
+                                $depositAmount,
+                                $leasePeriod,
+                                $availabilityDate,
+                                $utilitiesIncluded,
+                                $paymentFrequency,
+                                $uuid) {
+
+        global $healthdb;
+
+        // If no conflict, update the existing record
+        $query = "UPDATE `properties` 
+        SET `rentAmount` = '$rentAmount',
+            `depositAmount` = '$depositAmount',
+            `leasePeriod` = '$leasePeriod',
+            `availabilityDate` = '$availabilityDate',
+            `utilitiesIncluded` = '$utilitiesIncluded',
+            `paymentFrequency` = '$paymentFrequency',
+            `updated_at` = NOW()
+        WHERE `uuid` = '$uuid'";
+
+        $healthdb->prepare($query);
+        $healthdb->execute();
+        echo 1;  // Successfully updated
+
+    }
+
+
     public static function listPropertyCategory() {
         global $healthdb;
 
@@ -227,4 +256,14 @@ class Properties extends tableDataObject
             'description' => $description
         ];
     }
+
+    public static function listProperties() {
+        global $healthdb;
+
+        $getList = "SELECT * FROM `properties` where `status` = 1 ORDER BY `propertyName`";
+        $healthdb->prepare($getList);
+        $resultList = $healthdb->resultSet();
+        return $resultList;
+    }
+
 }

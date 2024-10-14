@@ -7,7 +7,7 @@ extract($data);
             <div class="container-fluid">
                 <div class="page-titles">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="#">PROPERTY</a></li>
+						<li class="breadcrumb-item"><a href="#">PROPERTY MANAGEMENT</a></li>
 						<li class="breadcrumb-item active"><a href="#">Add Property</a></li>
 					</ol>
                 </div>
@@ -78,24 +78,6 @@ extract($data);
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Property Category</label>
-                                                        <select name="propertyCategory" id="propertyCategory" class="form-control" required>
-                                                            <option></option>
-                                                            <?php foreach ($listPropertyCategory as $record): ?>
-                                                                <option value="<?= $record->categoryId ?>"><?= $record->categoryName ?></option>
-                                                            <?php endforeach; ?>
-                                                        </select>
-
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Property Address</label>
-                                                        <textarea name="propertyAddress" class="form-control" placeholder="Full address including street, city, state, postal code, and country" rows="3" required></textarea>
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Location</label>
-                                                        <input type="text" name="location" class="form-control" placeholder="Location (e.g., city or neighborhood)" required>
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Facilities</label>
                                                         <select name="facilities" class="form-control" id="facilities" multiple="multiple">
                                                             <option value="Swimming Pool">Swimming Pool</option>
@@ -109,7 +91,31 @@ extract($data);
                                                             <option value="CCTV Surveillance">CCTV Surveillance</option>
                                                             <option value="On-site Laundry Facilities">On-site Laundry Facilities</option>
                                                         </select>
-
+                                                    </div>
+                                                    <div class="form-group col-md-4 col-sm-12">
+                                                        <label class="form-label required">Property Category</label>
+                                                        <select name="propertyCategory" id="propertyCategory" class="form-control" required>
+                                                            <option></option>
+                                                            <?php foreach ($listPropertyCategory as $record): ?>
+                                                                <option value="<?= $record->categoryId ?>"><?= $record->categoryName ?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>  
+                                                    <div class="form-group col-md-4 col-sm-12">
+                                                        <label class="form-label">Property Manager(s)</label>
+                                                        <select name="propertyManager" class="form-control" id="propertyManager" multiple="multiple">
+                                                            <?php foreach ($listUsers as $record): ?>
+                                                                <option value="<?= $record->userid ?>"><?= $record->firstName.'  '.$record->lastName?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-4 col-sm-12">
+                                                        <label class="form-label required">Property Address</label>
+                                                        <textarea name="propertyAddress" class="form-control" placeholder="Full address including street, city, state, postal code, and country" rows="3" required></textarea>
+                                                    </div>
+                                                    <div class="form-group col-md-4 col-sm-12">
+                                                        <label class="form-label required">Location</label>
+                                                        <input type="text" name="location" class="form-control" placeholder="Location (e.g., city or neighborhood)" required>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label">Description</label>
@@ -127,14 +133,10 @@ extract($data);
                                                         <label class="form-label required">Furnishing Status</label>
                                                         <select name="furnishingStatus" class="default-select form-control wide" required>
                                                             <option value="">Select Furnishing Status</option>
-                                                            <option value="furnished">Furnished</option>
-                                                            <option value="semi-furnished">Semi-Furnished</option>
-                                                            <option value="unfurnished">Unfurnished</option>
+                                                            <option value="Furnished">Furnished</option>
+                                                            <option value="Semi-Furnished">Semi-Furnished</option>
+                                                            <option value="Unfurnished">Unfurnished</option>
                                                         </select>
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label">Property Manager</label>
-                                                        <input type="text" name="propertyManager" class="form-control" placeholder="Assign a property manager (optional)">
                                                     </div>
                                                     <div class="next-btn text-end col-sm-12">
                                                         <button type="submit" id="saveProperty" class="btn btn-primary btn-sm">Next <i class="fas fa-arrow-right ms-2"></i></button>
@@ -247,6 +249,12 @@ extract($data);
             okCancelInMulti: true
         });
 
+        $('#propertyManager').SumoSelect({
+            placeholder: 'Select options',
+            search: true,
+            okCancelInMulti: true
+        });
+
        $("#propertyCategory").select2({
             placeholder: "Select Category"
        });
@@ -264,7 +272,7 @@ extract($data);
                 numberOfUnits: $("input[name='numberOfUnits']").val(),
                 propertySize: $("input[name='propertySize']").val(),
                 furnishingStatus: $("select[name='furnishingStatus']").val(),
-                propertyManager: $("input[name='propertyManager']").val(),
+                propertyManager: $('#propertyManager').val(),
                 selectedFacilities: $('#facilities').val(),
                 uuid: '<?php echo $uuid; ?>'
             };
@@ -327,6 +335,10 @@ extract($data);
                 if (!formData.selectedFacilities || formData.selectedFacilities.length === 0) {
                     error += 'Facilities are required\n';
                     $('#facilities').focus();
+                }
+                if (!formData.propertyManager || formData.propertyManager.length === 0) {
+                    error += 'Manager is required\n';
+                    $('#propertyManager').focus();
                 }
                 
                 return error;
@@ -403,12 +415,65 @@ extract($data);
 
         // Rental info
         $("#saveRentalInfo").on("click", function(event) {
-            // Collect rental info data instead of owner data
-                $("#needs-validation2").addClass("was-validated");
-                $('.step-3').removeClass('active').addClass('disabled');
-                $('.step-4').addClass('active');
-                $('.wizard-step-4').addClass('d-block').removeClass('d-none');
-                $('.wizard-step-3').removeClass('d-block').addClass('d-none');
+            event.preventDefault(); 
+
+            var rentData = {
+                rentAmount: $("#rentAmount").val(),
+                depositAmount: $("#depositAmount").val(),
+                leasePeriod: $("#leasePeriod").val(),
+                availabilityDate: $("#availabilityDate").val(),
+                utilitiesIncluded: $("#utilitiesIncluded").val(),
+                paymentFrequency: $("#paymentFrequency").val(),
+                uuid: '<?php echo $uuid; ?>'
+            };
+
+            var url = urlroot + "/property/saveRentalDetails";
+
+            var successCallback = function(response) {
+                response = JSON.parse(response);
+                $.notify("Property saved", {
+                    position: "top center",
+                    className: "success"
+                });
+
+                // Delay the reload to allow the notification to be seen
+                setTimeout(function() {
+                    location.reload();
+                }, 2000);  // 2-second delay
+            };
+
+            var validateRentalForm = function(rentData) {
+                var error = '';
+                if (!rentData.rentAmount) {
+                    error += 'Rent Amount is required\n';
+                    $("#rentAmount").focus();
+                }
+                if (!rentData.depositAmount) {
+                    error += 'Deposit Amount is required\n';
+                    $("#depositAmount").focus();
+                }
+                if (!rentData.leasePeriod) {
+                    error += 'Lease Period is required\n';
+                    $("#leasePeriod").focus();
+                }
+                if (!rentData.availabilityDate) {
+                    error += 'Availability Date is required\n';
+                    $("#availabilityDate").focus();
+                }
+                if (!rentData.utilitiesIncluded) {
+                    error += 'Utilities status is required\n';
+                    $("#utilitiesIncluded").focus();
+                }
+                if (!rentData.paymentFrequency) {
+                    error += 'Payment Frequency is required\n';
+                    $("#paymentFrequency").focus();
+                }
+
+                return error;
+            };
+
+            saveForm(rentData, url, successCallback, validateRentalForm);
+               
         });
 
 

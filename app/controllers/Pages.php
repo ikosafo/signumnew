@@ -19,8 +19,10 @@ class Pages extends Controller
     public function addProperty() {
         new Guard();
         $listPropertyCategory = Properties::listPropertyCategory();
+        $listUsers = Users::listUsers();
         $this->view("pages/addProperty",[
-            'listPropertyCategory' => $listPropertyCategory
+            'listPropertyCategory' => $listPropertyCategory,
+            'listUsers' => $listUsers
         ]);
     }  
 
@@ -45,7 +47,7 @@ class Pages extends Controller
         $uuid = $userDetails['uuid'];
         $userPermissions = Users::userPermissions($uuid);
         $listDepartment = Institution::listDepartment();
-        
+
         $this->view("pages/editUser",[
             'listUsers' => $listUsers,
             'listDepartment' => $listDepartment,
@@ -61,6 +63,15 @@ class Pages extends Controller
         $listUsers = Users::listUsers();
         $this->view("pages/listUsers",[
             'listUsers' => $listUsers
+        ]);
+    }  
+
+
+    public function listProperties() {
+        new Guard();
+        $listProperties = Properties::listProperties();
+        $this->view("pages/listProperties",[
+            'listProperties' => $listProperties
         ]);
     }  
     
