@@ -36,6 +36,13 @@ class Forms extends PostController
         $userDetails = Institution::userDetails($userid);
         $this->view("forms/adminUserDetails", $userDetails);
     }
+
+    public function propertyDetails()
+    {
+        $propertyid = $_POST['propertyid'];
+        $userDetails = Properties::propertyDetails($propertyid);
+        $this->view("forms/propertyDetails", $userDetails);
+    }
     
     
 

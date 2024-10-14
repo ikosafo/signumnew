@@ -1,5 +1,5 @@
 <?php extract($data); ?>
-<div id="userDetailsDiv"></div>
+<div id="propertyDetailsDiv"></div>
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
@@ -8,7 +8,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                <table class="table table-responsive-md" id="adminUser">
+                <table class="table table-responsive-md" id="propertyTable">
                     <thead>
                         <tr>
                             <th width="10%">NO.</th>
@@ -33,7 +33,7 @@
                                 <td><?= $result->furnishingStatus ?></td>
                                 <td>
                                     <div class="d-flex">
-                                        <a href="javascript:void(0);" class="btn btn-primary viewUser shadow btn-xs sharp me-1" propertyid='<?= $result->propertyId ?>'><i class="fas fa-eye"></i></a>
+                                        <a href="javascript:void(0);" class="btn btn-primary viewProperty shadow btn-xs sharp me-1" propertyid='<?= $result->propertyId ?>'><i class="fas fa-eye"></i></a>
                                         <a href="javascript:void(0);" class="btn btn-warning editUser shadow btn-xs sharp me-1" propertyid='<?= $result->propertyId ?>'><i class="fas fa-pencil-alt"></i></a>
                                         <a href="javascript:void(0);" class="btn btn-danger deleteUser shadow btn-xs sharp" propertyid='<?= $result->propertyId ?>'><i class="fas fa-trash"></i></a>
                                     </div>
@@ -50,7 +50,7 @@
 </div>
 
 <script>
-    $("#adminUser").DataTable({
+    $("#propertyTable").DataTable({
         language: {
             paginate: {
             next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
@@ -59,19 +59,20 @@
         }
     });
 
-    $(document).on('click', '.viewUser', function() {
-        var userid = $(this).attr('userid');
+    $(document).on('click', '.viewProperty', function() {
+        var propertyid = $(this).attr('propertyid');
          window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
 
         var formData = {};
-        formData.userid = userid; 
-        saveForm(formData, "/forms/adminUserDetails", function(response) {
-            $('#userDetailsDiv').html(response);
+        formData.propertyid = propertyid; 
+        saveForm(formData, "/forms/propertyDetails", function(response) {
+            $('#propertyDetailsDiv').html(response);
         });
     });
+    
 
     $(document).on('click', '.editUser', function() {
         var userid = $(this).attr('userid');

@@ -49,7 +49,7 @@ class Properties extends tableDataObject
                             `furnishingStatus` = '$furnishingStatus',
                             `propertyManager` = '$propertyManagerString',
                             `facilities` = '$facilitiesString',
-                            `updated_at` = NOW()
+                            `updatedAt` = NOW()
                         WHERE `uuid` = '$uuid'";
 
                 $healthdb->prepare($query);
@@ -79,7 +79,7 @@ class Properties extends tableDataObject
                             `furnishingStatus`,
                             `propertyManager`,
                             `facilities`,
-                            `created_at`,
+                            `createdAt`,
                             `uuid`)
                         VALUES ('$propertyName',
                                 '$propertyType',
@@ -196,7 +196,7 @@ class Properties extends tableDataObject
             `ownerCity` = '$ownerCity',
             `ownershipType` = '$ownershipType',
             `ownerComments` = '$ownerComments',
-            `updated_at` = NOW()
+            `updatedAt` = NOW()
         WHERE `uuid` = '$uuid'";
 
         $healthdb->prepare($query);
@@ -224,7 +224,7 @@ class Properties extends tableDataObject
             `availabilityDate` = '$availabilityDate',
             `utilitiesIncluded` = '$utilitiesIncluded',
             `paymentFrequency` = '$paymentFrequency',
-            `updated_at` = NOW()
+            `updatedAt` = NOW()
         WHERE `uuid` = '$uuid'";
 
         $healthdb->prepare($query);
@@ -264,6 +264,46 @@ class Properties extends tableDataObject
         $healthdb->prepare($getList);
         $resultList = $healthdb->resultSet();
         return $resultList;
+    }
+ 
+    public static function propertyDetails($propertyid) {
+        global $healthdb;
+    
+        $getList = "SELECT * FROM `properties` WHERE `propertyId` = '$propertyid'";
+        $healthdb->prepare($getList);
+        $resultRec = $healthdb->singleRecord();
+    
+        return [
+            'propertyName' => $resultRec->propertyName,
+            'propertyType' => $resultRec->propertyType,
+            'propertyCategory' => $resultRec->propertyCategory,
+            'propertyAddress' => $resultRec->propertyAddress,
+            'location' => $resultRec->location,
+            'description' => $resultRec->description,
+            'numberOfUnits' => $resultRec->numberOfUnits,
+            'propertySize' => $resultRec->propertySize,
+            'furnishingStatus' => $resultRec->furnishingStatus,
+            'propertyManager' => $resultRec->propertyManager,
+            'ownerFullName' => $resultRec->ownerFullName,
+            'ownerEmail' => $resultRec->ownerEmail,
+            'ownerPhone' => $resultRec->ownerPhone,
+            'ownerCity' => $resultRec->ownerCity,
+            'createdAt' => $resultRec->createdAt,
+            'updatedAt' => $resultRec->updatedAt,
+            'uuid' => $resultRec->uuid,
+            'ownerAddress' => $resultRec->ownerAddress,
+            'ownerComments' => $resultRec->ownerComments,
+            'ownershipType' => $resultRec->ownershipType,
+            'facilities' => $resultRec->facilities,
+            'status' => $resultRec->status,
+            'rentAmount' => $resultRec->rentAmount,
+            'depositAmount' => $resultRec->depositAmount,
+            'leasePeriod' => $resultRec->leasePeriod,
+            'availabilityDate' => $resultRec->availabilityDate,
+            'utilitiesIncluded' => $resultRec->utilitiesIncluded,
+            'paymentFrequency' => $resultRec->paymentFrequency
+
+        ];
     }
 
 }
