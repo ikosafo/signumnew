@@ -269,7 +269,7 @@ class Properties extends tableDataObject
     public static function propertyDetails($propertyid) {
         global $healthdb;
     
-        $getList = "SELECT * FROM `properties` WHERE `propertyId` = '$propertyid'";
+        $getList = "SELECT * FROM `properties` WHERE `propertyId` = '$propertyid' OR `uuid` = '$propertyid'";
         $healthdb->prepare($getList);
         $resultRec = $healthdb->singleRecord();
     

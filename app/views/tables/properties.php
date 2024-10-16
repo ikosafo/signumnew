@@ -34,7 +34,7 @@
                                 <td>
                                     <div class="d-flex">
                                         <a href="javascript:void(0);" class="btn btn-primary viewProperty shadow btn-xs sharp me-1" propertyid='<?= $result->propertyId ?>'><i class="fas fa-eye"></i></a>
-                                        <a href="javascript:void(0);" class="btn btn-warning editUser shadow btn-xs sharp me-1" propertyid='<?= $result->propertyId ?>'><i class="fas fa-pencil-alt"></i></a>
+                                        <a href="javascript:void(0);" class="btn btn-warning editProperty shadow btn-xs sharp me-1" propertyid='<?= $result->propertyId ?>'><i class="fas fa-pencil-alt"></i></a>
                                         <a href="javascript:void(0);" class="btn btn-danger deleteUser shadow btn-xs sharp" propertyid='<?= $result->propertyId ?>'><i class="fas fa-trash"></i></a>
                                     </div>
                                 </td>
@@ -74,12 +74,11 @@
     });
     
 
-    $(document).on('click', '.editUser', function() {
-        var userid = $(this).attr('userid');
-        var hash = btoa(btoa(btoa(userid)));
-        window.location.href = "/pages/editUser?userid=" + hash;
+    $(document).on('click', '.editProperty', function() {
+        var propertyid = $(this).attr('propertyid');
+        var hash = btoa(btoa(btoa(propertyid)));
+        window.location.href = "/pages/editProperty?propertyid=" + hash;
     });
-
 
 
     $(document).off('click', '.deleteUser').on('click', '.deleteUser', function() {

@@ -1,6 +1,7 @@
 <?php include ('includes/header.php');
 $uuid = Tools::generateUUID();
 extract($data);
+$uuid = $propertyDetails['uuid'];
 ?>
 
         <div class="content-body">
@@ -8,7 +9,7 @@ extract($data);
                 <div class="page-titles">
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="#">PROPERTY MANAGEMENT</a></li>
-						<li class="breadcrumb-item active"><a href="#">Add Property</a></li>
+						<li class="breadcrumb-item active"><a href="#">Edit Property</a></li>
 					</ol>
                 </div>
                 <!-- row -->
@@ -65,77 +66,85 @@ extract($data);
                                                 <form class="row" id="needs-validation" novalidate="" autocomplete="off">
                                                     <div class="mb-3 col-md-4 col-sm-12">
                                                         <label class="form-label required">Property Name/Title</label>
-                                                        <input type="text" name="propertyName" class="form-control" placeholder="Green Valley Apartments" required>
+                                                        <input type="text" name="propertyName" class="form-control" value="<?= $propertyDetails['propertyName'] ?>" placeholder="Green Valley Apartments" required>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Property Type</label>
                                                         <select name="propertyType" class="default-select form-control wide" required>
-                                                            <option value="" disabled>Select Property Type</option>
-                                                            <option value="Apartment">Apartment</option>
-                                                            <option value="House">House</option>
-                                                            <option value="Commercial">Commercial</option>
-                                                            <option value="Land">Land</option>
+                                                             <option value="" disabled>Select Property Type</option>
+                                                            <option value="Apartment" <?= ($propertyDetails['propertyType'] == 'Apartment') ? 'selected' : '' ?>>Apartment</option>
+                                                            <option value="House" <?= ($propertyDetails['propertyType'] == 'House') ? 'selected' : '' ?>>House</option>
+                                                            <option value="Commercial" <?= ($propertyDetails['propertyType'] == 'Commercial') ? 'selected' : '' ?>>Commercial</option>
+                                                            <option value="Land" <?= ($propertyDetails['propertyType'] == 'Land') ? 'selected' : '' ?>>Land</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Facilities</label>
-                                                        <select name="facilities" class="form-control" id="facilities" multiple="multiple">
-                                                            <option value="Swimming Pool">Swimming Pool</option>
-                                                            <option value="Gym/Fitness Center">Gym/Fitness Center</option>
-                                                            <option value="Parking Garage">Parking Garage</option>
-                                                            <option value="Elevator">Elevator</option>
-                                                            <option value="24/7 Security">24/7 Security</option>
-                                                            <option value="Childrens Playground">Children's Playground</option>
-                                                            <option value="Clubhouse/Community Hall">Clubhouse/Community Hall</option>
-                                                            <option value="Backup Power Generator">Backup Power Generator</option>
-                                                            <option value="CCTV Surveillance">CCTV Surveillance</option>
-                                                            <option value="On-site Laundry Facilities">On-site Laundry Facilities</option>
+                                                        <select name="facilities[]" class="form-control" id="facilities" multiple="multiple">
+                                                            <option value="Swimming Pool" <?= (strpos($propertyDetails['facilities'], 'Swimming Pool') !== false) ? 'selected' : '' ?>>Swimming Pool</option>
+                                                            <option value="Gym/Fitness Center" <?= (strpos($propertyDetails['facilities'], 'Gym/Fitness Center') !== false) ? 'selected' : '' ?>>Gym/Fitness Center</option>
+                                                            <option value="Parking Garage" <?= (strpos($propertyDetails['facilities'], 'Parking Garage') !== false) ? 'selected' : '' ?>>Parking Garage</option>
+                                                            <option value="Elevator" <?= (strpos($propertyDetails['facilities'], 'Elevator') !== false) ? 'selected' : '' ?>>Elevator</option>
+                                                            <option value="24/7 Security" <?= (strpos($propertyDetails['facilities'], '24/7 Security') !== false) ? 'selected' : '' ?>>24/7 Security</option>
+                                                            <option value="Childrens Playground" <?= (strpos($propertyDetails['facilities'], "Childrens Playground") !== false) ? 'selected' : '' ?>>Children's Playground</option>
+                                                            <option value="Clubhouse/Community Hall" <?= (strpos($propertyDetails['facilities'], 'Clubhouse/Community Hall') !== false) ? 'selected' : '' ?>>Clubhouse/Community Hall</option>
+                                                            <option value="Backup Power Generator" <?= (strpos($propertyDetails['facilities'], 'Backup Power Generator') !== false) ? 'selected' : '' ?>>Backup Power Generator</option>
+                                                            <option value="CCTV Surveillance" <?= (strpos($propertyDetails['facilities'], 'CCTV Surveillance') !== false) ? 'selected' : '' ?>>CCTV Surveillance</option>
+                                                            <option value="On-site Laundry Facilities" <?= (strpos($propertyDetails['facilities'], 'On-site Laundry Facilities') !== false) ? 'selected' : '' ?>>On-site Laundry Facilities</option>
                                                         </select>
+
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Property Category</label>
                                                         <select name="propertyCategory" id="propertyCategory" class="form-control" required>
-                                                            <option>Select Category</option>
+                                                            <option disabled>Select Category</option>
                                                             <?php foreach ($listPropertyCategory as $record): ?>
-                                                                <option value="<?= $record->categoryId ?>"><?= $record->categoryName ?></option>
+                                                                <option value="<?= $record->categoryId ?>" 
+                                                                    <?= ($record->categoryId == $propertyDetails['propertyCategory']) ? 'selected' : '' ?>>
+                                                                    <?= $record->categoryName ?>
+                                                                </option>
                                                             <?php endforeach; ?>
                                                         </select>
                                                     </div>  
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label">Property Manager(s)</label>
-                                                        <select name="propertyManager" class="form-control" id="propertyManager" multiple="multiple">
+                                                        <?php $selectedManagers = explode(',', $propertyDetails['propertyManager']); ?>
+                                                        <select name="propertyManager[]" class="form-control" id="propertyManager" multiple="multiple">
                                                             <?php foreach ($listUsers as $record): ?>
-                                                                <option value="<?= $record->userid ?>"><?= $record->firstName.'  '.$record->lastName?></option>
+                                                                <option value="<?= $record->userid ?>" 
+                                                                    <?= in_array($record->userid, $selectedManagers) ? 'selected' : '' ?>>
+                                                                    <?= $record->firstName.'  '.$record->lastName ?>
+                                                                </option>
                                                             <?php endforeach; ?>
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Property Address</label>
-                                                        <textarea name="propertyAddress" class="form-control" placeholder="Full address including street, city, state, postal code, and country" rows="3" required></textarea>
+                                                        <textarea name="propertyAddress" class="form-control" placeholder="Full address including street, city, state, postal code, and country" rows="3" required><?= $propertyDetails['propertyAddress'] ?></textarea>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Location</label>
-                                                        <input type="text" name="location" class="form-control" placeholder="Location (e.g., city or neighborhood)" required>
+                                                        <input type="text" name="location" class="form-control" value="<?= $propertyDetails['location'] ?>" placeholder="Location (e.g., city or neighborhood)" required>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label">Description</label>
-                                                        <textarea name="description" class="form-control" placeholder="Brief description of the property" rows="3"></textarea>
+                                                        <textarea name="description" class="form-control" placeholder="Brief description of the property" rows="3"><?= $propertyDetails['description'] ?></textarea>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Number of Units</label>
-                                                        <input type="number" name="numberOfUnits" class="form-control" placeholder="e.g., 10" required>
+                                                        <input type="number" name="numberOfUnits" class="form-control" value="<?= $propertyDetails['numberOfUnits'] ?>" placeholder="e.g., 10" required>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Property Size</label>
-                                                        <input type="text" name="propertySize" class="form-control" placeholder="e.g., 2000 sq ft or 0.5 acres" required>
+                                                        <input type="text" name="propertySize" class="form-control" value="<?= $propertyDetails['propertySize'] ?>" placeholder="e.g., 2000 sq ft or 0.5 acres" required>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Furnishing Status</label>
                                                         <select name="furnishingStatus" class="default-select form-control wide" required>
-                                                            <option value="">Select Furnishing Status</option>
-                                                            <option value="Furnished">Furnished</option>
-                                                            <option value="Semi-Furnished">Semi-Furnished</option>
-                                                            <option value="Unfurnished">Unfurnished</option>
+                                                            <option value="" disabled>Select Furnishing Status</option>
+                                                            <option value="Furnished" <?= (strpos($propertyDetails['furnishingStatus'], 'Furnished') !== false) ? 'selected' : '' ?>>Furnished</option>
+                                                            <option value="Semi-Furnished" <?= (strpos($propertyDetails['furnishingStatus'], 'Semi-Furnished') !== false) ? 'selected' : '' ?>>Semi-Furnished</option>
+                                                            <option value="Unfurnished" <?= (strpos($propertyDetails['furnishingStatus'], 'Unfurnished') !== false) ? 'selected' : '' ?>>Unfurnished</option>
                                                         </select>
                                                     </div>
                                                     <div class="next-btn text-end col-sm-12">
@@ -148,35 +157,35 @@ extract($data);
                                                 <form class="row" id="needs-validation1" novalidate="" autocomplete="off">
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Owner's Full Name</label>
-                                                        <input type="text" class="form-control" id="ownerFullName" placeholder="Enter owner's full name" required>
+                                                        <input type="text" class="form-control" id="ownerFullName" placeholder="Enter owner's full name" value="<?= $propertyDetails['ownerFullName'] ?>" required>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Contact Email</label>
-                                                        <input type="email" class="form-control" id="ownerEmail" placeholder="Enter owner's email address" required>
+                                                        <input type="email" class="form-control" id="ownerEmail" placeholder="Enter owner's email address" value="<?= $propertyDetails['ownerEmail'] ?>" required>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Phone Number</label>
-                                                        <input type="text" class="form-control" id="ownerPhone" placeholder="Enter owner's phone number" required>
+                                                        <input type="text" class="form-control" id="ownerPhone" placeholder="Enter owner's phone number"  value="<?= $propertyDetails['ownerPhone'] ?>" required>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label">Address</label>
-                                                        <input type="text" class="form-control" id="ownerAddress" placeholder="Enter owner's address">
+                                                        <input type="text" class="form-control" id="ownerAddress" placeholder="Enter owner's address" value="<?= $propertyDetails['ownerAddress'] ?>">
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label">City</label>
-                                                        <input type="text" class="form-control" id="ownerCity" placeholder="Enter owner's city">
+                                                        <input type="text" class="form-control" id="ownerCity" placeholder="Enter owner's city" value="<?= $propertyDetails['ownerCity'] ?>">
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Ownership Type</label>
                                                         <select class="default-select form-control wide" id="ownershipType" required>
-                                                            <option value="">Select Ownership Type</option>
-                                                            <option value="individual">Individual</option>
-                                                            <option value="company">Company</option>
+                                                            <option value="" disabled>Select Ownership Type</option>
+                                                            <option value="Individual" <?= (strpos($propertyDetails['ownershipType'], 'Individual') !== false) ? 'selected' : '' ?>>Individual</option>
+                                                            <option value="Company" <?= (strpos($propertyDetails['ownershipType'], 'Company') !== false) ? 'selected' : '' ?>>Company</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-sm-12">
                                                         <label class="form-label">Additional Comments</label>
-                                                        <textarea class="form-control" id="ownerComments" rows="3" placeholder="Any additional details about the ownership"></textarea>
+                                                        <textarea class="form-control" id="ownerComments" rows="3" placeholder="Any additional details about the ownership"><?= $propertyDetails['ownerComments'] ?></textarea>
                                                     </div>
                                                     <div class="next-btn d-flex col-sm-12">
                                                         <button type="button" class="btn btn-default prev1 btn-sm"><i class="fas fa-arrow-left me-2"></i> Previous</button>
@@ -189,40 +198,40 @@ extract($data);
                                                <form class="row" id="needs-validation2" novalidate="" autocomplete="off">
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Rent Amount</label>
-                                                        <input type="number" class="form-control" id="rentAmount" placeholder="Enter rent amount" required>
+                                                        <input type="number" class="form-control" id="rentAmount" placeholder="Enter rent amount" value="<?= $propertyDetails['rentAmount'] ?>" required>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label">Deposit Amount</label>
-                                                        <input type="number" class="form-control" id="depositAmount" placeholder="Enter deposit amount">
+                                                        <input type="number" class="form-control" id="depositAmount" placeholder="Enter deposit amount" value="<?= $propertyDetails['depositAmount'] ?>">
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Lease Period</label>
-                                                        <input type="text" class="form-control" id="leasePeriod" placeholder="Enter lease period (e.g., 1 year)" required>
+                                                        <input type="text" class="form-control" id="leasePeriod" placeholder="Enter lease period (e.g., 1 year)" value="<?= $propertyDetails['leasePeriod'] ?>" required>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Availability Date</label>
-                                                        <input type="date" class="form-control" placeholder="Select Date" id="availabilityDate" required>
+                                                        <input type="date" class="form-control" placeholder="Select Date" id="availabilityDate" value="<?= $propertyDetails['availabilityDate'] ?>" required>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label">Utilities Included</label>
                                                         <select class="default-select form-control wide" id="utilitiesIncluded">
-                                                            <option value="">Select</option>
-                                                            <option value="Yes">Yes</option>
-                                                            <option value="No">No</option>
+                                                            <option value="" disabled>Select</option>
+                                                            <option value="Yes" <?= (strpos($propertyDetails['utilitiesIncluded'], 'Yes') !== false) ? 'selected' : '' ?>>Yes</option>
+                                                            <option value="No" <?= (strpos($propertyDetails['utilitiesIncluded'], 'No') !== false) ? 'selected' : '' ?>>No</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Rent Payment Frequency</label>
                                                         <select class="default-select form-control wide" id="paymentFrequency" required>
-                                                        <option value="">Select Payment Frequency</option>
-                                                            <option value="Monthly">Monthly</option>
-                                                            <option value="Quarterly">Quarterly</option>
-                                                            <option value="Yearly">Yearly</option>
+                                                        <option value="" disabled>Select Payment Frequency</option>
+                                                            <option value="Monthly" <?= (strpos($propertyDetails['paymentFrequency'], 'Monthly') !== false) ? 'selected' : '' ?>>Monthly</option>
+                                                            <option value="Quarterly" <?= (strpos($propertyDetails['paymentFrequency'], 'Quarterly') !== false) ? 'selected' : '' ?>>Quarterly</option>
+                                                            <option value="Yearly" <?= (strpos($propertyDetails['paymentFrequency'], 'Yearly') !== false) ? 'selected' : '' ?>>Yearly</option>
                                                         </select>
                                                     </div>
                                                     <div class="next-btn d-flex col-sm-12">
                                                         <button type="button" class="btn btn-default prev2 btn-sm"><i class="fas fa-arrow-left me-2"></i> Previous</button>
-                                                        <button type="submit" id="saveRentalInfo" class="btn btn-primary btn-sm">Next <i class="fas fa-arrow-right ms-2"></i></button>
+                                                        <button type="submit" id="saveRentalInfo" class="btn btn-success btn-sm">Update <i class="fas fa-arrow-right ms-2"></i></button>
                                                     </div>
                                                 </form>
                                             </div>

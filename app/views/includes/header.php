@@ -804,7 +804,7 @@
                         <ul aria-expanded="false">
                             <li><a href="<?php echo URLROOT ?>/pages/addProperty">Add New Property</a></li>
                             <li><a href="<?php echo URLROOT ?>/pages/listProperties">List Properties</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/assignProperties">Assign to Owner</a></li>           
+                            <li><a href="<?php echo URLROOT ?>/pages/searchProperties">Search</a></li>           
                         </ul>
                     </li>
 					<li><a class="has-arrow ai-icon" href="javascript:void(0)" aria-expanded="false">

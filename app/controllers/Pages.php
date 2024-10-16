@@ -55,7 +55,28 @@ class Pages extends Controller
             'userDetails' => $userDetails,
             'userPermissions' => $userPermissions
         ]);
-    }  
+    } 
+    
+    public function editProperty() {
+        new Guard();
+
+        $listUsers = Users::listUsers();
+        $listProperties = Properties::listProperties();
+        $listPropertyCategory = Properties::listPropertyCategory();
+        $encryptedId = $_GET['propertyid'];
+        $decryptedUserId = Tools::unlock($encryptedId);
+        $propertyDetails = Properties::propertyDetails($decryptedUserId);
+        $uuid = $propertyDetails['uuid'];
+
+        $this->view("pages/editProperty",[
+            'listProperties' => $listProperties,
+            'userid' => $decryptedUserId,
+            'uuid' => $uuid,
+            'propertyDetails' => $propertyDetails,
+            'listPropertyCategory' => $listPropertyCategory,
+            'listUsers' => $listUsers
+        ]);
+    } 
 
 
     public function listUsers() {
