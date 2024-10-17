@@ -100,6 +100,15 @@ class Pages extends Controller
     }  
 
 
+    public function assignOwner() {
+        new Guard();
+        $listProperties = Properties::listProperties();
+        $this->view("pages/assignOwner",[
+            'listProperties' => $listProperties
+        ]);
+    }  
+
+
     public function listProperties() {
         new Guard();
         $listProperties = Properties::listProperties();

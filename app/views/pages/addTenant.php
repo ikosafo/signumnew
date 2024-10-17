@@ -302,92 +302,7 @@ extract($data);
 
         
         <div class="wizard-step-2 d-none">
-                                                <form class="row" id="needs-validation1" novalidate="" autocomplete="off">
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Ownership Type</label>
-                                                        <select class="default-select form-control wide" id="ownershipType" required>
-                                                            <option value="">Select Ownership Type</option>
-                                                            <option value="individual">Individual</option>
-                                                            <option value="company">Company</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Full Name</label>
-                                                        <input type="text" class="form-control" id="fullName" placeholder="Enter full name" required>
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Contact Email</label>
-                                                        <input type="email" class="form-control" id="emailAddress" placeholder="Enter email address" required>
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Phone Number</label>
-                                                        <input type="text" class="form-control" id="phoneNumber" maxlength="10" onkeypress="return isNumber(event)" placeholder="Enter phone number" required>
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label">Alternative Phone Number</label>
-                                                        <input type="text" class="form-control" id="altPhoneNumber" maxlength="10" onkeypress="return isNumber(event)" placeholder="Alternative Phone Number">
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Residential Address</label>
-                                                        <input type="text" class="form-control" id="residentialAddress" placeholder="Enter residential address" required>
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Nationality</label>
-                                                        <input type="text" class="form-control" id="nationality" placeholder="Enter nationality">
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Date of Birth</label>
-                                                        <input type="date" class="form-control" id="birthDate" placeholder="Select Date" required>
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Gender</label>
-                                                        <select id="gender" class="default-select form-control wide" required>
-                                                            <option value="">Select Gender</option>
-                                                            <option value="Male">Male</option>
-                                                            <option value="Female">Female</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Marital Status</label>
-                                                        <select name="maritalStatus" id="maritalStatus" class="default-select form-control wide" required>
-                                                            <option value="">Select Marital Status</option>
-                                                            <option value="Single">Single</option>
-                                                            <option value="Married">Married</option>
-                                                            <option value="Divorced">Divorced</option>
-                                                            <option value="Separated">Separated</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Occupation</label>
-                                                        <input type="text" class="form-control" id="occupation" placeholder="Occupation" required>
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label">Employer's Name</label>
-                                                        <input type="text" class="form-control" id="employerName" placeholder="Employer's Name">
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label">Employer's Contact Number</label>
-                                                        <input type="text" class="form-control" id="employerContact" maxlength="10" 
-                                                         onkeypress="return isNumber(event)" placeholder="Employer's Contact Number">
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Emergency Contact Name</label>
-                                                        <input type="text" class="form-control" id="emergencyName" placeholder="Emergency Contact Name">
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Emergency Phone Number</label>
-                                                        <input type="text" class="form-control" id="emergencyContact" maxlength="10" onkeypress="return isNumber(event)" placeholder="Emergency Phone Number">
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                            <label class="form-label">Passport Picture</label>
-                                                            <input id="uploadPic" name="uploadPic" type="file" />
-                                                            <input type="hidden" id="selected_file" />
-                                                        </div>
-                                                    <div class="next-btn d-flex col-sm-12">
-                                                        <button type="button" class="btn btn-default prev1 btn-sm"><i class="fas fa-arrow-left me-2"></i> Previous</button>
-                                                        <button type="submit" id="saveOwnership" class="btn btn-primary next2 btn-sm">Next <i class="fas fa-arrow-right ms-2"></i></button>
-                                                    </div>
-                                                </form>
+                                                
 
   
                                             </div>
@@ -396,34 +311,7 @@ extract($data);
 
 <script>
 
-    $('#uploadPic').uploadifive({
-        'auto': false,
-        'method': 'post',
-        'buttonText': 'Upload picture',
-        'fileType': 'image/*',
-        'multi': false,
-        'width': 180,
-        'formData': {
-            'randno': '<?php echo $uuid ?>'
-        },
-        'dnd': false,
-        'uploadScript': '/forms/uploadPassport',
-        'onUploadComplete': function(file, data) {
-            console.log(data);
-            //alert(data);
-        },
-        'onSelect': function(file) {
-            // Update selected so we know they have selected a file
-            $("#selected_file").val('yes');
-
-        },
-        'onCancel': function(file) {
-            // Update selected so we know they have no file selected
-            $("#selected_file").val('');
-        }
-    });
-
-    $("#birthDate").flatpickr();
+   
 
     
     //Client details
@@ -454,13 +342,6 @@ extract($data);
 
         var successCallback = function(response) {
             $('#uploadPic').uploadifive('upload');
-           /*  response = JSON.parse(response);
-            $("#needs-validation1").addClass("was-validated");
-            $('.step-2').removeClass('active').addClass('disabled');
-            $('.step-3').addClass('active');
-            $('.wizard-step-3').addClass('d-block').removeClass('d-none');
-            $('.wizard-step-2').removeClass('d-block').addClass('d-none'); */
-            
         };
 
         var validateClientForm = function(clientData) {

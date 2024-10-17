@@ -434,6 +434,15 @@ class Tools extends tableDataObject{
         return $result;
     }
 
+    public static function categoryName($categoryId) {
+        global $healthdb;
+
+        $getName = "SELECT `categoryName` FROM `propertycategory` WHERE `categoryId` = '$categoryId'";
+        $healthdb->prepare($getName);
+        $result = $healthdb->fetchColumn();
+        return $result;
+    }
+
     public static function decryptUserId($encryptedId, $secretKey) {
         $data = base64_decode($encryptedId);
         $iv = substr($data, 0, 16); 

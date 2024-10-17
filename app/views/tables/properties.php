@@ -15,7 +15,6 @@
                             <th width="20%">PROPERTY NAME</th>
                             <th width="20%">CATEGORY</th>
                             <th width="20%">LOCATION</th>
-                            <th width="20%">OWNERSHIP</th>
                             <th width="20%">FURNISHING</th>
                             <th width="10%">ACTION</th>
                         </tr>
@@ -27,9 +26,8 @@
                             <tr>
                                 <td><strong class="text-black"><?= $no++ ?></strong></td>
                                 <td><?= $result->propertyName ?></td>
-                                <td><?= $result->propertyCategory ?></td>
+                                <td><?= Tools::categoryName($result->propertyCategory) ?></td>
                                 <td><?= $result->location ?></td>
-                                <td><?= $result->ownerFullName ?></td>
                                 <td><?= $result->furnishingStatus ?></td>
                                 <td>
                                     <div class="d-flex">
