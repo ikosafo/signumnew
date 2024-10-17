@@ -40,18 +40,6 @@ extract($data);
                                                         <span>2</span>
                                                     </div>
                                                     <div class="media-body">
-                                                        <h5>Ownership Information</h5>
-                                                        <h6>Provide ownership details</h6>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="step-container step-3">
-                                                <div class="media">
-                                                    <div class="step-icon">
-                                                        <i data-feather="check"></i>
-                                                        <span>3</span>
-                                                    </div>
-                                                    <div class="media-body">
                                                         <h5>Rental Information</h5>
                                                         <h6>Enter rental details</h6>
                                                     </div>
@@ -70,7 +58,7 @@ extract($data);
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Property Type</label>
                                                         <select name="propertyType" class="default-select form-control wide" required>
-                                                            <option value="" disabled>Select Property Type</option>
+                                                            <option value="">Select Property Type</option>
                                                             <option value="Apartment">Apartment</option>
                                                             <option value="House">House</option>
                                                             <option value="Commercial">Commercial</option>
@@ -123,7 +111,7 @@ extract($data);
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Number of Units</label>
-                                                        <input type="number" name="numberOfUnits" class="form-control" placeholder="e.g., 10" required>
+                                                        <input type="text" name="numberOfUnits" class="form-control" onkeypress="return isNumber(event)" placeholder="e.g., 10" required>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Property Size</label>
@@ -145,62 +133,21 @@ extract($data);
 
                                             </div>
                                             <div class="wizard-step-2 d-none">
-                                                <form class="row" id="needs-validation1" novalidate="" autocomplete="off">
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Owner's Full Name</label>
-                                                        <input type="text" class="form-control" id="ownerFullName" placeholder="Enter owner's full name" required>
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Contact Email</label>
-                                                        <input type="email" class="form-control" id="ownerEmail" placeholder="Enter owner's email address" required>
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Phone Number</label>
-                                                        <input type="text" class="form-control" id="ownerPhone" placeholder="Enter owner's phone number" required>
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label">Address</label>
-                                                        <input type="text" class="form-control" id="ownerAddress" placeholder="Enter owner's address">
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label">City</label>
-                                                        <input type="text" class="form-control" id="ownerCity" placeholder="Enter owner's city">
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Ownership Type</label>
-                                                        <select class="default-select form-control wide" id="ownershipType" required>
-                                                            <option value="">Select Ownership Type</option>
-                                                            <option value="individual">Individual</option>
-                                                            <option value="company">Company</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group col-sm-12">
-                                                        <label class="form-label">Additional Comments</label>
-                                                        <textarea class="form-control" id="ownerComments" rows="3" placeholder="Any additional details about the ownership"></textarea>
-                                                    </div>
-                                                    <div class="next-btn d-flex col-sm-12">
-                                                        <button type="button" class="btn btn-default prev1 btn-sm"><i class="fas fa-arrow-left me-2"></i> Previous</button>
-                                                        <button type="submit" id="saveOwnership" class="btn btn-primary next2 btn-sm">Next <i class="fas fa-arrow-right ms-2"></i></button>
-                                                    </div>
-                                                </form>
-  
-                                            </div>
-                                            <div class="wizard-step-3 d-none">
                                                <form class="row" id="needs-validation2" novalidate="" autocomplete="off">
                                                     <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Rent Amount</label>
+                                                        <label class="form-label required">Expected Rent Amount</label>
                                                         <input type="number" class="form-control" id="rentAmount" placeholder="Enter rent amount" required>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label">Deposit Amount</label>
+                                                        <label class="form-label">Expected Deposit Amount</label>
                                                         <input type="number" class="form-control" id="depositAmount" placeholder="Enter deposit amount">
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Lease Period</label>
+                                                        <label class="form-label required">Expected Lease Period</label>
                                                         <input type="text" class="form-control" id="leasePeriod" placeholder="Enter lease period (e.g., 1 year)" required>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Availability Date</label>
+                                                        <label class="form-label required">Expected Availability Date</label>
                                                         <input type="date" class="form-control" placeholder="Select Date" id="availabilityDate" required>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
@@ -212,17 +159,21 @@ extract($data);
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Rent Payment Frequency</label>
-                                                        <select class="default-select form-control wide" id="paymentFrequency" required>
-                                                        <option value="">Select Payment Frequency</option>
+                                                        <label class="form-label required">Expected Rent Payment Frequency</label>
+                                                        <select class="form-control" id="paymentFrequency" style="width: 100%;" required>
+                                                            <option></option>    
                                                             <option value="Monthly">Monthly</option>
                                                             <option value="Quarterly">Quarterly</option>
-                                                            <option value="Yearly">Yearly</option>
+                                                            <option value="Yearly  (1 year)">Yearly  (1 year)</option>
+                                                            <option value="Biennially (2 years)">Biennially (2 years)</option>
+                                                            <option value="Triennially (3 years)">Triennially (3 years)</option>
+                                                            <option value="Quadrennially (4 years)">Quadrennially (4 years)</option>
+                                                            <option value="Quinquennially (5 years)">Quinquennially (5 years)</option>
                                                         </select>
                                                     </div>
                                                     <div class="next-btn d-flex col-sm-12">
-                                                        <button type="button" class="btn btn-default prev2 btn-sm"><i class="fas fa-arrow-left me-2"></i> Previous</button>
-                                                        <button type="submit" id="saveRentalInfo" class="btn btn-primary btn-sm">Next <i class="fas fa-arrow-right ms-2"></i></button>
+                                                        <button type="button" class="btn btn-default prev1 btn-sm"><i class="fas fa-arrow-left me-2"></i> Previous</button>
+                                                        <button type="submit" id="saveRentalInfo" class="btn btn-success btn-sm">Submit <i class="fas fa-arrow-right ms-2"></i></button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -240,241 +191,182 @@ extract($data);
 <?php include ('includes/footer.php'); ?>
 
 <script>
-    
-       $("#availabilityDate").flatpickr();
-       $('#facilities').SumoSelect({
-            placeholder: 'Select options',
-            selectAll: true,
-            search: true,
-            okCancelInMulti: true
-        });
 
-        $('#propertyManager').SumoSelect({
-            placeholder: 'Select options',
-            search: true,
-            okCancelInMulti: true
-        });
+    $("#availabilityDate").flatpickr();
 
-       $("#propertyCategory").select2({
-            placeholder: "Select Category"
-       });
+    $('#facilities').SumoSelect({
+        placeholder: 'Select options',
+        selectAll: true,
+        search: true,
+        okCancelInMulti: true
+    });
 
-       	$("#saveProperty").on("click", function() {
-            event.preventDefault(); 
+    $('#propertyManager').SumoSelect({
+        placeholder: 'Select options',
+        search: true,
+        okCancelInMulti: true
+    });
 
-            var formData = {
-                propertyName: $("input[name='propertyName']").val(),
-                propertyType: $("select[name='propertyType']").val(),
-                propertyCategory: $("#propertyCategory").val(),
-                propertyAddress: $("textarea[name='propertyAddress']").val(),
-                location: $("input[name='location']").val(),
-                description: $("textarea[name='description']").val(),
-                numberOfUnits: $("input[name='numberOfUnits']").val(),
-                propertySize: $("input[name='propertySize']").val(),
-                furnishingStatus: $("select[name='furnishingStatus']").val(),
-                propertyManager: $('#propertyManager').val(),
-                selectedFacilities: $('#facilities').val(),
-                uuid: '<?php echo $uuid; ?>'
-            };
-            var url = urlroot + "/property/saveProperty";
+    $("#propertyCategory").select2({
+        placeholder: "Select Category"
+    });
 
-            var successCallback = function(response) {
-                response = JSON.parse(response);
-                //alert(response);
+    $("#paymentFrequency").select2({
+        placeholder: "Select Payment Frequency"
+    });
 
-                if (response == 1) {
-                    $("#needs-validation").addClass("was-validated");  
-                    $('.step-1').removeClass('active').addClass('disabled');
-                    $('.step-2').addClass('active');
-                    $('.wizard-step-2').addClass('d-block').removeClass('d-none');
-                    $('.wizard-step-1').removeClass('d-block').addClass('d-none');
-                }
-                else {
-                    $.notify("Property already exists", {
-                        position: "top center",
-                        className: "error"
-                    });
-                }
+    // Save Property
+    $("#saveProperty").on("click", function() {
+        event.preventDefault(); 
 
-            };
+        var formData = {
+            propertyName: $("input[name='propertyName']").val(),
+            propertyType: $("select[name='propertyType']").val(),
+            propertyCategory: $("#propertyCategory").val(),
+            propertyAddress: $("textarea[name='propertyAddress']").val(),
+            location: $("input[name='location']").val(),
+            description: $("textarea[name='description']").val(),
+            numberOfUnits: $("input[name='numberOfUnits']").val(),
+            propertySize: $("input[name='propertySize']").val(),
+            furnishingStatus: $("select[name='furnishingStatus']").val(),
+            propertyManager: $('#propertyManager').val(),
+            selectedFacilities: $('#facilities').val(),
+            uuid: '<?php echo $uuid; ?>'
+        };
+        var url = urlroot + "/property/saveProperty";
 
-            var validateForm = function(formData) {
-                var error = '';
-                if (!formData.propertyName) {
-                    error += 'Property Name is required\n';
-                    $("input[name='propertyName']").focus();
-                }
-                if (!formData.propertyType) {
-                    error += 'Property Type is required\n';
-                    $("select[name='propertyType']").focus();
-                }
-                if (!formData.propertyCategory) {
-                    error += 'Property Category is required\n';
-                    $("input[name='propertyCategory']").focus();
-                }
-                if (!formData.propertyAddress) {
-                    error += 'Property Address is required\n';
-                    $("textarea[name='propertyAddress']").focus();
-                }
-                if (!formData.location) {
-                    error += 'Location is required\n';
-                    $("input[name='location']").focus();
-                }
-                if (!formData.numberOfUnits) {
-                    error += 'Number of Units is required\n';
-                    $("input[name='numberOfUnits']").focus();
-                }
-                if (!formData.propertySize) {
-                    error += 'Property Size is required\n';
-                    $("input[name='propertySize']").focus();
-                }
-                if (!formData.furnishingStatus) {
-                    error += 'Furnishing Status is required\n';
-                    $("select[name='furnishingStatus']").focus();
-                }
-                if (!formData.selectedFacilities || formData.selectedFacilities.length === 0) {
-                    error += 'Facilities are required\n';
-                    $('#facilities').focus();
-                }
-                if (!formData.propertyManager || formData.propertyManager.length === 0) {
-                    error += 'Manager is required\n';
-                    $('#propertyManager').focus();
-                }
-                
-                return error;
-            };
+        var successCallback = function(response) {
+            response = JSON.parse(response);
+            //alert(response);
 
-            saveForm(formData, url, successCallback, validateForm);
-        });
-
-
-        //Ownership details
-        $("#saveOwnership").on("click", function(event) {
-            event.preventDefault(); 
-
-            var ownerData = {
-                ownerFullName: $("#ownerFullName").val(),
-                ownerEmail: $("#ownerEmail").val(),
-                ownerPhone: $("#ownerPhone").val(),
-                ownerAddress: $("#ownerAddress").val(),
-                ownerCity: $("#ownerCity").val(),
-                ownershipType: $("#ownershipType").val(),
-                ownerComments: $("#ownerComments").val(),
-                uuid: '<?php echo $uuid; ?>'
-            };
-
-            var url = urlroot + "/property/saveOwnerDetails";
-
-            var successCallback = function(response) {
-                response = JSON.parse(response);
-                $("#needs-validation1").addClass("was-validated");
-                $('.step-2').removeClass('active').addClass('disabled');
-                $('.step-3').addClass('active');
-                $('.wizard-step-3').addClass('d-block').removeClass('d-none');
-                $('.wizard-step-2').removeClass('d-block').addClass('d-none');
-            };
-
-            var validateOwnerForm = function(ownerData) {
-                var error = '';
-                if (!ownerData.ownerFullName) {
-                    error += 'Owner Full Name is required\n';
-                    $("#ownerFullName").focus();
-                }
-                if (!ownerData.ownerEmail) {
-                    error += 'Owner Contact Email is required\n';
-                    $("#ownerEmail").focus();
-                } else {
-                    // Email format validation
-                    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    if (!emailRegex.test(ownerData.ownerEmail)) {
-                        error += 'Invalid Email Address\n';
-                        $("#ownerEmail").focus();
-                    }
-                }
-                if (!ownerData.ownerPhone) {
-                    error += 'Owner Phone Number is required\n';
-                    $("#ownerPhone").focus();
-                } else {
-                    var phoneRegex = /^[0-9]{10}$/;
-                    if (!phoneRegex.test(ownerData.ownerPhone)) {
-                        error += 'Phone number must be 10 digits long and contain only numbers\n';
-                        $("#ownerPhone").focus();
-                    }
-                }
-                if (!ownerData.ownershipType) {
-                    error += 'Ownership Type is required\n';
-                    $("#ownershipType").focus();
-                }
-
-                return error;
-            };
-
-            saveForm(ownerData, url, successCallback, validateOwnerForm);
-        });
-
-
-        // Rental info
-        $("#saveRentalInfo").on("click", function(event) {
-            event.preventDefault(); 
-
-            var rentData = {
-                rentAmount: $("#rentAmount").val(),
-                depositAmount: $("#depositAmount").val(),
-                leasePeriod: $("#leasePeriod").val(),
-                availabilityDate: $("#availabilityDate").val(),
-                utilitiesIncluded: $("#utilitiesIncluded").val(),
-                paymentFrequency: $("#paymentFrequency").val(),
-                uuid: '<?php echo $uuid; ?>'
-            };
-
-            var url = urlroot + "/property/saveRentalDetails";
-
-            var successCallback = function(response) {
-                response = JSON.parse(response);
-                $.notify("Property saved", {
+            if (response == 1) {
+                $("#needs-validation").addClass("was-validated");  
+                $('.step-1').removeClass('active').addClass('disabled');
+                $('.step-2').addClass('active');
+                $('.wizard-step-2').addClass('d-block').removeClass('d-none');
+                $('.wizard-step-1').removeClass('d-block').addClass('d-none');
+            }
+            else {
+                $.notify("Property already exists", {
                     position: "top center",
-                    className: "success"
+                    className: "error"
                 });
+            }
 
-                // Delay the reload to allow the notification to be seen
-                setTimeout(function() {
-                    location.reload();
-                }, 2000);  // 2-second delay
-            };
+        };
 
-            var validateRentalForm = function(rentData) {
-                var error = '';
-                if (!rentData.rentAmount) {
-                    error += 'Rent Amount is required\n';
-                    $("#rentAmount").focus();
-                }
-                if (!rentData.depositAmount) {
-                    error += 'Deposit Amount is required\n';
-                    $("#depositAmount").focus();
-                }
-                if (!rentData.leasePeriod) {
-                    error += 'Lease Period is required\n';
-                    $("#leasePeriod").focus();
-                }
-                if (!rentData.availabilityDate) {
-                    error += 'Availability Date is required\n';
-                    $("#availabilityDate").focus();
-                }
-                if (!rentData.utilitiesIncluded) {
-                    error += 'Utilities status is required\n';
-                    $("#utilitiesIncluded").focus();
-                }
-                if (!rentData.paymentFrequency) {
-                    error += 'Payment Frequency is required\n';
-                    $("#paymentFrequency").focus();
-                }
+        var validateForm = function(formData) {
+            var error = '';
+            if (!formData.propertyName) {
+                error += 'Property Name is required\n';
+                $("input[name='propertyName']").focus();
+            }
+            if (!formData.propertyType) {
+                error += 'Property Type is required\n';
+                $("select[name='propertyType']").focus();
+            }
+            if (!formData.propertyCategory) {
+                error += 'Property Category is required\n';
+                $("input[name='propertyCategory']").focus();
+            }
+            if (!formData.propertyAddress) {
+                error += 'Property Address is required\n';
+                $("textarea[name='propertyAddress']").focus();
+            }
+            if (!formData.location) {
+                error += 'Location is required\n';
+                $("input[name='location']").focus();
+            }
+            if (!formData.numberOfUnits) {
+                error += 'Number of Units is required\n';
+                $("input[name='numberOfUnits']").focus();
+            }
+            if (!formData.propertySize) {
+                error += 'Property Size is required\n';
+                $("input[name='propertySize']").focus();
+            }
+            if (!formData.furnishingStatus) {
+                error += 'Furnishing Status is required\n';
+                $("select[name='furnishingStatus']").focus();
+            }
+            if (!formData.selectedFacilities || formData.selectedFacilities.length === 0) {
+                error += 'Facilities are required\n';
+                $('#facilities').focus();
+            }
+            if (!formData.propertyManager || formData.propertyManager.length === 0) {
+                error += 'Manager is required\n';
+                $('#propertyManager').focus();
+            }
+            
+            return error;
+        };
 
-                return error;
-            };
+        saveForm(formData, url, successCallback, validateForm);
+    });
 
-            saveForm(rentData, url, successCallback, validateRentalForm);
-               
-        });
+
+    // Rental info
+    $("#saveRentalInfo").on("click", function(event) {
+        event.preventDefault(); 
+
+        var rentData = {
+            rentAmount: $("#rentAmount").val(),
+            depositAmount: $("#depositAmount").val(),
+            leasePeriod: $("#leasePeriod").val(),
+            availabilityDate: $("#availabilityDate").val(),
+            utilitiesIncluded: $("#utilitiesIncluded").val(),
+            paymentFrequency: $("#paymentFrequency").val(),
+            uuid: '<?php echo $uuid; ?>'
+        };
+
+        var url = urlroot + "/property/saveRentalDetails";
+
+        var successCallback = function(response) {
+            response = JSON.parse(response);
+            $.notify("Property saved", {
+                position: "top center",
+                className: "success"
+            });
+
+            // Delay the reload to allow the notification to be seen
+            setTimeout(function() {
+                location.reload();
+            }, 1000);  // 2-second delay
+        };
+
+        var validateRentalForm = function(rentData) {
+            var error = '';
+            if (!rentData.rentAmount) {
+                error += 'Rent Amount is required\n';
+                $("#rentAmount").focus();
+            }
+            if (!rentData.depositAmount) {
+                error += 'Deposit Amount is required\n';
+                $("#depositAmount").focus();
+            }
+            if (!rentData.leasePeriod) {
+                error += 'Lease Period is required\n';
+                $("#leasePeriod").focus();
+            }
+            if (!rentData.availabilityDate) {
+                error += 'Availability Date is required\n';
+                $("#availabilityDate").focus();
+            }
+            if (!rentData.utilitiesIncluded) {
+                error += 'Utilities status is required\n';
+                $("#utilitiesIncluded").focus();
+            }
+            if (!rentData.paymentFrequency) {
+                error += 'Payment Frequency is required\n';
+                $("#paymentFrequency").focus();
+            }
+
+            return error;
+        };
+
+        saveForm(rentData, url, successCallback, validateRentalForm);
+            
+    });
 
 
 </script>

@@ -245,6 +245,16 @@ class Tools extends tableDataObject{
        
      }
 
+     public static function houseOwner($propertyid) {
+        global $healthdb;
+
+        $query = "SELECT `ownerFullName` FROM `properties` WHERE `propertyId` = '$propertyid'";
+        $healthdb->prepare($query);
+        $result = $healthdb->fetchColumn();
+
+        return $result;
+     }
+
   /*   public static function getIpDetails()
     {
         $ip_address = ''; // Initialize IP address variable

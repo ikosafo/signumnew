@@ -13,6 +13,19 @@ class Pages extends PostController
         $login->login($username, $password);
     } */
 
+    public function addTenant() {
+        new Guard();
+        $listUsers = Users::listUsers();
+        $listDepartment = Institution::listDepartment();
+        $listProperties = Properties::listProperties();
+        $this->view("pages/addTenant",[
+            'listUsers' => $listUsers,
+            'listDepartment' => $listDepartment,
+            'listProperties' => $listProperties
+        ]);
+    }  
+
+
     public function fileupload()
     {
 

@@ -37,6 +37,18 @@ class Pages extends Controller
         ]);
     }  
 
+    public function addTenant() {
+        new Guard();
+        $listUsers = Users::listUsers();
+        $listDepartment = Institution::listDepartment();
+        $listProperties = Properties::listProperties();
+        $this->view("pages/addTenant",[
+            'listUsers' => $listUsers,
+            'listDepartment' => $listDepartment,
+            'listProperties' => $listProperties
+        ]);
+    }  
+
     public function editUser() {
         new Guard();
 

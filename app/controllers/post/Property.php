@@ -50,29 +50,46 @@ class Property extends PostController
         Properties::editCategory($categoryName,$description,$catid);
     }
 
+
     public function saveOwnerDetails()
     {
-        $ownerFullName = $_POST['ownerFullName'];
-        $ownerEmail = $_POST['ownerEmail'];
-        $ownerPhone = $_POST['ownerPhone'];
-        $ownerAddress = $_POST['ownerAddress'];
-        $ownerCity = $_POST['ownerCity'];
+        $fullName = $_POST['fullName'];
+        $emailAddress = $_POST['emailAddress'];
+        $phoneNumber = $_POST['phoneNumber'];
+        $altPhoneNumber = $_POST['altPhoneNumber'];
+        $residentialAddress = $_POST['residentialAddress'];
+        $nationality = $_POST['nationality'];
+        $birthDate = $_POST['birthDate'];
+        $gender = $_POST['gender'];
+        $maritalStatus = $_POST['maritalStatus'];
+        $occupation = $_POST['occupation'];
+        $employerName = $_POST['employerName'];
+        $employerContact = $_POST['employerContact'];
+        $emergencyName = $_POST['emergencyName'];
+        $emergencyContact = $_POST['emergencyContact'];
         $ownershipType = $_POST['ownershipType'];
-        $ownerComments = $_POST['ownerComments'];
         $uuid = $_POST['uuid'];
 
         Properties::saveOwnerDetails(
-            $ownerFullName,
-            $ownerEmail,
-            $ownerPhone,
-            $ownerAddress,
-            $ownerCity,
+            $fullName,
+            $emailAddress,
+            $phoneNumber,
+            $altPhoneNumber,
+            $residentialAddress,
+            $nationality,
+            $birthDate,
+            $gender,
+            $maritalStatus,
+            $occupation,
+            $employerName,
+            $employerContact,
+            $emergencyName,
+            $emergencyContact,
             $ownershipType,
-            $ownerComments,
             $uuid
         );
-
     }
+
 
     public function saveRentalDetails()
     {
