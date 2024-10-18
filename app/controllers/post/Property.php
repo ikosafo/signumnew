@@ -51,8 +51,9 @@ class Property extends PostController
     }
 
 
-    public function saveOwnerDetails()
+    public function saveClientDetails()
     {
+
         $fullName = $_POST['fullName'];
         $emailAddress = $_POST['emailAddress'];
         $phoneNumber = $_POST['phoneNumber'];
@@ -68,9 +69,11 @@ class Property extends PostController
         $emergencyName = $_POST['emergencyName'];
         $emergencyContact = $_POST['emergencyContact'];
         $ownershipType = $_POST['ownershipType'];
+        $clientType = $_POST['clientType'];
         $uuid = $_POST['uuid'];
-
-        Properties::saveOwnerDetails(
+        $propertyId = $_POST['propertyName'];
+        
+        Properties::saveClientDetails(
             $fullName,
             $emailAddress,
             $phoneNumber,
@@ -86,7 +89,9 @@ class Property extends PostController
             $emergencyName,
             $emergencyContact,
             $ownershipType,
-            $uuid
+            $uuid,
+            $clientType,
+            $propertyId
         );
     }
 

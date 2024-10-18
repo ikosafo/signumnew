@@ -176,23 +176,25 @@ class Properties extends tableDataObject
     }
 
 
-    public static function saveOwnerDetails(
-                                $fullName,
-                                $emailAddress,
-                                $phoneNumber,
-                                $altPhoneNumber,
-                                $residentialAddress,
-                                $nationality,
-                                $birthDate,
-                                $gender,
-                                $maritalStatus,
-                                $occupation,
-                                $employerName,
-                                $employerContact,
-                                $emergencyName,
-                                $emergencyContact,
-                                $ownershipType,
-                                $uuid
+    public static function saveClientDetails(
+                            $fullName,
+                            $emailAddress,
+                            $phoneNumber,
+                            $altPhoneNumber,
+                            $residentialAddress,
+                            $nationality,
+                            $birthDate,
+                            $gender,
+                            $maritalStatus,
+                            $occupation,
+                            $employerName,
+                            $employerContact,
+                            $emergencyName,
+                            $emergencyContact,
+                            $ownershipType,
+                            $uuid,
+                            $clientType,
+                            $propertyId
                                     ) {
 
         global $healthdb;
@@ -205,8 +207,8 @@ class Properties extends tableDataObject
 
             // If no conflict, update the existing record
         $query = "UPDATE `clients` 
-        SET `clientName` = '$fullName',
-            `updatedAt` = NOW(),
+        SET  `clientType` = '$clientType',
+            `updatedAt` =   NOW(),
             `ownershipType` = '$ownershipType',
             `fullName` = '$fullName',
             `emailAddress` = '$emailAddress',
@@ -221,7 +223,8 @@ class Properties extends tableDataObject
             `employersName` = '$employerName',
             `employersPhone` = '$employerContact',
             `emergencyName` = '$emergencyName',
-            `emergencyPhone` = '$emergencyContact'
+            `emergencyPhone` = '$emergencyContact',
+            `propertyid` = '$propertyId'
 
             WHERE `uuid` = '$uuid'";
 
@@ -232,7 +235,7 @@ class Properties extends tableDataObject
         }
         else {
             $query = "INSERT INTO `clients`
-            (`clientName`,
+            (`clientType`,
              `uuid`,
              `createdAt`,
              `ownershipType`,
@@ -249,8 +252,10 @@ class Properties extends tableDataObject
              `employersName`,
              `employersPhone`,
              `emergencyName`,
-             `emergencyPhone`)
-            VALUES ('$fullName',
+             `emergencyPhone`,
+             `propertyid`
+             )
+            VALUES ('$clientType',
                     '$uuid',
                     NOW(),
                     '$ownershipType',
@@ -267,7 +272,9 @@ class Properties extends tableDataObject
                     '$employerName',
                     '$employerContact',
                     '$emergencyName',
-                    '$emergencyContact')";
+                    '$emergencyContact',
+                    '$propertyId'
+                    )";
 
                     $healthdb->prepare($query);
                     $healthdb->execute();
@@ -334,6 +341,15 @@ class Properties extends tableDataObject
         global $healthdb;
 
         $getList = "SELECT * FROM `properties` where `status` = 1 ORDER BY `propertyName`";
+        $healthdb->prepare($getList);
+        $resultList = $healthdb->resultSet();
+        return $resultList;
+    }
+
+    public static function listClients() {
+        global $healthdb;
+
+        $getList = "SELECT * FROM `clients` where `status` = 1 ORDER BY `createdAt` DESC, `updatedAt` DESC, fullName";
         $healthdb->prepare($getList);
         $resultList = $healthdb->resultSet();
         return $resultList;

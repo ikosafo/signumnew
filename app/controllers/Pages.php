@@ -99,14 +99,58 @@ class Pages extends Controller
         ]);
     }  
 
+    public function listClients() {
+        new Guard();
+        $listClients = Properties::listClients();
+        $this->view("pages/listClients",[
+            'listClients' => $listClients
+        ]);
+    }  
 
-    public function assignOwner() {
+    
+    public function addClient() {
         new Guard();
         $listProperties = Properties::listProperties();
-        $this->view("pages/assignOwner",[
+        $this->view("pages/addClient",[
             'listProperties' => $listProperties
         ]);
     }  
+
+    
+    public function viewClient() {
+        new Guard();
+
+        $encryptedId = $_GET['clientid'];
+        $decryptedClientId = Tools::unlock($encryptedId);
+        $clientDetails = Clients::clientDetails($decryptedClientId);
+        $propertyid = $clientDetails['propertyid'];
+        $propertyName = Tools::propertyClient($propertyid);
+        $uuid = $clientDetails['uuid'];
+
+        $this->view("pages/viewClient",[
+            'uuid' => $uuid,
+            'clientDetails' => $clientDetails,
+            'propertyName' => $propertyName
+        ]);
+    } 
+
+
+    public function editClient() {
+        new Guard();
+
+        $encryptedId = $_GET['clientid'];
+        $decryptedClientId = Tools::unlock($encryptedId);
+        $clientDetails = Clients::clientDetails($decryptedClientId);
+        $propertyid = $clientDetails['propertyid'];
+        $propertyName = Tools::propertyClient($propertyid);
+        $uuid = $clientDetails['uuid'];
+
+        $this->view("pages/editClient",[
+            'uuid' => $uuid,
+            'clientDetails' => $clientDetails,
+            'propertyName' => $propertyName
+        ]);
+    } 
 
 
     public function listProperties() {

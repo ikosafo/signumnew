@@ -76,7 +76,7 @@
     $(document).on('click', '.editUser', function() {
         var userid = $(this).attr('userid');
         var hash = btoa(btoa(btoa(userid)));
-        window.location.href = "/pages/editUser?userid=" + hash;
+        window.location.href = urlroot + "/pages/editUser?userid=" + hash;
     });
 
 

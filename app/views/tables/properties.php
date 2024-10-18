@@ -75,7 +75,7 @@
     $(document).on('click', '.editProperty', function() {
         var propertyid = $(this).attr('propertyid');
         var hash = btoa(btoa(btoa(propertyid)));
-        window.location.href = "/pages/editProperty?propertyid=" + hash;
+        window.location.href = urlroot + "/pages/editProperty?propertyid=" + hash;
     });
 
 

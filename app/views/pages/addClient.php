@@ -23,7 +23,7 @@ extract($data);
                                     <div class="form-group col-md-4 col-sm-12">
                                         <label class="form-label required">Property</label>
                                         <select id="propertyName" class="default-select form-control wide" required>
-                                            <option>Select Property</option>
+                                            <option></option>
                                             <?php foreach ($listProperties as $record): ?>
                                                 <option value="<?= $record->propertyId ?>"><?= $record->propertyName ?></option>
                                             <?php endforeach; ?>
@@ -31,11 +31,19 @@ extract($data);
                                         </select>
                                     </div>
                                     <div class="form-group col-md-4 col-sm-12">
+                                        <label class="form-label required">Client Type</label>
+                                        <select class="default-select form-control wide" id="clientType" required>
+                                            <option value="">Select Client Type</option>
+                                            <option value="Property Owner">Property Owner</option>
+                                            <option value="Tenant">Tenant</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-4 col-sm-12">
                                         <label class="form-label required">Ownership Type</label>
                                         <select class="default-select form-control wide" id="ownershipType" required>
                                             <option value="">Select Ownership Type</option>
-                                            <option value="individual">Individual</option>
-                                            <option value="company">Company</option>
+                                            <option value="Individual">Individual</option>
+                                            <option value="Company">Company</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-4 col-sm-12">
@@ -111,7 +119,7 @@ extract($data);
                                             <input type="hidden" id="selected_file" />
                                     </div>
                                     <div class="next-btn py-4 d-flex col-sm-12 justify-content-center">
-                                        <button type="submit" id="saveOwnership" class="btn btn-primary next2 btn-sm">Save</button>
+                                        <button type="submit" id="saveClientDetails" class="btn btn-primary next2 btn-sm">Save</button>
                                     </div>
 
                                 </form>
@@ -141,7 +149,15 @@ extract($data);
         'uploadScript': '/forms/uploadPassport',
         'onUploadComplete': function(file, data) {
             console.log(data);
-            //alert(data);
+            $.notify("Client added successfully", {
+                position: "top center",
+                className: "success"
+            });
+
+            setTimeout(function() {
+                location.reload();
+            }, 500);
+
         },
         'onSelect': function(file) {
             // Update selected so we know they have selected a file
@@ -162,7 +178,7 @@ extract($data);
 
    
     //Client details
-    $("#saveOwnership").on("click", function(event) {
+    $("#saveClientDetails").on("click", function(event) {
         event.preventDefault(); 
 
         var clientData = {
@@ -181,11 +197,13 @@ extract($data);
             emergencyName: $("#emergencyName").val(),
             emergencyContact: $("#emergencyContact").val(),
             ownershipType: $("#ownershipType").val(),
+            clientType: $("#clientType").val(),
             uuid: '<?php echo $uuid; ?>',
-            selectedFile: $("#selected_file").val()
+            selectedFile: $("#selected_file").val(),
+            propertyName:  $("#propertyName").val()
         };
 
-        var url = urlroot + "/property/saveOwnerDetails";
+        var url = urlroot + "/property/saveClientDetails";
 
         var successCallback = function(response) {
             $('#uploadPic').uploadifive('upload');
@@ -224,6 +242,10 @@ extract($data);
                 error += 'Ownership Type is required\n';
                 $("#ownershipType").focus();
             }
+            if (!clientData.clientType) {
+                error += 'Client Type is required\n';
+                $("#clientType").focus();
+            }
             if (!clientData.residentialAddress) {
                 error += 'Residential Address is required\n';
                 $("#residentialAddress").focus();
@@ -256,6 +278,11 @@ extract($data);
                 error += 'Emergency Phone Number is required\n';
                 $("#emergencyContact").focus();
             }
+            if (!clientData.propertyName) {
+                error += 'Property Name is required\n';
+                $("#propertyName").focus();
+            }
+
 
             return error;
         };

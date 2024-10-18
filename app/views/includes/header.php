@@ -27,6 +27,7 @@
 	<link href="<?php echo URLROOT ?>/assets/jquery-confirm/css/jquery-confirm.css" rel="stylesheet">
 	<link href="<?php echo URLROOT ?>/assets/css/select2.min.css" rel="stylesheet">
 	<link href="<?php echo URLROOT ?>/uploadifive/uploadifive.css" rel="stylesheet">
+	<link href="<?php echo URLROOT ?>/assets/css/custom.css" rel="stylesheet">
 
 	<script>
 		var cvhead = <?php echo json_encode(unserialize(JSVARS)); ?>;
@@ -811,12 +812,12 @@
                     </li>
 					<li><a class="has-arrow ai-icon" href="javascript:void(0)" aria-expanded="false">
 							<i class="flaticon-381-user-7"></i>
-							<span class="nav-text">TENANT <br> MANAGEMENT</span>
+							<span class="nav-text">CLIENT <br> MANAGEMENT</span>
 							
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="<?php echo URLROOT ?>/pages/addTenant">Add Tenant</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/listTenants">List of Tenants</a></li>
+                            <li><a href="<?php echo URLROOT ?>/pages/addClient">Add Client</a></li>
+                            <li><a href="<?php echo URLROOT ?>/pages/listClients">List Clients</a></li>
                             <li><a href="<?php echo URLROOT ?>/pages/leaseAgreements">Lease Agreements</a></li>
                             <li><a href="<?php echo URLROOT ?>/pages/paymentHistory">Payment History</a></li>
                             

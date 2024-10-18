@@ -255,6 +255,36 @@ class Tools extends tableDataObject{
         return $result;
      }
 
+     public static function propertyClient($propertyid) {
+        global $healthdb;
+
+        $query = "SELECT `propertyName` FROM `properties` WHERE `propertyId` = '$propertyid'";
+        $healthdb->prepare($query);
+        $result = $healthdb->fetchColumn();
+        return $result;
+     }
+
+
+     public static function displayImages($uuid) {
+        global $healthdb;
+
+        $getname = "SELECT `newname` FROM `documents` where `randomnumber` = '$uuid'";
+        $healthdb->prepare($getname);
+        $result = $healthdb->resultSet();
+        if ($result) {
+            $imagesHtml = '';
+            foreach ($result as $results) { 
+                $imagesHtml .= '<img class="enlarge-on-hover" src="' . URLROOT . '/uploads/' . htmlspecialchars($results->newname) . '" style="width:90px;height:100px">';
+            }
+            return $imagesHtml.'<br><small style="font-size:8px">Hover to enlarge</small>';
+        }
+        else {
+            return "";
+        }
+       
+       
+    }
+
   /*   public static function getIpDetails()
     {
         $ip_address = ''; // Initialize IP address variable

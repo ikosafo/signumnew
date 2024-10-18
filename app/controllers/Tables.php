@@ -27,4 +27,10 @@ class Tables extends Controller
         $this->view("tables/properties",['listProperties' => $listProperties]);
     }
 
+    public function clients()
+    {
+        $listClients = Properties::listClients();
+        $this->view("tables/clients",['listClients' => $listClients]);
+    }
+
 }
