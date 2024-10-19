@@ -11,27 +11,46 @@ class Documents extends tableDataObject{
         return $healthdb->resultSet();
     }
 
-    public static function insertPassport($newname,$name,$type,$size,$uniqueuploadid) {
-
+    public static function insertPassport($newname, $name, $type, $size, $uniqueuploadid)
+    {
         global $healthdb;
-
-        $query = "INSERT INTO `documents`
-            (`name`,
-             `newname`,
-             `size`,
-             `type`,
-             `randomnumber`,
-             `docdate`)
-            VALUES ('$name',
-                    '$newname',
-                    '$size',
-                    '$type',
-                    '$uniqueuploadid',
-                    NOW())";
-
+    
+        // Check if a record with the same unique ID exists
+        $chkunique = "SELECT `newname`, `randomnumber` FROM `documents` WHERE `randomnumber` = '$uniqueuploadid'";
+        $healthdb->prepare($chkunique);
+        $resultunique = $healthdb->singleRecord();
+    
+        if ($resultunique) {
+            $oldImage = $resultunique->newname;
+    
+            // Unlink (delete) the old image from the server
+            if (file_exists(UPLOAD_PATH . $oldImage)) {
+                unlink(UPLOAD_PATH . $oldImage); 
+            }
+    
+            $query = "UPDATE `documents`
+                      SET `name` = '$name',
+                          `newname` = '$newname',
+                          `size` = '$size',
+                          `type` = '$type',
+                          `docdate` = NOW()
+                      WHERE `randomnumber` = '$uniqueuploadid'";
+    
             $healthdb->prepare($query);
             $healthdb->execute();
-            echo 1;  // Successfully inserted
-   
+    
+            echo 2;
+    
+        } else {
+            $query = "INSERT INTO `documents`
+                      (`name`, `newname`, `size`, `type`, `randomnumber`, `docdate`)
+                      VALUES ('$name', '$newname', '$size', '$type', '$uniqueuploadid', NOW())";
+    
+            $healthdb->prepare($query);
+            $healthdb->execute();
+    
+            echo 1; 
+        }
     }
+    
 }

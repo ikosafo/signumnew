@@ -143,12 +143,14 @@ class Pages extends Controller
         $clientDetails = Clients::clientDetails($decryptedClientId);
         $propertyid = $clientDetails['propertyid'];
         $propertyName = Tools::propertyClient($propertyid);
+        $listProperties = Properties::listProperties();
         $uuid = $clientDetails['uuid'];
 
         $this->view("pages/editClient",[
             'uuid' => $uuid,
             'clientDetails' => $clientDetails,
-            'propertyName' => $propertyName
+            'propertyName' => $propertyName,
+            'listProperties' => $listProperties
         ]);
     } 
 

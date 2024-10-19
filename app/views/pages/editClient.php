@@ -1,6 +1,6 @@
 <?php include ('includes/header.php');
-$uuid = Tools::generateUUID();
 extract($data);
+$uuid = $clientDetails['uuid'];
 ?>
 
         <div class="content-body">
@@ -25,7 +25,10 @@ extract($data);
                                         <select id="propertyName" class="default-select form-control wide" required>
                                             <option></option>
                                             <?php foreach ($listProperties as $record): ?>
-                                                <option value="<?= $record->propertyId ?>"><?= $record->propertyName ?></option>
+                                                <option value="<?= $record->propertyId ?>" 
+                                                    <?= ($record->propertyId == $clientDetails['propertyid']) ? 'selected' : '' ?>>
+                                                    <?= $record->propertyName ?>
+                                                </option>
                                             <?php endforeach; ?>
                                             
                                         </select>
@@ -114,12 +117,13 @@ extract($data);
                                         <input type="text" class="form-control" value="<?= $clientDetails['emergencyPhone'] ?>" id="emergencyContact" maxlength="10" onkeypress="return isNumber(event)" placeholder="Emergency Phone Number">
                                     </div>
                                     <div class="form-group col-md-4 col-sm-12">
-                                            <label class="form-label">Passport Picture</label>
-                                            <input id="uploadPic" name="uploadPic" type="file" />
-                                            <input type="hidden" id="selected_file" />
+                                        <label class="form-label">Passport Picture</label>
+                                        <input id="uploadPic" name="uploadPic" type="file" />
+                                        <input type="hidden" id="selected_file" />
+                                        <p class="my-3"><?= Tools::displayImages($clientDetails['uuid']) ?></p>
                                     </div>
                                     <div class="next-btn py-4 d-flex col-sm-12 justify-content-center">
-                                        <button type="submit" id="saveClientDetails" class="btn btn-primary next2 btn-sm">Edit Details</button>
+                                        <button type="submit" id="editClientDetails" class="btn btn-warning next2 btn-sm">Edit Details</button>
                                     </div>
 
                                 </form>
@@ -138,7 +142,7 @@ extract($data);
     $('#uploadPic').uploadifive({
         'auto': false,
         'method': 'post',
-        'buttonText': 'Upload picture',
+        'buttonText': 'Replace picture',
         'fileType': 'image/*',
         'multi': false,
         'width': 180,
@@ -157,7 +161,7 @@ extract($data);
             setTimeout(function() {
                 location.reload();
             }, 500);
-
+           
         },
         'onSelect': function(file) {
             // Update selected so we know they have selected a file
@@ -178,7 +182,7 @@ extract($data);
 
    
     //Client details
-    $("#saveClientDetails").on("click", function(event) {
+    $("#editClientDetails").on("click", function(event) {
         event.preventDefault(); 
 
         var clientData = {
@@ -206,14 +210,25 @@ extract($data);
         var url = urlroot + "/property/saveClientDetails";
 
         var successCallback = function(response) {
-            $('#uploadPic').uploadifive('upload');
+            if ($("#selected_file").val() === 'yes') {
+                $('#uploadPic').uploadifive('upload');
+            }
+
+            $.notify("Client details updated successfully", {
+                    position: "top center",
+                    className: "success"
+                });
+
+                setTimeout(function() {
+                    location.reload();
+                }, 500);
+
+           
         };
 
         var validateClientForm = function(clientData) {
             var error = '';
-            if (clientData.selectedFile != "yes") {
-                error += 'Please upload passport picture\n';
-            }
+            
             if (!clientData.fullName) {
                 error += 'Full Name is required\n';
                 $("#fullName").focus();
