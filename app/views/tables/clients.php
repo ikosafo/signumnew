@@ -70,11 +70,11 @@
     });
 
 
-    $(document).off('click', '.deleteUser').on('click', '.deleteUser', function() {
-        var userid = $(this).attr('userid');
+    $(document).off('click', '.deleteClient').on('click', '.deleteClient', function() {
+        var clientid = $(this).attr('clientid');
        
         var formData = {};
-        formData.userid = userid; 
+        formData.clientid = clientid; 
        
         $.confirm({
             title: 'Delete Record!',
@@ -94,17 +94,17 @@
                     btnClass: 'btn-blue',
                     action: function() {
                         var formData = {};
-                        formData.userid = userid; 
-                        saveForm(formData, urlroot + "/delete/adminUser", function(response) {
-                            $('#userTableDiv').html(response);
+                        formData.clientid = clientid; 
+                        saveForm(formData, urlroot + "/delete/client", function(response) {
+                            $('#clientTableDiv').html(response);
                         });
-                        //$("#adminUser").DataTable().ajax.reload(null, false);
+                        
                         $('html, body').animate({
-                            scrollTop: $("#userTableDiv").offset().top
+                            scrollTop: $("#clientTableDiv").offset().top
                         }, 200);
                         
-                        loadPage("/tables/adminUsers", function(response) {
-                            $('#userTableDiv').html(response);
+                        loadPage("/tables/clients", function(response) {
+                            $('#clientTableDiv').html(response);
                         });
                         
                     }

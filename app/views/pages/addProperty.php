@@ -3,6 +3,45 @@ $uuid = Tools::generateUUID();
 extract($data);
 ?>
 
+    <script>
+        function allowNumbersCommasDecimals(event) {
+            const charCode = event.which || event.keyCode;
+            const charTyped = String.fromCharCode(charCode);
+            
+            // Get the current value of the input
+            const input = event.target.value;
+            
+            // Allow numbers (0-9), commas (','), and decimal points ('.')
+            const isNumber = /[0-9]/.test(charTyped);
+            const isComma = charTyped === ',';
+            const isDecimal = charTyped === '.';
+
+            // Allow only one decimal per number and ensure up to two decimal places
+            if (isDecimal) {
+                const lastNumber = input.split(',').pop().trim(); // Get the last number
+                if (lastNumber.includes('.')) {
+                    event.preventDefault(); // Prevent typing if there's already a decimal point
+                }
+            }
+
+            // Ensure up to two decimal places
+            if (isNumber) {
+                const lastNumber = input.split(',').pop().trim(); // Get the last number
+                if (lastNumber.includes('.')) {
+                    const decimalPart = lastNumber.split('.')[1]; // Get decimal part
+                    if (decimalPart && decimalPart.length >= 2) {
+                        event.preventDefault(); // Prevent more than 2 decimal places
+                    }
+                }
+            }
+
+            // Prevent any other character except numbers, commas, and decimals
+            if (!isNumber && !isComma && !isDecimal) {
+                event.preventDefault();
+            }
+        }
+    </script>
+
         <div class="content-body">
             <div class="container-fluid">
                 <div class="page-titles">
@@ -135,8 +174,19 @@ extract($data);
                                             <div class="wizard-step-2 d-none">
                                                <form class="row" id="needs-validation2" novalidate="" autocomplete="off">
                                                     <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Expected Rent Amount</label>
-                                                        <input type="number" class="form-control" id="rentAmount" placeholder="Enter rent amount" required>
+                                                        <label class="form-label required">Number of bedroom(s)</label>
+                                                        <select name="numberRooms" class="form-control" id="numberRooms" multiple="multiple">
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                            <option value="6">6</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-4 col-sm-12">
+                                                        <label class="form-label required">Expected Rent Amount (Separate them with commas to match the number of rooms selected)</label>
+                                                        <input type="text" class="form-control" id="rentAmount" placeholder="Eg. 3200.50,5400.00,9400.34" required onkeypress="allowNumbersCommasDecimals(event)">
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label">Expected Deposit Amount</label>
@@ -206,6 +256,12 @@ extract($data);
         search: true,
         okCancelInMulti: true
     });
+    
+    $('#numberRooms').SumoSelect({
+        placeholder: 'Select number of rooms',
+        search: true,
+        okCancelInMulti: true
+    });
 
     $("#propertyCategory").select2({
         placeholder: "Select Category"
@@ -217,7 +273,7 @@ extract($data);
 
     // Save Property
     $("#saveProperty").on("click", function() {
-        event.preventDefault(); 
+        //event.preventDefault(); 
 
         var formData = {
             propertyName: $("input[name='propertyName']").val(),
@@ -316,7 +372,8 @@ extract($data);
             availabilityDate: $("#availabilityDate").val(),
             utilitiesIncluded: $("#utilitiesIncluded").val(),
             paymentFrequency: $("#paymentFrequency").val(),
-            uuid: '<?php echo $uuid; ?>'
+            uuid: '<?php echo $uuid; ?>',
+            numberRooms: $("#numberRooms").val()
         };
 
         var url = urlroot + "/property/saveRentalDetails";
@@ -336,6 +393,10 @@ extract($data);
 
         var validateRentalForm = function(rentData) {
             var error = '';
+            if (!formData.numberRooms || formData.numberRooms.length === 0) {
+                error += 'Number of bedrooms are required\n';
+                $('#numberRooms').focus();
+            }
             if (!rentData.rentAmount) {
                 error += 'Rent Amount is required\n';
                 $("#rentAmount").focus();

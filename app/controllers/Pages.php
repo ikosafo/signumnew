@@ -116,6 +116,15 @@ class Pages extends Controller
         ]);
     }  
 
+
+    public function rentInformation() {
+        new Guard();
+        $listProperties = Properties::listProperties();
+        $this->view("pages/rentInformation",[
+            'listProperties' => $listProperties
+        ]);
+    }  
+
     
     public function viewClient() {
         new Guard();
@@ -151,6 +160,23 @@ class Pages extends Controller
             'clientDetails' => $clientDetails,
             'propertyName' => $propertyName,
             'listProperties' => $listProperties
+        ]);
+    } 
+
+
+    public function viewProperty() {
+        new Guard();
+
+        $encryptedId = $_GET['propertyid'];
+        $decryptedClientId = Tools::unlock($encryptedId);
+        $propertyDetails = Properties::propertyDetails($decryptedClientId);
+        $ownerDetails = Properties::ownerDetails($decryptedClientId);
+        $uuid = $propertyDetails['uuid'];
+
+        $this->view("pages/viewProperty",[
+            'uuid' => $uuid,
+            'propertyDetails' => $propertyDetails,
+            'ownerDetails' => $ownerDetails
         ]);
     } 
 

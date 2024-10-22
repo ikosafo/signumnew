@@ -806,8 +806,8 @@
                         <ul aria-expanded="false">
                             <li><a href="<?php echo URLROOT ?>/pages/addProperty">Add New Property</a></li>
                             <li><a href="<?php echo URLROOT ?>/pages/listProperties">List Properties</a></li>
-							<li><a href="<?php echo URLROOT ?>/pages/assignOwner">Assign to Owner</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/searchProperties">Search</a></li>           
+							<li><a href="<?php echo URLROOT ?>/pages/searchProperties">Search Property</a></li>
+							<li><a href="<?php echo URLROOT ?>/pages/propertyReports">Property Reports</a></li>           
                         </ul>
                     </li>
 					<li><a class="has-arrow ai-icon" href="javascript:void(0)" aria-expanded="false">
@@ -818,9 +818,23 @@
                         <ul aria-expanded="false">
                             <li><a href="<?php echo URLROOT ?>/pages/addClient">Add Client</a></li>
                             <li><a href="<?php echo URLROOT ?>/pages/listClients">List Clients</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/leaseAgreements">Lease Agreements</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/paymentHistory">Payment History</a></li>
+                            <li><a href="<?php echo URLROOT ?>/pages/searchClients">Search Clients</a></li>
+                            <li><a href="<?php echo URLROOT ?>/pages/clientReport">Client Report</a></li>
                             
+                        </ul>
+                    </li>
+					<li>
+						<a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+							<i class="flaticon-381-blueprint"></i>
+							<span class="nav-text">RENT <br>MANAGEMENT</span>
+							
+						</a>
+                        <ul aria-expanded="false">
+                            <li><a href="<?php echo URLROOT ?>/pages/rentInformation">Add Rent Info</a></li>
+							<li><a href="<?php echo URLROOT ?>/pages/listRentInformation">List Rent Info</a></li>
+                            <li><a href="<?php echo URLROOT ?>/pages/rentReports">Rent Due Reports</a></li>
+                            <li><a href="<?php echo URLROOT ?>/pages/rentInvoices">Generate Rent Invoices</a></li>
+                            <li><a href="<?php echo URLROOT ?>/pages/rentReceipts">Rent Receipts</a></li>
                         </ul>
                     </li>
 					<li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -833,10 +847,10 @@
                             <li><a href="<?php echo URLROOT ?>/pages/inspectionHistory">Inspection History</a></li>
                             <li><a href="<?php echo URLROOT ?>/pages/inspectionReports">Inspection Reports</a></li>
                         </ul>
-                    </li>					
+                    </li>				
 					<li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
 							<i class="flaticon-381-database-1"></i>
-							<span class="nav-text">RENT <br>COLLECTION</span>
+							<span class="nav-text">BILLINGS</span>
 							
 						</a>
                         <ul aria-expanded="false">

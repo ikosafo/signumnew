@@ -37,6 +37,13 @@ class Forms extends PostController
         $this->view("forms/adminUserDetails", $userDetails);
     }
 
+    public function rentalInformation()
+    {
+        $clientid = $_POST['clientid'];
+        $clientDetails = Clients::clientDetails($clientid);
+        $this->view("forms/rentalInformation", $clientDetails);
+    }
+
     public function propertyDetails()
     {
         $propertyid = $_POST['propertyid'];

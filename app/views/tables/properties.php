@@ -57,7 +57,7 @@
         }
     });
 
-    $(document).on('click', '.viewProperty', function() {
+   /*  $(document).on('click', '.viewProperty', function() {
         var propertyid = $(this).attr('propertyid');
          window.scrollTo({
             top: 0,
@@ -69,6 +69,12 @@
         saveForm(formData, "/forms/propertyDetails", function(response) {
             $('#propertyDetailsDiv').html(response);
         });
+    }); */
+
+    $(document).on('click', '.viewProperty', function() {
+        var propertyid = $(this).attr('propertyid');
+        var hash = btoa(btoa(btoa(propertyid)));
+        window.location.href = urlroot + "/pages/viewProperty?propertyid=" + hash;
     });
     
 

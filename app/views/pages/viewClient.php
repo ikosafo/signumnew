@@ -108,6 +108,18 @@ extract($data);
 <?php include ('includes/footer.php'); ?>
 
 <script>
+    var navItems = document.querySelectorAll('a span.nav-text');
+
+    navItems.forEach(function(item) {
+        var textContent = item.textContent.trim().replace(/\s+/g, ' ');
+        console.log("Checking item:", textContent); 
+
+        if (textContent === 'CLIENT MANAGEMENT') {
+            console.log("Found CLIENT MANAGEMENT:", item); 
+            item.closest('li').classList.add('mm-active');
+        }
+    });
+
     $('#backList').click(function() {
         window.location.href = urlroot + '/pages/listClients'
     })

@@ -41,6 +41,14 @@ $uuid = $clientDetails['uuid'];
                                             <option value="Tenant" <?= (strpos($clientDetails['clientType'], 'Tenant') !== false) ? 'selected' : '' ?>>Tenant</option>
                                         </select>
                                     </div>
+                                    <div class="form-group col-md-4 col-sm-12" id="contractTypeDiv" style="display: none;">
+                                        <label class="form-label required">Type of Contract</label>
+                                        <select class="default-select form-control wide" id="contractType" required>
+                                            <option value="">Select Type</option>
+                                            <option value="For Rental" <?= (strpos($clientDetails['contractType'], 'For Rental') !== false) ? 'selected' : '' ?>>For Rental</option>
+                                            <option value="For Management" <?= (strpos($clientDetails['contractType'], 'For Management') !== false) ? 'selected' : '' ?>>For Management</option>
+                                        </select>
+                                    </div>
                                     <div class="form-group col-md-4 col-sm-12">
                                         <label class="form-label required">Ownership Type</label>
                                         <select class="default-select form-control wide" id="ownershipType" required>
@@ -138,6 +146,32 @@ $uuid = $clientDetails['uuid'];
 <?php include ('includes/footer.php'); ?>
 
 <script>
+
+    $(document).ready(function() {
+        $('#clientType').change(function() {
+            if ($(this).val() === 'Property Owner') {
+                $('#contractTypeDiv').show();
+               
+            } else {
+                $('#contractTypeDiv').hide();
+            }
+        });
+    });
+
+   // Select all elements with the class 'nav-text'
+    var navItems = document.querySelectorAll('a span.nav-text');
+
+    navItems.forEach(function(item) {
+        var textContent = item.textContent.trim().replace(/\s+/g, ' ');
+        console.log("Checking item:", textContent); 
+
+        if (textContent === 'CLIENT MANAGEMENT') {
+            console.log("Found CLIENT MANAGEMENT:", item); 
+            item.closest('li').classList.add('mm-active');
+        }
+    });
+
+
 
     $('#uploadPic').uploadifive({
         'auto': false,

@@ -38,6 +38,14 @@ extract($data);
                                             <option value="Tenant">Tenant</option>
                                         </select>
                                     </div>
+                                    <div class="form-group col-md-4 col-sm-12" id="contractTypeDiv" style="display: none;">
+                                        <label class="form-label required">Type of Contract</label>
+                                        <select class="default-select form-control wide" id="contractType" required>
+                                            <option value="">Select Type</option>
+                                            <option value="For Rental">For Rental</option>
+                                            <option value="For Management">For Management</option>
+                                        </select>
+                                    </div>
                                     <div class="form-group col-md-4 col-sm-12">
                                         <label class="form-label required">Ownership Type</label>
                                         <select class="default-select form-control wide" id="ownershipType" required>
@@ -135,6 +143,17 @@ extract($data);
 
 <script>
 
+    $(document).ready(function() {
+        $('#clientType').change(function() {
+            if ($(this).val() === 'Property Owner') {
+                $('#contractTypeDiv').show();
+               
+            } else {
+                $('#contractTypeDiv').hide();
+            }
+        });
+    });
+
     $('#uploadPic').uploadifive({
         'auto': false,
         'method': 'post',
@@ -200,7 +219,8 @@ extract($data);
             clientType: $("#clientType").val(),
             uuid: '<?php echo $uuid; ?>',
             selectedFile: $("#selected_file").val(),
-            propertyName:  $("#propertyName").val()
+            propertyName:  $("#propertyName").val(),
+            contractType: $("#contractType").val()
         };
 
         var url = urlroot + "/property/saveClientDetails";
@@ -281,6 +301,9 @@ extract($data);
             if (!clientData.propertyName) {
                 error += 'Property Name is required\n';
                 $("#propertyName").focus();
+            }
+            if (clientData.clientType == "Property Owner" && !clientData.contractType) {
+                error += 'Contract type is required\n';
             }
 
 

@@ -72,8 +72,9 @@ class Property extends PostController
         $clientType = $_POST['clientType'];
         $uuid = $_POST['uuid'];
         $propertyId = $_POST['propertyName'];
+        $contractType = $_POST['contractType'];
         
-        Properties::saveClientDetails(
+        Clients::saveClientDetails(
             $fullName,
             $emailAddress,
             $phoneNumber,
@@ -91,7 +92,8 @@ class Property extends PostController
             $ownershipType,
             $uuid,
             $clientType,
-            $propertyId
+            $propertyId,
+            $contractType
         );
     }
 
