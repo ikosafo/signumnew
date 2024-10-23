@@ -99,7 +99,7 @@ class Clients extends tableDataObject
             `emergencyName` = '$emergencyName',
             `emergencyPhone` = '$emergencyContact',
             `propertyid` = '$propertyId',
-            `contractType` = $contractType
+            `contractType` = '$contractType'
 
             WHERE `uuid` = '$uuid'";
 

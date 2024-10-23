@@ -27,6 +27,12 @@ class Delete extends PostController
         Clients::deleteClient($clientid);
     }
 
+    public function property()
+    {
+        $propertyid = $_POST['propertyid'];
+        Properties::deleteProperty($propertyid);
+    }
+
     
 
 }

@@ -20,15 +20,15 @@ extract($data);
                     <div class="row">
                         <div class="form-group col-md-4 col-sm-12">
                             <label class="form-label required">Monthly Rent Amount</label>
-                            <input type="text" class="form-control" id="rentAmount" placeholder="Enter Rent Amount" required>
+                            <input type="text" class="form-control" onkeypress="allowTwoDecimalPlaces(event)" id="rentAmount" placeholder="Enter Rent Amount" required>
                         </div>
                         <div class="form-group col-md-4 col-sm-12">
                             <label class="form-label required">Security Deposit</label>
-                            <input type="text" class="form-control" id="securityDeposit" placeholder="Enter Security Deposit" required>
+                            <input type="text" class="form-control" onkeypress="allowTwoDecimalPlaces(event)" id="securityDeposit" placeholder="Enter Security Deposit" required>
                         </div>
                         <div class="form-group col-md-4 col-sm-12">
                             <label class="form-label required">Late Payment Penalty</label>
-                            <input type="text" class="form-control" id="penaltyAmount" placeholder="Enter Penalty Amount" required>
+                            <input type="text" class="form-control" onkeypress="allowTwoDecimalPlaces(event)" id="penaltyAmount" placeholder="Enter Penalty Amount" required>
                         </div>
                         <div class="form-group col-md-4 col-sm-12">
                             <label class="form-label required">Lease Start Date</label>
@@ -40,17 +40,13 @@ extract($data);
                         </div>
                         <div class="form-group col-md-4 col-sm-12">
                             <label class="form-label required">Lease Type</label>
-                            <select id="gender" class="default-select form-control wide" required>
+                            <select id="leaseType" class="default-select form-control wide" required>
                                 <option value="">Select Type</option>
                                 <option value="Fixed">Fixed</option>
-                                <option value="Momth-to-month">Momth-to-month</option>3
+                                <option value="Month-to-month">Month-to-month</option>3
                             </select>
                         </div>
-                        <div class="form-group col-md-4 col-sm-12">
-                            <label class="form-label required">Additional Charges (eg. Utility Charge, Parking Fee, Maintenance Fee etc)</label>
-                            <input type="text" class="form-control" id="additionalCharges" placeholder="Enter fee">
-                        </div>
-                        <div class="form-group col-md-4 col-sm-12">
+                       <div class="form-group col-md-4 col-sm-12">
                             <label class="form-label required">Number of Bedrooms</label>
                             <select id="bedroomNumber" class="default-select form-control wide" required>
                                 <option value="">Select Number</option>
@@ -61,6 +57,22 @@ extract($data);
                                 <option value="5">5</option>
                                 <option value="6">6</option>
                             </select>
+                        </div>
+                        <div class="form-group col-md-4 col-sm-12">
+                            <label class="form-label required">Lease Renewal Option</label>
+                            <select id="leaseRenewable" class="default-select form-control wide" required>
+                                <option value=""></option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4 col-sm-12">
+                            <label class="form-label">Additional Description</label>
+                            <textarea class="form-control" id="description" placeholder="Enter description"></textarea>
+                        </div>
+                        <div class="form-group col-md-4 col-sm-12">
+                            <label class="form-label required">Additional Charges (eg. Utility Charge, Parking Fee, Maintenance Fee etc)</label>
+                            <input type="text" class="form-control" onkeypress="allowTwoDecimalPlaces(event)"  id="additionalCharges" placeholder="Enter fee">
                         </div>
                        
                         <div class="next-btn py-4 d-flex col-sm-12 justify-content-center">
@@ -76,3 +88,18 @@ extract($data);
         </div>
     </div>
 </div>
+
+<script>
+    $("#startDate").flatpickr();
+    $("#endDate").flatpickr();
+    $("#bedroomNumber").select2({
+        placeholder:"Select Number"
+    });
+    $("#leaseType").select2({
+        placeholder:"Select Type"
+    });
+    $("#leaseRenewable").select2({
+        placeholder:"Is Lease Renewable?"
+    });
+    
+</script>

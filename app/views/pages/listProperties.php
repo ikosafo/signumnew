@@ -18,7 +18,6 @@
 <?php include ('includes/footer.php'); ?>
 
 <script>	
-
     loadPage("/tables/properties", function(response) {
         $('#propertyTableDiv').html(response);
     });

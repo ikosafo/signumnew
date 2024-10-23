@@ -33,7 +33,7 @@
                                     <div class="d-flex">
                                         <a href="javascript:void(0);" class="btn btn-primary viewProperty shadow btn-xs sharp me-1" propertyid='<?= $result->propertyId ?>'><i class="fas fa-eye"></i></a>
                                         <a href="javascript:void(0);" class="btn btn-warning editProperty shadow btn-xs sharp me-1" propertyid='<?= $result->propertyId ?>'><i class="fas fa-pencil-alt"></i></a>
-                                        <a href="javascript:void(0);" class="btn btn-danger deleteUser shadow btn-xs sharp" propertyid='<?= $result->propertyId ?>'><i class="fas fa-trash"></i></a>
+                                        <a href="javascript:void(0);" class="btn btn-danger deleteProperty shadow btn-xs sharp" propertyid='<?= $result->propertyId ?>'><i class="fas fa-trash"></i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -85,11 +85,12 @@
     });
 
 
-    $(document).off('click', '.deleteUser').on('click', '.deleteUser', function() {
-        var userid = $(this).attr('userid');
+    $(document).off('click', '.deleteProperty').on('click', '.deleteProperty', function() {
+        var propertyid = $(this).attr('propertyid');
        
         var formData = {};
-        formData.userid = userid; 
+        formData.propertyid = propertyid; 
+        //alert(formData.propertyid);
        
             $.confirm({
                     title: 'Delete Record!',
@@ -109,17 +110,17 @@
                             btnClass: 'btn-blue',
                             action: function() {
                                 var formData = {};
-                                formData.userid = userid; 
-                                saveForm(formData, "/delete/adminUser", function(response) {
-                                    $('#userTableDiv').html(response);
+                                formData.propertyid = propertyid; 
+                                saveForm(formData, urlroot + "/delete/property", function(response) {
+                                    $('#propertyTableDiv').html(response);
                                 });
                                 //$("#adminUser").DataTable().ajax.reload(null, false);
                                 $('html, body').animate({
-                                    scrollTop: $("#userTableDiv").offset().top
+                                    scrollTop: $("#propertyTableDiv").offset().top
                                 }, 200);
                                 
-                                loadPage("/tables/adminUsers", function(response) {
-                                    $('#userTableDiv').html(response);
+                                loadPage(urlroot + "/tables/properties", function(response) {
+                                    $('#propertyTableDiv').html(response);
                                 });
                                
                             }

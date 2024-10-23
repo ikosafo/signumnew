@@ -60,7 +60,7 @@
         var clientid = $(this).attr('clientid');
         $('html, body').animate({
             scrollTop: $("#rentInfoDiv").offset().top
-        }, 2000);
+        }, 500);
 
         var formData = {};
         formData.clientid = clientid; 

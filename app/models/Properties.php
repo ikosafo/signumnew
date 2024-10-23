@@ -176,15 +176,34 @@ class Properties extends tableDataObject
     }
 
 
+    public static function deleteProperty($propertyid) {
+
+        global $healthdb;
+            $query = "UPDATE `properties` 
+            SET `status` = 0,
+            `updatedAt` = NOW()
+            WHERE `propertyId` = '$propertyid'";
+
+            $healthdb->prepare($query);
+            $healthdb->execute();
+            echo 1; 
+       
+    }
+
+
     public static function saveRentalDetails($rentAmount,
                                 $depositAmount,
                                 $leasePeriod,
                                 $availabilityDate,
                                 $utilitiesIncluded,
                                 $paymentFrequency,
-                                $uuid) {
+                                $uuid,
+                                $numberRooms) {
 
         global $healthdb;
+
+        //$rentAmountString = implode(',', $rentAmount);
+        $numberRoomsString = implode(',', $numberRooms);
 
         // If no conflict, update the existing record
         $query = "UPDATE `properties` 
@@ -194,6 +213,7 @@ class Properties extends tableDataObject
             `availabilityDate` = '$availabilityDate',
             `utilitiesIncluded` = '$utilitiesIncluded',
             `paymentFrequency` = '$paymentFrequency',
+            `numberRooms` = '$numberRoomsString',
             `updatedAt` = NOW()
         WHERE `uuid` = '$uuid'";
 
@@ -274,7 +294,8 @@ class Properties extends tableDataObject
             'availabilityDate' => $resultRec->availabilityDate,
             'utilitiesIncluded' => $resultRec->utilitiesIncluded,
             'paymentFrequency' => $resultRec->paymentFrequency,
-            'propertyId' => $resultRec->propertyId
+            'propertyId' => $resultRec->propertyId,
+            'numberRooms' => $resultRec->numberRooms
 
         ];
     }
@@ -288,25 +309,25 @@ class Properties extends tableDataObject
         $resultRec = $healthdb->singleRecord();
     
         return [
-            'clientType' => $resultRec->clientType,
-            'ownershipType' => $resultRec->ownershipType,
-            'fullName' => $resultRec->fullName,
-            'emailAddress' => $resultRec->emailAddress,
-            'phoneNumber' => $resultRec->phoneNumber,
-            'altPhoneNumber' => $resultRec->altPhoneNumber,
-            'residentialAddress' => $resultRec->residentialAddress,
-            'nationality' => $resultRec->nationality,
-            'birthDate' => $resultRec->birthDate,
-            'gender' => $resultRec->gender,
-            'maritalStatus' => $resultRec->maritalStatus,
-            'occupation' => $resultRec->occupation,
-            'employersName' => $resultRec->employersName,
-            'employersPhone' => $resultRec->employersPhone,
-            'emergencyName' => $resultRec->emergencyName,
-            'emergencyPhone' => $resultRec->emergencyPhone,
-            'uuid' => $resultRec->uuid,
-            'propertyid' => $resultRec->propertyid,
-            'contractType' => $resultRec->contractType
+            'clientType' => @$resultRec->clientType,
+            'ownershipType' => @$resultRec->ownershipType,
+            'fullName' => @$resultRec->fullName,
+            'emailAddress' => @$resultRec->emailAddress,
+            'phoneNumber' => @$resultRec->phoneNumber,
+            'altPhoneNumber' => @$resultRec->altPhoneNumber,
+            'residentialAddress' => @$resultRec->residentialAddress,
+            'nationality' => @$resultRec->nationality,
+            'birthDate' => @$resultRec->birthDate,
+            'gender' => @$resultRec->gender,
+            'maritalStatus' => @$resultRec->maritalStatus,
+            'occupation' => @$resultRec->occupation,
+            'employersName' => @$resultRec->employersName,
+            'employersPhone' => @$resultRec->employersPhone,
+            'emergencyName' => @$resultRec->emergencyName,
+            'emergencyPhone' => @$resultRec->emergencyPhone,
+            'uuid' => @$resultRec->uuid,
+            'propertyid' => @$resultRec->propertyid,
+            'contractType' => @$resultRec->contractType
 
         ];
     }

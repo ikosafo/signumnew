@@ -3,45 +3,6 @@ $uuid = Tools::generateUUID();
 extract($data);
 ?>
 
-    <script>
-        function allowNumbersCommasDecimals(event) {
-            const charCode = event.which || event.keyCode;
-            const charTyped = String.fromCharCode(charCode);
-            
-            // Get the current value of the input
-            const input = event.target.value;
-            
-            // Allow numbers (0-9), commas (','), and decimal points ('.')
-            const isNumber = /[0-9]/.test(charTyped);
-            const isComma = charTyped === ',';
-            const isDecimal = charTyped === '.';
-
-            // Allow only one decimal per number and ensure up to two decimal places
-            if (isDecimal) {
-                const lastNumber = input.split(',').pop().trim(); // Get the last number
-                if (lastNumber.includes('.')) {
-                    event.preventDefault(); // Prevent typing if there's already a decimal point
-                }
-            }
-
-            // Ensure up to two decimal places
-            if (isNumber) {
-                const lastNumber = input.split(',').pop().trim(); // Get the last number
-                if (lastNumber.includes('.')) {
-                    const decimalPart = lastNumber.split('.')[1]; // Get decimal part
-                    if (decimalPart && decimalPart.length >= 2) {
-                        event.preventDefault(); // Prevent more than 2 decimal places
-                    }
-                }
-            }
-
-            // Prevent any other character except numbers, commas, and decimals
-            if (!isNumber && !isComma && !isDecimal) {
-                event.preventDefault();
-            }
-        }
-    </script>
-
         <div class="content-body">
             <div class="container-fluid">
                 <div class="page-titles">
@@ -273,7 +234,7 @@ extract($data);
 
     // Save Property
     $("#saveProperty").on("click", function() {
-        //event.preventDefault(); 
+        event.preventDefault(); 
 
         var formData = {
             propertyName: $("input[name='propertyName']").val(),
@@ -385,22 +346,38 @@ extract($data);
                 className: "success"
             });
 
-            // Delay the reload to allow the notification to be seen
             setTimeout(function() {
                 location.reload();
-            }, 1000);  // 2-second delay
+            }, 500); 
         };
 
         var validateRentalForm = function(rentData) {
             var error = '';
-            if (!formData.numberRooms || formData.numberRooms.length === 0) {
-                error += 'Number of bedrooms are required\n';
+
+             // Ensure rentData.numberRooms and rentData.rentAmount are treated as strings
+            var numberRoomsArr = rentData.numberRooms ? String(rentData.numberRooms).split(',') : [];
+            var rentAmountsArr = rentData.rentAmount ? String(rentData.rentAmount).split(',') : [];
+
+            var numberRoomsCount = numberRoomsArr.length;
+            var rentAmountsCount = rentAmountsArr.length;
+
+            // Validate that both fields are provided
+            if (!rentData.numberRooms || numberRoomsCount === 0) {
+                error += 'Number of bedrooms is required\n';
                 $('#numberRooms').focus();
             }
-            if (!rentData.rentAmount) {
+
+            if (!rentData.rentAmount || rentAmountsCount === 0) {
                 error += 'Rent Amount is required\n';
                 $("#rentAmount").focus();
             }
+
+            // Ensure the number of rooms matches the number of rent amounts
+            if (numberRoomsCount !== rentAmountsCount) {
+                error += `The number of rent amounts (${rentAmountsCount}) must match the number of bedrooms selected (${numberRoomsCount}).\n`;
+                $("#rentAmount").focus();
+            }
+
             if (!rentData.depositAmount) {
                 error += 'Deposit Amount is required\n';
                 $("#depositAmount").focus();

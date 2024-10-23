@@ -107,6 +107,7 @@ class Property extends PostController
         $utilitiesIncluded = $_POST['utilitiesIncluded'];
         $paymentFrequency = $_POST['paymentFrequency'];
         $uuid = $_POST['uuid'];
+        $numberRooms = $_POST['numberRooms'];
 
         Properties::saveRentalDetails(
             $rentAmount,
@@ -115,7 +116,8 @@ class Property extends PostController
             $availabilityDate,
             $utilitiesIncluded,
             $paymentFrequency,
-            $uuid
+            $uuid,
+            $numberRooms
         );
     }
 

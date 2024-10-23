@@ -41,8 +41,8 @@ $uuid = $clientDetails['uuid'];
                                             <option value="Tenant" <?= (strpos($clientDetails['clientType'], 'Tenant') !== false) ? 'selected' : '' ?>>Tenant</option>
                                         </select>
                                     </div>
-                                    <div class="form-group col-md-4 col-sm-12" id="contractTypeDiv" style="display: none;">
-                                        <label class="form-label required">Type of Contract</label>
+                                    <div class="form-group col-md-4 col-sm-12" id="contractTypeDiv">
+                                        <label class="form-label">Type of Contract</label>
                                         <select class="default-select form-control wide" id="contractType" required>
                                             <option value="">Select Type</option>
                                             <option value="For Rental" <?= (strpos($clientDetails['contractType'], 'For Rental') !== false) ? 'selected' : '' ?>>For Rental</option>
@@ -238,7 +238,8 @@ $uuid = $clientDetails['uuid'];
             clientType: $("#clientType").val(),
             uuid: '<?php echo $uuid; ?>',
             selectedFile: $("#selected_file").val(),
-            propertyName:  $("#propertyName").val()
+            propertyName:  $("#propertyName").val(),
+            contractType: $("#contractType").val()
         };
 
         var url = urlroot + "/property/saveClientDetails";
@@ -249,13 +250,13 @@ $uuid = $clientDetails['uuid'];
             }
 
             $.notify("Client details updated successfully", {
-                    position: "top center",
-                    className: "success"
-                });
+                position: "top center",
+                className: "success"
+            });
 
-                setTimeout(function() {
-                    location.reload();
-                }, 500);
+            setTimeout(function() {
+                location.reload();
+            }, 500);
 
            
         };
@@ -330,6 +331,12 @@ $uuid = $clientDetails['uuid'];
             if (!clientData.propertyName) {
                 error += 'Property Name is required\n';
                 $("#propertyName").focus();
+            }
+            if (clientData.clientType == "Property Owner" && !clientData.contractType) {
+                error += 'Contract type is required\n';
+            }
+            if (clientData.clientType != "Property Owner" && clientData.contractType) {
+                error += 'Contract type should not be selected\n';
             }
 
 

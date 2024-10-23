@@ -83,9 +83,14 @@ extract($data);
 										
 										<table class="check-tbl mb-2">
                                             <tbody>
+                                                    
                                                     <tr>
-                                                        <td width="40%"><strong>Rent Amount :</strong></td>
-                                                        <td width="60%" class="tb-para"><?= $rentAmount ?></td>
+                                                        <td><strong>Bedrooms Available :</strong></td>
+                                                        <td class="tb-para"><?= $numberRooms ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Rent Amount :</strong></td>
+                                                        <td class="tb-para"><?= $rentAmount ?></td>
                                                     </tr>
                                                     <tr>
                                                         <td><strong>Deposited Amount :</strong></td>
