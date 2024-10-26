@@ -7,8 +7,8 @@ class Pages extends Controller
     {
         $this->view("pages/auth/forgotpassword");
     }
-
     
+
     public function index()
     {
         new Guard();
@@ -37,6 +37,7 @@ class Pages extends Controller
         ]);
     }  
 
+
     public function addTenant() {
         new Guard();
         $listUsers = Users::listUsers();
@@ -48,6 +49,7 @@ class Pages extends Controller
             'listProperties' => $listProperties
         ]);
     }  
+
 
     public function editUser() {
         new Guard();
@@ -69,6 +71,7 @@ class Pages extends Controller
         ]);
     } 
     
+
     public function editProperty() {
         new Guard();
 
@@ -98,6 +101,7 @@ class Pages extends Controller
             'listUsers' => $listUsers
         ]);
     }  
+
 
     public function listClients() {
         new Guard();
@@ -144,6 +148,19 @@ class Pages extends Controller
     } 
 
 
+    public function viewRentInfo() {
+        new Guard();
+
+        $encryptedId = $_GET['rentid'];
+        $decryptedClientId = Tools::unlock($encryptedId);
+        $rentInfo = Properties::rentInfo($decryptedClientId);
+
+        $this->view("pages/viewRentInfo",[
+            'rentInfo' => $rentInfo
+        ]);
+    } 
+
+
     public function editClient() {
         new Guard();
 
@@ -160,6 +177,19 @@ class Pages extends Controller
             'clientDetails' => $clientDetails,
             'propertyName' => $propertyName,
             'listProperties' => $listProperties
+        ]);
+    } 
+
+
+    public function editRentInfo() {
+        new Guard();
+
+        $encryptedId = $_GET['rentid'];
+        $decryptedClientId = Tools::unlock($encryptedId);
+        $rentInfo = Properties::rentInfo($decryptedClientId);
+
+        $this->view("pages/editRentInfo",[
+            'rentInfo' => $rentInfo
         ]);
     } 
 
@@ -188,11 +218,22 @@ class Pages extends Controller
             'listProperties' => $listProperties
         ]);
     }  
+
+
+    public function listRentInformation() {
+        new Guard();
+        $listRentInformation = Properties::listRentInformation();
+        $this->view("pages/listRentInformation",[
+            'listRentInformation' => $listRentInformation
+        ]);
+    } 
     
+
     public function propertyCategories() {
         new Guard();  
         $this->view("pages/propertyCategories");
     }  
+
 
     public function companyDepartments() {
         new Guard();  
@@ -202,9 +243,7 @@ class Pages extends Controller
 
     public function lock()
     {
-
         new Guard();
-
         $data = array(
             'username' => $_SESSION['username'],
             'name' => $_SESSION['name'],
@@ -212,9 +251,9 @@ class Pages extends Controller
         );
         unset($_SESSION['uid']);
         session_destroy();
-
         $this->view('pages/lock', $data);
     }
+
 
     public function locked()
     {

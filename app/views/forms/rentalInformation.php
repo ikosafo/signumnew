@@ -76,7 +76,7 @@ extract($data);
                         </div>
                        
                         <div class="next-btn py-4 d-flex col-sm-12 justify-content-center">
-                            <button type="submit" id="saveClientDetails" class="btn btn-primary next2 btn-sm">Save</button>
+                            <button type="submit" id="saveRentDetails" class="btn btn-primary next2 btn-sm">Save</button>
                         </div>
                     </div>
                    
@@ -100,6 +100,88 @@ extract($data);
     });
     $("#leaseRenewable").select2({
         placeholder:"Is Lease Renewable?"
+    });
+
+    $("#saveRentDetails").on("click", function(event) {
+        event.preventDefault(); 
+
+        var rentData  = {
+            rentAmount: $("#rentAmount").val(),
+            securityDeposit: $("#securityDeposit").val(),
+            penaltyAmount: $("#penaltyAmount").val(),
+            startDate: $("#startDate").val(),
+            endDate: $("#endDate").val(),
+            leaseType: $("#leaseType").val(),
+            bedroomNumber: $("#bedroomNumber").val(),
+            leaseRenewable: $("#leaseRenewable").val(),
+            additionalDescription: $("#description").val(),
+            additionalCharges: $("#additionalCharges").val(),
+            uuid: '<?php echo $uuid; ?>',
+            propertyid: '<?php echo $propertyid ?>',
+            clientid:  '<?php echo $clientid ?>'
+        };
+
+        var url = urlroot + "/property/saveRentInfo";
+
+        var successCallback = function(response) {
+            //alert(response);
+            if (response == 1) {
+                $.notify("Rent information added successfully", {
+                    position: "top center",
+                    className: "success"
+                });
+
+                setTimeout(function() {
+                    location.reload();
+                }, 500);
+            }
+            else {
+                $.notify("Lease date is not due", {
+                    position: "top center",
+                    className: "error"
+                });
+            }
+        };
+
+        var validateRentForm = function(rentData) {
+            var error = '';
+            if (!rentData.rentAmount) {
+                error += 'Monthly Rent Amount is required\n';
+                $("#rentAmount").focus();
+            }
+            if (!rentData.securityDeposit) {
+                error += 'Security Deposit is required\n';
+                $("#securityDeposit").focus();
+            }
+            if (!rentData.penaltyAmount) {
+                error += 'Late Payment Penalty is required\n';
+                $("#penaltyAmount").focus();
+            }
+            if (!rentData.startDate) {
+                error += 'Lease Start Date is required\n';
+                $("#startDate").focus();
+            }
+            if (!rentData.endDate) {
+                error += 'Lease End Date is required\n';
+                $("#endDate").focus();
+            }
+            if (!rentData.leaseType) {
+                error += 'Lease Type is required\n';
+                $("#leaseType").focus();
+            }
+            if (!rentData.bedroomNumber) {
+                error += 'Number of Bedrooms is required\n';
+                $("#bedroomNumber").focus();
+            }
+            if (!rentData.leaseRenewable) {
+                error += 'Lease Renewal Option is required\n';
+                $("#leaseRenewable").focus();
+            }
+
+
+            return error;
+        };
+        saveForm(rentData, url, successCallback, validateRentForm);
     });
     
 </script>

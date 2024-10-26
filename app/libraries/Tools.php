@@ -117,109 +117,111 @@ class Tools extends tableDataObject{
      
      
          return $setPaginate;
-     } 
+    } 
 
-     public static function lock($item){
+    public static function lock($item){
         return base64_encode(base64_encode(base64_encode($item)));
 
-     }
+    }
 
-     public static function unlock($item){
+    public static function unlock($item){
         return base64_decode(base64_decode(base64_decode($item)));
 
-     }
+    }
 
-     public static function clean ($string){
+    public static function clean ($string){
         $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
         return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
-     }
+    }
 
     
-     public static function neat($str) {
+    public static function neat($str) {
         $str = str_replace(' ', '', $str); // Replaces all spaces with hyphens.
         // Remove all characters that are not letters, numbers, or spaces
         $cleanedStr = preg_replace('/[^A-Za-z0-9\s]/', '', $str);
         return $cleanedStr;
     }
     
-     public static function timeago($datetime){
-        $then = new DateTime($datetime);
-        $now = new DateTime();
-        $delta = $now->diff($then);
-        
-        $quantities = array(
-            'year' => $delta->y,
-            'month' => $delta->m,
-            'day' => $delta->d
-           );
-        
-        $str = '';
-        foreach($quantities as $unit => $value) {
-            if($value == 0) continue;
-            $str .= $value . ' ' . $unit;
-            if($value != 1) {
-                $str .= 's';
-            }
-            $str .=  ', ';
+
+    public static function timeago($datetime){
+    $then = new DateTime($datetime);
+    $now = new DateTime();
+    $delta = $now->diff($then);
+    
+    $quantities = array(
+        'year' => $delta->y,
+        'month' => $delta->m,
+        'day' => $delta->d
+        );
+    
+    $str = '';
+    foreach($quantities as $unit => $value) {
+        if($value == 0) continue;
+        $str .= $value . ' ' . $unit;
+        if($value != 1) {
+            $str .= 's';
         }
-        $str = $str == '' ? 'a moment ' : substr($str, 0, -2);
-        
-        echo $str."  ago";
-     }
+        $str .=  ', ';
+    }
+    $str = $str == '' ? 'a moment ' : substr($str, 0, -2);
+    
+    echo $str."  ago";
+    }
 
-     
-     public static function datediff($startdate,$enddate){
-       
-        $start = new DateTime($startdate);
-        $end = new DateTime($enddate);
-        // otherwise the  end date is excluded (bug?)
-        $end->modify('+1 day');
 
-        $interval = $end->diff($start);
+    public static function datediff($startdate,$enddate){
+    
+    $start = new DateTime($startdate);
+    $end = new DateTime($enddate);
+    // otherwise the  end date is excluded (bug?)
+    $end->modify('+1 day');
 
-        // total days
-        $days = $interval->days;
+    $interval = $end->diff($start);
 
-        // create an iterateable period of date (P1D equates to 1 day)
-        $period = new DatePeriod($start, new DateInterval('P1D'), $end);
+    // total days
+    $days = $interval->days;
 
-        // best stored as array, so you can add more than one
-        $holidays =  Holiday::holidays();
-       
-        foreach($period as $dt) {
-            $curr = $dt->format('D');
+    // create an iterateable period of date (P1D equates to 1 day)
+    $period = new DatePeriod($start, new DateInterval('P1D'), $end);
 
-            // substract if Saturday or Sunday
-            if ($curr == 'Sat' || $curr == 'Sun') {
-                $days--;
-            }
+    // best stored as array, so you can add more than one
+    $holidays =  Holiday::holidays();
+    
+    foreach($period as $dt) {
+        $curr = $dt->format('D');
 
-            // (optional) for the updated question
-            elseif (in_array($dt->format('Y-m-d'), $holidays)) {
-                $days--;
-            }
+        // substract if Saturday or Sunday
+        if ($curr == 'Sat' || $curr == 'Sun') {
+            $days--;
         }
 
+        // (optional) for the updated question
+        elseif (in_array($dt->format('Y-m-d'), $holidays)) {
+            $days--;
+        }
+    }
 
-        return $days;
-     }
 
-     public static function plusOneDay($date){
-       
-        $date1 = str_replace('-', '/', $date);
-        $tomorrow = date('Y-m-d',strtotime($date1 . "+1 days"));
-        
-        return $tomorrow;
-     }
+    return $days;
+    }
 
-     public static function checkPassword($password){
+
+    public static function plusOneDay($date){
+    
+    $date1 = str_replace('-', '/', $date);
+    $tomorrow = date('Y-m-d',strtotime($date1 . "+1 days"));
+    
+    return $tomorrow;
+    }
+
+    public static function checkPassword($password){
         $uppercase = preg_match('@[A-Z]@', $password);
         $lowercase = preg_match('@[a-z]@', $password);
         $number    = preg_match('@[0-9]@', $password);
         $specialChars = preg_match('@[^\w]@', $password);
         $message = '';
-    
-        //return multiple conditions message
+
+    //return multiple conditions message
         if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
             if(!$uppercase){
                 $message .= "Password should contain at least one upper case letter. <br>";
@@ -237,15 +239,14 @@ class Tools extends tableDataObject{
                 $message .= "Password should be at least 8 characters in length. <br>";
             }
 
-            return $message;
+        return $message;
         }else{
             return '';
         }
-   
-       
-     }
+    }
 
-     public static function houseOwner($propertyid) {
+    
+    public static function houseOwner($propertyid) {
         global $healthdb;
 
         $query = "SELECT `ownerFullName` FROM `properties` WHERE `propertyId` = '$propertyid'";
@@ -255,17 +256,28 @@ class Tools extends tableDataObject{
         return $result;
      }
 
-     public static function propertyClient($propertyid) {
+
+    public static function propertyClient($propertyid) {
         global $healthdb;
 
         $query = "SELECT `propertyName` FROM `properties` WHERE `propertyId` = '$propertyid'";
         $healthdb->prepare($query);
         $result = $healthdb->fetchColumn();
         return $result;
-     }
+    }
 
 
-     public static function displayImages($uuid) {
+    public static function clientName($clientid) {
+        global $healthdb;
+
+        $query = "SELECT `fullName` FROM `clients` WHERE `clientid` = '$clientid'";
+        $healthdb->prepare($query);
+        $result = $healthdb->fetchColumn();
+        return $result;
+    }
+
+
+    public static function displayImages($uuid) {
         global $healthdb;
 
         $getname = "SELECT `newname` FROM `documents` where `randomnumber` = '$uuid'";
@@ -280,8 +292,7 @@ class Tools extends tableDataObject{
         }
         else {
             return "";
-        }
-       
+        } 
        
     }
 

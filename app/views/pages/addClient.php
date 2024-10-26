@@ -306,7 +306,6 @@ extract($data);
                 error += 'Contract type is required\n';
             }
 
-
             return error;
         };
         saveForm(clientData, url, successCallback, validateClientForm);

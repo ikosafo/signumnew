@@ -191,14 +191,16 @@ class Properties extends tableDataObject
     }
 
 
-    public static function saveRentalDetails($rentAmount,
+    public static function saveRentalDetails(
+                                $rentAmount,
                                 $depositAmount,
                                 $leasePeriod,
                                 $availabilityDate,
                                 $utilitiesIncluded,
                                 $paymentFrequency,
                                 $uuid,
-                                $numberRooms) {
+                                $numberRooms
+                                ) {
 
         global $healthdb;
 
@@ -224,6 +226,74 @@ class Properties extends tableDataObject
     }
 
 
+    public static function saveRentInfo(
+                            $rentAmount,
+                            $securityDeposit,
+                            $penaltyAmount,
+                            $startDate,
+                            $endDate,
+                            $leaseType,
+                            $bedroomNumber,
+                            $leaseRenewable,
+                            $additionalDescription,
+                            $additionalCharges,
+                            $uuid,
+                            $propertyid,
+                            $clientid
+                                ) {
+
+        global $healthdb;
+
+        $getByClient = "SELECT * FROM `rentinfo` WHERE `clientid` = '$clientid' AND `endDate` >= now()";
+        $healthdb->prepare($getByClient);
+        $resultByClient = $healthdb->singleRecord();
+
+        if ($resultByClient) {
+            echo 2;
+        } else {
+              
+                $query = "INSERT INTO `rentinfo` (
+                        `propertyid`,
+                        `clientid`,
+                        `rentAmount`,
+                        `securityAmount`,
+                        `penaltyAmount`,
+                        `startDate`,
+                        `endDate`,
+                        `leaseType`,
+                        `numberRoom`,
+                        `renewable`,
+                        `description`,
+                        `addCharges`,
+                        `uuid`,
+                        `createdAt`
+                        )
+                        VALUES (
+                        '$propertyid',
+                        '$clientid',
+                        '$rentAmount',
+                        '$securityDeposit',
+                        '$penaltyAmount',
+                        '$startDate',
+                        '$endDate',
+                        '$leaseType',
+                        '$bedroomNumber',
+                        '$leaseRenewable',
+                        '$additionalDescription',
+                        '$additionalCharges',
+                        '$uuid',
+                        NOW()
+                            )";
+
+                $healthdb->prepare($query);
+                $healthdb->execute();
+                echo 1;  // Successfully inserted
+            
+        }
+
+    }
+
+
     public static function listPropertyCategory() {
         global $healthdb;
 
@@ -232,6 +302,17 @@ class Properties extends tableDataObject
         $resultList = $healthdb->resultSet();
         return $resultList;
     }
+
+
+    public static function listRentInformation() {
+        global $healthdb;
+
+        $getList = "SELECT * FROM `rentinfo` where `status` = 1 ORDER BY `createdAt` DESC";
+        $healthdb->prepare($getList);
+        $resultList = $healthdb->resultSet();
+        return $resultList;
+    }
+    
     
     public static function categoryDetails($catid) {
         global $healthdb;
@@ -329,6 +410,30 @@ class Properties extends tableDataObject
             'propertyid' => @$resultRec->propertyid,
             'contractType' => @$resultRec->contractType
 
+        ];
+    }
+
+    public static function rentInfo($rentid) {
+        global $healthdb;
+    
+        $getList = "SELECT * FROM `rentinfo` WHERE `rentid` = '$rentid'";
+        $healthdb->prepare($getList);
+        $resultRec = $healthdb->singleRecord();
+    
+        return [
+            'rentAmount' => $resultRec->rentAmount,
+            'securityAmount' => $resultRec->securityAmount,
+            'penaltyAmount' => $resultRec->penaltyAmount,
+            'startDate' => $resultRec->startDate,
+            'endDate' => $resultRec->endDate,
+            'leaseType' => $resultRec->leaseType,
+            'numberRoom' => $resultRec->numberRoom,
+            'renewable' => $resultRec->renewable,
+            'description' => $resultRec->description,
+            'addCharges' => $resultRec->addCharges,
+            'clientid' => $resultRec->clientid,
+            'propertyid' => $resultRec->propertyid,
+            'uuid' => $resultRec->uuid
         ];
     }
 

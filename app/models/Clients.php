@@ -30,7 +30,8 @@ class Clients extends tableDataObject
             'emergencyPhone' => $resultRec->emergencyPhone,
             'uuid' => $resultRec->uuid,
             'propertyid' => $resultRec->propertyid,
-            'contractType' => $resultRec->contractType
+            'contractType' => $resultRec->contractType,
+            'clientid' => $resultRec->clientid
 
         ];
     }
