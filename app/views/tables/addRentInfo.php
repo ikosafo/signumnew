@@ -72,11 +72,11 @@
     });
 
 
-    $(document).off('click', '.deleteClient').on('click', '.deleteClient', function() {
-        var clientid = $(this).attr('clientid');
+    $(document).off('click', '.deleteRentInfo').on('click', '.deleteRentInfo', function() {
+        var rentid = $(this).attr('rentid');
        
         var formData = {};
-        formData.clientid = clientid; 
+        formData.rentid = rentid; 
        
         $.confirm({
             title: 'Delete Record!',
@@ -96,17 +96,17 @@
                     btnClass: 'btn-blue',
                     action: function() {
                         var formData = {};
-                        formData.clientid = clientid; 
-                        saveForm(formData, urlroot + "/delete/client", function(response) {
-                            $('#clientTableDiv').html(response);
+                        formData.rentid = rentid; 
+                        saveForm(formData, urlroot + "/delete/rentInfo", function(response) {
+                            $('#rentInfoTableDiv').html(response);
                         });
                         
                         $('html, body').animate({
-                            scrollTop: $("#clientTableDiv").offset().top
+                            scrollTop: $("#rentInfoTableDiv").offset().top
                         }, 200);
                         
-                        loadPage("/tables/clients", function(response) {
-                            $('#clientTableDiv').html(response);
+                        loadPage("/tables/addRentInfo", function(response) {
+                            $('#rentInfoTableDiv').html(response);
                         });
                         
                     }

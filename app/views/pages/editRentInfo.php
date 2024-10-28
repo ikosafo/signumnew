@@ -154,8 +154,8 @@ $propertyid = $rentInfo['propertyid'];
 
         var successCallback = function(response) {
             //alert(response);
-            if (response == 1) {
-                $.notify("Rent information added successfully", {
+            if (response == 1 || response == 3) {
+                $.notify("Rent information updated successfully", {
                     position: "top center",
                     className: "success"
                 });

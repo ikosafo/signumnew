@@ -129,6 +129,12 @@ class Pages extends Controller
         ]);
     }  
 
+
+    public function billPayments() {
+        new Guard();
+        $this->view("pages/billPayments");
+    }  
+
     
     public function viewClient() {
         new Guard();

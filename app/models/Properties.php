@@ -190,6 +190,20 @@ class Properties extends tableDataObject
        
     }
 
+    public static function deleteRentInfo($rentid) {
+
+        global $healthdb;
+            $query = "UPDATE `rentinfo` 
+            SET `status` = 0,
+            `updatedAt` = NOW()
+            WHERE `rentid` = '$rentid'";
+
+            $healthdb->prepare($query);
+            $healthdb->execute();
+            echo 1; 
+       
+    }
+
 
     public static function saveRentalDetails(
                                 $rentAmount,
@@ -244,52 +258,82 @@ class Properties extends tableDataObject
 
         global $healthdb;
 
-        $getByClient = "SELECT * FROM `rentinfo` WHERE `clientid` = '$clientid' AND `endDate` >= now()";
-        $healthdb->prepare($getByClient);
-        $resultByClient = $healthdb->singleRecord();
+        $getByUUID = "SELECT * FROM `rentinfo` WHERE `clientid` = '$clientid' AND `uuid` = '$uuid'";
+        $healthdb->prepare($getByUUID);
+        $resultByUUID = $healthdb->singleRecord();
 
-        if ($resultByClient) {
-            echo 2;
-        } else {
-              
-                $query = "INSERT INTO `rentinfo` (
-                        `propertyid`,
-                        `clientid`,
-                        `rentAmount`,
-                        `securityAmount`,
-                        `penaltyAmount`,
-                        `startDate`,
-                        `endDate`,
-                        `leaseType`,
-                        `numberRoom`,
-                        `renewable`,
-                        `description`,
-                        `addCharges`,
-                        `uuid`,
-                        `createdAt`
-                        )
-                        VALUES (
-                        '$propertyid',
-                        '$clientid',
-                        '$rentAmount',
-                        '$securityDeposit',
-                        '$penaltyAmount',
-                        '$startDate',
-                        '$endDate',
-                        '$leaseType',
-                        '$bedroomNumber',
-                        '$leaseRenewable',
-                        '$additionalDescription',
-                        '$additionalCharges',
-                        '$uuid',
-                        NOW()
-                            )";
+        if ($resultByUUID) {
+            $query = "UPDATE `rentinfo`
+                SET 
+                `propertyid` = '$propertyid',
+                `rentAmount` = '$rentAmount',
+                `securityAmount` = '$securityDeposit',
+                `penaltyAmount` = '$penaltyAmount',
+                `startDate` = '$startDate',
+                `endDate` = '$endDate',
+                `leaseType` = '$leaseType',
+                `numberRoom` = '$bedroomNumber',
+                `renewable` = '$leaseRenewable',
+                `description` = '$additionalDescription',
+                `addCharges` = '$additionalCharges',
+                `updatedAt` = NOW()
+                WHERE `uuid` = '$uuid'";
 
                 $healthdb->prepare($query);
                 $healthdb->execute();
-                echo 1;  // Successfully inserted
+        
+            echo 3; // updated
+        }
+        else {
+            $getByClient = "SELECT * FROM `rentinfo` WHERE `clientid` = '$clientid' AND `endDate` >= now()";
+            $healthdb->prepare($getByClient);
+            $resultByClient = $healthdb->singleRecord();
+
+            if ($resultByClient) {
+                echo 2;
+            } else {
+    
+                $query = "INSERT INTO `rentinfo` (
+                    `propertyid`,
+                    `clientid`,
+                    `rentAmount`,
+                    `securityAmount`,
+                    `penaltyAmount`,
+                    `startDate`,
+                    `endDate`,
+                    `leaseType`,
+                    `numberRoom`,
+                    `renewable`,
+                    `description`,
+                    `addCharges`,
+                    `uuid`,
+                    `createdAt`
+                    )
+                    VALUES (
+                    '$propertyid',
+                    '$clientid',
+                    '$rentAmount',
+                    '$securityDeposit',
+                    '$penaltyAmount',
+                    '$startDate',
+                    '$endDate',
+                    '$leaseType',
+                    '$bedroomNumber',
+                    '$leaseRenewable',
+                    '$additionalDescription',
+                    '$additionalCharges',
+                    '$uuid',
+                    NOW()
+                        )";
+
+            $healthdb->prepare($query);
+            $healthdb->execute();
+            echo 1;  // Successfully inserted
+                                
+            }
             
         }
+
 
     }
 

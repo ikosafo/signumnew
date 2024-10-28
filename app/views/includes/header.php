@@ -854,10 +854,10 @@
 							
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="<?php echo URLROOT ?>/pages/rentPayments">Record Rent Payment</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/rentReports">Rent Due Reports</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/rentInvoices">Generate Rent Invoices</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/rentReceipts">Rent Receipts</a></li>
+                            <li><a href="<?php echo URLROOT ?>/pages/billPayments">Record Rent Payment</a></li>
+                            <li><a href="<?php echo URLROOT ?>/pages/billReports">Rent Due Reports</a></li>
+                            <li><a href="<?php echo URLROOT ?>/pages/billInvoices">Generate Rent Invoices</a></li>
+                            <li><a href="<?php echo URLROOT ?>/pages/billReceipts">Rent Receipts</a></li>
                         </ul>
                     </li>
                     <li>

@@ -33,6 +33,12 @@ class Delete extends PostController
         Properties::deleteProperty($propertyid);
     }
 
+    public function rentInfo()
+    {
+        $rentid = $_POST['rentid'];
+        Properties::deleteRentInfo($rentid);
+    }
+
     
 
 }
