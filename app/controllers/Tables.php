@@ -51,5 +51,11 @@ class Tables extends Controller
         $this->view("tables/billPayment",['listClients' => $listClients]);
     }
 
+    public function paymentHistory()
+    {
+        $paymentHistory = Billings::paymentHistory();
+        $this->view("tables/paymentHistory",['paymentHistory' => $paymentHistory]);
+    }
+
 
 }

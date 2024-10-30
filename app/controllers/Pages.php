@@ -103,6 +103,15 @@ class Pages extends Controller
     }  
 
 
+    public function paymentHistory() {
+        new Guard();
+        $paymentHistory = Billings::paymentHistory();
+        $this->view("pages/paymentHistory",[
+            'paymentHistory' => $paymentHistory
+        ]);
+    }  
+
+
     public function listClients() {
         new Guard();
         $listClients = Properties::listClients();
@@ -151,6 +160,17 @@ class Pages extends Controller
             'clientDetails' => $clientDetails,
             'propertyName' => $propertyName
         ]);
+    } 
+
+
+    public function viewPayment() {
+        new Guard();
+
+        $encryptedId = $_GET['paymentid'];
+        $decryptedClientId = Tools::unlock($encryptedId);
+        $paymentDetails = Billings::paymentDetails($decryptedClientId);
+
+        $this->view("pages/viewPayment",['paymentDetails' => $paymentDetails]);
     } 
 
 
