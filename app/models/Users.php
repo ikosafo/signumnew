@@ -122,6 +122,7 @@ class Users extends tableDataObject
             $emailaddress = $result->emailaddress;
             $verified = $result->emailverified;
             $userid = $result->id;
+            $accessLevel = $result->accessLevel;
     
             if ($emailaddress == "") {
                 $_SESSION['username'] = $username;
@@ -139,7 +140,13 @@ class Users extends tableDataObject
                 $_SESSION['password'] = $password;
                 $_SESSION['uid'] = $userid;
                 $_SESSION['emailverified'] = $verified;
-                echo json_encode(['status' => 1]);
+                if ($accessLevel === 'Client') {
+                    echo json_encode(['status' => 6]);
+                }
+                else {
+                    echo json_encode(['status' => 1]);
+                }
+                
                 Tools::logAction("$username Logged in successfully", "Successful");
             }
         } else {

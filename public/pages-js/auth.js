@@ -12,6 +12,9 @@ $("#loginBtn").on("click", function() {
 
         if (response.status == 1) {
             window.location.href = urlroot + "/pages/index";
+        } 
+        else if (response.status == 6) {
+            window.location.href = urlroot + "/pages/client";
         } else if (response.status == 3) {
             window.location.href = urlroot + "/auth/updateuser";
         } else if (response.status == 4) {

@@ -30,7 +30,16 @@ class Billing extends PostController
     }
     
 
-    
+    public function initiatePayment()
+    {
+        $clientid = $_POST['clientid'];
+        $amount = $_POST['amount'];
+        $this->view("billing/initiatePayment", [
+            'clientid' => $clientid,
+            'amount' => $amount
+        ]);
+    }
+
 
 
 }

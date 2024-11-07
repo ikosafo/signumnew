@@ -50,6 +50,7 @@ class Forms extends PostController
         $clientDetails = Clients::clientDetails($clientid);
         $this->view("forms/billPayment", $clientDetails);
     }
+    
 
     public function propertyDetails()
     {

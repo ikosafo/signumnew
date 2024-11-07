@@ -16,6 +16,13 @@ class Pages extends Controller
     }
 
 
+    public function client()
+    {
+        new Guard();
+        $this->view("pages/client");
+    }
+
+
     public function addProperty() {
         new Guard();
         $listPropertyCategory = Properties::listPropertyCategory();
@@ -94,6 +101,16 @@ class Pages extends Controller
     } 
 
 
+    public function editPayment() {
+        new Guard();
+
+        $encryptedId = $_GET['paymentid'];
+        $decryptedUserId = Tools::unlock($encryptedId);
+        $paymentDetails = Billings::paymentDetails($decryptedUserId);
+        $this->view("pages/editPayment",['paymentDetails' => $paymentDetails]);
+    } 
+
+
     public function listUsers() {
         new Guard();
         $listUsers = Users::listUsers();
@@ -145,6 +162,12 @@ class Pages extends Controller
     }  
 
     
+    public function billPaymentClient() {
+        new Guard();
+        $this->view("pages/billPaymentClient");
+    }  
+    
+
     public function viewClient() {
         new Guard();
 

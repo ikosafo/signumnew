@@ -44,12 +44,22 @@ class Tables extends Controller
         $listRentInformation = Properties::listRentInformation();
         $this->view("tables/addRentInfo",['listRentInformation' => $listRentInformation]);
     }
-
+    
     public function billPayment()
     {
         $listClients = Properties::listClients();
         $this->view("tables/billPayment",['listClients' => $listClients]);
     }
+
+
+    public function billPaymentClient() {
+        new Guard();
+        $uid = $_SESSION['uid'];
+        $uuid = Tools::getUUIDbyid($uid);
+        $clientid = Tools::getClientidbyUUID($uuid);
+        $listRentDue = Properties::listRentDue($clientid);
+        $this->view("tables/billPaymentClient",['listRentDue' => $listRentDue]);
+    } 
 
     public function paymentHistory()
     {

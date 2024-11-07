@@ -78,11 +78,21 @@ class Clients extends tableDataObject
         $healthdb->prepare($chkuuid);
         $resultuuid = $healthdb->singleRecord();
 
+        $chkEmail = "SELECT * FROM `clients` WHERE `emailAddress` = '$emailAddress' AND `uuid` != '$uuid'";
+        $healthdb->prepare($chkEmail);
+        $resultEmail = $healthdb->singleRecord();
+
+        if ($resultEmail) {
+            // Email already exists for a different UUID
+            echo "Email already exists for a different client";
+            return;
+        }
+
         if ($resultuuid) {
 
-            // If no conflict, update the existing record
-        $query = "UPDATE `clients` 
-        SET  `clientType` = '$clientType',
+             // If UUID exists, update the existing record
+            $query = "UPDATE `clients` 
+            SET  `clientType` = '$clientType',
             `updatedAt` =   NOW(),
             `ownershipType` = '$ownershipType',
             `fullName` = '$fullName',
@@ -157,6 +167,38 @@ class Clients extends tableDataObject
                     $healthdb->prepare($query);
                     $healthdb->execute();
                     echo 3;  // Successfully inserted
+
+                    $subject = 'Welcome to Signum Properties - Account Created';
+
+                    $password = Tools::generateRandomPassword();
+
+                    $message = "Dear <span style='text-transform: uppercase'>$fullName</span>, 
+
+                    <p>Welcome to <b>Signum Properties</b>! Your account has been successfully created.</p>
+                    <p>You can log in to your portal at <a href='https://signumproperties.com'>https://signumproperties.com</a>.</p>
+                    <p><b>Login Credentials:</b><br>
+                    Username: <b>$emailAddress</b><br>
+                    Password: <b>$password</b></p>
+
+                    <p>Please keep these credentials secure. We recommend updating your password after your first login.</p>
+                    <p>Thank you,<br>The Signum Properties Team</p>";
+
+                    SendEmail::compose($emailAddress, $subject, $message);
+
+                    
+                    $chkUsername = "SELECT * FROM `users` WHERE `username` = '$emailAddress'";
+                    $healthdb->prepare($chkUsername);
+                    $resultUsername = $healthdb->singleRecord();
+
+                    if (!$resultUsername) {
+                        $insertUser = "INSERT INTO `users` (`username`, `password`, `user_id`, `createdAt`,`accessLevel`) VALUES ('$emailAddress', '" . md5($password) . "', '$uuid', NOW(), 'Client')";
+                        $healthdb->prepare($insertUser);
+                        $healthdb->execute();
+                        echo 3; 
+                    } else {
+                        echo "Username already exists.";
+                    }
+  
         }
 
        

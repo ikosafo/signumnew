@@ -173,9 +173,9 @@ extract($data);
                 className: "success"
             });
 
-            setTimeout(function() {
+           /*  setTimeout(function() {
                 location.reload();
-            }, 500);
+            }, 500); */
 
         },
         'onSelect': function(file) {

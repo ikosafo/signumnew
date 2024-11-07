@@ -1,6 +1,6 @@
 <?php include ('includes/header.php');
-$uuid = Tools::generateUUID();
 extract($data);
+$uuid = $propertyDetails['uuid'];
 ?>
 
         <div class="content-body">
@@ -8,7 +8,7 @@ extract($data);
                 <div class="page-titles">
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="#">PROPERTY MANAGEMENT</a></li>
-						<li class="breadcrumb-item active"><a href="#">Add Property</a></li>
+						<li class="breadcrumb-item active"><a href="#">Edit Property</a></li>
 					</ol>
                 </div>
                 <!-- row -->
@@ -16,7 +16,7 @@ extract($data);
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Fill in the form below</h4>
+                                <h4 class="card-title">Edit Property Details of <strong><?= $propertyDetails['propertyName'] ?></strong></h4>
                             </div>
                             <div class="card-body wizard-box">
 								<div class="wizard-step-container">
@@ -53,78 +53,86 @@ extract($data);
                                                 <form class="row" id="needs-validation" novalidate="" autocomplete="off">
                                                     <div class="mb-3 col-md-4 col-sm-12">
                                                         <label class="form-label required">Property Name/Title</label>
-                                                        <input type="text" name="propertyName" class="form-control" placeholder="Green Valley Apartments" required>
+                                                        <input type="text" name="propertyName" class="form-control" value="<?= $propertyDetails['propertyName'] ?>" placeholder="Green Valley Apartments" required>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Property Type</label>
-                                                        <select name="propertyType" id="propertyType" class="form-control" required>
-                                                            <option value=""></option>
-                                                            <option value="Apartment">Apartment</option>
-                                                            <option value="House">House</option>
-                                                            <option value="Commercial">Commercial</option>
-                                                            <option value="Land">Land</option>
+                                                        <select name="propertyType" class="default-select form-control wide" required>
+                                                             <option value="" disabled>Select Property Type</option>
+                                                            <option value="Apartment" <?= ($propertyDetails['propertyType'] == 'Apartment') ? 'selected' : '' ?>>Apartment</option>
+                                                            <option value="House" <?= ($propertyDetails['propertyType'] == 'House') ? 'selected' : '' ?>>House</option>
+                                                            <option value="Commercial" <?= ($propertyDetails['propertyType'] == 'Commercial') ? 'selected' : '' ?>>Commercial</option>
+                                                            <option value="Land" <?= ($propertyDetails['propertyType'] == 'Land') ? 'selected' : '' ?>>Land</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Facilities</label>
-                                                        <select name="facilities" class="form-control" id="facilities" multiple="multiple">
-                                                            <option value="Swimming Pool">Swimming Pool</option>
-                                                            <option value="Gym/Fitness Center">Gym/Fitness Center</option>
-                                                            <option value="Parking Garage">Parking Garage</option>
-                                                            <option value="Elevator">Elevator</option>
-                                                            <option value="24/7 Security">24/7 Security</option>
-                                                            <option value="Childrens Playground">Children's Playground</option>
-                                                            <option value="Clubhouse/Community Hall">Clubhouse/Community Hall</option>
-                                                            <option value="Backup Power Generator">Backup Power Generator</option>
-                                                            <option value="CCTV Surveillance">CCTV Surveillance</option>
-                                                            <option value="On-site Laundry Facilities">On-site Laundry Facilities</option>
+                                                        <select name="facilities[]" class="form-control" id="facilities" multiple="multiple">
+                                                            <option value="Swimming Pool" <?= (strpos($propertyDetails['facilities'], 'Swimming Pool') !== false) ? 'selected' : '' ?>>Swimming Pool</option>
+                                                            <option value="Gym/Fitness Center" <?= (strpos($propertyDetails['facilities'], 'Gym/Fitness Center') !== false) ? 'selected' : '' ?>>Gym/Fitness Center</option>
+                                                            <option value="Parking Garage" <?= (strpos($propertyDetails['facilities'], 'Parking Garage') !== false) ? 'selected' : '' ?>>Parking Garage</option>
+                                                            <option value="Elevator" <?= (strpos($propertyDetails['facilities'], 'Elevator') !== false) ? 'selected' : '' ?>>Elevator</option>
+                                                            <option value="24/7 Security" <?= (strpos($propertyDetails['facilities'], '24/7 Security') !== false) ? 'selected' : '' ?>>24/7 Security</option>
+                                                            <option value="Childrens Playground" <?= (strpos($propertyDetails['facilities'], "Childrens Playground") !== false) ? 'selected' : '' ?>>Children's Playground</option>
+                                                            <option value="Clubhouse/Community Hall" <?= (strpos($propertyDetails['facilities'], 'Clubhouse/Community Hall') !== false) ? 'selected' : '' ?>>Clubhouse/Community Hall</option>
+                                                            <option value="Backup Power Generator" <?= (strpos($propertyDetails['facilities'], 'Backup Power Generator') !== false) ? 'selected' : '' ?>>Backup Power Generator</option>
+                                                            <option value="CCTV Surveillance" <?= (strpos($propertyDetails['facilities'], 'CCTV Surveillance') !== false) ? 'selected' : '' ?>>CCTV Surveillance</option>
+                                                            <option value="On-site Laundry Facilities" <?= (strpos($propertyDetails['facilities'], 'On-site Laundry Facilities') !== false) ? 'selected' : '' ?>>On-site Laundry Facilities</option>
                                                         </select>
+
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Property Category</label>
                                                         <select name="propertyCategory" id="propertyCategory" class="form-control" required>
-                                                            <option></option>
+                                                            <option disabled>Select Category</option>
                                                             <?php foreach ($listPropertyCategory as $record): ?>
-                                                                <option value="<?= $record->categoryId ?>"><?= $record->categoryName ?></option>
+                                                                <option value="<?= $record->categoryId ?>" 
+                                                                    <?= ($record->categoryId == $propertyDetails['propertyCategory']) ? 'selected' : '' ?>>
+                                                                    <?= $record->categoryName ?>
+                                                                </option>
                                                             <?php endforeach; ?>
                                                         </select>
                                                     </div>  
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label">Property Manager(s)</label>
-                                                        <select name="propertyManager" class="form-control" id="propertyManager" multiple="multiple">
+                                                        <?php $selectedManagers = explode(',', $propertyDetails['propertyManager']); ?>
+                                                        <select name="propertyManager[]" class="form-control" id="propertyManager" multiple="multiple">
                                                             <?php foreach ($listUsers as $record): ?>
-                                                                <option value="<?= $record->userid ?>"><?= $record->firstName.'  '.$record->lastName?></option>
+                                                                <option value="<?= $record->userid ?>" 
+                                                                    <?= in_array($record->userid, $selectedManagers) ? 'selected' : '' ?>>
+                                                                    <?= $record->firstName.'  '.$record->lastName ?>
+                                                                </option>
                                                             <?php endforeach; ?>
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Number of Units</label>
-                                                        <input type="text" name="numberOfUnits" class="form-control" onkeypress="return isNumber(event)" placeholder="e.g., 10" required>
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Property Size</label>
-                                                        <input type="text" name="propertySize" class="form-control" placeholder="e.g., 2000 sq ft or 0.5 acres" required>
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Furnishing Status</label>
-                                                        <select name="furnishingStatus" id="furnishingStatus" class="form-control" required>
-                                                            <option value="">Select Furnishing Status</option>
-                                                            <option value="Furnished">Furnished</option>
-                                                            <option value="Semi-Furnished">Semi-Furnished</option>
-                                                            <option value="Unfurnished">Unfurnished</option>
-                                                        </select>
+                                                        <label class="form-label required">Property Address</label>
+                                                        <textarea name="propertyAddress" class="form-control" placeholder="Full address including street, city, state, postal code, and country" rows="3" required><?= $propertyDetails['propertyAddress'] ?></textarea>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Location</label>
-                                                        <input type="text" name="location" class="form-control" placeholder="Location (e.g., city or neighborhood)" required>
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Property Address</label>
-                                                        <textarea name="propertyAddress" class="form-control" placeholder="Full address including street, city, state, postal code, and country" rows="3" required></textarea>
+                                                        <input type="text" name="location" class="form-control" value="<?= $propertyDetails['location'] ?>" placeholder="Location (e.g., city or neighborhood)" required>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label">Description</label>
-                                                        <textarea name="description" class="form-control" placeholder="Brief description of the property" rows="3"></textarea>
+                                                        <textarea name="description" class="form-control" placeholder="Brief description of the property" rows="3"><?= $propertyDetails['description'] ?></textarea>
+                                                    </div>
+                                                    <div class="form-group col-md-4 col-sm-12">
+                                                        <label class="form-label required">Number of Units</label>
+                                                        <input type="number" name="numberOfUnits" class="form-control" value="<?= $propertyDetails['numberOfUnits'] ?>" placeholder="e.g., 10" required>
+                                                    </div>
+                                                    <div class="form-group col-md-4 col-sm-12">
+                                                        <label class="form-label required">Property Size</label>
+                                                        <input type="text" name="propertySize" class="form-control" value="<?= $propertyDetails['propertySize'] ?>" placeholder="e.g., 2000 sq ft or 0.5 acres" required>
+                                                    </div>
+                                                    <div class="form-group col-md-4 col-sm-12">
+                                                        <label class="form-label required">Furnishing Status</label>
+                                                        <select name="furnishingStatus" class="default-select form-control wide" required>
+                                                            <option value="" disabled>Select Furnishing Status</option>
+                                                            <option value="Furnished" <?= (strpos($propertyDetails['furnishingStatus'], 'Furnished') !== false) ? 'selected' : '' ?>>Furnished</option>
+                                                            <option value="Semi-Furnished" <?= (strpos($propertyDetails['furnishingStatus'], 'Semi-Furnished') !== false) ? 'selected' : '' ?>>Semi-Furnished</option>
+                                                            <option value="Unfurnished" <?= (strpos($propertyDetails['furnishingStatus'], 'Unfurnished') !== false) ? 'selected' : '' ?>>Unfurnished</option>
+                                                        </select>
                                                     </div>
                                                     <div class="next-btn text-end col-sm-12">
                                                         <button type="submit" id="saveProperty" class="btn btn-primary btn-sm">Next <i class="fas fa-arrow-right ms-2"></i></button>
@@ -137,59 +145,53 @@ extract($data);
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Number of bedroom(s)</label>
                                                         <select name="numberRooms" class="form-control" id="numberRooms" multiple="multiple">
-                                                            <option value="1">1</option>
-                                                            <option value="2">2</option>
-                                                            <option value="3">3</option>
-                                                            <option value="4">4</option>
-                                                            <option value="5">5</option>
-                                                            <option value="6">6</option>
+                                                            <option value="1" <?= (strpos($propertyDetails['numberRooms'], '1') !== false) ? 'selected' : '' ?>>1</option>
+                                                            <option value="2" <?= (strpos($propertyDetails['numberRooms'], '2') !== false) ? 'selected' : '' ?>>2</option>
+                                                            <option value="3" <?= (strpos($propertyDetails['numberRooms'], '3') !== false) ? 'selected' : '' ?>>3</option>
+                                                            <option value="4" <?= (strpos($propertyDetails['numberRooms'], '4') !== false) ? 'selected' : '' ?>>4</option>
+                                                            <option value="5" <?= (strpos($propertyDetails['numberRooms'], '5') !== false) ? 'selected' : '' ?>>5</option>
+                                                            <option value="6" <?= (strpos($propertyDetails['numberRooms'], '6') !== false) ? 'selected' : '' ?>>6</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Rent Amount (use commas to match room count)</label>
-                                                        <input type="text" class="form-control" id="rentAmount" placeholder="Eg. 3200.50,5400.00,9400.34" required onkeypress="allowNumbersCommasDecimals(event)">
+                                                        <label class="form-label required">Expected Rent Amount (Separate them with commas to match the number of rooms selected)</label>
+                                                        <input type="text" class="form-control" id="rentAmount" placeholder="Eg. 3200.50,5400.00,9400.34" value="<?= $propertyDetails['rentAmount'] ?>" required onkeypress="allowNumbersCommasDecimals(event)">
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label">Expected Deposit Amount</label>
-                                                        <input type="number" class="form-control" id="depositAmount" placeholder="Enter deposit amount">
+                                                        <label class="form-label">Deposit Amount</label>
+                                                        <input type="text" class="form-control" onkeypress="allowTwoDecimalPlaces(event)" id="depositAmount" placeholder="Enter deposit amount" value="<?= $propertyDetails['depositAmount'] ?>">
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Expected Lease Period</label>
-                                                        <input type="text" class="form-control" id="leasePeriod" placeholder="Enter lease period (e.g., 1 year)" required>
+                                                        <label class="form-label required">Lease Period</label>
+                                                        <input type="text" class="form-control" id="leasePeriod" placeholder="Enter lease period (e.g., 1 year)" value="<?= $propertyDetails['leasePeriod'] ?>" required>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Expected Availability Date</label>
-                                                        <input type="date" class="form-control" placeholder="Select Date" id="availabilityDate" required>
+                                                        <label class="form-label required">Availability Date</label>
+                                                        <input type="date" class="form-control" placeholder="Select Date" id="availabilityDate" value="<?= $propertyDetails['availabilityDate'] ?>" required>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label">Utilities Included</label>
-                                                        <select class="form-control" style="width: 100%;"  id="utilitiesIncluded" required>
-                                                            <option value=""></option>
-                                                            <option value="Yes">Yes</option>
-                                                            <option value="No">No</option>
+                                                        <select class="default-select form-control wide" id="utilitiesIncluded">
+                                                            <option value="" disabled>Select</option>
+                                                            <option value="Yes" <?= (strpos($propertyDetails['utilitiesIncluded'], 'Yes') !== false) ? 'selected' : '' ?>>Yes</option>
+                                                            <option value="No" <?= (strpos($propertyDetails['utilitiesIncluded'], 'No') !== false) ? 'selected' : '' ?>>No</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Expected Rent Payment Frequency</label>
-                                                        <select class="form-control" id="paymentFrequency" style="width: 100%;" required>
-                                                            <option></option>    
-                                                            <option value="Monthly">Monthly</option>
-                                                            <option value="Quarterly">Quarterly</option>
-                                                            <option value="Yearly  (1 year)">Yearly  (1 year)</option>
-                                                            <option value="Biennially (2 years)">Biennially (2 years)</option>
-                                                            <option value="Triennially (3 years)">Triennially (3 years)</option>
-                                                            <option value="Quadrennially (4 years)">Quadrennially (4 years)</option>
-                                                            <option value="Quinquennially (5 years)">Quinquennially (5 years)</option>
+                                                        <label class="form-label required">Rent Payment Frequency</label>
+                                                        <select class="default-select form-control wide" id="paymentFrequency" required>
+                                                        <option value="" disabled>Select Payment Frequency</option>
+                                                            <option value="Monthly" <?= (strpos($propertyDetails['paymentFrequency'], 'Monthly') !== false) ? 'selected' : '' ?>>Monthly</option>
+                                                            <option value="Quarterly" <?= (strpos($propertyDetails['paymentFrequency'], 'Quarterly') !== false) ? 'selected' : '' ?>>Quarterly</option>
+                                                            <option value="Yearly" <?= (strpos($propertyDetails['paymentFrequency'], 'Yearly') !== false) ? 'selected' : '' ?>>Yearly</option>
                                                         </select>
                                                     </div>
                                                     <div class="next-btn d-flex col-sm-12">
                                                         <button type="button" class="btn btn-default prev1 btn-sm"><i class="fas fa-arrow-left me-2"></i> Previous</button>
-                                                        <button type="submit" id="saveRentalInfo" class="btn btn-success btn-sm">Submit <i class="fas fa-arrow-right ms-2"></i></button>
+                                                        <button type="submit" id="saveRentalInfo" class="btn btn-success btn-sm">Update <i class="fas fa-arrow-right ms-2"></i></button>
                                                     </div>
                                                 </form>
                                             </div>
-
-                                           
                                         </div>
                                     </div>
                             </div>
@@ -203,8 +205,19 @@ extract($data);
 
 <script>
 
-    $("#availabilityDate").flatpickr();
+    var navItems = document.querySelectorAll('a span.nav-text');
 
+    navItems.forEach(function(item) {
+        var textContent = item.textContent.trim().replace(/\s+/g, ' ');
+        console.log("Checking item:", textContent); 
+
+        if (textContent === 'BILLINGS') {
+            console.log("Found BILLINGS:", item); 
+            item.closest('li').classList.add('mm-active');
+        }
+    });
+    
+    $("#availabilityDate").flatpickr();
     $('#facilities').SumoSelect({
         placeholder: 'Select options',
         selectAll: true,
@@ -217,7 +230,7 @@ extract($data);
         search: true,
         okCancelInMulti: true
     });
-    
+
     $('#numberRooms').SumoSelect({
         placeholder: 'Select number of rooms',
         search: true,
@@ -228,26 +241,8 @@ extract($data);
         placeholder: "Select Category"
     });
 
-    $("#propertyType").select2({
-        placeholder: "Select Property Type"
-    });
-
-    $("#furnishingStatus").select2({
-        placeholder: "Select Furnishing Status"
-    });
-
-    $("#paymentFrequency").select2({
-        placeholder: "Select Payment Frequency"
-    });
-
-    $("#utilitiesIncluded").select2({
-        placeholder: "Select"
-    });
-    
-
-    // Save Property
     $("#saveProperty").on("click", function() {
-        //event.preventDefault(); 
+        event.preventDefault(); 
 
         var formData = {
             propertyName: $("input[name='propertyName']").val(),
@@ -335,8 +330,8 @@ extract($data);
     });
 
 
-    // Rental info
-    $("#saveRentalInfo").on("click", function(event) {
+     // Rental info
+     $("#saveRentalInfo").on("click", function(event) {
         event.preventDefault(); 
 
         var rentData = {

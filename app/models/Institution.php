@@ -16,7 +16,7 @@ class Institution extends tableDataObject
     public static function listUsers() {
         global $healthdb;
 
-        $getList = "SELECT * FROM `adminusers` where `status` = 1 ORDER BY `firstName`,`lastName` DESC";
+        $getList = "SELECT * FROM `users` where `status` = 1 ORDER BY `firstName`,`lastName` DESC";
         $healthdb->prepare($getList);
         $resultList = $healthdb->resultSet();
         return $resultList;
@@ -130,13 +130,13 @@ class Institution extends tableDataObject
         global $healthdb;
 
         // Query to check if the UUID already exists
-        $getByUuid = "SELECT * FROM `adminusers` WHERE `uuid` = '$uuid'";
+        $getByUuid = "SELECT * FROM `users` WHERE `uuid` = '$uuid'";
         $healthdb->prepare($getByUuid);
         $resultByUuid = $healthdb->singleRecord();
 
         if ($resultByUuid) {
         // Check if the new user already exists for a different UUID
-        $checkNameConflict = "SELECT * FROM `adminusers` WHERE (`emailAddress` = '$emailAddress' OR `phoneNumber` = '$phoneNumber') AND `uuid` != '$uuid'";
+        $checkNameConflict = "SELECT * FROM `users` WHERE (`emailAddress` = '$emailAddress' OR `phoneNumber` = '$phoneNumber') AND `uuid` != '$uuid'";
         $healthdb->prepare($checkNameConflict);
         $resultNameConflict = $healthdb->singleRecord();
 
@@ -145,7 +145,7 @@ class Institution extends tableDataObject
             echo 2;
         } else {
                 // If no conflict, update the existing record
-                $query = "UPDATE `adminusers` 
+                $query = "UPDATE `users` 
                 SET `firstName` = '$firstName',
                 `lastName` = '$lastName',
                 `emailAddress` = '$emailAddress',
@@ -165,7 +165,7 @@ class Institution extends tableDataObject
             }
         } else {
         // Query to check if a user with the same name exists
-        $getByName = "SELECT * FROM `adminusers` WHERE (`emailAddress` = '$emailAddress' OR `phoneNumber` = '$phoneNumber')";
+        $getByName = "SELECT * FROM `users` WHERE (`emailAddress` = '$emailAddress' OR `phoneNumber` = '$phoneNumber')";
         $healthdb->prepare($getByName);
         $resultByName = $healthdb->singleRecord();
 
@@ -174,7 +174,7 @@ class Institution extends tableDataObject
             echo 2;
         } else {
                 // Insert new user if no conflicts
-                $query = "INSERT INTO `adminusers`
+                $query = "INSERT INTO `users`
             (`firstName`,
              `lastName`,
              `emailAddress`,
@@ -214,19 +214,19 @@ class Institution extends tableDataObject
         ) {
         global $healthdb;
     
-        $getByUuid = "SELECT * FROM `adminusers` WHERE `uuid` = '$uuid'";
+        $getByUuid = "SELECT * FROM `users` WHERE `uuid` = '$uuid'";
         $healthdb->prepare($getByUuid);
         $resultByUuid = $healthdb->singleRecord();
     
         if ($resultByUuid) {
-            $checkNameConflict = "SELECT * FROM `adminusers` WHERE `username` = '$username' AND `uuid` != '$uuid'";
+            $checkNameConflict = "SELECT * FROM `users` WHERE `username` = '$username' AND `uuid` != '$uuid'";
             $healthdb->prepare($checkNameConflict);
             $resultNameConflict = $healthdb->singleRecord();
     
             if ($resultNameConflict) {
                 echo 2;
             } else {
-                $query = "UPDATE `adminusers` 
+                $query = "UPDATE `users` 
                           SET `username` = '$username',
                               `password` = '$password',
                               `securityQuestion` = '$securityQuestion',
@@ -239,14 +239,14 @@ class Institution extends tableDataObject
                 echo 1;
             }
         } else {
-            $getByName = "SELECT * FROM `adminusers` WHERE `username` = '$username'";
+            $getByName = "SELECT * FROM `users` WHERE `username` = '$username'";
             $healthdb->prepare($getByName);
             $resultByName = $healthdb->singleRecord();
     
             if ($resultByName) {
                 echo 2;
             } else {
-                $query = "UPDATE `adminusers` 
+                $query = "UPDATE `users` 
                           SET `username` = '$username',
                               `password` = '$password',
                               `securityQuestion` = '$securityQuestion',
@@ -268,7 +268,7 @@ class Institution extends tableDataObject
         ) {
         global $healthdb;
 
-        $query = "UPDATE `adminusers` SET 
+        $query = "UPDATE `users` SET 
                    `accessLevel` = '$userRole',`updatedAt` = NOW()
                     WHERE `uuid` = '$uuid'";
 
@@ -293,7 +293,7 @@ class Institution extends tableDataObject
     public static function userDetails($userid) {
         global $healthdb;
     
-        $getList = "SELECT * FROM `adminusers` WHERE `userid` = '$userid'";
+        $getList = "SELECT * FROM `users` WHERE `userid` = '$userid'";
         $healthdb->prepare($getList);
         $resultRec = $healthdb->singleRecord();
     

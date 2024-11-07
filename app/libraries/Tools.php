@@ -267,6 +267,26 @@ class Tools extends tableDataObject{
     }
 
 
+    public static function getUUIDbyid($uid) {
+        global $healthdb;
+
+        $query = "SELECT `user_id` FROM `users` WHERE `id` = '$uid'";
+        $healthdb->prepare($query);
+        $result = $healthdb->fetchColumn();
+        return $result;
+    }
+
+
+    public static function getClientidbyUUID($uuid) {
+        global $healthdb;
+
+        $query = "SELECT `clientid` FROM `clients` WHERE `uuid` = '$uuid'";
+        $healthdb->prepare($query);
+        $result = $healthdb->fetchColumn();
+        return $result;
+    }
+    
+
     public static function clientName($clientid) {
         global $healthdb;
 
@@ -274,6 +294,30 @@ class Tools extends tableDataObject{
         $healthdb->prepare($query);
         $result = $healthdb->fetchColumn();
         return $result;
+    }
+
+    public static function clientEmail($clientid) {
+        global $healthdb;
+
+        $query = "SELECT `emailAddress` FROM `clients` WHERE `clientid` = '$clientid'";
+        $healthdb->prepare($query);
+        $result = $healthdb->fetchColumn();
+        return $result;
+    }
+
+    
+    public static function generateRandomPassword($length = 9) {
+        // Define possible characters in the password
+        $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';
+        $charactersLength = strlen($characters);
+        $randomPassword = '';
+    
+        // Generate random characters from the set
+        for ($i = 0; $i < $length; $i++) {
+            $randomPassword .= $characters[rand(0, $charactersLength - 1)];
+        }
+    
+        return $randomPassword;
     }
 
 
