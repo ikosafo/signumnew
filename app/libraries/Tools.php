@@ -340,6 +340,27 @@ class Tools extends tableDataObject{
        
     }
 
+
+
+    public static function displayHeaderImages($uuid) {
+        global $healthdb;
+
+        $getname = "SELECT `newname` FROM `documents` where `randomnumber` = '$uuid'";
+        $healthdb->prepare($getname);
+        $result = $healthdb->resultSet();
+        if ($result) {
+            $imagesHtml = '';
+            foreach ($result as $results) { 
+                $imagesHtml .= '<img src="' . URLROOT . '/uploads/' . htmlspecialchars($results->newname) . '" width="20">';
+            }
+            return $imagesHtml.'<br>';
+        }
+        else {
+            return "";
+        } 
+       
+    }
+    
   /*   public static function getIpDetails()
     {
         $ip_address = ''; // Initialize IP address variable

@@ -94,11 +94,12 @@ class Billings extends tableDataObject
     public static function updatePayment($reference,$status,$clientid,$amount,$uuid,$rentid) {
         global $healthdb;
 
+        $updatedAmt = $amount / 100;
+
         $query = "INSERT INTO `payments`
                     (`amountPaid`,
                     `datePaid`,
                     `createdAt`,
-                    `paymentMethod`,
                     `billType`,
                     `paymentDescription`,
                     `serialNumber`,
@@ -108,10 +109,9 @@ class Billings extends tableDataObject
                     `receivedBy`
                 )
                 VALUES (
-                    '$amount',
+                    '$updatedAmt',
                     NOW(),
                     NOW(),
-                    'PayStack',
                     'Rent',
                     '$status',
                     '$reference',

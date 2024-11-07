@@ -763,7 +763,7 @@
                             <li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
 									<div class="header-info">
-										<span class="text-black">Henry Jr.</span>
+										<span class="text-black"><?= $_SESSION['username']; ?></span>
 										<p class="fs-12 mb-0">Admin</p>
 									</div>
                                     <img src="<?php echo URLROOT ?>/assets/images/profile/17.jpg" width="20" alt="/">

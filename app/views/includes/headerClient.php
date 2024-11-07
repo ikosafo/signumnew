@@ -763,11 +763,11 @@
                             <li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
 									<div class="header-info">
-										<span class="text-black">Henry Jr.</span>
-										<p class="fs-12 mb-0">Admin</p>
+										<span class="text-black"><?= $_SESSION['username']; ?></span>
+										<p class="fs-12 mb-0"><?= $_SESSION['accessLevel']; ?></p>
 									</div>
-                                    <img src="<?php echo URLROOT ?>/assets/images/profile/17.jpg" width="20" alt="/">
-                                </a>
+									<?= Tools::displayHeaderImages($_SESSION['user_id']) ?>
+                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">
                                     <a href="app-profile.html" class="dropdown-item ai-icon">
                                         <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>

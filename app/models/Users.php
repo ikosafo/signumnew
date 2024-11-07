@@ -123,6 +123,7 @@ class Users extends tableDataObject
             $verified = $result->emailverified;
             $userid = $result->id;
             $accessLevel = $result->accessLevel;
+            $user_id = $result->user_id;
     
             if ($emailaddress == "") {
                 $_SESSION['username'] = $username;
@@ -140,6 +141,9 @@ class Users extends tableDataObject
                 $_SESSION['password'] = $password;
                 $_SESSION['uid'] = $userid;
                 $_SESSION['emailverified'] = $verified;
+                $_SESSION['accessLevel'] = $accessLevel;
+                $_SESSION['user_id'] = $user_id;
+
                 if ($accessLevel === 'Client') {
                     echo json_encode(['status' => 6]);
                 }

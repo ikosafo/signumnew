@@ -65,6 +65,20 @@
 </div>
 <div id="makePaymentDiv"></div>
 
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="paymentModalLabel">Payment</h5>
+            </div>
+            <div class="modal-body">
+                <!-- Payment iframe -->
+                <iframe id="paymentFrame" src="" style="width: 100%; height: 600px; border: none;"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="<?php echo URLROOT ?>/assets/js/inline.js"></script>
 
@@ -85,12 +99,11 @@
         var rentid = $(this).data('rentid');
         var email = $(this).data('email'); 
 
-        // Initialize the Paystack payment modal
         var handler = PaystackPop.setup({
             key: 'pk_test_e9c02de44d365f18c863d41a01caa43aba1b1568',
             email: email,
             amount: amount, 
-            rentid:rentid,
+            rentid: rentid,
             currency: 'GHS',
             metadata: {
                 custom_fields: [
@@ -102,24 +115,25 @@
                 ]
             },
             callback: function(response) {
-                    loadPage("/tables/billPaymentClient", function(response) {
-                        $('#billPaymentTableDiv').html(response);
-                    });
+                console.log("Paystack Callback Response: ", response);
+                setTimeout(function() {
+                    console.log("Reloading the page...");
+                    location.reload();
+                }, 3000);
+
+                // Send data to verify payment on the server
                 $.post('/billing/verifyPayment', { 
                     reference: response.reference, 
                     status: response.status,
                     amount: amount,
                     rentid: rentid
-                 }, function(data) {
+                }, function(data) {
                     var responseData = JSON.parse(data);
+
                     if (responseData.status) {
                         $.notify("Payment successful!", {
                             position: "top center",
                             className: "success"
-                        });
-
-                        loadPage("/tables/billPaymentClient", function(response) {
-                            $('#billPaymentTableDiv').html(response);
                         });
                     } else {
                         $.notify("Payment verification failed!", {
@@ -127,10 +141,20 @@
                             className: "error"
                         });
                     }
-                });
 
+                    // Ensure the page reloads after notification
+                    setTimeout(function() {
+                        console.log("Reloading the page...");
+                        location.reload();
+                    }, 1000);
+
+                }).fail(function(error) {
+                    console.log("Error in POST request: ", error);
+                });
             },
             onClose: function() {
+                // Log when the payment window is closed
+                console.log("Paystack payment window closed.");
                 $.notify("Payment window closed!", {
                     position: "top center",
                     className: "error"
@@ -138,9 +162,10 @@
             }
         });
 
-        // Open the modal
+        // Open the Paystack iframe
         handler.openIframe();
     });
+
 
 
 </script>

@@ -2,7 +2,6 @@
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $reference = $_POST['reference'];
-
     if (!$reference) {
         echo json_encode(['status' => false, 'message' => 'No reference provided']);
         exit;
