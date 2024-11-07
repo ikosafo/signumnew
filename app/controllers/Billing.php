@@ -14,14 +14,13 @@ class Billing extends Controller
 
             if ($transactionData) {
                 // Retrieve the details from the response
-                //$email = $transactionData['data']['email'];
                 $amount = $transactionData['data']['amount']; 
                 $clientid = $transactionData['data']['metadata']['clientid'];
 
                 // Pass the data to your view or do further processing
                 $this->view("billing/callback", [
                     'clientid' => $clientid,
-                    'amount' => $amount 
+                    'amount' => $amount
                 ]);
             } else {
                 echo "Error: Unable to verify transaction.";

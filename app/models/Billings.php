@@ -91,6 +91,53 @@ class Billings extends tableDataObject
     }
 
 
+    public static function updatePayment($reference,$status,$clientid,$amount,$uuid,$rentid) {
+        global $healthdb;
+
+        $query = "INSERT INTO `payments`
+                    (`amountPaid`,
+                    `datePaid`,
+                    `createdAt`,
+                    `paymentMethod`,
+                    `billType`,
+                    `paymentDescription`,
+                    `serialNumber`,
+                    `paymentStatus`,
+                    `uuid`,
+                    `clientid`,
+                    `receivedBy`
+                )
+                VALUES (
+                    '$amount',
+                    NOW(),
+                    NOW(),
+                    'PayStack',
+                    'Rent',
+                    '$status',
+                    '$reference',
+                    '$status',
+                    '$uuid',
+                    '$clientid',
+                    'Client Portal'
+                )";
+
+                $healthdb->prepare($query);
+                $healthdb->execute();
+                echo 1;  // Successfully inserted
+
+
+                $updateRent = "UPDATE `rentinfo`
+                        SET `updatedAt` = NOW(),
+                        `paymentStatus` = '$status'
+                        WHERE `rentid` = '$rentid'";
+
+                    $healthdb->prepare($updateRent);
+                    $healthdb->execute();
+                    echo 1;  // Successfully updated
+
+    }
+
+
     public static function paymentDetails($paymentid) {
         global $healthdb;
     

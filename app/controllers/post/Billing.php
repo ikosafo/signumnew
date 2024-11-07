@@ -41,5 +41,23 @@ class Billing extends PostController
     }
 
 
+    public function verifyPayment()
+    {
+        $reference = $_POST['reference'];
+        $status = $_POST['status'];
+        $amount = $_POST['amount'];
+        $uid = $_SESSION['uid'];
+        $rentid = $_POST['rentid'];
+        $uuid = Tools::getUUIDbyid($uid);
+        $clientid = Tools::getClientidbyUUID($uuid);
+        Billings::updatePayment($reference,$status,$clientid,$amount,$uuid,$rentid);
+        $this->view("billing/verifyPayment", [
+            'reference' => $reference,
+            'clientid' => $clientid,
+            'status' => $status
+        ]);
+    }
+
+    
 
 }

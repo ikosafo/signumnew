@@ -33,9 +33,25 @@
                                     <td><?= 'From: ' . $result->startDate . ' <br> To: ' . $result->endDate ?></td>
                                     <td>
                                         <div class="d-flex">
-                                            <a href="javascript:void(0);" class="btn btn-success makePayment" 
-                                               data-clientid="<?= $result->clientid ?>" 
-                                               data-amount="<?= ($result->rentAmount + $result->penaltyAmount) * 100 ?>">Pay Now</a>
+                                            <?php if ($result->paymentStatus === "success") {
+                                               echo '<span class="bgl-success text-success rounded p-1 ps-2 pe-2 font-w600 fs-12 d-inline-block mb-2 mb-sm-3">Paid</span>';
+                                            }
+                                            else if ($result->paymentStatus === "pending") {
+                                                echo '<span class="bgl-primary text-primary rounded p-1 ps-2 pe-2 font-w600 fs-12 d-inline-block mb-2 mb-sm-3">Pending</span>';
+                                            }
+                                            else if ($result->paymentStatus === "timeout" || $result->paymentStatus === "failed") {
+                                                echo '<span class="bgl-danger text-danger rounded p-1 ps-2 pe-2 font-w600 fs-12 d-inline-block mb-2 mb-sm-3">Pending</span>';
+                                            }
+                                            else { ?>
+                                                <a href="javascript:void(0);" class="btn btn-success makePayment" 
+                                                data-clientid="<?= $result->clientid ?>" 
+                                                data-rentid="<?= $result->rentid ?>" 
+                                                data-email="<?= Tools::clientEmail($result->clientid) ?>" 
+                                                data-amount="<?= ($result->rentAmount + $result->penaltyAmount) * 100 ?>">Pay Now
+                                                </a>
+
+                                            <?php } ?>
+                                           
                                         </div>
                                     </td>
                                 </tr>
@@ -49,6 +65,9 @@
 </div>
 <div id="makePaymentDiv"></div>
 
+
+<script src="<?php echo URLROOT ?>/assets/js/inline.js"></script>
+
 <script>
     $("#clientTable").DataTable({
         language: {
@@ -59,27 +78,69 @@
         }
     });
 
+ 
     $(document).on('click', '.makePayment', function() {
         var clientid = $(this).data('clientid');
         var amount = $(this).data('amount');
-        
-        // Initiating payment request
-        $.ajax({
-            url: '/billing/initiatePayment', // Your backend endpoint
-            method: 'POST',
-            data: { clientid: clientid, amount: amount },
-            success: function(response) {
-                var data = JSON.parse(response);
-                if (data.authorization_url) {
-                    // Open the Paystack authorization URL in a new tab
-                    window.open(data.authorization_url, '_blank');
-                } else {
-                    alert('Error: ' + data.error || 'Unknown error');
-                }
+        var rentid = $(this).data('rentid');
+        var email = $(this).data('email'); 
+
+        // Initialize the Paystack payment modal
+        var handler = PaystackPop.setup({
+            key: 'pk_test_e9c02de44d365f18c863d41a01caa43aba1b1568',
+            email: email,
+            amount: amount, 
+            rentid:rentid,
+            currency: 'GHS',
+            metadata: {
+                custom_fields: [
+                    {
+                        display_name: "Client ID",
+                        variable_name: "client_id",
+                        value: clientid
+                    }
+                ]
             },
-            error: function() {
-                alert('An error occurred. Please try again.');
+            callback: function(response) {
+                    loadPage("/tables/billPaymentClient", function(response) {
+                        $('#billPaymentTableDiv').html(response);
+                    });
+                $.post('/billing/verifyPayment', { 
+                    reference: response.reference, 
+                    status: response.status,
+                    amount: amount,
+                    rentid: rentid
+                 }, function(data) {
+                    var responseData = JSON.parse(data);
+                    if (responseData.status) {
+                        $.notify("Payment successful!", {
+                            position: "top center",
+                            className: "success"
+                        });
+
+                        loadPage("/tables/billPaymentClient", function(response) {
+                            $('#billPaymentTableDiv').html(response);
+                        });
+                    } else {
+                        $.notify("Payment verification failed!", {
+                            position: "top center",
+                            className: "error"
+                        });
+                    }
+                });
+
+            },
+            onClose: function() {
+                $.notify("Payment window closed!", {
+                    position: "top center",
+                    className: "error"
+                });
             }
         });
+
+        // Open the modal
+        handler.openIframe();
     });
+
+
 </script>
