@@ -34,8 +34,6 @@
                                 <td>
                                     <div class="d-flex">
                                         <a href="javascript:void(0);" class="btn btn-primary viewPayment shadow btn-xs sharp me-1" paymentid='<?= $result->payid ?>'><i class="fas fa-eye"></i></a>
-                                        <a href="javascript:void(0);" class="btn btn-warning editPayment shadow btn-xs sharp me-1" paymentid='<?= $result->payid ?>'><i class="fas fa-pencil-alt"></i></a>
-                                        <a href="javascript:void(0);" class="btn btn-danger deletePayment shadow btn-xs sharp" paymentid='<?= $result->payid ?>'><i class="fas fa-trash"></i></a>
                                     </div>
                                 </td>
                             </tr>

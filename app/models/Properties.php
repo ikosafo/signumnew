@@ -38,23 +38,41 @@ class Properties extends tableDataObject
             } else {
                 // If no conflict, update the existing record
                 $query = "UPDATE `properties` 
-                        SET `propertyName` = '$propertyName',
-                            `propertyType` = '$propertyType',
-                            `propertyCategory` = '$propertyCategory',
-                            `propertyAddress` = '$propertyAddress',
-                            `location` = '$location',
-                            `description` = '$description',
-                            `numberOfUnits` = '$numberOfUnits',
-                            `propertySize` = '$propertySize',
-                            `furnishingStatus` = '$furnishingStatus',
-                            `propertyManager` = '$propertyManagerString',
-                            `facilities` = '$facilitiesString',
-                            `updatedAt` = NOW()
-                        WHERE `uuid` = '$uuid'";
+            SET `propertyName` = :propertyName,
+                `propertyType` = :propertyType,
+                `propertyCategory` = :propertyCategory,
+                `propertyAddress` = :propertyAddress,
+                `location` = :location,
+                `description` = :description,
+                `numberOfUnits` = :numberOfUnits,
+                `propertySize` = :propertySize,
+                `furnishingStatus` = :furnishingStatus,
+                `propertyManager` = :propertyManager,
+                `facilities` = :facilities,
+                `updatedAt` = NOW()
+            WHERE `uuid` = :uuid";
 
                 $healthdb->prepare($query);
-                $healthdb->execute();
-                echo 1;  // Successfully updated
+                $healthdb->bind(':propertyName', $propertyName);
+                $healthdb->bind(':propertyType', $propertyType);
+                $healthdb->bind(':propertyCategory', $propertyCategory);
+                $healthdb->bind(':propertyAddress', $propertyAddress);
+                $healthdb->bind(':location', $location);
+                $healthdb->bind(':description', $description);
+                $healthdb->bind(':numberOfUnits', $numberOfUnits);
+                $healthdb->bind(':propertySize', $propertySize);
+                $healthdb->bind(':furnishingStatus', $furnishingStatus);
+                $healthdb->bind(':propertyManager', $propertyManagerString);
+                $healthdb->bind(':facilities', $facilitiesString);
+                $healthdb->bind(':uuid', $uuid);
+
+                // Execute the statement and check for errors
+                if (!$healthdb->execute()) {
+                    die('Execute error: ' . $healthdb->error);
+                } else {
+                    echo 3;  // Print success message
+                }
+
             }
         } else {
             // Query to check if a property with the same name exists
@@ -68,36 +86,39 @@ class Properties extends tableDataObject
             } else {
                 // Insert new property if no conflicts
                 $query = "INSERT INTO `properties`
-                            (`propertyName`,
-                            `propertyType`,
-                            `propertyCategory`,
-                            `propertyAddress`,
-                            `location`,
-                            `description`,
-                            `numberOfUnits`,
-                            `propertySize`,
-                            `furnishingStatus`,
-                            `propertyManager`,
-                            `facilities`,
-                            `createdAt`,
-                            `uuid`)
-                        VALUES ('$propertyName',
-                                '$propertyType',
-                                '$propertyCategory',
-                                '$propertyAddress',
-                                '$location',
-                                '$description',
-                                '$numberOfUnits',
-                                '$propertySize',
-                                '$furnishingStatus',
-                                '$propertyManagerString',
-                                '$facilitiesString',
-                                NOW(),
-                                '$uuid')";
+                    (`propertyName`, `propertyType`, `propertyCategory`, `propertyAddress`, `location`, `description`, `numberOfUnits`, `propertySize`, `furnishingStatus`, `propertyManager`, `facilities`, `createdAt`, `uuid`)
+                    VALUES (:propertyName, :propertyType, :propertyCategory, :propertyAddress, :location, :description, :numberOfUnits, :propertySize, :furnishingStatus, :propertyManager, :facilities, NOW(), :uuid)";
 
-                $healthdb->prepare($query);
-                $healthdb->execute();
-                echo 1;  // Successfully inserted
+                    $healthdb->prepare($query);
+
+                    // Bind the variables using named parameters
+                    $healthdb->bind(':propertyName', $propertyName);
+                    $healthdb->bind(':propertyType', $propertyType);
+                    $healthdb->bind(':propertyCategory', $propertyCategory);
+                    $healthdb->bind(':propertyAddress', $propertyAddress);
+                    $healthdb->bind(':location', $location);
+                    $healthdb->bind(':description', $description);
+                    $healthdb->bind(':numberOfUnits', $numberOfUnits);
+                    $healthdb->bind(':propertySize', $propertySize);
+                    $healthdb->bind(':furnishingStatus', $furnishingStatus);
+                    $healthdb->bind(':propertyManager', $propertyManagerString);
+                    $healthdb->bind(':facilities', $facilitiesString);
+                    $healthdb->bind(':uuid', $uuid);
+
+                    // Execute the statement and check for errors
+                    if (!$healthdb->execute()) {
+                        die('Execute error: ' . $healthdb->error);
+                    } else {
+                        echo 1;  // Successfully inserted
+                    }
+
+                
+
+                $logInsQ = "insert into systemlog (logcategory,user,logmessage,diagnostic)
+					values ('debug','AD API',:message,:logdiag)";
+
+                    $healthdb->prepare($facilitiesString);
+                    $healthdb->bind(':pin', $propertyManagerString);
             }
         }
     }
@@ -190,6 +211,7 @@ class Properties extends tableDataObject
        
     }
 
+
     public static function deleteRentInfo($rentid) {
 
         global $healthdb;
@@ -223,19 +245,35 @@ class Properties extends tableDataObject
 
         // If no conflict, update the existing record
         $query = "UPDATE `properties` 
-        SET `rentAmount` = '$rentAmount',
-            `depositAmount` = '$depositAmount',
-            `leasePeriod` = '$leasePeriod',
-            `availabilityDate` = '$availabilityDate',
-            `utilitiesIncluded` = '$utilitiesIncluded',
-            `paymentFrequency` = '$paymentFrequency',
-            `numberRooms` = '$numberRoomsString',
+        SET `rentAmount` = :rentAmount,
+            `depositAmount` = :depositAmount,
+            `leasePeriod` = :leasePeriod,
+            `availabilityDate` = :availabilityDate,
+            `utilitiesIncluded` = :utilitiesIncluded,
+            `paymentFrequency` = :paymentFrequency,
+            `numberRooms` = :numberRooms,
             `updatedAt` = NOW()
-        WHERE `uuid` = '$uuid'";
+        WHERE `uuid` = :uuid";
 
+        // Prepare the query
         $healthdb->prepare($query);
-        $healthdb->execute();
-        echo 1;  // Successfully updated
+
+        // Bind parameters to the query
+        $healthdb->bind(':rentAmount', $rentAmount);
+        $healthdb->bind(':depositAmount', $depositAmount);
+        $healthdb->bind(':leasePeriod', $leasePeriod);
+        $healthdb->bind(':availabilityDate', $availabilityDate);
+        $healthdb->bind(':utilitiesIncluded', $utilitiesIncluded);
+        $healthdb->bind(':paymentFrequency', $paymentFrequency);
+        $healthdb->bind(':numberRooms', $numberRoomsString);
+        $healthdb->bind(':uuid', $uuid);
+
+        // Execute and check for errors
+        if (!$healthdb->execute()) {
+            die('Execute error: ' . $healthdb->error);
+        } else {
+            echo 1;  // Indicate success
+        }
 
     }
 
@@ -375,7 +413,7 @@ class Properties extends tableDataObject
     public static function listProperties() {
         global $healthdb;
 
-        $getList = "SELECT * FROM `properties` where `status` = 1 ORDER BY `propertyName`";
+        $getList = "SELECT * FROM `properties` where `status` = 1 ORDER BY updatedAt DESC";
         $healthdb->prepare($getList);
         $resultList = $healthdb->resultSet();
         return $resultList;

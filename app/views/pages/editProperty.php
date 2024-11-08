@@ -68,6 +68,7 @@ $uuid = $propertyDetails['uuid'];
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Facilities</label>
                                                         <select name="facilities[]" class="form-control" id="facilities" multiple="multiple">
+                                                            <option value="None" <?= (strpos($propertyDetails['facilities'], 'None') !== false) ? 'selected' : '' ?>>None</option>
                                                             <option value="Swimming Pool" <?= (strpos($propertyDetails['facilities'], 'Swimming Pool') !== false) ? 'selected' : '' ?>>Swimming Pool</option>
                                                             <option value="Gym/Fitness Center" <?= (strpos($propertyDetails['facilities'], 'Gym/Fitness Center') !== false) ? 'selected' : '' ?>>Gym/Fitness Center</option>
                                                             <option value="Parking Garage" <?= (strpos($propertyDetails['facilities'], 'Parking Garage') !== false) ? 'selected' : '' ?>>Parking Garage</option>
@@ -106,18 +107,6 @@ $uuid = $propertyDetails['uuid'];
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Property Address</label>
-                                                        <textarea name="propertyAddress" class="form-control" placeholder="Full address including street, city, state, postal code, and country" rows="3" required><?= $propertyDetails['propertyAddress'] ?></textarea>
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Location</label>
-                                                        <input type="text" name="location" class="form-control" value="<?= $propertyDetails['location'] ?>" placeholder="Location (e.g., city or neighborhood)" required>
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label">Description</label>
-                                                        <textarea name="description" class="form-control" placeholder="Brief description of the property" rows="3"><?= $propertyDetails['description'] ?></textarea>
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Number of Units</label>
                                                         <input type="number" name="numberOfUnits" class="form-control" value="<?= $propertyDetails['numberOfUnits'] ?>" placeholder="e.g., 10" required>
                                                     </div>
@@ -134,6 +123,22 @@ $uuid = $propertyDetails['uuid'];
                                                             <option value="Unfurnished" <?= (strpos($propertyDetails['furnishingStatus'], 'Unfurnished') !== false) ? 'selected' : '' ?>>Unfurnished</option>
                                                         </select>
                                                     </div>
+                                                    <div class="form-group col-md-4 col-sm-12">
+                                                        <label class="form-label required">Location</label>
+                                                        <input type="text" name="location" class="form-control" value="<?= $propertyDetails['location'] ?>" placeholder="Location (e.g., city or neighborhood)" required>
+                                                    </div>
+                                                    <div class="form-group col-md-4 col-sm-12">
+                                                        <label class="form-label required">Property Address</label>
+                                                        <textarea name="propertyAddress" class="form-control" placeholder="Full address including street, city, state, postal code, and country" rows="3" required><?= $propertyDetails['propertyAddress'] ?></textarea>
+                                                    </div>
+                                                    
+                                                    <div class="form-group col-md-4 col-sm-12">
+                                                        <label class="form-label">Description</label>
+                                                        <textarea name="description" class="form-control" placeholder="Brief description of the property" rows="3"><?= $propertyDetails['description'] ?></textarea>
+                                                    </div>
+                                                   
+                                                    
+                                                   
                                                     <div class="next-btn text-end col-sm-12">
                                                         <button type="submit" id="saveProperty" class="btn btn-primary btn-sm">Next <i class="fas fa-arrow-right ms-2"></i></button>
                                                     </div>
@@ -154,7 +159,7 @@ $uuid = $propertyDetails['uuid'];
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Expected Rent Amount (Separate them with commas to match the number of rooms selected)</label>
+                                                        <label class="form-label required">Rent Amount (use commas to match room count)</label>
                                                         <input type="text" class="form-control" id="rentAmount" placeholder="Eg. 3200.50,5400.00,9400.34" value="<?= $propertyDetails['rentAmount'] ?>" required onkeypress="allowNumbersCommasDecimals(event)">
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
@@ -264,7 +269,7 @@ $uuid = $propertyDetails['uuid'];
             response = JSON.parse(response);
             //alert(response);
 
-            if (response == 1) {
+            if (response == 1 || response == 3) {
                 $("#needs-validation").addClass("was-validated");  
                 $('.step-1').removeClass('active').addClass('disabled');
                 $('.step-2').addClass('active');

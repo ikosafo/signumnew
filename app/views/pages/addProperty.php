@@ -68,6 +68,7 @@ extract($data);
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Facilities</label>
                                                         <select name="facilities" class="form-control" id="facilities" multiple="multiple">
+                                                            <option value="None">None</option>
                                                             <option value="Swimming Pool">Swimming Pool</option>
                                                             <option value="Gym/Fitness Center">Gym/Fitness Center</option>
                                                             <option value="Parking Garage">Parking Garage</option>
@@ -151,7 +152,7 @@ extract($data);
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label">Expected Deposit Amount</label>
-                                                        <input type="number" class="form-control" id="depositAmount" placeholder="Enter deposit amount">
+                                                        <input type="text" class="form-control" id="depositAmount" onkeypress="allowTwoDecimalPlaces(event)"  placeholder="Enter deposit amount">
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Expected Lease Period</label>
@@ -247,7 +248,7 @@ extract($data);
 
     // Save Property
     $("#saveProperty").on("click", function() {
-        //event.preventDefault(); 
+        event.preventDefault(); 
 
         var formData = {
             propertyName: $("input[name='propertyName']").val(),

@@ -838,17 +838,6 @@
                         </ul>
                     </li>
 					<li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-							<i class="flaticon-app"></i>
-							<span class="nav-text">INSPECTIONS</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="<?php echo URLROOT ?>/pages/scheduleInspection">Schedule Inspections</a></li>
-							<li><a href="<?php echo URLROOT ?>/pages/inspectionResults">Record Inspection Results</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/inspectionHistory">Inspection History</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/inspectionReports">Inspection Reports</a></li>
-                        </ul>
-                    </li>				
-					<li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
 							<i class="flaticon-381-database-1"></i>
 							<span class="nav-text">BILLINGS</span>
 							
@@ -861,7 +850,18 @@
                             <li><a href="<?php echo URLROOT ?>/pages/billReceipts">Rent Receipts</a></li>
                         </ul>
                     </li>
-                    <li>
+					<li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+							<i class="flaticon-app"></i>
+							<span class="nav-text">INSPECTIONS</span>
+						</a>
+                        <ul aria-expanded="false">
+                            <li><a href="<?php echo URLROOT ?>/pages/scheduleInspection">Schedule Inspections</a></li>
+							<li><a href="<?php echo URLROOT ?>/pages/inspectionResults">Record Inspection Results</a></li>
+                            <li><a href="<?php echo URLROOT ?>/pages/inspectionHistory">Inspection History</a></li>
+                            <li><a href="<?php echo URLROOT ?>/pages/inspectionReports">Inspection Reports</a></li>
+                        </ul>
+                    </li>				
+					<li>
 						<a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                          	<i class="flaticon-381-back-1"></i>
 							<span class="nav-text">FINANCIALS</span>
