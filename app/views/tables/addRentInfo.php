@@ -16,6 +16,7 @@
                             <th width="20%">PROPERTY</th>
                             <th width="20%">START DATE</th>
                             <th width="20%">END DATE</th>
+                            <th width="20%">RENT AMOUNT</th>
                             <th width="20%">BEDROOMS</th>
                             <th width="10%">ACTION</th>
                         </tr>
@@ -30,6 +31,7 @@
                                 <td><?= Tools::propertyClient($result->propertyid) ?></td>
                                 <td><?= $result->startDate ?></td>
                                 <td><?= $result->endDate ?></td>
+                                <td><?= number_format($result->rentAmount,2) ?></td>
                                 <td><?= $result->numberRoom ?></td>
                                 <td>
                                     <div class="d-flex">

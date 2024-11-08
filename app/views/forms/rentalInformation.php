@@ -1,5 +1,6 @@
 <?php
 extract($data);
+$uuid = Tools::generateUUID();
 ?>
 <div class="row">
     <div class="col-12">

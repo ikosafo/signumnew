@@ -194,6 +194,10 @@ $propertyid = $rentInfo['propertyid'];
                 error += 'Lease End Date is required\n';
                 $("#endDate").focus();
             }
+            if (rentData.endDate && (rentData.endDate < rentData.startDate)) {
+                error += 'Specify appropriate date interval\n';
+                $("#endDate").focus();
+            }
             if (!rentData.leaseType) {
                 error += 'Lease Type is required\n';
                 $("#leaseType").focus();

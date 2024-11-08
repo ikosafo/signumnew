@@ -144,7 +144,13 @@ class Pages extends Controller
         $this->view("pages/addClient",[
             'listProperties' => $listProperties
         ]);
-    }  
+    } 
+    
+    
+    public function addInspectors() {
+        new Guard();
+        $this->view("pages/addInspectors");
+    } 
 
 
     public function rentInformation() {
@@ -159,9 +165,18 @@ class Pages extends Controller
     public function billPayments() {
         new Guard();
         $this->view("pages/billPayments");
-    }  
-
+    } 
     
+
+    public function scheduleInspection() {
+        new Guard();
+        $listProperties = Properties::listProperties();
+        $this->view("pages/scheduleInspection",[
+            'listProperties' => $listProperties
+        ]);
+    } 
+    
+
     public function billPaymentClient() {
         new Guard();
         $this->view("pages/billPaymentClient");
