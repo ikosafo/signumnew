@@ -64,81 +64,62 @@ extract($data);
                                     </div>
                                     <div class="form-group col-md-4 col-sm-12">
                                         <label class="form-label required">Assigned Inspector</label>
-                                        <select class="default-select form-control wide" id="ownershipType" required>
-                                            <option value="">Select Ownership Type</option>
-                                            <option value="Individual">Individual</option>
-                                            <option value="Company">Company</option>
+                                        <select class="form-control" id="inspector" required>
+                                            <option></option>
+                                            <?php foreach ($listUsers as $record): ?>
+                                                <option value="<?= $record->id ?>"><?= $record->firstName.' '.$record->lastName ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-4 col-sm-12">
+                                        <label class="form-label required">Recurrence Frequency</label>
+                                        <select class="form-control" id="recurrenceFrequency" required>
+                                            <option value="">Select Frequency</option>
+                                            <option value="One-Time">One-Time</option>
+                                            <option value="Daily">Daily</option>
+                                            <option value="Weekly">Weekly</option>
+                                            <option value="Bi-Weekly">Bi-Weekly</option>
+                                            <option value="Monthly">Monthly</option>
+                                            <option value="Quarterly">Quarterly</option>
+                                            <option value="Semi-Annually">Semi-Annually</option>
+                                            <option value="Annually">Annually</option>
+                                            <option value="Every 2 Months">Every 2 Months</option>
+                                            <option value="Every 3 Weeks">Every 3 Weeks</option>
+                                            <option value="Custom">Custom</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-md-4 col-sm-12">
+                                        <label class="form-label required">Inspection Status</label>
+                                        <select class="form-control" id="inspectionStatus" required>
+                                            <option value="">Select Status</option>
+                                            <option value="Scheduled">Scheduled</option>
+                                            <option value="Completed">Completed</option>
+                                            <option value="Cancelled">Cancelled</option>
+                                            <option value="In Progress">In Progress</option>
+                                            <option value="Pending Review">Pending Review</option>
+                                            <option value="Failed">Failed</option>
+                                            <option value="Rescheduled">Rescheduled</option>
+                                            <option value="On Hold">On Hold</option>
+                                            <option value="Awaiting Approval">Awaiting Approval</option>
                                         </select>
                                     </div>
                                     
                                     <div class="form-group col-md-4 col-sm-12">
-                                        <label class="form-label required">Contact Email</label>
-                                        <input type="email" class="form-control" id="emailAddress" placeholder="Enter email address" required>
+                                        <label class="form-label required">Inspection Location Details (Optional)</label>
+                                        <textarea class="form-control" id="inspectionDuration" placeholder="Estimated time (e.g., 1 hour, 2 hours)" required></textarea>
                                     </div>
                                     <div class="form-group col-md-4 col-sm-12">
-                                        <label class="form-label required">Phone Number</label>
-                                        <input type="text" class="form-control" id="phoneNumber" maxlength="10" onkeypress="return isNumber(event)" placeholder="Enter phone number" required>
+                                        <label class="form-label required">Description</label>
+                                        <textarea class="form-control" id="inspectionDescription" placeholder="Enter description" required></textarea>
                                     </div>
                                     <div class="form-group col-md-4 col-sm-12">
-                                        <label class="form-label">Alternative Phone Number</label>
-                                        <input type="text" class="form-control" id="altPhoneNumber" maxlength="10" onkeypress="return isNumber(event)" placeholder="Alternative Phone Number">
-                                    </div>
-                                    <div class="form-group col-md-4 col-sm-12">
-                                        <label class="form-label required">Residential Address</label>
-                                        <input type="text" class="form-control" id="residentialAddress" placeholder="Enter residential address" required>
-                                    </div>
-                                    <div class="form-group col-md-4 col-sm-12">
-                                        <label class="form-label required">Nationality</label>
-                                        <input type="text" class="form-control" id="nationality" placeholder="Enter nationality">
-                                    </div>
-                                    <div class="form-group col-md-4 col-sm-12">
-                                        <label class="form-label required">Date of Birth</label>
-                                        <input type="date" class="form-control" id="birthDate" placeholder="Select Date" required>
-                                    </div>
-                                    <div class="form-group col-md-4 col-sm-12">
-                                        <label class="form-label required">Gender</label>
-                                        <select id="gender" class="default-select form-control wide" required>
-                                            <option value="">Select Gender</option>
-                                            <option value="Male">Male</option>
-                                            <option value="Female">Female</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-4 col-sm-12">
-                                        <label class="form-label required">Marital Status</label>
-                                        <select name="maritalStatus" id="maritalStatus" class="default-select form-control wide" required>
-                                            <option value="">Select Marital Status</option>
-                                            <option value="Single">Single</option>
-                                            <option value="Married">Married</option>
-                                            <option value="Divorced">Divorced</option>
-                                            <option value="Separated">Separated</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-4 col-sm-12">
-                                        <label class="form-label required">Occupation</label>
-                                        <input type="text" class="form-control" id="occupation" placeholder="Occupation" required>
-                                    </div>
-                                    <div class="form-group col-md-4 col-sm-12">
-                                        <label class="form-label">Employer's Name</label>
-                                        <input type="text" class="form-control" id="employerName" placeholder="Employer's Name">
-                                    </div>
-                                    <div class="form-group col-md-4 col-sm-12">
-                                        <label class="form-label">Employer's Contact Number</label>
-                                        <input type="text" class="form-control" id="employerContact" maxlength="10" 
-                                            onkeypress="return isNumber(event)" placeholder="Employer's Contact Number">
-                                    </div>
-                                    <div class="form-group col-md-4 col-sm-12">
-                                        <label class="form-label required">Emergency Contact Name</label>
-                                        <input type="text" class="form-control" id="emergencyName" placeholder="Emergency Contact Name">
-                                    </div>
-                                    <div class="form-group col-md-4 col-sm-12">
-                                        <label class="form-label required">Emergency Phone Number</label>
-                                        <input type="text" class="form-control" id="emergencyContact" maxlength="10" onkeypress="return isNumber(event)" placeholder="Emergency Phone Number">
-                                    </div>
-                                    <div class="form-group col-md-4 col-sm-12">
-                                            <label class="form-label">Passport Picture</label>
+                                            <label class="form-label">Attachments (Optional)</label>
                                             <input id="uploadPic" name="uploadPic" type="file" />
                                             <input type="hidden" id="selected_file" />
                                     </div>
+
+                                   
                                     <div class="next-btn py-4 d-flex col-sm-12 justify-content-center">
                                         <button type="submit" id="saveClientDetails" class="btn btn-primary next2 btn-sm">Save</button>
                                     </div>
@@ -159,12 +140,24 @@ extract($data);
     $("#inspectionType").select2({
         placeholder:"Select Inspection Type"
     });
+
+    $("#inspector").select2({
+        placeholder:"Select Inspector"
+    });   
     
     $("#priorityLevel").select2({
         placeholder:"Select Priority Level"
     });
 
     $("#inspectionDate").flatpickr();
+
+    $("#inspectionStatus").select2({
+        placeholder: "Select Status"
+    });
+
+    $("#recurrenceFrequency").select2({
+        placeholder: "Select Frequency"
+    })
 
     $(document).ready(function() {
         $('#clientType').change(function() {
@@ -180,10 +173,10 @@ extract($data);
     $('#uploadPic').uploadifive({
         'auto': false,
         'method': 'post',
-        'buttonText': 'Upload picture',
+        'buttonText': 'Upload pictures or videos',
         'fileType': 'image/*',
-        'multi': false,
-        'width': 180,
+        'multi': true,
+        'width': 220,
         'formData': {
             'randno': '<?php echo $uuid ?>'
         },

@@ -33,6 +33,15 @@ extract($data);
                                         </select>
                                     </div>
                                     <div class="form-group col-md-4 col-sm-12">
+                                        <label class="form-label required">Staff</label>
+                                        <select class="form-control" id="inspectorStaff" required>
+                                            <option></option>
+                                            <?php foreach ($listUsers as $record): ?>
+                                                <option value="<?= $record->id ?>"><?= $record->firstName.' '.$record->lastName ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-4 col-sm-12">
                                         <label class="form-label required">Company Name</label>
                                         <input type="text" class="form-control" id="companyName" placeholder="Enter company name" required>
                                     </div>
@@ -110,121 +119,108 @@ extract($data);
    $("#inspectorType").select2({
         placeholder: "Select Inspector Type"
    });
-   
-    //Client details
-    $("#saveInspectorDetails").on("click", function(event) {
-        event.preventDefault(); 
 
-        var clientData = {
+   $("#inspectorStaff").select2({
+        placeholder: "Select Staff"
+   })
+   
+   $("#saveInspectorDetails").on("click", function(event) {
+        event.preventDefault();
+
+        var inspectorData = {
+            inspectorType: $("#inspectorType").val(),
+            companyName: $("#companyName").val(),
+            employeeId: $("#employeeId").val(),
             fullName: $("#fullName").val(),
             emailAddress: $("#emailAddress").val(),
             phoneNumber: $("#phoneNumber").val(),
             altPhoneNumber: $("#altPhoneNumber").val(),
             residentialAddress: $("#residentialAddress").val(),
             nationality: $("#nationality").val(),
-            birthDate: $("#birthDate").val(),
             gender: $("#gender").val(),
             maritalStatus: $("#maritalStatus").val(),
-            occupation: $("#occupation").val(),
-            employerName: $("#employerName").val(),
-            employerContact: $("#employerContact").val(),
             emergencyName: $("#emergencyName").val(),
             emergencyContact: $("#emergencyContact").val(),
-            ownershipType: $("#ownershipType").val(),
-            clientType: $("#clientType").val(),
-            uuid: '<?php echo $uuid; ?>',
-            selectedFile: $("#selected_file").val(),
-            propertyName:  $("#propertyName").val(),
-            contractType: $("#contractType").val()
+            uuid: '<?php echo $uuid; ?>'
         };
 
         var url = urlroot + "/property/saveInspectorDetails";
 
         var successCallback = function(response) {
-            
+            // Handle successful form submission response here
+            alert("Inspector details have been saved successfully.");
         };
 
-        var validateClientForm = function(clientData) {
+        var validateInspectorForm = function(inspectorData) {
             var error = '';
-            if (clientData.selectedFile != "yes") {
-                error += 'Please upload passport picture\n';
+
+            if (!inspectorData.inspectorType) {
+                error += 'Inspector Type is required\n';
+                $("#inspectorType").focus();
             }
-            if (!clientData.fullName) {
+            if (!inspectorData.companyName) {
+                error += 'Company Name is required\n';
+                $("#companyName").focus();
+            }
+            if (!inspectorData.employeeId) {
+                error += 'Employee ID is required\n';
+                $("#employeeId").focus();
+            }
+            if (!inspectorData.fullName) {
                 error += 'Full Name is required\n';
                 $("#fullName").focus();
             }
-            if (!clientData.emailAddress) {
-                error += 'Email Address is required\n';
+            if (!inspectorData.emailAddress) {
+                error += 'Contact Email is required\n';
                 $("#emailAddress").focus();
             } else {
                 var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(clientData.emailAddress)) {
+                if (!emailRegex.test(inspectorData.emailAddress)) {
                     error += 'Invalid Email Address\n';
                     $("#emailAddress").focus();
                 }
             }
-            if (!clientData.phoneNumber) {
+            if (!inspectorData.phoneNumber) {
                 error += 'Phone Number is required\n';
                 $("#phoneNumber").focus();
             } else {
                 var phoneRegex = /^[0-9]{10}$/;
-                if (!phoneRegex.test(clientData.phoneNumber)) {
-                    error += 'Phone number must be 10 digits long and contain only numbers\n';
+                if (!phoneRegex.test(inspectorData.phoneNumber)) {
+                    error += 'Phone Number must be 10 digits long and contain only numbers\n';
                     $("#phoneNumber").focus();
                 }
             }
-            if (!clientData.ownershipType) {
-                error += 'Ownership Type is required\n';
-                $("#ownershipType").focus();
-            }
-            if (!clientData.clientType) {
-                error += 'Client Type is required\n';
-                $("#clientType").focus();
-            }
-            if (!clientData.residentialAddress) {
+            if (!inspectorData.residentialAddress) {
                 error += 'Residential Address is required\n';
                 $("#residentialAddress").focus();
             }
-            if (!clientData.nationality) {
+            if (!inspectorData.nationality) {
                 error += 'Nationality is required\n';
                 $("#nationality").focus();
             }
-            if (!clientData.birthDate) {
-                error += 'Date of Birth is required\n';
-                $("#birthDate").focus();
-            }
-            if (!clientData.gender) {
+            if (!inspectorData.gender) {
                 error += 'Gender is required\n';
                 $("#gender").focus();
             }
-            if (!clientData.maritalStatus) {
+            if (!inspectorData.maritalStatus) {
                 error += 'Marital Status is required\n';
                 $("#maritalStatus").focus();
             }
-            if (!clientData.occupation) {
-                error += 'Occupation is required\n';
-                $("#occupation").focus();
-            }
-            if (!clientData.emergencyName) {
+            if (!inspectorData.emergencyName) {
                 error += 'Emergency Contact Name is required\n';
                 $("#emergencyName").focus();
             }
-            if (!clientData.emergencyContact) {
+            if (!inspectorData.emergencyContact) {
                 error += 'Emergency Phone Number is required\n';
                 $("#emergencyContact").focus();
-            }
-            if (!clientData.propertyName) {
-                error += 'Property Name is required\n';
-                $("#propertyName").focus();
-            }
-            if (clientData.clientType == "Property Owner" && !clientData.contractType) {
-                error += 'Contract type is required\n';
             }
 
             return error;
         };
-        saveForm(clientData, url, successCallback, validateClientForm);
+
+        saveForm(inspectorData, url, successCallback, validateInspectorForm);
     });
+
 
 
 </script>

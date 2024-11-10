@@ -855,7 +855,6 @@
 							<span class="nav-text">INSPECTIONS</span>
 						</a>
                         <ul aria-expanded="false">
-							<li><a href="<?php echo URLROOT ?>/pages/addInspectors">Add Inspectors</a></li>
                             <li><a href="<?php echo URLROOT ?>/pages/scheduleInspection">Schedule Inspections</a></li>
 							<li><a href="<?php echo URLROOT ?>/pages/inspectionResults">Record Inspection Results</a></li>
                             <li><a href="<?php echo URLROOT ?>/pages/inspectionHistory">Inspection History</a></li>

@@ -149,7 +149,10 @@ class Pages extends Controller
     
     public function addInspectors() {
         new Guard();
-        $this->view("pages/addInspectors");
+        $listUsers = Users::listUsers();
+        $this->view("pages/addInspectors",[
+            'listUsers' => $listUsers
+        ]);
     } 
 
 
@@ -171,8 +174,10 @@ class Pages extends Controller
     public function scheduleInspection() {
         new Guard();
         $listProperties = Properties::listProperties();
+        $listUsers = Users::listUsers();
         $this->view("pages/scheduleInspection",[
-            'listProperties' => $listProperties
+            'listProperties' => $listProperties,
+            'listUsers' => $listUsers
         ]);
     } 
     
@@ -302,6 +307,13 @@ class Pages extends Controller
     public function companyDepartments() {
         new Guard();  
         $this->view("pages/companyDepartments");
+    } 
+
+    public function logComplaint() {
+        new Guard();  
+        $listProperties = Properties::listProperties();
+        $this->view("pages/logComplaint",
+            ['listProperties' => $listProperties]);
     } 
     
 

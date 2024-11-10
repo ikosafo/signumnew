@@ -805,6 +805,7 @@
 						</a>
                         <ul aria-expanded="false">
                             <li><a href="<?php echo URLROOT ?>/pages/listProperties">List Properties</a></li>
+							<li><a href="<?php echo URLROOT ?>/pages/logComplaint">Log a Complaint</a></li>
 							<li><a href="<?php echo URLROOT ?>/pages/searchProperties">Search Property</a></li>         
                         </ul>
                     </li>

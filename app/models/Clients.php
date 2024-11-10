@@ -184,8 +184,7 @@ class Clients extends tableDataObject
                     <p>Thank you,<br>The Signum Properties Team</p>";
 
                     SendEmail::compose($emailAddress, $subject, $message);
-
-                    
+                   
                     $chkUsername = "SELECT * FROM `users` WHERE `username` = '$emailAddress'";
                     $healthdb->prepare($chkUsername);
                     $resultUsername = $healthdb->singleRecord();
@@ -202,6 +201,27 @@ class Clients extends tableDataObject
         }
 
        
+
+    }
+
+    public static function saveComplaintDetails( 
+                $propertyName,
+                $apartmentNumber,
+                $location,
+                $complaintType,
+                $issueCategory,
+                $expectedResolutionTime,
+                $incidentSeverity,
+                $complaintPriority,
+                $contactMethod,
+                $previousComplaints,
+                $issueDescription,
+                $stepsTaken,
+                $additionalComments,
+                $selectedFile,
+                $uuid) {
+
+                global $healthdb;
 
     }
 
