@@ -202,7 +202,7 @@ extract($data);
 
 
     $('#uploadVid').uploadifive({
-        'auto': true,
+        'auto': false,
         'method': 'post',
         'buttonText': 'Upload pictures or videos',
         'fileType': 'image/*',
@@ -215,6 +215,14 @@ extract($data);
         'uploadScript': '/forms/uploadMultiImg',
         'onUploadComplete': function(file, data) {
             console.log(data);
+            $.notify("Complaint details submitted successfully!", {
+                position: "top center",
+                className: "success"
+            });
+
+            setTimeout(function() {
+                location.reload();
+            }, 1500);
         },
         'onSelect': function(file) {
             $("#selected_file").val('yes');
@@ -259,7 +267,7 @@ extract($data);
         var successCallback = function(response) {
             // Check if a file is selected before uploading
             if (clientData.selectedFile) {
-                $('#uploadVid').uploadifive('upload');
+                $('#uploadVid').uploadifive('upload');                
             }
 
             $.notify("Complaint details submitted successfully!", {
