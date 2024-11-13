@@ -204,26 +204,63 @@ class Clients extends tableDataObject
 
     }
 
-    public static function saveComplaintDetails( 
-                $propertyName,
-                $apartmentNumber,
-                $location,
-                $complaintType,
-                $issueCategory,
-                $expectedResolutionTime,
-                $incidentSeverity,
-                $complaintPriority,
-                $contactMethod,
-                $previousComplaints,
-                $issueDescription,
-                $stepsTaken,
-                $additionalComments,
-                $selectedFile,
-                $uuid) {
+    public static function saveComplaintDetails(
+            $propertyName,
+            $apartmentNumber,
+            $location,
+            $complaintType,
+            $issueCategory,
+            $expectedResolutionTime,
+            $incidentSeverity,
+            $complaintPriority,
+            $contactMethod,
+            $previousComplaints,
+            $issueDescription,
+            $stepsTaken,
+            $additionalComments,
+            $uuid,
+            $clientid
+    ) {
+        global $healthdb;
+    
+        $query = "INSERT INTO `complaints`
+                    (`propertyid`, `apartment`, `location`, `complaintType`, `issueCategory`, 
+                    `resolutionTime`, `incidentSeverity`, `compliantPriority`, `contactMethod`, 
+                    `previousIssue`, `issueDescription`, `stepsTaken`, `additionalComments`, 
+                    `createdAt`, `uuid`, `clientid`)
+                  VALUES (
+                    :propertyName, :apartmentNumber, :location, :complaintType, :issueCategory,
+                    :expectedResolutionTime, :incidentSeverity, :complaintPriority, :contactMethod, 
+                    :previousComplaints, :issueDescription, :stepsTaken, :additionalComments,
+                    NOW(), :uuid, :clientid)";
+    
+            $healthdb->prepare($query);
+        
+            // Bind the variables using named parameters
+            $healthdb->bind(':propertyName', $propertyName);
+            $healthdb->bind(':apartmentNumber', $apartmentNumber);
+            $healthdb->bind(':location', $location);
+            $healthdb->bind(':complaintType', $complaintType);
+            $healthdb->bind(':issueCategory', $issueCategory);
+            $healthdb->bind(':expectedResolutionTime', $expectedResolutionTime);
+            $healthdb->bind(':incidentSeverity', $incidentSeverity);
+            $healthdb->bind(':complaintPriority', $complaintPriority);
+            $healthdb->bind(':contactMethod', $contactMethod);
+            $healthdb->bind(':previousComplaints', $previousComplaints);
+            $healthdb->bind(':issueDescription', $issueDescription);
+            $healthdb->bind(':stepsTaken', $stepsTaken);
+            $healthdb->bind(':additionalComments', $additionalComments);
+            $healthdb->bind(':uuid', $uuid);
+            $healthdb->bind(':clientid', $clientid);
 
-                global $healthdb;
-
-    }
+            // Execute the statement and check for errors
+            if (!$healthdb->execute()) {
+                die('Execute error: ' . $healthdb->error);
+            } else {
+                echo 1;  // Successfully inserted
+            }
+        }
+    
 
 
 }

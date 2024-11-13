@@ -6,3 +6,25 @@
     transform: scale(3.2); /* Zoom in 1.5 times */
     z-index: 99999999;
 }
+
+.media-body h6 {
+    font-weight: 300;
+}
+
+.SumoSelect .select-all {
+    border-radius: 3px 3px 0 0;
+    position: relative;
+    border-bottom: 1px solid #ddd;
+    background-color: #fff;
+    padding: 8px 0 1px 35px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.wizard-box .wizard-step-container .wizard-form-details p {
+    margin-bottom: 5px;
+}
+
+.SumoSelect {
+    width: 325px;
+}

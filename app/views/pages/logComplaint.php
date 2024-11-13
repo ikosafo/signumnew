@@ -1,4 +1,4 @@
-<?php include ('includes/headerClient.php');
+<?php include 'includes/headerClient.php';
 $uuid = Tools::generateUUID();
 extract($data);
 ?>
@@ -90,14 +90,14 @@ extract($data);
                                     <div class="form-group col-md-4 col-sm-12">
                                         <label class="form-label required">Expected Resolution Time</label>
                                         <select id="expectedResolutionTime" class="form-control">
-                                            <option value="">Select Expected Resolution Time</option>
-                                            <option value="1">Within 24 hours</option>
-                                            <option value="2">Within 2-3 days</option>
-                                            <option value="3">Within 1 week</option>
-                                            <option value="4">Within 2 weeks</option>
-                                            <option value="5">Within 1 month</option>
-                                            <option value="6">More than 1 month</option>
-                                            <option value="7">No specific time</option>
+                                            <option value=""></option>
+                                            <option value="Within 24 hours">Within 24 hours</option>
+                                            <option value="Within 2-3 days">Within 2-3 days</option>
+                                            <option value="Within 1 week">Within 1 week</option>
+                                            <option value=">Within 2 weeks">Within 2 weeks</option>
+                                            <option value="Within 1 month">Within 1 month</option>
+                                            <option value="More than 1 month">More than 1 month</option>
+                                            <option value="No specific time">No specific time</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-4 col-sm-12">
@@ -132,7 +132,7 @@ extract($data);
                                     </div>
                                     <div class="form-group col-md-4 col-sm-12">
                                         <label class="form-label required">Has this issue been reported before?</label>
-                                        <textarea class="form-control" rows="10" id="stepsTaken" placeholder="Enter Description"></textarea>
+                                        <textarea class="form-control" rows="10" id="previousComplaints" placeholder="Descripe issue details"></textarea>
                                     </div>
                                     <div class="form-group col-md-4 col-sm-12">
                                         <label class="form-label required">Issue Description</label>
@@ -146,15 +146,13 @@ extract($data);
                                         <label class="form-label">Additional Comments</label>
                                         <textarea class="form-control" rows="10" id="additionalComments" placeholder="Enter Comments"></textarea>
                                     </div>
-                                    
-                                   
+                                                      
                                     <div class="form-group col-md-4 col-sm-12">
                                             <label class="form-label">Attachments (Optional)</label>
-                                            <input id="uploadPic" name="uploadPic" type="file" />
+                                            <input id="uploadVid" name="uploadVid" type="file" />
                                             <input type="hidden" id="selected_file" />
                                     </div>
-
-                                   
+                                
                                     <div class="next-btn py-4 d-flex col-sm-12 justify-content-center">
                                         <button type="submit" id="saveComplaintDetails" class="btn btn-primary next2 btn-sm">Save</button>
                                     </div>
@@ -202,7 +200,7 @@ extract($data);
         placeholder: "Select Severity"
     });
 
-    $('#uploadPic').uploadifive({
+    $('#uploadVid').uploadifive({
         'auto': false,
         'method': 'post',
         'buttonText': 'Upload pictures or videos',
@@ -213,13 +211,9 @@ extract($data);
             'randno': '<?php echo $uuid ?>'
         },
         'dnd': false,
-        'uploadScript': '/forms/uploadPassport',
+        'uploadScript': '/forms/uploadComplaint',
         'onUploadComplete': function(file, data) {
             console.log(data);
-            $.notify("Client added successfully", {
-                position: "top center",
-                className: "success"
-            });
 
            /*  setTimeout(function() {
                 location.reload();
@@ -261,13 +255,15 @@ extract($data);
             stepsTaken: $("#stepsTaken").val(),
             additionalComments: $("#additionalComments").val(),
             selectedFile: $("#selected_file").val(),
-            uuid: '<?php echo $uuid; ?>'
+            uuid: '<?php echo $uuid; ?>',
+            clientid: '<?php echo $clientid ?>'
         };
+        //alert(clientData.clientid);
 
         var url = urlroot + "/client/saveComplaintDetails";
 
         var successCallback = function(response) {
-            $('#uploadPic').uploadifive('upload');
+            $('#uploadVid').uploadifive('upload');
             alert('Complaint details submitted successfully!');
         };
 

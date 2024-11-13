@@ -34,31 +34,6 @@
 		const urlroot = cvhead.urlroot;
 	</script>
 
-	<style>
-		.media-body h6 {
-			font-weight: 300;
-		}
-
-		.SumoSelect .select-all {
-			border-radius: 3px 3px 0 0;
-			position: relative;
-			border-bottom: 1px solid #ddd;
-			background-color: #fff;
-			padding: 8px 0 1px 35px;
-			height: 40px;
-			cursor: pointer;
-		}
-
-		.wizard-box .wizard-step-container .wizard-form-details p {
-			margin-bottom: 5px;
-		}
-
-		.SumoSelect {
-			width: 325px;
-		}
-
-	</style>
-
 </head>
 <body>
 
@@ -799,14 +774,15 @@
                     </li>
                     <li>
                     <a class="has-arrow ai-icon" href="javascript:void(0)" aria-expanded="false">
-							<i class="flaticon-381-layer-1"></i>
-							<span class="nav-text">PROPERTY <br>MANAGEMENT</span>
+							<i class="flaticon-381-layer"></i>
+							<span class="nav-text">COMPLAINTS</span>
 							
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="<?php echo URLROOT ?>/pages/listProperties">List Properties</a></li>
-							<li><a href="<?php echo URLROOT ?>/pages/logComplaint">Log a Complaint</a></li>
-							<li><a href="<?php echo URLROOT ?>/pages/searchProperties">Search Property</a></li>         
+							<li><a href="<?php echo URLROOT ?>/pages/logComplaint">Make a Complaint</a></li>
+							<li><a href="<?php echo URLROOT ?>/pages/viewComplaints">View Complaints</a></li>
+							<li><a href="<?php echo URLROOT ?>/pages/verifyStatuses">Verify Statuses</a></li>
+							<li><a href="<?php echo URLROOT ?>/pages/searchComplaint">Search Complaint</a></li>         
                         </ul>
                     </li>
 					<li>
@@ -816,24 +792,11 @@
 							
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="<?php echo URLROOT ?>/pages/rentInformation">Add Rent Info</a></li>
-							<li><a href="<?php echo URLROOT ?>/pages/listRentInformation">List Rent Info</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/rentReports">Rent Due Reports</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/rentInvoices">Generate Rent Invoices</a></li>
+                            <li><a href="<?php echo URLROOT ?>/pages/viewRentInformation">View Rent Info</a></li>
+                            <li><a href="<?php echo URLROOT ?>/pages/viewRentInvoices">View Rent Invoices</a></li>
                             <li><a href="<?php echo URLROOT ?>/pages/rentReceipts">Rent Receipts</a></li>
                         </ul>
-                    </li>
-					<li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-							<i class="flaticon-app"></i>
-							<span class="nav-text">INSPECTIONS</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="<?php echo URLROOT ?>/pages/scheduleInspection">Schedule Inspections</a></li>
-							<li><a href="<?php echo URLROOT ?>/pages/inspectionResults">Record Inspection Results</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/inspectionHistory">Inspection History</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/inspectionReports">Inspection Reports</a></li>
-                        </ul>
-                    </li>				
+                    </li>			
 					<li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
 							<i class="flaticon-381-database-1"></i>
 							<span class="nav-text">BILLINGS</span>
@@ -841,33 +804,7 @@
 						</a>
                         <ul aria-expanded="false">
                             <li><a href="<?php echo URLROOT ?>/pages/billPaymentClient">Record Rent Payment</a></li>
-							<li><a href="<?php echo URLROOT ?>/pages/paymentHistory">Payment History</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/billReports">Rent Due Reports</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/billInvoices">Generate Rent Invoices</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/billReceipts">Rent Receipts</a></li>
-                        </ul>
-                    </li>
-                    <li>
-						<a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                            <i class="flaticon-381-battery-5"></i>
-							<span class="nav-text">CONTRACTS</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="<?php echo URLROOT ?>/pages/leaseAgreements">Lease Agreements</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/contractRenewal">Renew Contracts</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/terminateContract">Terminate Contracts</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/contractTemplate">Contract Templates</a></li>
-                        </ul>
-                    </li>
-                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-							<i class="flaticon-plugin"></i>
-							<span class="nav-text">MAINTENANCE</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="<?php echo URLROOT ?>/pages/maintenanceRequests">Log Maintenance Requests</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/assignMaintenance">Assign Maintenance Tasks</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/tractRepairs">Track Repairs</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/completedMaintenance">Completed Maintenance</a></li>
+                            <li><a href="<?php echo URLROOT ?>/pages/viewBillReceipts">View Rent Receipts</a></li>
                         </ul>
                     </li>
                     <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -887,21 +824,8 @@
 							
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="<?php echo URLROOT ?>/pages/addUser">Add Admin User</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/listUsers">List of Users</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/userPermissions">User Permissions</a></li>
-                        </ul>
-                    </li>
-                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                            <i class="flaticon-381-calendar-2"></i>
-							<span class="nav-text">SETTINGS</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="<?php echo URLROOT ?>/pages/companyDepartments">Company Departments</a></li>
-							<li><a href="<?php echo URLROOT ?>/pages/propertyCategories">Property Categories</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/rentReminders">Rent Reminders</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/notificationSettings">Notification Settings</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/paymentOptions">Payment Options</a></li>
+                            <li><a href="<?php echo URLROOT ?>/pages/changePassword">Change Password</a></li>
+                            <li><a href="<?php echo URLROOT ?>/pages/userProfile">Update Profile</a></li>
                         </ul>
                     </li>
                     

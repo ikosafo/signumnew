@@ -311,9 +311,15 @@ class Pages extends Controller
 
     public function logComplaint() {
         new Guard();  
+        $uid = $_SESSION['uid'];
+        $uuid = Tools::getUUIDbyid($uid);
+        $clientid = Tools::getClientidbyUUID($uuid);
         $listProperties = Properties::listProperties();
         $this->view("pages/logComplaint",
-            ['listProperties' => $listProperties]);
+            [
+                'listProperties' => $listProperties,
+                'clientid' => $clientid
+            ]);
     } 
     
 

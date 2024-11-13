@@ -20,6 +20,7 @@ class Client extends PostController
         $additionalComments = $_POST['additionalComments'];
         $selectedFile = $_POST['selectedFile'];
         $uuid = $_POST['uuid'];
+        $clientid = $_POST['clientid'];
 
         // Pass all values to the saveComplaintDetails method
         Clients::saveComplaintDetails(
@@ -36,8 +37,8 @@ class Client extends PostController
             $issueDescription,
             $stepsTaken,
             $additionalComments,
-            $selectedFile,
-            $uuid
+            $uuid,
+            $clientid
         );
     }
 
