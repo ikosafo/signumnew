@@ -7,7 +7,7 @@ extract($data);
             <div class="container-fluid">
                 <div class="page-titles">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="#">PROPERTY MANAGEMENT</a></li>
+						<li class="breadcrumb-item"><a href="#">COMPLAINTS</a></li>
 						<li class="breadcrumb-item active"><a href="#">Log a Complaint</a></li>
 					</ol>
                 </div>
@@ -149,7 +149,7 @@ extract($data);
                                                       
                                     <div class="form-group col-md-4 col-sm-12">
                                             <label class="form-label">Attachments (Optional)</label>
-                                            <input id="uploadVid" name="uploadVid" type="file" />
+                                            <input id="uploadVid" type="file"  name="uploadVid[]" multiple/>
                                             <input type="hidden" id="selected_file" />
                                     </div>
                                 
@@ -200,8 +200,9 @@ extract($data);
         placeholder: "Select Severity"
     });
 
+
     $('#uploadVid').uploadifive({
-        'auto': false,
+        'auto': true,
         'method': 'post',
         'buttonText': 'Upload pictures or videos',
         'fileType': 'image/*',
@@ -211,22 +212,15 @@ extract($data);
             'randno': '<?php echo $uuid ?>'
         },
         'dnd': false,
-        'uploadScript': '/forms/uploadComplaint',
+        'uploadScript': '/forms/uploadMultiImg',
         'onUploadComplete': function(file, data) {
             console.log(data);
-
-           /*  setTimeout(function() {
-                location.reload();
-            }, 500); */
-
         },
         'onSelect': function(file) {
-            // Update selected so we know they have selected a file
             $("#selected_file").val('yes');
 
         },
         'onCancel': function(file) {
-            // Update selected so we know they have no file selected
             $("#selected_file").val('');
         }
     });
@@ -263,8 +257,19 @@ extract($data);
         var url = urlroot + "/client/saveComplaintDetails";
 
         var successCallback = function(response) {
-            $('#uploadVid').uploadifive('upload');
-            alert('Complaint details submitted successfully!');
+            // Check if a file is selected before uploading
+            if (clientData.selectedFile) {
+                $('#uploadVid').uploadifive('upload');
+            }
+
+            $.notify("Complaint details submitted successfully!", {
+                position: "top center",
+                className: "success"
+            });
+
+            setTimeout(function() {
+                location.reload();
+            }, 500);
         };
 
         var validateComplaintForm = function(clientData) {
@@ -304,6 +309,10 @@ extract($data);
             if (!clientData.complaintPriority) {
                 error += 'Complaint Priority is required\n';
                 $("#complaintPriority").focus();
+            }
+            if (!clientData.previousComplaints) {
+                error += 'Previous Compliant indication is required\n';
+                $("#previousComplaints").focus();
             }
             if (!clientData.contactMethod) {
                 error += 'Contact Method Preference is required\n';

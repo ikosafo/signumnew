@@ -60,7 +60,7 @@ class Forms extends PostController
     }
     
 
-    public function uploadPassport()
+    public function uploadSingleImg()
     {
 
         if (!defined('UPLOAD_PATH')) {
@@ -85,7 +85,7 @@ class Forms extends PostController
     
         if ($uploadresponse['status'] == 'SUCCESS') {
             $newname = $uploadresponse['filename'];
-            Documents::insertPassport($newname,$name,$type,$size,$uniqueuploadid);
+            Documents::insertSingleImg($newname,$name,$type,$size,$uniqueuploadid);
     
          /* 
             $docdata = new Documents();
@@ -102,12 +102,12 @@ class Forms extends PostController
         }
     }
 
-    public function uploadComplaint()
+
+    public function uploadMultiImg()
     {
 
         if (!defined('UPLOAD_PATH')) {
-            define('UPLOAD_PATH', 'C:/wamp64/www/property/public/uploads/'); 
-            /* define('UPLOAD_PATH', '/home/ahpcgh/public_html/ahpc/ahpcmis/public/uploads/'); */
+            define('UPLOAD_PATH', 'C:/wamp64/www/property/public/uploads/');
         }        
     
         foreach ($_POST as $name => $value) {
@@ -127,23 +127,14 @@ class Forms extends PostController
     
         if ($uploadresponse['status'] == 'SUCCESS') {
             $newname = $uploadresponse['filename'];
-            Documents::uploadComplaint($newname,$name,$type,$size,$uniqueuploadid);
-    
-         /* 
-            $docdata = new Documents();
-            $doc = &$docdata->recordObject;
-            $doc->newname = $newname;
-            $doc->name = $name;
-            $doc->type = $type;
-            $doc->size = $size;
-            $doc->randomnumber = $uniqueuploadid;
-            $doc->docdate = $docdate;
-            $docdata->store(); */
+            Documents::insertMultiImg($newname,$name,$type,$size,$uniqueuploadid);
         } else {
             echo 'Error Uploading File';
         }
     }
     
+
+
     
 
 }

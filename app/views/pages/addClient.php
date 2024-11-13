@@ -165,7 +165,7 @@ extract($data);
             'randno': '<?php echo $uuid ?>'
         },
         'dnd': false,
-        'uploadScript': '/forms/uploadPassport',
+        'uploadScript': '/forms/uploadSingleImg',
         'onUploadComplete': function(file, data) {
             console.log(data);
             $.notify("Client added successfully", {

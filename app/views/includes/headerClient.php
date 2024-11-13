@@ -780,7 +780,7 @@
 						</a>
                         <ul aria-expanded="false">
 							<li><a href="<?php echo URLROOT ?>/pages/logComplaint">Make a Complaint</a></li>
-							<li><a href="<?php echo URLROOT ?>/pages/viewComplaints">View Complaints</a></li>
+							<li><a href="<?php echo URLROOT ?>/pages/listComplaints">List Complaints</a></li>
 							<li><a href="<?php echo URLROOT ?>/pages/verifyStatuses">Verify Statuses</a></li>
 							<li><a href="<?php echo URLROOT ?>/pages/searchComplaint">Search Complaint</a></li>         
                         </ul>
