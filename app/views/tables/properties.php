@@ -92,41 +92,41 @@
         formData.propertyid = propertyid; 
         //alert(formData.propertyid);
        
-            $.confirm({
-                    title: 'Delete Record!',
-                    content: 'Are you sure to continue?',
-                    buttons: {
-                        no: {
-                            text: 'No',
-                            keys: ['enter', 'shift'],
-                            backdrop: 'static',
-                            keyboard: false,
-                            action: function() {
-                                $.alert('Data is safe');
-                            }
-                        },
-                        yes: {
-                            text: 'Yes, Delete it!',
-                            btnClass: 'btn-blue',
-                            action: function() {
-                                var formData = {};
-                                formData.propertyid = propertyid; 
-                                saveForm(formData, urlroot + "/delete/property", function(response) {
-                                    $('#propertyTableDiv').html(response);
-                                });
-                                //$("#adminUser").DataTable().ajax.reload(null, false);
-                                $('html, body').animate({
-                                    scrollTop: $("#propertyTableDiv").offset().top
-                                }, 200);
-                                
-                                loadPage(urlroot + "/tables/properties", function(response) {
-                                    $('#propertyTableDiv').html(response);
-                                });
-                               
-                            }
-                        }
+        $.confirm({
+            title: 'Delete Record!',
+            content: 'Are you sure to continue?',
+            buttons: {
+                no: {
+                    text: 'No',
+                    keys: ['enter', 'shift'],
+                    backdrop: 'static',
+                    keyboard: false,
+                    action: function() {
+                        $.alert('Data is safe');
                     }
-                });
+                },
+                yes: {
+                    text: 'Yes, Delete it!',
+                    btnClass: 'btn-blue',
+                    action: function() {
+                        var formData = {};
+                        formData.propertyid = propertyid; 
+                        saveForm(formData, urlroot + "/delete/property", function(response) {
+                            $('#propertyTableDiv').html(response);
+                        });
+                        //$("#adminUser").DataTable().ajax.reload(null, false);
+                        $('html, body').animate({
+                            scrollTop: $("#propertyTableDiv").offset().top
+                        }, 200);
+                        
+                        loadPage(urlroot + "/tables/properties", function(response) {
+                            $('#propertyTableDiv').html(response);
+                        });
+                        
+                    }
+                }
+            }
+        });
             
     });
 

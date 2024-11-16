@@ -410,6 +410,7 @@ class Properties extends tableDataObject
         ];
     }
 
+
     public static function listProperties() {
         global $healthdb;
 
@@ -419,6 +420,7 @@ class Properties extends tableDataObject
         return $resultList;
     }
 
+    
     public static function listClients() {
         global $healthdb;
 

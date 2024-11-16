@@ -67,5 +67,25 @@ class Tables extends Controller
         $this->view("tables/paymentHistory",['paymentHistory' => $paymentHistory]);
     }
 
+    public function complaints() {
+        new Guard();
+        $listComplaints = Complaints::listComplaints($status = null);
+        $this->view("tables/complaints",[
+            'listComplaints' => $listComplaints
+        ]);
+    }  
+
+    public function complaintStatuses() {
+        new Guard();
+        
+        $status = isset($_GET['status']) ? htmlspecialchars($_GET['status']) : null;
+        $listComplaints = Complaints::listComplaints($status);       
+        $this->view("tables/complaintStatuses", [
+            'listComplaints' => $listComplaints,
+            'status' => $status
+        ]);
+    }
+      
+
 
 }

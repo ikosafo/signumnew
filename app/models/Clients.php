@@ -36,6 +36,7 @@ class Clients extends tableDataObject
         ];
     }
 
+
     public static function deleteClient($clientid) {
 
         global $healthdb;
@@ -49,6 +50,7 @@ class Clients extends tableDataObject
             echo 1;  // Successfully updated
        
     }
+
  
     public static function saveClientDetails(
                             $fullName,
@@ -204,26 +206,28 @@ class Clients extends tableDataObject
 
     }
 
+
     public static function saveComplaintDetails(
-            $propertyName,
-            $apartmentNumber,
-            $location,
-            $complaintType,
-            $issueCategory,
-            $expectedResolutionTime,
-            $incidentSeverity,
-            $complaintPriority,
-            $contactMethod,
-            $previousComplaints,
-            $issueDescription,
-            $stepsTaken,
-            $additionalComments,
-            $uuid,
-            $clientid
-    ) {
-        global $healthdb;
+                $propertyName,
+                $apartmentNumber,
+                $location,
+                $complaintType,
+                $issueCategory,
+                $expectedResolutionTime,
+                $incidentSeverity,
+                $complaintPriority,
+                $contactMethod,
+                $previousComplaints,
+                $issueDescription,
+                $stepsTaken,
+                $additionalComments,
+                $uuid,
+                $clientid
+        ) 
+        {
+            global $healthdb;
     
-        $query = "INSERT INTO `complaints`
+            $query = "INSERT INTO `complaints`
                     (`propertyid`, `apartment`, `location`, `complaintType`, `issueCategory`, 
                     `resolutionTime`, `incidentSeverity`, `compliantPriority`, `contactMethod`, 
                     `previousIssue`, `issueDescription`, `stepsTaken`, `additionalComments`, 
@@ -259,7 +263,37 @@ class Clients extends tableDataObject
             } else {
                 echo 1;  // Successfully inserted
             }
+    }
+
+
+    public static function saveVerification(
+            $verifyRemarks,
+            $verifyFeedback,
+            $idIndex
+    ) 
+    {
+        global $healthdb;
+
+        $query = "UPDATE `complaints` SET 
+                `verifyRemarks` = :verifyRemarks, 
+                `verifyFeedback` = :verifyFeedback, 
+                `updatedAt` = NOW()
+                WHERE complaintid = :idIndex";
+
+        $healthdb->prepare($query);
+
+        // Bind the variables using named parameters
+        $healthdb->bind(':verifyRemarks', $verifyRemarks);
+        $healthdb->bind(':verifyFeedback', $verifyFeedback);
+        $healthdb->bind(':idIndex', $idIndex);
+
+        // Execute the statement and check for errors
+        if (!$healthdb->execute()) {
+            die('Execute error: ' . $healthdb->error);
+        } else {
+            echo 1;  // Successfully inserted
         }
+    }
     
 
 

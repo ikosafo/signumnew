@@ -42,5 +42,17 @@ class Client extends PostController
         );
     }
 
+    public function saveVerification() {
+        $verifyRemarks = $_POST['verifyRemarks'];
+        $verifyFeedback = $_POST['verifyFeedback'];
+        $idIndex = $_POST['idIndex'];
+
+        Clients::saveVerification(
+            $verifyRemarks,
+            $verifyFeedback,
+            $idIndex
+        );
+    }
+
 
 }

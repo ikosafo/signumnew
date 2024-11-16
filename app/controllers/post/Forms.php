@@ -37,6 +37,12 @@ class Forms extends PostController
         $this->view("forms/adminUserDetails", $userDetails);
     }
 
+    public function verifyResolution()
+    {
+        $id_index = $_POST['id_index'];
+        $this->view("forms/verifyResolution",['id_index' => $id_index]);
+    }
+
     public function rentalInformation()
     {
         $clientid = $_POST['clientid'];

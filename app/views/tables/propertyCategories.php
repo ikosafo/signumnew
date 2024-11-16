@@ -72,41 +72,41 @@
         var formData = {};
         formData.catid = catid; 
        
-            $.confirm({
-                    title: 'Delete Record!',
-                    content: 'Are you sure to continue?',
-                    buttons: {
-                        no: {
-                            text: 'No',
-                            keys: ['enter', 'shift'],
-                            backdrop: 'static',
-                            keyboard: false,
-                            action: function() {
-                                $.alert('Data is safe');
-                            }
-                        },
-                        yes: {
-                            text: 'Yes, Delete it!',
-                            btnClass: 'btn-blue',
-                            action: function() {
-                                var formData = {};
-                                formData.catid = catid; 
-                                saveForm(formData, "/delete/propertyCategory", function(response) {
-                                    $('#categoryTableDiv').html(response);
-                                });
-                                //$("#categoryTable").DataTable().ajax.reload(null, false);
-                                $('html, body').animate({
-                                    scrollTop: $("#categoryTableDiv").offset().top
-                                }, 200);
-                                
-                                loadPage("/tables/propertyCategories", function(response) {
-                                    $('#categoryTableDiv').html(response);
-                                });
-                               
-                            }
-                        }
+        $.confirm({
+            title: 'Delete Record!',
+            content: 'Are you sure to continue?',
+            buttons: {
+                no: {
+                    text: 'No',
+                    keys: ['enter', 'shift'],
+                    backdrop: 'static',
+                    keyboard: false,
+                    action: function() {
+                        $.alert('Data is safe');
                     }
-                });
+                },
+                yes: {
+                    text: 'Yes, Delete it!',
+                    btnClass: 'btn-blue',
+                    action: function() {
+                        var formData = {};
+                        formData.catid = catid; 
+                        saveForm(formData, "/delete/propertyCategory", function(response) {
+                            $('#categoryTableDiv').html(response);
+                        });
+                        //$("#categoryTable").DataTable().ajax.reload(null, false);
+                        $('html, body').animate({
+                            scrollTop: $("#categoryTableDiv").offset().top
+                        }, 200);
+                        
+                        loadPage("/tables/propertyCategories", function(response) {
+                            $('#categoryTableDiv').html(response);
+                        });
+                        
+                    }
+                }
+            }
+        });
             
     });
 

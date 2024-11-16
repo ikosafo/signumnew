@@ -1,4 +1,4 @@
-<?php include ('includes/header.php'); ?>
+<?php include ('includes/headerClient.php'); ?>
 
         <div class="content-body">
             <div class="container-fluid">

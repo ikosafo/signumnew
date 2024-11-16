@@ -94,7 +94,7 @@ extract($data);
                                             <option value="Within 24 hours">Within 24 hours</option>
                                             <option value="Within 2-3 days">Within 2-3 days</option>
                                             <option value="Within 1 week">Within 1 week</option>
-                                            <option value=">Within 2 weeks">Within 2 weeks</option>
+                                            <option value="Within 2 weeks">Within 2 weeks</option>
                                             <option value="Within 1 month">Within 1 month</option>
                                             <option value="More than 1 month">More than 1 month</option>
                                             <option value="No specific time">No specific time</option>
@@ -215,11 +215,7 @@ extract($data);
         'uploadScript': '/forms/uploadMultiImg',
         'onUploadComplete': function(file, data) {
             console.log(data);
-            $.notify("Complaint details submitted successfully!", {
-                position: "top center",
-                className: "success"
-            });
-
+            
             setTimeout(function() {
                 location.reload();
             }, 1500);
@@ -233,6 +229,7 @@ extract($data);
         }
     });
 
+    
     $('#propertyName').select2({
         placeholder: 'Select Property'
     })
@@ -267,6 +264,11 @@ extract($data);
         var successCallback = function(response) {
             // Check if a file is selected before uploading
             if (clientData.selectedFile) {
+                $.notify("Complaint details submitted successfully!", {
+                    position: "top center",
+                    className: "success"
+                });
+
                 $('#uploadVid').uploadifive('upload');                
             }
 

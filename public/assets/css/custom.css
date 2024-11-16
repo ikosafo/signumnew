@@ -4,7 +4,7 @@
 
 .enlarge-on-hover:hover {
     transform: scale(3.2); /* Zoom in 1.5 times */
-    z-index: 99999999;
+    z-index: 99999999 !important;
 }
 
 .media-body h6 {

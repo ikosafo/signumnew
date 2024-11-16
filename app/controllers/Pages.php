@@ -206,6 +206,20 @@ class Pages extends Controller
     } 
 
 
+    public function viewComplaint() {
+        new Guard();
+
+        $encryptedId = $_GET['complaintid'];
+        $decryptedClientId = Tools::unlock($encryptedId);
+        $complaintDetails = Complaints::complaintDetails($decryptedClientId);
+        $complaintid = $complaintDetails['complaintid'];
+
+        $this->view("pages/viewComplaint",[
+            'complaintDetails' => $complaintDetails
+        ]);
+    } 
+
+
     public function viewPayment() {
         new Guard();
 
@@ -286,6 +300,18 @@ class Pages extends Controller
         $this->view("pages/listProperties",[
             'listProperties' => $listProperties
         ]);
+    }  
+
+
+    public function listComplaints() {
+        new Guard();
+        $this->view("pages/listComplaints");
+    }  
+
+
+    public function complaintStatuses() {
+        new Guard();
+        $this->view("pages/complaintStatuses");
     }  
 
 

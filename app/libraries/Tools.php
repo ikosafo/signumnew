@@ -341,6 +341,85 @@ class Tools extends tableDataObject{
     }
 
 
+    public static function displayMedia($uuid) {
+        global $healthdb;
+    
+        $getname = "SELECT `newname` FROM `documents` WHERE `randomnumber` = '$uuid'";
+        $healthdb->prepare($getname);
+        $result = $healthdb->resultSet();
+        
+        if ($result) {
+            $mediaHtml = '';
+            $imageHtml = '';
+            $videoHtml = '';
+            $imageFound = false; 
+            
+            foreach ($result as $results) {
+                $filename = htmlspecialchars($results->newname);
+                $fileExtension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+    
+                if (in_array($fileExtension, ['jpg', 'jpeg', 'png', 'gif'])) {
+                    $imageHtml .= '<img class="enlarge-on-hover" src="' . URLROOT . '/uploads/' . $filename . '" style="width:95px;height:100px">';
+                    $imageFound = true; 
+                }
+                elseif (in_array($fileExtension, ['mp4', 'webm', 'ogg', '3gpp'])) {
+                    $videoHtml .= '<hr><br/><video width="180" height="150" controls>
+                                    <source src="' . URLROOT . '/uploads/' . $filename . '" type="video/' . $fileExtension . '">
+                                    Your browser does not support the video tag.
+                                  </video>';
+                }
+            }
+
+            if ($imageFound) {
+                $mediaHtml .= '<small style="font-size:8px">Hover to enlarge</small><br>' . $imageHtml;
+            }
+            $mediaHtml .= $videoHtml;
+    
+            return $mediaHtml;
+        } else {
+            return "";
+        }
+    }
+    
+
+    public static function resolutionStatus($resolution) {
+        global $healthdb;
+    
+        // Common base classes for all statuses
+        $baseClasses = 'rounded p-1 ps-2 pe-2 font-w600 fs-12 d-inline-block mb-2 mb-sm-3';
+    
+        switch ($resolution) {
+            case "":
+            case "Pending":
+                return '<span class="bgl-primary text-primary ' . $baseClasses . '">PENDING</span>';
+            case "Resolved":
+                return '<span class="bgl-success text-success ' . $baseClasses . '">RESOLVED</span>';
+            case "In Review":
+                return '<span class="bgl-info text-info ' . $baseClasses . '">IN REVIEW</span>';
+            case "Unresolved":
+                return '<span class="bgl-danger text-danger ' . $baseClasses . '">UNRESOLVED</span>';
+            case "Escalated":
+                return '<span class="bgl-warning text-warning ' . $baseClasses . '">ESCALATED</span>';
+            case "Awaiting Client Response":
+                return '<span class="bgl-secondary text-secondary ' . $baseClasses . '">AWAITING CLIENT RESPONSE</span>';
+            case "Closed":
+                return '<span class="bgl-dark text-dark ' . $baseClasses . '">CLOSED</span>';
+            case "Partially Resolved":
+                return '<span class="bgl-warning text-warning ' . $baseClasses . '">PARTIALLY RESOLVED</span>';
+            case "Reopened":
+                return '<span class="bgl-warning text-warning ' . $baseClasses . '">REOPENED</span>';
+            case "Not Applicable":
+                return '<span class="bgl-muted text-muted ' . $baseClasses . '">NOT APPLICABLE</span>';
+            case "Deferred":
+                return '<span class="bgl-info text-info ' . $baseClasses . '">DEFERRED</span>';
+            case "Rejected":
+                return '<span class="bgl-danger text-danger ' . $baseClasses . '">REJECTED</span>';
+            default:
+                return '<span class="bgl-light text-secondary ' . $baseClasses . '">UNKNOWN STATUS</span>';
+        }
+    }
+    
+    
 
     public static function displayHeaderImages($uuid) {
         global $healthdb;
