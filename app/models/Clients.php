@@ -208,62 +208,128 @@ class Clients extends tableDataObject
 
 
     public static function saveComplaintDetails(
-                $propertyName,
-                $apartmentNumber,
-                $location,
-                $complaintType,
-                $issueCategory,
-                $expectedResolutionTime,
-                $incidentSeverity,
-                $complaintPriority,
-                $contactMethod,
-                $previousComplaints,
-                $issueDescription,
-                $stepsTaken,
-                $additionalComments,
-                $uuid,
-                $clientid
-        ) 
-        {
-            global $healthdb;
-    
-            $query = "INSERT INTO `complaints`
-                    (`propertyid`, `apartment`, `location`, `complaintType`, `issueCategory`, 
-                    `resolutionTime`, `incidentSeverity`, `compliantPriority`, `contactMethod`, 
-                    `previousIssue`, `issueDescription`, `stepsTaken`, `additionalComments`, 
-                    `createdAt`, `uuid`, `clientid`)
-                  VALUES (
-                    :propertyName, :apartmentNumber, :location, :complaintType, :issueCategory,
-                    :expectedResolutionTime, :incidentSeverity, :complaintPriority, :contactMethod, 
-                    :previousComplaints, :issueDescription, :stepsTaken, :additionalComments,
-                    NOW(), :uuid, :clientid)";
-    
-            $healthdb->prepare($query);
-        
-            // Bind the variables using named parameters
-            $healthdb->bind(':propertyName', $propertyName);
-            $healthdb->bind(':apartmentNumber', $apartmentNumber);
-            $healthdb->bind(':location', $location);
-            $healthdb->bind(':complaintType', $complaintType);
-            $healthdb->bind(':issueCategory', $issueCategory);
-            $healthdb->bind(':expectedResolutionTime', $expectedResolutionTime);
-            $healthdb->bind(':incidentSeverity', $incidentSeverity);
-            $healthdb->bind(':complaintPriority', $complaintPriority);
-            $healthdb->bind(':contactMethod', $contactMethod);
-            $healthdb->bind(':previousComplaints', $previousComplaints);
-            $healthdb->bind(':issueDescription', $issueDescription);
-            $healthdb->bind(':stepsTaken', $stepsTaken);
-            $healthdb->bind(':additionalComments', $additionalComments);
-            $healthdb->bind(':uuid', $uuid);
-            $healthdb->bind(':clientid', $clientid);
+        $propertyName,
+        $apartmentNumber,
+        $location,
+        $complaintType,
+        $issueCategory,
+        $expectedResolutionTime,
+        $incidentSeverity,
+        $complaintPriority,
+        $contactMethod,
+        $previousComplaints,
+        $issueDescription,
+        $stepsTaken,
+        $additionalComments,
+        $uuid,
+        $clientid
+    ) 
+    {
+        global $healthdb;
 
-            // Execute the statement and check for errors
-            if (!$healthdb->execute()) {
-                die('Execute error: ' . $healthdb->error);
-            } else {
-                echo 1;  // Successfully inserted
-            }
+    
+        $issueTrackingNumber = 'ITN-' . uniqid();
+
+        $query = "INSERT INTO `complaints`
+                (`propertyid`, `apartment`, `location`, `complaintType`, `issueCategory`, 
+                `resolutionTime`, `incidentSeverity`, `compliantPriority`, `contactMethod`, 
+                `previousIssue`, `issueDescription`, `stepsTaken`, `additionalComments`, 
+                `createdAt`, `uuid`, `clientid`, `issueTrackingNumber`)
+            VALUES (
+                :propertyName, :apartmentNumber, :location, :complaintType, :issueCategory,
+                :expectedResolutionTime, :incidentSeverity, :complaintPriority, :contactMethod, 
+                :previousComplaints, :issueDescription, :stepsTaken, :additionalComments,
+                NOW(), :uuid, :clientid, :issueTrackingNumber)";
+
+        $healthdb->prepare($query);
+
+        // Bind the variables using named parameters
+        $healthdb->bind(':propertyName', $propertyName);
+        $healthdb->bind(':apartmentNumber', $apartmentNumber);
+        $healthdb->bind(':location', $location);
+        $healthdb->bind(':complaintType', $complaintType);
+        $healthdb->bind(':issueCategory', $issueCategory);
+        $healthdb->bind(':expectedResolutionTime', $expectedResolutionTime);
+        $healthdb->bind(':incidentSeverity', $incidentSeverity);
+        $healthdb->bind(':complaintPriority', $complaintPriority);
+        $healthdb->bind(':contactMethod', $contactMethod);
+        $healthdb->bind(':previousComplaints', $previousComplaints);
+        $healthdb->bind(':issueDescription', $issueDescription);
+        $healthdb->bind(':stepsTaken', $stepsTaken);
+        $healthdb->bind(':additionalComments', $additionalComments);
+        $healthdb->bind(':uuid', $uuid);
+        $healthdb->bind(':clientid', $clientid);
+        $healthdb->bind(':issueTrackingNumber', $issueTrackingNumber);
+
+        if (!$healthdb->execute()) {
+            die('Execute error: ' . $healthdb->error);
+        } else {
+            $subject = "Complaint Acknowledgement - Your Issue Tracking ID: $issueTrackingNumber";
+            $fullName = Tools::clientName($clientid);
+            $emailAddress = Tools::clientEmail($clientid);
+
+            $message = "<p>Dear $fullName,</p>
+
+            <p>Thank you for submitting your complaint. We have successfully received your request and are currently reviewing the details to provide you with the appropriate support.</p>
+            <p>Below are the details of your complaint:</p>
+        
+            <table style='border-collapse: collapse; width: 70%;'>
+                <tr>
+                    <td><strong>Issue Tracking ID:</strong></td>
+                    <td>$issueTrackingNumber</td>
+                </tr>
+                <tr>
+                    <td><strong>Property Name:</strong></td>
+                    <td>$propertyName</td>
+                </tr>
+                <tr>
+                    <td><strong>Apartment Number:</strong></td>
+                    <td>$apartmentNumber</td>
+                </tr>
+                <tr>
+                    <td><strong>Location:</strong></td>
+                    <td>$location</td>
+                </tr>
+                <tr>
+                    <td><strong>Complaint Type:</strong></td>
+                    <td>$complaintType</td>
+                </tr>
+                <tr>
+                    <td><strong>Issue Category:</strong></td>
+                    <td>$issueCategory</td>
+                </tr>
+                <tr>
+                    <td><strong>Expected Resolution Time:</strong></td>
+                    <td>$expectedResolutionTime</td>
+                </tr>
+                <tr>
+                    <td><strong>Incident Severity:</strong></td>
+                    <td>$incidentSeverity</td>
+                </tr>
+                <tr>
+                    <td><strong>Priority Level:</strong></td>
+                    <td>$complaintPriority</td>
+                </tr>
+                <tr>
+                    <td><strong>Contact Method:</strong></td>
+                    <td>$contactMethod</td>
+                </tr>
+            </table>
+        
+            <p>Our team is committed to addressing your complaint promptly. Please use your <strong>Issue Tracking ID</strong> ($issueTrackingNumber) for any future correspondence regarding this issue.</p>
+        
+            <p>If you have any further questions or updates, please do not hesitate to reach out.</p>
+        
+            <p>Thank you for your patience and understanding.</p>
+        
+            <p>Best regards,</p>
+            <p>Thank you,<br>The Signum Properties Team</p>";
+
+            SendEmail::compose($emailAddress, $subject, $message);
+            echo 'Complaint saved successfully with Tracking Number: ' . $issueTrackingNumber;
+        }
     }
+
 
 
     public static function saveVerification(

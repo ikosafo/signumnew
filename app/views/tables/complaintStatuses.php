@@ -25,10 +25,10 @@
                         foreach ($listComplaints as $result) { ?>
                             <tr>
                                 <td><strong class="text-black"><?= $no++ ?></strong></td>
-                                <td></td>
+                                <td><?= $result->issueTrackingNumber ?></td>
                                 <td><?= Tools::propertyClient($result->propertyid) ?></td>
                                 <td><?= $result->complaintType ?></td>
-                                <td></td>
+                                <td><?= !$result->resolution ? 'Pending': $result->resolution  ?></td>
                                 <td>
                                     <div class="d-flex">
                                         <a href="javascript:void(0);" class="btn btn-primary viewComplaint shadow btn-xs sharp me-1" complaintid='<?= $result->complaintid ?>'><i class="fas fa-eye"></i></a>
