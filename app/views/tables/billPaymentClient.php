@@ -15,6 +15,7 @@
                                 <th width="15%">PROPERTY</th>
                                 <th width="15%">RENT AMOUNT</th>
                                 <th width="15%">PENALTY</th>
+                                <th width="15%">SECURITY AMOUNT</th>
                                 <th width="15%">TOTAL AMOUNT</th>
                                 <th width="15%">DURATION</th>
                                 <th width="15%">ACTION</th>
@@ -22,14 +23,15 @@
                         </thead>
                         <tbody>
                             <?php
-                            $no = 1; // Initialize a counter
+                            $no = 1; 
                             foreach ($listRentDue as $result) { ?>
                                 <tr>
                                     <td><strong class="text-black"><?= $no++ ?></strong></td>
                                     <td><?= Tools::propertyClient($result->propertyid) ?></td>
                                     <td><?= number_format($result->rentAmount,2) ?></td>
                                     <td><?= number_format($result->penaltyAmount,2) ?></td>
-                                    <td><?= number_format($result->rentAmount + $result->penaltyAmount, 2) ?></td>
+                                    <td><?= number_format($result->securityAmount,2) ?></td>
+                                    <td><?= number_format($result->securityAmount + $result->rentAmount + $result->penaltyAmount, 2) ?></td>
                                     <td><?= 'From: ' . $result->startDate . ' <br> To: ' . $result->endDate ?></td>
                                     <td>
                                         <div class="d-flex">
@@ -47,7 +49,7 @@
                                                 data-clientid="<?= $result->clientid ?>" 
                                                 data-rentid="<?= $result->rentid ?>" 
                                                 data-email="<?= Tools::clientEmail($result->clientid) ?>" 
-                                                data-amount="<?= ($result->rentAmount + $result->penaltyAmount) * 100 ?>">Pay Now
+                                                data-amount="<?= ($result->securityAmount + $result->rentAmount + $result->penaltyAmount) * 100 ?>">Pay Now
                                                 </a>
 
                                             <?php } ?>
@@ -157,7 +159,7 @@
                 console.log("Paystack payment window closed.");
                 $.notify("Payment window closed!", {
                     position: "top center",
-                    className: "error"
+                    className: "info"
                 });
             }
         });

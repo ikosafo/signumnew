@@ -207,6 +207,74 @@ class Clients extends tableDataObject
     }
 
 
+    public static function updateProfileClient( $altPhoneNumber,
+                                                $residentialAddress,
+                                                $nationality,
+                                                $birthDate,
+                                                $gender,
+                                                $maritalStatus,
+                                                $occupation,
+                                                $employerName,
+                                                $employerContact,
+                                                $emergencyName,
+                                                $emergencyContact,
+                                                $uuid) {
+
+            global $healthdb;
+
+            $chkuuid = "SELECT * from `clients` WHERE `uuid` = '$uuid'";
+            $healthdb->prepare($chkuuid);
+            $resultuuid = $healthdb->singleRecord();
+    
+            if ($resultuuid) {
+    
+                // If UUID exists, update the existing record
+                $query = "UPDATE `clients` 
+                SET  
+                `updatedAt` =   NOW(),
+                `altPhoneNumber` = :altPhoneNumber,
+                `residentialAddress` = :residentialAddress,
+                `nationality` = :nationality,
+                `birthDate` = :birthDate,
+                `gender` = :gender,
+                `maritalStatus` = :maritalStatus,
+                `occupation` = :occupation,
+                `employersName` = :employerName,
+                `employersPhone` = :employerContact,
+                `emergencyName` = :emergencyName,
+                `emergencyPhone` = :emergencyContact
+    
+                WHERE `uuid` = :uuid";
+    
+                $healthdb->prepare($query);
+                $healthdb->bind(':altPhoneNumber', $altPhoneNumber);
+                $healthdb->bind(':residentialAddress', $residentialAddress);
+                $healthdb->bind(':nationality', $nationality);
+                $healthdb->bind(':birthDate', $birthDate);
+                $healthdb->bind(':gender', $gender);
+                $healthdb->bind(':maritalStatus', $maritalStatus);
+                $healthdb->bind(':occupation', $occupation);
+                $healthdb->bind(':employerName', $employerName);
+                $healthdb->bind(':employerContact', $employerContact);
+                $healthdb->bind(':emergencyName', $emergencyName);
+                $healthdb->bind(':emergencyContact', $emergencyContact);
+                $healthdb->bind(':uuid', $uuid);
+
+                if (!$healthdb->execute()) {
+                    die('Execute error: ' . $healthdb->error);
+                } else {
+                    echo 1; 
+                }   
+    
+            }
+            else {
+               echo 2;
+               return;
+            }
+
+    }
+
+
     public static function saveComplaintDetails(
         $propertyName,
         $apartmentNumber,

@@ -440,6 +440,7 @@ class Properties extends tableDataObject
         return $resultList;
     }
 
+
     public static function previousRent($clientid,$lastRentId) {
         global $healthdb;
 
@@ -517,6 +518,7 @@ class Properties extends tableDataObject
         ];
     }
 
+    
     public static function rentInfo($rentid) {
         global $healthdb;
     

@@ -378,6 +378,17 @@ class Pages extends Controller
             ]
         );
     } 
+
+
+    public function userProfileClient() {
+        new Guard();  
+        $uid = $_SESSION['uid'];
+        $uuid = Tools::getUUIDbyid($uid);
+        $clientid = Tools::getClientidbyUUID($uuid);
+        $clientDetails = Clients::clientDetails($clientid);
+        $this->view("pages/userProfileClient",['clientDetails' => $clientDetails]
+        );
+    } 
     
 
     public function lock()

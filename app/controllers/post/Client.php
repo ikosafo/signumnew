@@ -66,5 +66,35 @@ class Client extends PostController
         );
     }
 
+    public function updateProfile() {
+        $altPhoneNumber = $_POST['altPhoneNumber'];
+        $residentialAddress = $_POST['residentialAddress'];
+        $nationality = $_POST['nationality'];
+        $birthDate = $_POST['birthDate'];
+        $gender = $_POST['gender'];
+        $maritalStatus = $_POST['maritalStatus'];
+        $occupation = $_POST['occupation'];
+        $employerName = $_POST['employerName'];
+        $employerContact = $_POST['employerContact'];
+        $emergencyName = $_POST['emergencyName'];
+        $emergencyContact = $_POST['emergencyContact'];
+        $uuid = $_POST['uuid'];
+        
+        Clients::updateProfileClient(
+            $altPhoneNumber,
+            $residentialAddress,
+            $nationality,
+            $birthDate,
+            $gender,
+            $maritalStatus,
+            $occupation,
+            $employerName,
+            $employerContact,
+            $emergencyName,
+            $emergencyContact,
+            $uuid
+        );
+    }
+
 
 }
