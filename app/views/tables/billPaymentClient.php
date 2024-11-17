@@ -121,7 +121,7 @@
                 setTimeout(function() {
                     console.log("Reloading the page...");
                     location.reload();
-                }, 3000);
+                }, 1000);
 
                 // Send data to verify payment on the server
                 $.post('/billing/verifyPayment', { 

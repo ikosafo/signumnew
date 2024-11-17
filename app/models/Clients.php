@@ -458,8 +458,7 @@ class Clients extends tableDataObject
         }
 
 
-    }
-    
+    }   
 
 
 }

@@ -803,7 +803,7 @@
 						</a>
                         <ul aria-expanded="false">
                             <li><a href="<?php echo URLROOT ?>/pages/billPaymentClient">Record Rent Payment</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/viewBillReceipts">View Rent Receipts</a></li>
+                            <li><a href="<?php echo URLROOT ?>/pages/clientPaymentHistory">Payment History</a></li>
                         </ul>
                     </li>
                     <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">

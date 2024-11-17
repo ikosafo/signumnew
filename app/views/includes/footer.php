@@ -35,6 +35,7 @@
 	<script src="<?php echo URLROOT ?>/assets/jquery-confirm/js/jquery-confirm.js"></script>
 	<script src="<?php echo URLROOT ?>/assets/js/select2.min.js"></script>
 	<script src="<?php echo URLROOT ?>/assets/js/crypto-js.min.js"></script>
+	<script src="<?php echo URLROOT ?>/assets/js/print.js"></script>
 	<script src="<?php echo URLROOT ?>/uploadifive/jquery.uploadifive.min.js"></script>
 
 	<script>

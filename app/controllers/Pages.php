@@ -186,6 +186,12 @@ class Pages extends Controller
         new Guard();
         $this->view("pages/billPaymentClient");
     }  
+
+    
+    public function clientPaymentHistory() {
+        new Guard();
+        $this->view("pages/clientPaymentHistory");
+    }  
     
 
     public function viewClient() {

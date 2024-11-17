@@ -305,6 +305,35 @@ class Tools extends tableDataObject{
         return $result;
     }
 
+    public static function generateReceiptNumber($createdAt) {
+        $prefix = "R";
+        $timestamp = strtotime($createdAt);
+    
+        $hash = substr(md5($createdAt), 0, 4);
+        $receiptNumber = $prefix . '-' . $timestamp . '-' . strtoupper($hash);
+        return $receiptNumber;
+    }
+
+
+    public static function clientAddress($clientid) {
+        global $healthdb;
+
+        $query = "SELECT `residentialAddress` FROM `clients` WHERE `clientid` = '$clientid'";
+        $healthdb->prepare($query);
+        $result = $healthdb->fetchColumn();
+        return $result;
+    }
+
+
+    public static function clientPhone($clientid) {
+        global $healthdb;
+
+        $query = "SELECT `phoneNumber` FROM `clients` WHERE `clientid` = '$clientid'";
+        $healthdb->prepare($query);
+        $result = $healthdb->fetchColumn();
+        return $result;
+    }
+
 
     public static function lastRentId($clientid) {
         global $healthdb;

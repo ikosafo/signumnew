@@ -1,6 +1,4 @@
-<?php
-extract($data);
-?>
+<?php extract($data); ?>
 <div class="row">
     <div class="col-12">
         <div class="card">

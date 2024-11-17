@@ -53,12 +53,21 @@ class Forms extends PostController
     }
 
 
+    public function printReceipt()
+    {
+        $id_index = $_POST['id_index'];
+        $paymentDetails = Billings::paymentDetails($id_index);
+        $this->view("forms/printReceipt",['paymentDetails' => $paymentDetails]);
+    }  
+
+
     public function rentalInformation()
     {
         $clientid = $_POST['clientid'];
         $clientDetails = Clients::clientDetails($clientid);
         $this->view("forms/rentalInformation", $clientDetails);
     }
+
 
     public function billPayment()
     {
