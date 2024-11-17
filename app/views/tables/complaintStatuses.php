@@ -15,8 +15,9 @@
                             <th width="20%">ISSUE TRACKING NO.</th>
                             <th width="20%">PROPERTY NAME</th>
                             <th width="20%">COMPLAINT TYPE</th>
+                            <th width="20%">CATEGORY</th>
                             <th width="20%">STATUS</th>
-                            <th width="10%">ACTION</th>
+                            <th width="10%">VERIFY RESOLUTION</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -28,11 +29,20 @@
                                 <td><?= $result->issueTrackingNumber ?></td>
                                 <td><?= Tools::propertyClient($result->propertyid) ?></td>
                                 <td><?= $result->complaintType ?></td>
+                                <td><?= $result->issueCategory ?></td>
                                 <td><?= !$result->resolution ? 'Pending': $result->resolution  ?></td>
                                 <td>
-                                    <div class="d-flex">
-                                        <a href="javascript:void(0);" class="btn btn-primary viewComplaint shadow btn-xs sharp me-1" complaintid='<?= $result->complaintid ?>'><i class="fas fa-eye"></i></a>
-                                    </div>
+                                    <?php
+                                        if ($result->verifyRemarks != "") {
+                                            echo "Verified";
+                                        }
+                                        else if ($result->resolution != "" && $result->resolution != "Pending") {
+                                            echo '<button type="button" id="verifyResolution" class="verifyResolution btn btn-warning next2 btn-sm" i_index="' . $result->complaintid . '" style="margin-left:10px">Verify Resolution</button>';
+                                        }
+                                        else {
+                                            echo "Pending Resolution";
+                                        }
+                                    ?>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -44,7 +54,8 @@
         </div>
     </div>
 </div>
-<div id="pageDetailsDiv"></div>
+<div id="verifyIssue"></div>
+
 
 <script>
     $("#complaintTable").DataTable({
@@ -61,6 +72,26 @@
         var complaintid = $(this).attr('complaintid');
         var hash = btoa(btoa(btoa(complaintid)));
         window.location.href = urlroot + "/pages/viewComplaint?complaintid=" + hash;
+    });
+
+
+    $(document).on('click', '.verifyResolution', function() {
+        var idIndex = $(this).attr('i_index');
+        //alert(idIndex);
+        
+        $('html, body').animate({
+                scrollTop: $("#verifyIssue").offset().top
+        }, 2000);
+
+        var formData = {
+            id_index: idIndex
+        };
+        var url = "/forms/verifyResolution";
+        var successCallback = function(response) {
+            $('#verifyIssue').html(response);
+        };
+        saveForm(formData, url, successCallback);
+       
     });
     
 

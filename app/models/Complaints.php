@@ -8,7 +8,7 @@ class Complaints extends tableDataObject
         global $healthdb;
     
         if (empty($status) || $status == "Pending") {
-            $getList = "SELECT * FROM `complaints` WHERE `status` = 1 ORDER BY `createdAt` DESC";
+            $getList = "SELECT * FROM `complaints` WHERE `status` = 1 AND `resolution` IS NULL ORDER BY `createdAt` DESC";
             $healthdb->prepare($getList);
         } else {
             $getList = "SELECT * FROM `complaints` WHERE `status` = 1 AND `resolution` = ? ORDER BY `createdAt` DESC";

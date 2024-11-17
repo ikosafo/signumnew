@@ -781,8 +781,7 @@
                         <ul aria-expanded="false">
 							<li><a href="<?php echo URLROOT ?>/pages/logComplaint">Make a Complaint</a></li>
 							<li><a href="<?php echo URLROOT ?>/pages/listComplaints">List Complaints</a></li>
-							<li><a href="<?php echo URLROOT ?>/pages/complaintStatuses">Complaints Statuses</a></li>
-							<li><a href="<?php echo URLROOT ?>/pages/searchComplaint">Search Complaint</a></li>         
+							<li><a href="<?php echo URLROOT ?>/pages/complaintStatuses">Complaints Statuses</a></li>        
                         </ul>
                     </li>
 					<li>
@@ -792,7 +791,7 @@
 							
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="<?php echo URLROOT ?>/pages/viewRentInformation">View Rent Info</a></li>
+                            <li><a href="<?php echo URLROOT ?>/pages/viewClientRent">View Rent Info</a></li>
                             <li><a href="<?php echo URLROOT ?>/pages/viewRentInvoices">View Rent Invoices</a></li>
                             <li><a href="<?php echo URLROOT ?>/pages/rentReceipts">Rent Receipts</a></li>
                         </ul>

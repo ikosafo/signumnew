@@ -231,6 +231,21 @@ class Pages extends Controller
     } 
 
 
+    
+    public function viewClientRent() {
+        new Guard();
+        
+        $uid = $_SESSION['uid'];
+        $uuid = Tools::getUUIDbyid($uid);
+        $clientid = Tools::getClientidbyUUID($uuid);
+        $lastRentId = Tools::lastRentId($clientid);
+        $rentInfo = Properties::rentInfo($lastRentId);
+        $this->view("pages/viewClientRent",[
+            'rentInfo' => $rentInfo
+        ]);
+    } 
+
+
     public function viewRentInfo() {
         new Guard();
 
@@ -322,7 +337,7 @@ class Pages extends Controller
             'listRentInformation' => $listRentInformation
         ]);
     } 
-    
+
 
     public function propertyCategories() {
         new Guard();  

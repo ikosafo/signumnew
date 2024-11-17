@@ -94,12 +94,11 @@ extract($data);
                                     <div class="next-btn py-4 d-flex col-sm-12 justify-content-center">
                                         <button type="button" id="backList" class="btn btn-primary next2 btn-sm">Back to List</button>
                                         <?php
-                                            if ($complaintDetails['resolution'] != "" && $complaintDetails['resolution'] != "Pending") {
-                                                echo '<button type="button" id="verifyResolution" class="verifyResolution btn btn-warning next2 btn-sm" i_index="' . $complaintDetails['complaintid'] . '" style="margin-left:10px">Verify Resolution</button>';
-                                            }
-                                            ?>
-
-                                       
+                                        if ($complaintDetails['resolution'] != "" && $complaintDetails['resolution'] != "Pending") {
+                                            echo '<button type="button" id="verifyResolution" class="verifyResolution btn btn-warning next2 btn-sm" i_index="' . $complaintDetails['complaintid'] . '" style="margin-left:10px">Verify Resolution</button>';
+                                        }
+                                        ?>
+      
                                     </div>
 
                                 </form>
@@ -134,24 +133,23 @@ extract($data);
 
 
     $(document).on('click', '.verifyResolution', function() {
-            var idIndex = $(this).attr('i_index');
-            //alert(idIndex);
-          
-          $('html, body').animate({
-                  scrollTop: $("#verifyIssue").offset().top
-            }, 2000);
+        var idIndex = $(this).attr('i_index');
+        //alert(idIndex);
+        
+        $('html, body').animate({
+                scrollTop: $("#verifyIssue").offset().top
+        }, 2000);
 
-            var formData = {
-                  id_index: idIndex
-              };
-              var url = "/forms/verifyResolution";
-              var successCallback = function(response) {
-                  $('#verifyIssue').html(response);
-              };
-              saveForm(formData, url, successCallback);
-
-         
-        });
+        var formData = {
+            id_index: idIndex
+        };
+        var url = "/forms/verifyResolution";
+        var successCallback = function(response) {
+            $('#verifyIssue').html(response);
+        };
+        saveForm(formData, url, successCallback);
+       
+    });
 
 
 </script>

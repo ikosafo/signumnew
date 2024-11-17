@@ -305,6 +305,16 @@ class Tools extends tableDataObject{
         return $result;
     }
 
+
+    public static function lastRentId($clientid) {
+        global $healthdb;
+
+        $query = "SELECT `rentid` FROM `rentinfo` WHERE `clientid` = '$clientid' ORDER BY rentid DESC LIMIT 1";
+        $healthdb->prepare($query);
+        $result = $healthdb->fetchColumn();
+        return $result;
+    }
+
     
     public static function generateRandomPassword($length = 9) {
         // Define possible characters in the password
