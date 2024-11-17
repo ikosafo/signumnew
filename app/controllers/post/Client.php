@@ -54,5 +54,17 @@ class Client extends PostController
         );
     }
 
+    public function savePassword() {
+        $currentPassword = $_POST['currentPassword'];
+        $newPassword = $_POST['newPassword'];
+        $uuid = $_POST['uuid'];
+
+        Clients::savePassword(
+            $currentPassword,
+            $newPassword,
+            $uuid
+        );
+    }
+
 
 }

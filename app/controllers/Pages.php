@@ -240,8 +240,11 @@ class Pages extends Controller
         $clientid = Tools::getClientidbyUUID($uuid);
         $lastRentId = Tools::lastRentId($clientid);
         $rentInfo = Properties::rentInfo($lastRentId);
+        $previousRent = Properties::previousRent($clientid,$lastRentId);
+
         $this->view("pages/viewClientRent",[
-            'rentInfo' => $rentInfo
+            'rentInfo' => $rentInfo,
+            'previousRent' => $previousRent
         ]);
     } 
 
@@ -361,6 +364,19 @@ class Pages extends Controller
                 'listProperties' => $listProperties,
                 'clientid' => $clientid
             ]);
+    } 
+
+
+    public function changePasswordClient() {
+        new Guard();  
+        $uid = $_SESSION['uid'];
+        $uuid = Tools::getUUIDbyid($uid);
+        $clientid = Tools::getClientidbyUUID($uuid);
+        $this->view("pages/changePasswordClient",
+            ['clientid' => $clientid, 
+                'uuid' => $uuid
+            ]
+        );
     } 
     
 

@@ -4,20 +4,37 @@ class Complaints extends tableDataObject
 {
     const TABLENAME = 'complaints';
     
-    public static function listComplaints($status) {
+    public static function listComplaints($status,$clientid) {
         global $healthdb;
     
         if (empty($status) || $status == "Pending") {
-            $getList = "SELECT * FROM `complaints` WHERE `status` = 1 AND `resolution` IS NULL ORDER BY `createdAt` DESC";
+            $getList = "SELECT * FROM `complaints` WHERE `status` = 1 AND `clientid` = '$clientid' AND `resolution` IS NULL ORDER BY `createdAt` DESC";
+            $healthdb->prepare($getList);
+        } 
+        else if ($status == "All") {
+            $getList = "SELECT * FROM `complaints` WHERE `status` = 1 AND `clientid` = '$clientid' ORDER BY `createdAt` DESC";
             $healthdb->prepare($getList);
         } else {
-            $getList = "SELECT * FROM `complaints` WHERE `status` = 1 AND `resolution` = ? ORDER BY `createdAt` DESC";
+            $getList = "SELECT * FROM `complaints` WHERE `status` = 1 AND `clientid` = '$clientid' AND `resolution` = ? ORDER BY `createdAt` DESC";
             $healthdb->prepare($getList);
             $healthdb->bind(1, $status);
         }
     
         $resultList = $healthdb->resultSet();
         return $resultList;
+    }
+
+
+
+    public static function listClientComplaints($clientid) {
+        global $healthdb;
+    
+        
+            $getList = "SELECT * FROM `complaints` WHERE `status` = 1 AND `clientid` = ? ORDER BY `createdAt` DESC";
+            $healthdb->prepare($getList);
+            $healthdb->bind(1, $clientid);
+            $resultList = $healthdb->resultSet();
+            return $resultList;
     }
     
 

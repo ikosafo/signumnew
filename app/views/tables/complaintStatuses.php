@@ -34,7 +34,7 @@
                                 <td>
                                     <?php
                                         if ($result->verifyRemarks != "") {
-                                            echo "Verified";
+                                            echo '<button type="button" id="viewResolution" class="viewResolution btn btn-success next2 btn-sm" i_index="' . $result->complaintid . '" style="margin-left:10px">View Feedback</button>';
                                         }
                                         else if ($result->resolution != "" && $result->resolution != "Pending") {
                                             echo '<button type="button" id="verifyResolution" class="verifyResolution btn btn-warning next2 btn-sm" i_index="' . $result->complaintid . '" style="margin-left:10px">Verify Resolution</button>';
@@ -87,6 +87,27 @@
             id_index: idIndex
         };
         var url = "/forms/verifyResolution";
+        var successCallback = function(response) {
+            $('#verifyIssue').html(response);
+        };
+        saveForm(formData, url, successCallback);
+       
+    });
+
+
+
+    $(document).on('click', '.viewResolution', function() {
+        var idIndex = $(this).attr('i_index');
+        
+        $('html, body').animate({
+                scrollTop: $("#verifyIssue").offset().top
+        }, 2000);
+        //alert(idIndex);
+
+        var formData = {
+            id_index: idIndex
+        };
+        var url = "/forms/viewResolution";
         var successCallback = function(response) {
             $('#verifyIssue').html(response);
         };

@@ -67,19 +67,26 @@ class Tables extends Controller
         $this->view("tables/paymentHistory",['paymentHistory' => $paymentHistory]);
     }
 
-    public function complaints() {
+
+    public function clientComplaints() {
         new Guard();
-        $listComplaints = Complaints::listComplaints($status = null);
-        $this->view("tables/complaints",[
-            'listComplaints' => $listComplaints
+        $uid = $_SESSION['uid'];
+        $uuid = Tools::getUUIDbyid($uid);
+        $clientid = Tools::getClientidbyUUID($uuid);
+        $listClientComplaints = Complaints::listClientComplaints($clientid);
+        $this->view("tables/clientComplaints",[
+            'listClientComplaints' => $listClientComplaints
         ]);
     }  
 
     public function complaintStatuses() {
         new Guard();
         
+        $uid = $_SESSION['uid'];
+        $uuid = Tools::getUUIDbyid($uid);
+        $clientid = Tools::getClientidbyUUID($uuid);
         $status = isset($_GET['status']) ? htmlspecialchars($_GET['status']) : null;
-        $listComplaints = Complaints::listComplaints($status);       
+        $listComplaints = Complaints::listComplaints($status,$clientid);       
         $this->view("tables/complaintStatuses", [
             'listComplaints' => $listComplaints,
             'status' => $status

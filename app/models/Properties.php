@@ -439,6 +439,15 @@ class Properties extends tableDataObject
         $resultList = $healthdb->resultSet();
         return $resultList;
     }
+
+    public static function previousRent($clientid,$lastRentId) {
+        global $healthdb;
+
+        $getList = "SELECT * FROM `rentinfo` WHERE `clientid` = '$clientid' AND `rentid` != '$lastRentId' AND `status` = 1 ORDER BY `createdAt` DESC, `updatedAt` DESC";
+        $healthdb->prepare($getList);
+        $resultList = $healthdb->resultSet();
+        return $resultList;
+    }
     
  
     public static function propertyDetails($propertyid) {

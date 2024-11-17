@@ -823,7 +823,7 @@
 							
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="<?php echo URLROOT ?>/pages/changePassword">Change Password</a></li>
+                            <li><a href="<?php echo URLROOT ?>/pages/changePasswordClient">Change Password</a></li>
                             <li><a href="<?php echo URLROOT ?>/pages/userProfile">Update Profile</a></li>
                         </ul>
                     </li>

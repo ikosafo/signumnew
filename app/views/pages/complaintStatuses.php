@@ -22,6 +22,7 @@
                                     <div class="form-group col-md-6 mx-sm-3 col-sm-12">
                                             <select id="resolutionStatus" class="form-control" required>
                                                 <option value=""></option>
+                                                <option value="All">ALL</option>
                                                 <option value="">PENDING</option>
                                                 <option value="Pending">PENDING</option>
                                                 <option value="Resolved">RESOLVED</option>

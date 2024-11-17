@@ -22,7 +22,7 @@
                     <tbody>
                         <?php
                         $no = 1; // Initialize a counter
-                        foreach ($listComplaints as $result) { ?>
+                        foreach ($listClientComplaints as $result) { ?>
                             <tr>
                                 <td><strong class="text-black"><?= $no++ ?></strong></td>
                                 <td><?= Tools::propertyClient($result->propertyid) ?></td>

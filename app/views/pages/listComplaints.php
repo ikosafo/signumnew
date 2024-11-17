@@ -18,7 +18,7 @@
 <?php include ('includes/footer.php'); ?>
 
 <script>	
-    loadPage("/tables/complaints", function(response) {
+    loadPage("/tables/clientComplaints", function(response) {
         $('#pageTableDiv').html(response);
     });
 </script>
