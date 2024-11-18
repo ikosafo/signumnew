@@ -19,7 +19,11 @@ class Pages extends Controller
     public function client()
     {
         new Guard();
-        $this->view("pages/client");
+        $uid = $_SESSION['uid'];
+        $uuid = Tools::getUUIDbyid($uid);
+        $clientid = Tools::getClientidbyUUID($uuid);
+        $clientDetails = Clients::clientDetails($clientid);
+        $this->view("pages/client",['clientDetails' => $clientDetails]);
     }
 
 
@@ -187,7 +191,7 @@ class Pages extends Controller
         $this->view("pages/billPaymentClient");
     }  
 
-    
+
     public function clientPaymentHistory() {
         new Guard();
         $this->view("pages/clientPaymentHistory");
