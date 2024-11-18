@@ -100,7 +100,7 @@
     </div> 
 </div> 
 
-<a href="#" id="printbutton" class="btn btn-sm btn-primary font-weight-lighter mr-2 text-small">Print Application</a>
+<a href="#" id="printbutton" class="btn btn-sm btn-primary font-weight-lighter mr-2 text-small">Print Receipt</a>
 
 <script>
     function printContent() {
