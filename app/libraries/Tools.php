@@ -270,7 +270,7 @@ class Tools extends tableDataObject{
     public static function getUUIDbyid($uid) {
         global $healthdb;
 
-        $query = "SELECT `user_id` FROM `users` WHERE `id` = '$uid'";
+        $query = "SELECT `uuid` FROM `users` WHERE `id` = '$uid'";
         $healthdb->prepare($query);
         $result = $healthdb->fetchColumn();
         return $result;
@@ -577,7 +577,7 @@ class Tools extends tableDataObject{
     public static function getUserPermissions($userId) {
         global $healthdb;
 
-        $query = "SELECT `permission` FROM `permission` WHERE user_id = '$userId'";
+        $query = "SELECT `permission` FROM `permission` WHERE uuid = '$userId'";
         $healthdb->prepare($query);
         $result = $healthdb->resultSet();
     

@@ -34,7 +34,12 @@ class Forms extends PostController
     {
         $userid = $_POST['userid'];
         $userDetails = Institution::userDetails($userid);
-        $this->view("forms/adminUserDetails", $userDetails);
+        $userPermissions = Tools::getUserPermissions($userid);
+        $this->view("forms/adminUserDetails", 
+            [
+                'userDetails' =>  $userDetails,
+                'userPermissions' =>  $userPermissions
+            ]);
     }
 
 

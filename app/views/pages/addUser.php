@@ -171,44 +171,76 @@ extract($data);
 
                                                         <div class="mb-3">
                                                             <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="check1" value="Property Management">
-                                                                <label class="form-check-label" for="check1">Property Management</label>
+                                                                <input type="checkbox" class="form-check-input" id="permission_check1" value="Property Management">
+                                                                <label class="form-check-label" for="permission_check1">Property Management</label>
                                                             </div>
                                                             <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="check2" value="Tenant Management">
-                                                                <label class="form-check-label" for="check2">Tenant Management</label>
+                                                                <input type="checkbox" class="form-check-input" id="permission_check2" value="Client Management">
+                                                                <label class="form-check-label" for="permission_check2">Client Management</label>
                                                             </div>
                                                             <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="check3" value="Inspections">
-                                                                <label class="form-check-label" for="check3">Inspections</label>
+                                                                <input type="checkbox" class="form-check-input" id="permission_check3" value="Inspections">
+                                                                <label class="form-check-label" for="permission_check3">Inspections</label>
                                                             </div>
                                                             <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="check4" value="Rent Collection">
-                                                                <label class="form-check-label" for="check4">Rent Collection</label>
+                                                                <input type="checkbox" class="form-check-input" id="permission_check4" value="Rent Management">
+                                                                <label class="form-check-label" for="permission_check4">Rent Management</label>
                                                             </div>
                                                             <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="check5" value="Financials">
-                                                                <label class="form-check-label" for="check5">Financials</label>
+                                                                <input type="checkbox" class="form-check-input" id="permission_check5" value="Financials">
+                                                                <label class="form-check-label" for="permission_check5">Financials</label>
                                                             </div>
                                                             <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="check6" value="Contracts">
-                                                                <label class="form-check-label" for="check6">Contracts</label>
+                                                                <input type="checkbox" class="form-check-input" id="permission_check6" value="Billings">
+                                                                <label class="form-check-label" for="permission_check6">Billings</label>
                                                             </div>
                                                             <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="check7" value="Maintenance">
-                                                                <label class="form-check-label" for="check7">Maintenance</label>
+                                                                <input type="checkbox" class="form-check-input" id="permission_check7" value="Contracts">
+                                                                <label class="form-check-label" for="permission_check7">Contracts</label>
                                                             </div>
                                                             <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="check8" value="Ticketing">
-                                                                <label class="form-check-label" for="check8">Ticketing</label>
+                                                                <input type="checkbox" class="form-check-input" id="permission_check8" value="Maintenance">
+                                                                <label class="form-check-label" for="permission_check8">Maintenance</label>
                                                             </div>
                                                             <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="check9" value="Reports">
-                                                                <label class="form-check-label" for="check9">Reports</label>
+                                                                <input type="checkbox" class="form-check-input" id="permission_check9" value="Ticketing">
+                                                                <label class="form-check-label" for="permission_check9">Ticketing</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="permission_check10" value="Reports">
+                                                                <label class="form-check-label" for="permission_check10">Reports</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="permission_check11" value="All Permissions">
+                                                                <label class="form-check-label" for="permission_check11">All Permissions</label>
                                                             </div>
                                                         </div>
+                                                        </div>
 
+                                                        <div class="form-group col-md-4 col-sm-12">
+                                                        <label class="form-label required">Tasks</label>
+
+                                                        <div class="mb-3">
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="task_check1" value="Field Worker">
+                                                                <label class="form-check-label" for="task_check1">Field Worker</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="task_check2" value="Site Inspector">
+                                                                <label class="form-check-label" for="task_check2">Site Inspector</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="task_check3" value="Administrator">
+                                                                <label class="form-check-label" for="task_check3">Administrator</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="task_check4" value="Super Administrator">
+                                                                <label class="form-check-label" for="task_check4">Super Administrator</label>
+                                                            </div>
+                                                        </div>
                                                     </div>
+
+                                                    
 
                                                     <div class="next-btn d-flex col-sm-12">
                                                         <button type="button" class="btn btn-default prev2 btn-sm"><i class="fas fa-arrow-left me-2"></i> Previous</button>
@@ -260,17 +292,9 @@ extract($data);
             maxDate: "today"
         });
 
-
-       $('#permissions').SumoSelect({
-            placeholder: 'Select options',
-            selectAll: true,
-            search: true,
-            okCancelInMulti: true
-        });
-
         $("#department").select2({
             placeholder: "Select Department"
-       });   
+        });   
 
        $("#securityQuestion").select2({
             placeholder: "Select Security Question"
@@ -373,7 +397,6 @@ extract($data);
         });
 
 
-
         $("#saveUserAccount").on("click", function(event) {
             event.preventDefault();
 
@@ -446,7 +469,6 @@ extract($data);
         });
 
 
-
         //Roles
         $("#saveRole").on("click", function(event) {
             event.preventDefault(); 
@@ -454,12 +476,21 @@ extract($data);
             var userData = {
                 userRole: $("#userRole").val(),
                 permissions: [],
+                tasks: '',
                 uuid: '<?php echo $uuid ?>'
             };
 
-            $("input[type='checkbox']:checked").each(function() {
+            $("input[type='checkbox'][id^='permission_check']:checked").each(function() {
                 userData.permissions.push($(this).val());
             });
+
+            var selectedTasks = [];
+            $("input[type='checkbox'][id^='task_check']:checked").each(function() {
+                selectedTasks.push($(this).val());
+            });
+            userData.tasks = selectedTasks.join(','); 
+            alert(userData.tasks);
+
 
             var url = urlroot + "/user/saveRole";
 
@@ -473,34 +504,31 @@ extract($data);
                 // Delay the reload to allow the notification to be seen
                 setTimeout(function() {
                     location.reload();
-                }, 2000);  // 2-second delay
+                }, 2000); 
             };
 
             var validateUserAccount = function(userData) {
-                var error = '';
-                if (!userData.userRole) {
-                    error += 'User Role is required\n';
-                    $("#userRole").focus();
-                }
-                if (userData.permissions.length === 0) {
-                    error += 'At least one permission must be selected\n';
-                }
+                    var error = '';
 
-                return error;
-            };
+                    if (!userData.userRole) {
+                        error += 'User Role is required\n';
+                        $("#userRole").focus();
+                    }
+
+                    if (userData.permissions.length === 0) {
+                        error += 'At least one permission must be selected\n';
+                    }
+
+                    var tasksSelected = $("input[type='checkbox'][id^='task_check']:checked").length;
+                    if (tasksSelected === 0) {
+                        error += 'At least one task must be selected\n';
+                    }
+
+                    return error;
+                };
+
 
             saveForm(userData, url, successCallback, validateUserAccount);
-        });
-
-
-        // Rental info
-        $("#savePermission").on("click", function(event) {
-            // Collect rental info data instead of owner data
-                $("#needs-validation2").addClass("was-validated");
-                $('.step-3').removeClass('active').addClass('disabled');
-                $('.step-4').addClass('active');
-                $('.wizard-step-4').addClass('d-block').removeClass('d-none');
-                $('.wizard-step-3').removeClass('d-block').addClass('d-none');
         });
 
 

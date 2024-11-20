@@ -165,7 +165,7 @@ $propertyid = $rentInfo['propertyid'];
                 }, 500);
             }
             else {
-                $.notify("Lease date is not due", {
+                $.notify("Previous Lease end date is not due", {
                     position: "top center",
                     className: "error"
                 });

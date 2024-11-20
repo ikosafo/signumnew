@@ -192,7 +192,7 @@ class Clients extends tableDataObject
                     $resultUsername = $healthdb->singleRecord();
 
                     if (!$resultUsername) {
-                        $insertUser = "INSERT INTO `users` (`username`, `password`, `user_id`, `createdAt`,`accessLevel`) VALUES ('$emailAddress', '" . md5($password) . "', '$uuid', NOW(), 'Client')";
+                        $insertUser = "INSERT INTO `users` (`username`, `password`, `uuid`, `createdAt`,`accessLevel`) VALUES ('$emailAddress', '" . md5($password) . "', '$uuid', NOW(), 'Client')";
                         $healthdb->prepare($insertUser);
                         $healthdb->execute();
                         echo 3; 
@@ -433,7 +433,7 @@ class Clients extends tableDataObject
 
         $encrPassword = md5($newPassword);
         $encNewPassword = md5($currentPassword);
-        $chkUser = "SELECT * FROM `users` WHERE `user_id` = '$uuid' AND `password` =  '$encNewPassword'";
+        $chkUser = "SELECT * FROM `users` WHERE `uuid` = '$uuid' AND `password` =  '$encNewPassword'";
         $healthdb->prepare($chkUser);
         $resultUser = $healthdb->singleRecord();
 
@@ -441,7 +441,7 @@ class Clients extends tableDataObject
             $query = "UPDATE `users` SET 
             `password` = :encrPassword,
             `updatedAt` = NOW()  
-            WHERE `user_id` = :uuid";
+            WHERE `uuid` = :uuid";
             $healthdb->prepare($query);
 
             $healthdb->bind(':encrPassword', $encrPassword);

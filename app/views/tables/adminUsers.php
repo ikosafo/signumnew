@@ -1,5 +1,5 @@
 <?php extract($data); ?>
-<div id="userDetailsDiv"></div>
+
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
@@ -27,15 +27,15 @@
                             <tr>
                                 <td><strong class="text-black"><?= $no++ ?></strong></td>
                                 <td><?= $result->firstName. ' '. $result->lastName ?></td>
-                                <td><?= $result->emailAddress ?></td>
+                                <td><?= $result->emailaddress ?></td>
                                 <td><?= $result->phoneNumber ?></td>
                                 <td><?= Tools::getDepartment($result->department) ?></td>
                                 <td><?= $result->accessLevel ?></td>
                                 <td>
                                     <div class="d-flex">
-                                        <a href="javascript:void(0);" class="btn btn-primary viewUser shadow btn-xs sharp me-1" userid='<?= $result->userid ?>'><i class="fas fa-eye"></i></a>
-                                        <a href="javascript:void(0);" class="btn btn-warning editUser shadow btn-xs sharp me-1" userid='<?= $result->userid ?>'><i class="fas fa-pencil-alt"></i></a>
-                                        <a href="javascript:void(0);" class="btn btn-danger deleteUser shadow btn-xs sharp" userid='<?= $result->userid ?>'><i class="fas fa-trash"></i></a>
+                                        <a href="javascript:void(0);" class="btn btn-primary viewUser shadow btn-xs sharp me-1" userid='<?= $result->id ?>'><i class="fas fa-eye"></i></a>
+                                        <a href="javascript:void(0);" class="btn btn-warning editUser shadow btn-xs sharp me-1" userid='<?= $result->id ?>'><i class="fas fa-pencil-alt"></i></a>
+                                        <a href="javascript:void(0);" class="btn btn-danger deleteUser shadow btn-xs sharp" userid='<?= $result->id ?>'><i class="fas fa-trash"></i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -48,6 +48,7 @@
         </div>
     </div>
 </div>
+<div id="userDetailsDiv"></div>
 
 <script>
     $("#adminUser").DataTable({
@@ -61,10 +62,9 @@
 
     $(document).on('click', '.viewUser', function() {
         var userid = $(this).attr('userid');
-         window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
+        $('html, body').animate({
+            scrollTop: $("#userDetailsDiv").offset().top
+        }, 500);
 
         var formData = {};
         formData.userid = userid; 

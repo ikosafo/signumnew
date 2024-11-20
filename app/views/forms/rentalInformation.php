@@ -104,9 +104,9 @@ $uuid = Tools::generateUUID();
     });
 
     $("#saveRentDetails").on("click", function(event) {
-        event.preventDefault(); 
+        event.preventDefault();
 
-        var rentData  = {
+        var rentData = {
             rentAmount: $("#rentAmount").val(),
             securityDeposit: $("#securityDeposit").val(),
             penaltyAmount: $("#penaltyAmount").val(),
@@ -119,13 +119,12 @@ $uuid = Tools::generateUUID();
             additionalCharges: $("#additionalCharges").val(),
             uuid: '<?php echo $uuid; ?>',
             propertyid: '<?php echo $propertyid ?>',
-            clientid:  '<?php echo $clientid ?>'
+            clientid: '<?php echo $clientid ?>'
         };
 
         var url = urlroot + "/property/saveRentInfo";
 
         var successCallback = function(response) {
-            //alert(response);
             if (response == 1) {
                 $.notify("Rent information added successfully", {
                     position: "top center",
@@ -135,9 +134,8 @@ $uuid = Tools::generateUUID();
                 setTimeout(function() {
                     location.reload();
                 }, 500);
-            }
-            else {
-                $.notify("Lease date is not due", {
+            } else {
+                $.notify("Previous Lease end date is not due", {
                     position: "top center",
                     className: "error"
                 });
@@ -146,6 +144,8 @@ $uuid = Tools::generateUUID();
 
         var validateRentForm = function(rentData) {
             var error = '';
+
+            // Check for required fields
             if (!rentData.rentAmount) {
                 error += 'Monthly Rent Amount is required\n';
                 $("#rentAmount").focus();
@@ -179,10 +179,30 @@ $uuid = Tools::generateUUID();
                 $("#leaseRenewable").focus();
             }
 
+            // Additional validation for Month-to-month lease
+            if (rentData.leaseType === 'Month-to-month') {
+                if (rentData.startDate && rentData.endDate) {
+                    var startDate = new Date(rentData.startDate);
+                    var endDate = new Date(rentData.endDate);
+
+                    var monthDifference =
+                        endDate.getMonth() - startDate.getMonth() +
+                        12 * (endDate.getFullYear() - startDate.getFullYear());
+
+                    if (monthDifference !== 1) {
+                        error += 'For Month-to-month leases, date interval should be one month \n';
+                        $("#endDate").focus();
+                    }
+                } else {
+                    error += 'Start Date and End Date are required for Month-to-month lease\n';
+                }
+            }
 
             return error;
         };
+
         saveForm(rentData, url, successCallback, validateRentForm);
     });
+
     
 </script>

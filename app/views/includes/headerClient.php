@@ -47,7 +47,7 @@
 
     <div id="main-wrapper">
         <div class="nav-header">
-            <a href="index.html" class="brand-logo">
+            <a href="<?php echo URLROOT ?>/pages/client" class="brand-logo">
                 <img class="logo-abbr" src="<?php echo URLROOT ?>/assets/images/signum_logo.png" alt="/">
                 <img class="logo-compact" src="<?php echo URLROOT ?>/assets/images/signum_logo.png" alt="/">
                 <img class="brand-title" src="<?php echo URLROOT ?>/assets/images/signum_logo.png" alt="/">
@@ -107,61 +107,6 @@
 													</div>
 												</div>
 											</li>
-											<li>
-												<div class="timeline-panel">
-													<div class="media me-2 media-info">
-														KG
-													</div>
-													<div class="media-body">
-														<h6 class="mb-1">Resport created successfully</h6>
-														<small class="d-block">29 July 2020 - 02:26 PM</small>
-													</div>
-												</div>
-											</li>
-											<li>
-												<div class="timeline-panel">
-													<div class="media me-2 media-success">
-														<i class="fas fa-home"></i>
-													</div>
-													<div class="media-body">
-														<h6 class="mb-1">Reminder : Treatment Time!</h6>
-														<small class="d-block">29 July 2020 - 02:26 PM</small>
-													</div>
-												</div>
-											</li>
-											 <li>
-												<div class="timeline-panel">
-													<div class="media me-2">
-														<img alt="image" width="50" src="<?php echo URLROOT ?>/assets/images/avatar/1.jpg">
-													</div>
-													<div class="media-body">
-														<h6 class="mb-1">Dr sultads Send you Photo</h6>
-														<small class="d-block">29 July 2020 - 02:26 PM</small>
-													</div>
-												</div>
-											</li>
-											<li>
-												<div class="timeline-panel">
-													<div class="media me-2 media-danger">
-														KG
-													</div>
-													<div class="media-body">
-														<h6 class="mb-1">Resport created successfully</h6>
-														<small class="d-block">29 July 2020 - 02:26 PM</small>
-													</div>
-												</div>
-											</li>
-											<li>
-												<div class="timeline-panel">
-													<div class="media me-2 media-primary">
-														<i class="fas fa-home"></i>
-													</div>
-													<div class="media-body">
-														<h6 class="mb-1">Reminder : Treatment Time!</h6>
-														<small class="d-block">29 July 2020 - 02:26 PM</small>
-													</div>
-												</div>
-											</li>
 										</ul>
 									</div>
                                     <a class="all-notification" href="javascript:void(0);">See all notifications <i class="ti-arrow-right"></i></a>
@@ -173,7 +118,7 @@
 										<span class="text-black"><?= $_SESSION['username']; ?></span>
 										<p class="fs-12 mb-0"><?= $_SESSION['accessLevel']; ?></p>
 									</div>
-									<?= Tools::displayHeaderImages($_SESSION['user_id']) ?>
+									<?= Tools::displayHeaderImages($_SESSION['uuid']) ?>
                                  </a>
                                 <div class="dropdown-menu dropdown-menu-end">
                                     <a href="<?php echo URLROOT ?>/pages/userProfileClient" class="dropdown-item ai-icon">

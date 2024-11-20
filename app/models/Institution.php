@@ -264,24 +264,27 @@ class Institution extends tableDataObject
     public static function saveRole(
         $userRole,
         $permissions,
-        $uuid
+        $uuid,
+        $tasks
         ) {
         global $healthdb;
 
         $query = "UPDATE `users` SET 
-                   `accessLevel` = '$userRole',`updatedAt` = NOW()
+                   `accessLevel` = '$userRole',
+                   `tasks` = '$tasks',
+                   `updatedAt` = NOW()
                     WHERE `uuid` = '$uuid'";
 
                 $healthdb->prepare($query);
                 $healthdb->execute();
                 echo 1;
 
-        $deleteQuery = "DELETE FROM `permission` WHERE `user_id` = '$uuid'";
+        $deleteQuery = "DELETE FROM `permission` WHERE `uuid` = '$uuid'";
         $healthdb->prepare($deleteQuery);
         $healthdb->execute();
 
         foreach ($permissions as $permission) {
-            $insertQuery = "INSERT INTO `permission` (`permission`, `user_id`) 
+            $insertQuery = "INSERT INTO `permission` (`permission`, `uuid`) 
                             VALUES ('$permission', '$uuid')";
              $healthdb->prepare($insertQuery);
              $healthdb->execute();
@@ -293,14 +296,14 @@ class Institution extends tableDataObject
     public static function userDetails($userid) {
         global $healthdb;
     
-        $getList = "SELECT * FROM `users` WHERE `userid` = '$userid'";
+        $getList = "SELECT * FROM `users` WHERE `id` = '$userid'";
         $healthdb->prepare($getList);
         $resultRec = $healthdb->singleRecord();
     
         return [
             'firstName' => $resultRec->firstName,
             'lastName' => $resultRec->lastName,
-            'emailAddress' => $resultRec->emailAddress,
+            'emailAddress' => $resultRec->emailaddress,
             'phoneNumber' => $resultRec->phoneNumber,
             'altPhoneNumber' => $resultRec->altPhoneNumber,
             'address' => $resultRec->address,

@@ -67,7 +67,7 @@ class Users extends tableDataObject
     public static function userPermissions($userid) {
         global $healthdb;
     
-        $getprofessions = "SELECT `permission` FROM `permission` WHERE `user_id` = '$userid'";
+        $getprofessions = "SELECT `permission` FROM `permission` WHERE `uuid` = '$userid'";
         $healthdb->prepare($getprofessions);
         $results = $healthdb->resultSet();
         $permissions = array();
@@ -123,7 +123,7 @@ class Users extends tableDataObject
             $verified = $result->emailverified;
             $userid = $result->id;
             $accessLevel = $result->accessLevel;
-            $user_id = $result->user_id;
+            $uuid = $result->uuid;
     
             if ($emailaddress == "") {
                 $_SESSION['username'] = $username;
@@ -142,7 +142,7 @@ class Users extends tableDataObject
                 $_SESSION['uid'] = $userid;
                 $_SESSION['emailverified'] = $verified;
                 $_SESSION['accessLevel'] = $accessLevel;
-                $_SESSION['user_id'] = $user_id;
+                $_SESSION['uuid'] = $uuid;
 
                 if ($accessLevel === 'Client') {
                     echo json_encode(['status' => 6]);

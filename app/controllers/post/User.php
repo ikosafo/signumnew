@@ -53,11 +53,13 @@ class User extends PostController
         $userRole = $_POST['userRole'];
         $permissions = $_POST['permissions'];
         $uuid = $_POST['uuid'];
+        $tasks = $_POST['tasks'];
         
         Institution::saveRole(
             $userRole,
             $permissions,
-            $uuid
+            $uuid,
+            $tasks
         );
     }
     

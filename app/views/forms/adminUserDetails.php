@@ -19,10 +19,48 @@ extract($data);
 									</ul>
 								</div>
 							</div>
-							<div class="col-xl-8 col-lg-8 col-sm-12">
+							<div class="col-xl-4 col-lg-4 col-sm-12">
 								<div class="card overflow-hidden">
 									<div class="card-header">
 										<h4 class="card-title">User Details</h4>
+									</div>
+									<div class="card-body">
+										
+										<table class="check-tbl mb-2">
+											<tbody>
+												<tr>
+													<td><i class="las la-check-circle"></i> Address :</td>
+													<td class="tb-para"><?= $address ?></td>
+												</tr>
+												<tr>
+													<td><i class="las la-check-circle"></i> Access Level :</td>
+													<td class="tb-para"><?= $accessLevel ?></td>
+												</tr>
+												<tr>
+													<td><i class="las la-check-circle"></i> Security Question :</td>
+													<td class="tb-para"><?= $securityQuestion ?></td>
+												</tr>
+												<tr>
+													<td><i class="las la-check-circle"></i> Security Answer :</td>
+													<td class="tb-para"><?= $securityAnswer ?></td>
+												</tr>
+                                                <tr>
+													<td><i class="las la-check-circle"></i> Created At :</td>
+													<td class="tb-para"><?= $createdAt ?></td>
+												</tr>
+											</tbody>
+										</table>
+                                        
+                                    </div>
+                                        
+								</div>
+                                <button id="listUsers" class="btn-sm btn btn-primary mb-3">Back to List</button>
+									
+							</div>
+							<div class="col-xl-4 col-lg-4 col-sm-12">
+								<div class="card overflow-hidden">
+									<div class="card-header">
+										<h4 class="card-title">Permissions and Tasks</h4>
 									</div>
 									<div class="card-body">
 										
@@ -35,10 +73,6 @@ extract($data);
 												<tr>
 													<td><i class="las la-check-circle"></i> Access Level :</td>
 													<td class="tb-para"><?= $accessLevel ?></td>
-												</tr>
-												<tr>
-													<td><i class="las la-check-circle"></i> Emergency Contact Info :</td>
-													<td class="tb-para"><?= $emergencyContactInfo ?></td>
 												</tr>
 												<tr>
 													<td><i class="las la-check-circle"></i> Security Question :</td>
