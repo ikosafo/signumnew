@@ -27,6 +27,14 @@ class Tables extends Controller
         $this->view("tables/properties",['listProperties' => $listProperties]);
     }
 
+    public function userPermissions() {
+        new Guard();
+        $listPermissions = Users::listPermissions();
+        $this->view("tables/userPermissions",[
+            'listPermissions' => $listPermissions
+        ]);
+    }  
+
     public function clients()
     {
         $listClients = Properties::listClients();

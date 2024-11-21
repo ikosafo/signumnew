@@ -32,15 +32,27 @@ class Forms extends PostController
 
     public function adminUserDetails()
     {
-        $userid = $_POST['userid'];
-        $uuid = Tools::getUUIDbyid($userid);
-        $userDetails = Institution::userDetails($userid);
+        $uuid = $_POST['uuid'] ?? null;
+        $userid = $_POST['userid'] ?? null;
+
+        if (empty($uuid) && empty($userid)) {
+            throw new Exception("UUID or UserID is required.");
+        }
+        if (empty($uuid) && !empty($userid)) {
+            $uuid = Tools::getUUIDbyid($userid);
+        }
+
+        if (!empty($userid)) {
+            $userDetails = Institution::userDetails($userid);
+        } else {
+            $userDetails = Institution::userDetails($uuid); 
+        }
         $userPermissions = Tools::getUserPermissions($uuid);
         $this->view("forms/adminUserDetails", 
-            [
-                'userDetails' =>  $userDetails,
-                'userPermissions' =>  $userPermissions
-            ]);
+        [
+            'userDetails' =>  $userDetails,
+            'userPermissions' =>  $userPermissions
+        ]);
     }
 
 

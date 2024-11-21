@@ -294,7 +294,7 @@ class Institution extends tableDataObject
     public static function userDetails($userid) {
         global $healthdb;
     
-        $getList = "SELECT * FROM `users` WHERE `id` = '$userid'";
+        $getList = "SELECT * FROM `users` WHERE `id` = '$userid' OR `uuid` = '$userid'";
         $healthdb->prepare($getList);
         $resultRec = $healthdb->singleRecord();
     

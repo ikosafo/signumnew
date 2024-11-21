@@ -79,8 +79,7 @@
         window.location.href = urlroot + "/pages/editUser?userid=" + hash;
     });
 
-
-
+    
     $(document).off('click', '.deleteUser').on('click', '.deleteUser', function() {
         var userid = $(this).attr('userid');
        
@@ -124,6 +123,5 @@
                 });
             
     });
-
 
 </script>

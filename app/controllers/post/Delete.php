@@ -21,6 +21,12 @@ class Delete extends PostController
         Users::deleteAdminUser($userid);
     }
 
+    public function userPermission()
+    {
+        $id = $_POST['id'];
+        Users::deleteUserPermission($id);
+    }
+
     public function client()
     {
         $clientid = $_POST['clientid'];

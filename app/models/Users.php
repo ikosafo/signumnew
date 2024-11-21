@@ -24,6 +24,17 @@ class Users extends tableDataObject
     }
 
 
+    public static function listPermissions() {
+        global $healthdb;
+    
+        $getList = "SELECT p.`id`,p.`uuid`, p.`permission` FROM `permission` p JOIN `users` u ON p.`uuid` = u.`uuid` WHERE p.`status` = 1";
+        $healthdb->prepare($getList);
+        $resultList = $healthdb->resultSet();
+        return $resultList;
+    }
+    
+
+
     public static function getLastLogin(){
         global $healthdb;
     
@@ -52,10 +63,10 @@ class Users extends tableDataObject
     public static function deleteAdminUser($userid) {
 
         global $healthdb;
-            $query = "UPDATE `adminusers` 
+            $query = "UPDATE `users` 
             SET `status` = 0,
             `updatedAt` = NOW()
-            WHERE `userid` = '$userid'";
+            WHERE `id` = '$userid'";
 
             $healthdb->prepare($query);
             $healthdb->execute();
@@ -63,11 +74,25 @@ class Users extends tableDataObject
        
     }
 
+    
+    public static function deleteUserPermission($id) {
+
+        global $healthdb;
+            $query = "UPDATE `permission` 
+            SET `status` = 0,
+            `updatedAt` = NOW()
+            WHERE `id` = '$id'";
+
+            $healthdb->prepare($query);
+            $healthdb->execute();
+            echo 1;  // Successfully updated
+       
+    }
 
     public static function userPermissions($userid) {
         global $healthdb;
     
-        $getprofessions = "SELECT `permission` FROM `permission` WHERE `uuid` = '$userid'";
+        $getprofessions = "SELECT `permission` FROM `permission` WHERE `uuid` = '$userid' AND `status` = 1";
         $healthdb->prepare($getprofessions);
         $results = $healthdb->resultSet();
         $permissions = array();

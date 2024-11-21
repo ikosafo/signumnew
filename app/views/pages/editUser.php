@@ -56,7 +56,7 @@ $uuid = $userDetails['uuid'];
                                                         <input type="text" id="firstName" class="form-control" value="<?= $userDetails['firstName'] ?>" placeholder="Enter first name" required>
                                                     </div>
                                                     <div class="mb-3 col-md-4 col-sm-12">
-                                                        <label class="form-label required">Last Name</label>
+                                                        <label class="form-label required">Last Name (s)</label>
                                                         <input type="text" id="lastName" class="form-control" value="<?= $userDetails['lastName'] ?>" 
                                                         placeholder="Enter last name" required>
                                                     </div>

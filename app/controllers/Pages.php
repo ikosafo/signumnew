@@ -124,6 +124,12 @@ class Pages extends Controller
     }  
 
 
+    public function userPermissions() {
+        new Guard();
+        $this->view("pages/userPermissions");
+    }  
+
+
     public function paymentHistory() {
         new Guard();
         $paymentHistory = Billings::paymentHistory();

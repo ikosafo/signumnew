@@ -68,7 +68,7 @@ extract($data);
                                                         <input type="text" id="firstName" class="form-control" placeholder="Enter first name" required>
                                                     </div>
                                                     <div class="mb-3 col-md-4 col-sm-12">
-                                                        <label class="form-label required">Last Name</label>
+                                                        <label class="form-label required">Last Name (s)</label>
                                                         <input type="text" id="lastName" class="form-control" placeholder="Enter last name" required>
                                                     </div>
                                                     <div class="mb-3 col-md-4 col-sm-12">
