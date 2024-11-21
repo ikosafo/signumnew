@@ -923,6 +923,8 @@ $currentPath = parse_url($currentUrl, PHP_URL_PATH);
                             <li><a href="<?php echo URLROOT ?>/pages/addUser">Add Admin User</a></li>
                             <li><a href="<?php echo URLROOT ?>/pages/listUsers">List of Users</a></li>
                             <li><a href="<?php echo URLROOT ?>/pages/userPermissions">User Permissions</a></li>
+							<li><a href="<?php echo URLROOT ?>/pages/changePasswordUser">Change Password</a></li>
+							<li><a href="<?php echo URLROOT ?>/pages/userProfileAdmin">User Profile</a></li>
                         </ul>
                     </li>
                     <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">

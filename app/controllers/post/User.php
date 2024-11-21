@@ -48,6 +48,19 @@ class User extends PostController
         );
     }
 
+
+    public function savePassword() {
+        $currentPassword = $_POST['currentPassword'];
+        $newPassword = $_POST['newPassword'];
+        $uid = $_POST['uid'];
+
+        Users::savePassword(
+            $currentPassword,
+            $newPassword,
+            $uid
+        );
+    }
+
     public function saveRole()
     {
         $userRole = $_POST['userRole'];

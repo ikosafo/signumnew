@@ -89,6 +89,79 @@ class Users extends tableDataObject
        
     }
 
+
+    public static function savePassword($currentPassword,$newPassword,$uid) {
+        global $healthdb;
+
+        $encrPassword = md5($newPassword);
+        $encNewPassword = md5($currentPassword);
+        $chkUser = "SELECT * FROM `users` WHERE `id` = '$uid' AND `password` =  '$encNewPassword'";
+        $healthdb->prepare($chkUser);
+        $resultUser = $healthdb->singleRecord();
+
+        if ($resultUser) {
+            $query = "UPDATE `users` SET 
+            `password` = :encrPassword,
+            `updatedAt` = NOW()  
+            WHERE `id` = '$uid'";
+            $healthdb->prepare($query);
+
+            $healthdb->bind(':encrPassword', $encrPassword);
+
+            if (!$healthdb->execute()) {
+                die('Execute error: ' . $healthdb->error);
+            } else {
+                echo 1; 
+            }
+        } else {
+            echo 2;
+            return;
+        }
+
+
+    }   
+
+
+    public static function userDetails($uid) {
+        global $healthdb;
+    
+        $getList = "SELECT * FROM `users` WHERE `id` = '$uid'";
+        $healthdb->prepare($getList);
+        $resultRec = $healthdb->singleRecord();
+    
+        return [
+            'firstName' => $resultRec->firstName,
+            'lastName' => $resultRec->lastName,
+            'username' => $resultRec->username,
+            'emailaddress' => $resultRec->emailaddress,
+            'telephone' => $resultRec->telephone,
+            'phoneNumber' => $resultRec->phoneNumber,
+            'altPhoneNumber' => $resultRec->altPhoneNumber,
+            'emailverified' => $resultRec->emailverified,
+            'dateBirth' => $resultRec->dateBirth,
+            'password' => $resultRec->password,
+            'role' => $resultRec->role,
+            'accessLevel' => $resultRec->accessLevel,
+            'user_id' => $resultRec->user_id,
+            'approval' => $resultRec->approval,
+            'status' => $resultRec->status,
+            'code' => $resultRec->code,
+            'createdAt' => $resultRec->createdAt,
+            'updatedAt' => $resultRec->updatedAt,
+            'lastLogin' => $resultRec->lastLogin,
+            'attempts' => $resultRec->attempts,
+            'userType' => $resultRec->userType,
+            'uuid' => $resultRec->uuid,
+            'securityQuestion' => $resultRec->securityQuestion,
+            'securityAnswer' => $resultRec->securityAnswer,
+            'jobtitle' => $resultRec->jobtitle,
+            'department' => $resultRec->department,
+            'emergencyContactInfo' => $resultRec->emergencyContactInfo,
+            'telephoneAlt' => $resultRec->telephoneAlt,
+            'address' => $resultRec->address,
+        ];
+    }
+
     public static function userPermissions($userid) {
         global $healthdb;
     

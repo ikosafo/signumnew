@@ -54,6 +54,7 @@ class Client extends PostController
         );
     }
 
+    
     public function savePassword() {
         $currentPassword = $_POST['currentPassword'];
         $newPassword = $_POST['newPassword'];

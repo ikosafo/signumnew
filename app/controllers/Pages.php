@@ -396,6 +396,26 @@ class Pages extends Controller
     } 
 
 
+    public function changePasswordUser() {
+        new Guard();  
+        $uid = $_SESSION['uid'];
+        $uuid = Tools::getUUIDbyid($uid);
+        $this->view("pages/changePasswordUser",
+            ['uid' => $uid, 
+            'uuid' => $uuid
+            ]
+        );
+    } 
+
+    public function userProfileAdmin() {
+        new Guard();  
+        $uid = $_SESSION['uid'];
+        $userDetails = Users::userDetails($uid);
+        $this->view("pages/userProfileAdmin", ['userDetails' => $userDetails]
+        );
+    } 
+    
+
     public function userProfileClient() {
         new Guard();  
         $uid = $_SESSION['uid'];

@@ -195,7 +195,7 @@
 						</a>
                         <ul aria-expanded="false">
                             <li><a href="<?php echo URLROOT ?>/pages/changePasswordClient">Change Password</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/userProfileClient">Update Profile</a></li>
+                            <li><a href="<?php echo URLROOT ?>/pages/userProfileAdmin">Update Profile</a></li>
                         </ul>
                     </li>
                     
