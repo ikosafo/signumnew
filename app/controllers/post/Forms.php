@@ -33,8 +33,9 @@ class Forms extends PostController
     public function adminUserDetails()
     {
         $userid = $_POST['userid'];
+        $uuid = Tools::getUUIDbyid($userid);
         $userDetails = Institution::userDetails($userid);
-        $userPermissions = Tools::getUserPermissions($userid);
+        $userPermissions = Tools::getUserPermissions($uuid);
         $this->view("forms/adminUserDetails", 
             [
                 'userDetails' =>  $userDetails,

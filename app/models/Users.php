@@ -17,7 +17,7 @@ class Users extends tableDataObject
     public static function listUsers() {
         global $healthdb;
 
-        $getList = "SELECT * FROM `users` where `status` = 1 ORDER BY `firstName`, `lastName`";
+        $getList = "SELECT * FROM `users` where `status` = 1 ORDER BY `createdAt` DESC, `firstName`, `lastName`";
         $healthdb->prepare($getList);
         $resultList = $healthdb->resultSet();
         return $resultList;
@@ -164,9 +164,7 @@ class Users extends tableDataObject
             echo json_encode(['status' => 2, 'message' => $attemptCheck['message']]);
             Tools::logAction("Attempted login by $username", "Failed");
         }
-    }
-    
-    
+    } 
 
     
     public static function updateuser($id,$jobtitle,$department,$emailaddress,$telephone)

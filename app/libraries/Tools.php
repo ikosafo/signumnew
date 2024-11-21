@@ -580,13 +580,14 @@ class Tools extends tableDataObject{
         $query = "SELECT `permission` FROM `permission` WHERE uuid = '$userId'";
         $healthdb->prepare($query);
         $result = $healthdb->resultSet();
+        return $result;
     
         // Extract permissions into an array
-        $permissions = array_map(function($record) {
+        /* $permissions = array_map(function($record) {
             return $record->permission;
         }, $result);
     
-        return $permissions;
+        return $permissions; */
     }
 
     public static function hasPermission($permissions, $requiredPermission) {

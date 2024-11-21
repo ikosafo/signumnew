@@ -159,9 +159,11 @@ extract($data);
                                                         <label class="form-label required">User Role</label><br>
                                                         <select class="default-select form-control wide" id="userRole">
                                                             <option value="" disabled selected>Select User Role</option>
-                                                            <option value="Admin">Admin</option>
-                                                            <option value="Manager">Manager</option>
-                                                            <option value="Viewer">Viewer</option>
+                                                            <option value="Normal">Normal</option>
+                                                            <option value="Administrator">Administrator</option>
+                                                            <option value="Super Administrator">Super Administrator</option>
+                                                            <option value="Field Worker">Field Worker</option>
+                                                            <option value="Site Inspector">Site Inspector</option>
                                                         </select>
                                                     </div>
 
@@ -214,28 +216,9 @@ extract($data);
                                                                 <input type="checkbox" class="form-check-input" id="permission_check11" value="All Permissions">
                                                                 <label class="form-check-label" for="permission_check11">All Permissions</label>
                                                             </div>
-                                                        </div>
-                                                        </div>
-
-                                                        <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Tasks</label>
-
-                                                        <div class="mb-3">
                                                             <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="task_check1" value="Field Worker">
-                                                                <label class="form-check-label" for="task_check1">Field Worker</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="task_check2" value="Site Inspector">
-                                                                <label class="form-check-label" for="task_check2">Site Inspector</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="task_check3" value="Administrator">
-                                                                <label class="form-check-label" for="task_check3">Administrator</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="task_check4" value="Super Administrator">
-                                                                <label class="form-check-label" for="task_check4">Super Administrator</label>
+                                                                <input type="checkbox" class="form-check-input" id="permission_check12" value="No Permission">
+                                                                <label class="form-check-label" for="permission_check12">No Permission</label>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -476,21 +459,12 @@ extract($data);
             var userData = {
                 userRole: $("#userRole").val(),
                 permissions: [],
-                tasks: '',
                 uuid: '<?php echo $uuid ?>'
             };
 
             $("input[type='checkbox'][id^='permission_check']:checked").each(function() {
                 userData.permissions.push($(this).val());
             });
-
-            var selectedTasks = [];
-            $("input[type='checkbox'][id^='task_check']:checked").each(function() {
-                selectedTasks.push($(this).val());
-            });
-            userData.tasks = selectedTasks.join(','); 
-            alert(userData.tasks);
-
 
             var url = urlroot + "/user/saveRole";
 
@@ -504,7 +478,7 @@ extract($data);
                 // Delay the reload to allow the notification to be seen
                 setTimeout(function() {
                     location.reload();
-                }, 2000); 
+                }, 500); 
             };
 
             var validateUserAccount = function(userData) {
@@ -519,10 +493,6 @@ extract($data);
                         error += 'At least one permission must be selected\n';
                     }
 
-                    var tasksSelected = $("input[type='checkbox'][id^='task_check']:checked").length;
-                    if (tasksSelected === 0) {
-                        error += 'At least one task must be selected\n';
-                    }
 
                     return error;
                 };

@@ -1,3 +1,10 @@
+<?php
+$currentUrl = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+$currentPath = parse_url($currentUrl, PHP_URL_PATH);
+/* $userPermissions = Tools::getUserPermissions($userId); */
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

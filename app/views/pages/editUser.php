@@ -113,9 +113,11 @@ $uuid = $userDetails['uuid'];
                                                         <label class="form-label required">User Role</label><br>
                                                         <select class="default-select form-control wide" id="userRole" required>
                                                             <option value="" disabled selected>Select User Role</option>
-                                                            <option value="Admin" <?= ($userDetails['accessLevel'] == 'Admin') ? 'selected' : '' ?>>Admin</option>
-                                                            <option value="Manager" <?= ($userDetails['accessLevel'] == 'Manager') ? 'selected' : '' ?>>Manager</option>
-                                                            <option value="Viewer" <?= ($userDetails['accessLevel'] == 'Viewer') ? 'selected' : '' ?>>Viewer</option>
+                                                            <option value="Normal" <?= ($userDetails['accessLevel'] == 'Normal') ? 'selected' : '' ?>>Normal</option>
+                                                            <option value="Administrator" <?= ($userDetails['accessLevel'] == 'Administrator') ? 'selected' : '' ?>>Administrator</option>
+                                                            <option value="Super Administrator" <?= ($userDetails['accessLevel'] == 'Super Administrator') ? 'selected' : '' ?>>Super Administrator</option>
+                                                            <option value="Field Worker" <?= ($userDetails['accessLevel'] == 'Field Worker') ? 'selected' : '' ?>>Field Worker</option>
+                                                            <option value="Site Inspector" <?= ($userDetails['accessLevel'] == 'Site Inspector') ? 'selected' : '' ?>>Site Inspector</option>
                                                         </select>
                                                     </div>
 
@@ -128,15 +130,19 @@ $uuid = $userDetails['uuid'];
                                                             // List of available permissions
                                                             $availablePermissions = [
                                                                 "Property Management",
-                                                                "Tenant Management",
+                                                                "Client Management",
                                                                 "Inspections",
-                                                                "Rent Collection",
+                                                                "Rent Management",
                                                                 "Financials",
+                                                                "Billings",
                                                                 "Contracts",
                                                                 "Maintenance",
                                                                 "Ticketing",
-                                                                "Reports"
+                                                                "Reports",
+                                                                "All Permissions",
+                                                                "No Permission"
                                                             ];
+                                                            
 
                                                             // Loop through each available permission
                                                             foreach ($availablePermissions as $index => $permission) {
@@ -176,6 +182,18 @@ $uuid = $userDetails['uuid'];
 <?php include ('includes/footer.php'); ?>
 
 <script>
+
+var navItems = document.querySelectorAll('a span.nav-text');
+
+navItems.forEach(function(item) {
+    var textContent = item.textContent.trim().replace(/\s+/g, ' ');
+    console.log("Checking item:", textContent); 
+
+    if (textContent === 'USER MANAGEMENT') {
+        console.log("Found USER MANAGEMENT:", item); 
+        item.closest('li').classList.add('mm-active');
+    }
+});
 
     $(document).ready(function() {
         $("#phoneNumber, #altPhoneNumber").on("keypress", function(e) {
@@ -344,7 +362,7 @@ $uuid = $userDetails['uuid'];
             // Delay the reload to allow the notification to be seen
             setTimeout(function() {
                 location.reload();
-            }, 2000);  // 2-second delay
+            }, 500); 
         };
 
         var validateUserAccount = function(userData) {

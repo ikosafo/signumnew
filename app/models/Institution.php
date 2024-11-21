@@ -16,7 +16,7 @@ class Institution extends tableDataObject
     public static function listUsers() {
         global $healthdb;
 
-        $getList = "SELECT * FROM `users` where `status` = 1 ORDER BY `firstName`,`lastName` DESC";
+        $getList = "SELECT * FROM `users` where `status` = 1 ORDER BY `createdAt` DESC, `firstName`,`lastName` DESC";
         $healthdb->prepare($getList);
         $resultList = $healthdb->resultSet();
         return $resultList;
@@ -264,14 +264,12 @@ class Institution extends tableDataObject
     public static function saveRole(
         $userRole,
         $permissions,
-        $uuid,
-        $tasks
+        $uuid
         ) {
         global $healthdb;
 
         $query = "UPDATE `users` SET 
                    `accessLevel` = '$userRole',
-                   `tasks` = '$tasks',
                    `updatedAt` = NOW()
                     WHERE `uuid` = '$uuid'";
 
