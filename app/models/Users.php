@@ -228,12 +228,12 @@ class Users extends tableDataObject
                 $_SESSION['uid'] = $userid;
                 echo json_encode(['status' => 3]);
                 Tools::logAction("$username redirected to update details", "Successful");
-            } else if ($verified == 0) {
+            } /* else if ($verified == 0) {
                 $_SESSION['username'] = $username;
                 $_SESSION['uid'] = $userid;
                 echo json_encode(['status' => 4]);
                 Tools::logAction("$username redirected to verify email address", "Successful");
-            } else {
+            } */ else {
                 $_SESSION['emailaddress'] = $emailaddress;
                 $_SESSION['username'] = $username;
                 $_SESSION['password'] = $password;
@@ -244,6 +244,12 @@ class Users extends tableDataObject
 
                 if ($accessLevel === 'Client') {
                     echo json_encode(['status' => 6]);
+                }
+                else if ($accessLevel === 'Field Worker') {
+                    echo json_encode(['status' => 7]);
+                }
+                else if ($accessLevel === 'Site Inspector') {
+                    echo json_encode(['status' => 8]);
                 }
                 else {
                     echo json_encode(['status' => 1]);

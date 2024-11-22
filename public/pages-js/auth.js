@@ -8,13 +8,19 @@ $("#loginBtn").on("click", function() {
 
     var successCallback = function(response) {
         response = JSON.parse(response);
-        //alert(response.status);
+        alert(response.status);
 
         if (response.status == 1) {
             window.location.href = urlroot + "/pages/index";
         } 
         else if (response.status == 6) {
             window.location.href = urlroot + "/pages/client";
+        }
+        else if (response.status == 7) {
+            window.location.href = urlroot + "/pages/worker";
+        }
+        else if (response.status == 8) {
+            window.location.href = urlroot + "/pages/inspector";
         } else if (response.status == 3) {
             window.location.href = urlroot + "/auth/updateuser";
         } else if (response.status == 4) {

@@ -1,7 +1,9 @@
 <?php
 $currentUrl = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 $currentPath = parse_url($currentUrl, PHP_URL_PATH);
-/* $userPermissions = Tools::getUserPermissions($userId); */
+$uid = $_SESSION['uid'];
+$uuid = Tools::getUUIDbyid($uid);
+$userPermissions = Tools::getUserPermissions($uuid);
 
 ?>
 
@@ -804,83 +806,102 @@ $currentPath = parse_url($currentUrl, PHP_URL_PATH);
 							<span class="nav-text">Dashboard</span>
 						</a>
                     </li>
-                    <li>
-                    <a class="has-arrow ai-icon" href="javascript:void(0)" aria-expanded="false">
-							<i class="flaticon-381-layer-1"></i>
-							<span class="nav-text">PROPERTY <br>MANAGEMENT</span>
-							
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="<?php echo URLROOT ?>/pages/addProperty">Add New Property</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/listProperties">List Properties</a></li>
-							<li><a href="<?php echo URLROOT ?>/pages/searchProperties">Search Property</a></li>
-							<li><a href="<?php echo URLROOT ?>/pages/propertyReports">Property Reports</a></li>           
-                        </ul>
-                    </li>
-					<li><a class="has-arrow ai-icon" href="javascript:void(0)" aria-expanded="false">
-							<i class="flaticon-381-user-7"></i>
-							<span class="nav-text">CLIENT <br> MANAGEMENT</span>
-							
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="<?php echo URLROOT ?>/pages/addClient">Add Client</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/listClients">List Clients</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/searchClients">Search Clients</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/clientReport">Client Report</a></li>
-                            
-                        </ul>
-                    </li>
-					<li>
-						<a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-							<i class="flaticon-381-blueprint"></i>
-							<span class="nav-text">RENT <br>MANAGEMENT</span>
-							
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="<?php echo URLROOT ?>/pages/rentInformation">Add Rent Info</a></li>
-							<li><a href="<?php echo URLROOT ?>/pages/listRentInformation">List Rent Info</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/rentReports">Rent Due Reports</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/rentInvoices">Generate Rent Invoices</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/rentReceipts">Rent Receipts</a></li>
-                        </ul>
-                    </li>
-					<li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-							<i class="flaticon-381-database-1"></i>
-							<span class="nav-text">BILLINGS</span>
-							
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="<?php echo URLROOT ?>/pages/billPayments">Record Rent Payment</a></li>
-							<li><a href="<?php echo URLROOT ?>/pages/paymentHistory">Payment History</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/billReports">Rent Due Reports</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/billInvoices">Generate Rent Invoices</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/billReceipts">Rent Receipts</a></li>
-                        </ul>
-                    </li>
-					<li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-							<i class="flaticon-app"></i>
-							<span class="nav-text">INSPECTIONS</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="<?php echo URLROOT ?>/pages/scheduleInspection">Schedule Inspections</a></li>
-							<li><a href="<?php echo URLROOT ?>/pages/inspectionResults">Record Inspection Results</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/inspectionHistory">Inspection History</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/inspectionReports">Inspection Reports</a></li>
-                        </ul>
-                    </li>				
-					<li>
-						<a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                         	<i class="flaticon-381-back-1"></i>
-							<span class="nav-text">FINANCIALS</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="<?php echo URLROOT ?>/pages/incomeReports">Property Income Reports</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/expenseTracking">Expense Tracking</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/financialStatement">Profit/Loss Statements</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/budgetPlanning">Budget Planning</a></li>
-                        </ul>
-                    </li>
-                    <li>
+
+					<?php if (Tools::hasPermission($userPermissions, 'Property Management') || Tools::hasPermission($userPermissions, 'All Permissions')): ?>
+						<li>
+							<a class="has-arrow ai-icon" href="javascript:void(0)" aria-expanded="false">
+								<i class="flaticon-381-layer-1"></i>
+								<span class="nav-text">PROPERTY <br>MANAGEMENT</span>
+								
+							</a>
+							<ul aria-expanded="false">
+								<li><a href="<?php echo URLROOT ?>/pages/addProperty">Add New Property</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/listProperties">List Properties</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/searchProperties">Search Property</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/propertyReports">Property Reports</a></li>           
+							</ul>
+						</li>
+					<?php endif ?>
+
+					<?php if (Tools::hasPermission($userPermissions, 'Client Management') || Tools::hasPermission($userPermissions, 'All Permissions')): ?>
+						<li><a class="has-arrow ai-icon" href="javascript:void(0)" aria-expanded="false">
+								<i class="flaticon-381-user-7"></i>
+								<span class="nav-text">CLIENT <br> MANAGEMENT</span>
+								
+							</a>
+							<ul aria-expanded="false">
+								<li><a href="<?php echo URLROOT ?>/pages/addClient">Add Client</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/listClients">List Clients</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/searchClients">Search Clients</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/clientReport">Client Report</a></li>
+								
+							</ul>
+						</li>
+					<?php endif ?>
+
+					<?php if (Tools::hasPermission($userPermissions, 'Rent Management') || Tools::hasPermission($userPermissions, 'All Permissions')): ?>
+						<li>
+							<a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+								<i class="flaticon-381-blueprint"></i>
+								<span class="nav-text">RENT <br>MANAGEMENT</span>
+								
+							</a>
+							<ul aria-expanded="false">
+								<li><a href="<?php echo URLROOT ?>/pages/rentInformation">Add Rent Info</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/listRentInformation">List Rent Info</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/rentReports">Rent Due Reports</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/rentInvoices">Generate Rent Invoices</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/rentReceipts">Rent Receipts</a></li>
+							</ul>
+						</li>
+					<?php endif ?>
+
+					<?php if (Tools::hasPermission($userPermissions, 'Billings') || Tools::hasPermission($userPermissions, 'All Permissions')): ?>
+						<li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+								<i class="flaticon-381-database-1"></i>
+								<span class="nav-text">BILLINGS</span>
+								
+							</a>
+							<ul aria-expanded="false">
+								<li><a href="<?php echo URLROOT ?>/pages/billPayments">Record Rent Payment</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/paymentHistory">Payment History</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/billReports">Rent Due Reports</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/billInvoices">Generate Rent Invoices</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/billReceipts">Rent Receipts</a></li>
+							</ul>
+						</li>
+					<?php endif ?>
+
+					<?php if (Tools::hasPermission($userPermissions, 'Inspections') || Tools::hasPermission($userPermissions, 'All Permissions')): ?>
+						<li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+								<i class="flaticon-app"></i>
+								<span class="nav-text">INSPECTIONS</span>
+							</a>
+							<ul aria-expanded="false">
+								<li><a href="<?php echo URLROOT ?>/pages/scheduleInspection">Schedule Inspections</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/inspectionResults">Record Inspection Results</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/inspectionHistory">Inspection History</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/inspectionReports">Inspection Reports</a></li>
+							</ul>
+						</li>
+					<?php endif ?>
+
+					<?php if (Tools::hasPermission($userPermissions, 'Financials') || Tools::hasPermission($userPermissions, 'All Permissions')): ?>
+						<li>
+							<a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+								<i class="flaticon-381-back-1"></i>
+								<span class="nav-text">FINANCIALS</span>
+							</a>
+							<ul aria-expanded="false">
+								<li><a href="<?php echo URLROOT ?>/pages/incomeReports">Property Income Reports</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/expenseTracking">Expense Tracking</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/financialStatement">Profit/Loss Statements</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/budgetPlanning">Budget Planning</a></li>
+							</ul>
+						</li>
+					<?php endif ?>
+
+                   <!--  <li>
 						<a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                             <i class="flaticon-381-battery-5"></i>
 							<span class="nav-text">CONTRACTS</span>
@@ -891,54 +912,66 @@ $currentPath = parse_url($currentUrl, PHP_URL_PATH);
                             <li><a href="<?php echo URLROOT ?>/pages/terminateContract">Terminate Contracts</a></li>
                             <li><a href="<?php echo URLROOT ?>/pages/contractTemplate">Contract Templates</a></li>
                         </ul>
-                    </li>
-                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-							<i class="flaticon-plugin"></i>
-							<span class="nav-text">MAINTENANCE</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="<?php echo URLROOT ?>/pages/maintenanceRequests">Log Maintenance Requests</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/assignMaintenance">Assign Maintenance Tasks</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/tractRepairs">Track Repairs</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/completedMaintenance">Completed Maintenance</a></li>
-                        </ul>
-                    </li>
-                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-							<i class="flaticon-381-controls-4"></i>
-							<span class="nav-text">REPORTS</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="<?php echo URLROOT ?>/pages/occupancyReports">Occupancy Reports</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/maintenanceReports">Maintenance Reports</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/tenancyReports">Tenant Reports</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/financialReports">Financial Reports</a></li>
-                        </ul>
-                    </li>
+                    </li> -->
+
+					<?php if (Tools::hasPermission($userPermissions, 'Maintenance') || Tools::hasPermission($userPermissions, 'All Permissions')): ?>
+						<li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+								<i class="flaticon-plugin"></i>
+								<span class="nav-text">MAINTENANCE</span>
+							</a>
+							<ul aria-expanded="false">
+								<li><a href="<?php echo URLROOT ?>/pages/maintenanceRequests">Log Maintenance Requests</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/assignMaintenance">Assign Maintenance Tasks</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/tractRepairs">Track Repairs</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/completedMaintenance">Completed Maintenance</a></li>
+							</ul>
+						</li>
+					<?php endif ?>
+
+					<?php if (Tools::hasPermission($userPermissions, 'Reports') || Tools::hasPermission($userPermissions, 'All Permissions')): ?>
+						<li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+								<i class="flaticon-381-controls-4"></i>
+								<span class="nav-text">REPORTS</span>
+							</a>
+							<ul aria-expanded="false">
+								<li><a href="<?php echo URLROOT ?>/pages/occupancyReports">Occupancy Reports</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/maintenanceReports">Maintenance Reports</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/tenancyReports">Tenant Reports</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/financialReports">Financial Reports</a></li>
+							</ul>
+						</li>
+					<?php endif ?>
+
 					<li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
 							<i class="flaticon-381-user-4"></i>
 							<span class="nav-text">USER MANAGEMENT</span>
 							
 						</a>
                         <ul aria-expanded="false">
+						<?php if (Tools::hasPermission($userPermissions, 'User Management') || Tools::hasPermission($userPermissions, 'All Permissions')): ?>
                             <li><a href="<?php echo URLROOT ?>/pages/addUser">Add Admin User</a></li>
                             <li><a href="<?php echo URLROOT ?>/pages/listUsers">List of Users</a></li>
                             <li><a href="<?php echo URLROOT ?>/pages/userPermissions">User Permissions</a></li>
+						<?php endif ?>
 							<li><a href="<?php echo URLROOT ?>/pages/changePasswordUser">Change Password</a></li>
 							<li><a href="<?php echo URLROOT ?>/pages/userProfileAdmin">User Profile</a></li>
                         </ul>
                     </li>
-                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                            <i class="flaticon-381-calendar-2"></i>
-							<span class="nav-text">SETTINGS</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="<?php echo URLROOT ?>/pages/companyDepartments">Company Departments</a></li>
-							<li><a href="<?php echo URLROOT ?>/pages/propertyCategories">Property Categories</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/rentReminders">Rent Reminders</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/notificationSettings">Notification Settings</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/paymentOptions">Payment Options</a></li>
-                        </ul>
-                    </li>
+
+					<?php if (Tools::hasPermission($userPermissions, 'Settings') || Tools::hasPermission($userPermissions, 'All Permissions')): ?>
+						<li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+								<i class="flaticon-381-calendar-2"></i>
+								<span class="nav-text">SETTINGS</span>
+							</a>
+							<ul aria-expanded="false">
+								<li><a href="<?php echo URLROOT ?>/pages/companyDepartments">Company Departments</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/propertyCategories">Property Categories</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/rentReminders">Rent Reminders</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/notificationSettings">Notification Settings</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/paymentOptions">Payment Options</a></li>
+							</ul>
+						</li>
+					<?php endif ?>
                     
                 </ul>
             

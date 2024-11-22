@@ -57,6 +57,10 @@ extract($data);
 									<td><i class="las la-check-circle"></i> Created At :</td>
 									<td class="tb-para"><?= $userDetails['createdAt'] ?></td>
 								</tr>
+								<tr>
+									<td><i class="las la-check-circle"></i> Username :</td>
+									<td class="tb-para"><?= $userDetails['username'] ?></td>
+								</tr>
 							</tbody>
 						</table>
 					</div>

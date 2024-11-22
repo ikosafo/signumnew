@@ -594,17 +594,24 @@ class Tools extends tableDataObject{
         return $result;
     
         // Extract permissions into an array
-        /* $permissions = array_map(function($record) {
+        $permissions = array_map(function($record) {
             return $record->permission;
         }, $result);
     
-        return $permissions; */
+        return $permissions;
+
     }
+
 
     public static function hasPermission($permissions, $requiredPermission) {
-        return in_array($requiredPermission, $permissions);
+    
+        $permissionList = array_map(function($perm) {
+            return $perm->permission;
+        }, $permissions);
+    
+        return in_array($requiredPermission, $permissionList);
     }
-
+    
 
     public static function checkLoginAttempts($username) {
         global $healthdb;

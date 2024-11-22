@@ -27,6 +27,17 @@ class Pages extends Controller
     }
 
 
+    public function worker()
+    {
+        new Guard();
+        $uid = $_SESSION['uid'];
+        $uuid = Tools::getUUIDbyid($uid);
+        $clientid = Tools::getClientidbyUUID($uuid);
+        $clientDetails = Clients::clientDetails($clientid);
+        $this->view("pages/worker",['clientDetails' => $clientDetails]);
+    }
+
+
     public function addProperty() {
         new Guard();
         $listPropertyCategory = Properties::listPropertyCategory();
