@@ -9,6 +9,11 @@ class Tables extends Controller
         $this->view("tables/propertyCategories",['listPropertyCategory' => $listPropertyCategory]);
     }
 
+    public function maintenanceFee()
+    {
+        $this->view("tables/maintenanceFee");
+    }
+
     public function companyDepartments()
     {
         $listCompanyDepartments = Institution::listCompanyDepartments();

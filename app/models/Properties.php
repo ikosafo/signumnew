@@ -155,6 +155,37 @@ class Properties extends tableDataObject
     }
 
 
+    public static function saveMaintenanceFee($propertyName,$amount) {
+
+        global $healthdb;
+
+        $getName = "SELECT * FROM `maintenancefee` WHERE `propertyid` = '$propertyName' AND `status` = 1";
+        $healthdb->prepare($getName);
+        $resultName = $healthdb->singleRecord();
+
+        if ($resultName) {
+            //Already exists
+            echo 2;
+        }
+        else {
+            $query = "INSERT INTO `maintenancefee`
+            (`propertyid`,
+             `amount`,
+              `createdAt`
+             )
+            VALUES ('$propertyName',
+                    '$amount',
+                    NOW()
+                    )";
+
+                $healthdb->prepare($query);
+                $healthdb->execute();
+                echo 1;  // Successfully inserted
+        }
+       
+    }
+
+    
     public static function editCategory($categoryName,$description,$catid) {
 
         global $healthdb;

@@ -407,7 +407,13 @@ class Pages extends Controller
     public function propertyCategories() {
         new Guard();  
         $this->view("pages/propertyCategories");
-    }  
+    } 
+    
+    
+    public function maintenanceFee() {
+        new Guard();  
+        $this->view("pages/maintenanceFee");
+    } 
 
 
     public function companyDepartments() {

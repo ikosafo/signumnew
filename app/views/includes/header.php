@@ -312,6 +312,7 @@ $userPermissions = Tools::getUserPermissions($uuid);?>
 							<ul aria-expanded="false">
 								<li><a href="<?php echo URLROOT ?>/pages/companyDepartments">Company Departments</a></li>
 								<li><a href="<?php echo URLROOT ?>/pages/propertyCategories">Property Categories</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/maintenanceFee">Maintenance Fee</a></li>
 								<li><a href="<?php echo URLROOT ?>/pages/rentReminders">Rent Reminders</a></li>
 								<li><a href="<?php echo URLROOT ?>/pages/notificationSettings">Notification Settings</a></li>
 								<li><a href="<?php echo URLROOT ?>/pages/paymentOptions">Payment Options</a></li>

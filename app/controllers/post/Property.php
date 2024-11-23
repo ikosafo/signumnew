@@ -42,6 +42,13 @@ class Property extends PostController
         Properties::saveCategory($categoryName,$description);
     }
 
+    public function saveMaintenanceFee()
+    {
+        $propertyName = $_POST['propertyName'];
+        $amount = $_POST['amount'];
+        Properties::saveMaintenanceFee($propertyName,$amount);
+    }
+
     public function editCategory()
     {
         $catid = $_POST['catid'];
