@@ -149,9 +149,9 @@ extract($data);
                                     </div>
                                                       
                                     <div class="form-group col-md-4 col-sm-12">
-                                            <label class="form-label">Attachments (Optional)</label>
-                                            <input id="uploadVid" type="file"  name="uploadVid[]" multiple/>
-                                            <input type="hidden" id="selected_file" />
+                                        <label class="form-label">Attachments (Optional)</label>
+                                        <input id="uploadVid" type="file"  name="uploadVid[]" multiple/>
+                                        <input type="hidden" id="selected_file" />
                                     </div>
                                 
                                     <div class="next-btn py-4 d-flex col-sm-12 justify-content-center">

@@ -96,6 +96,17 @@ class Tables extends Controller
         ]);
     }  
 
+
+    public function inspectionHistory() {
+        new Guard();
+        $uid = $_SESSION['uid'];
+        $listInspection = Inspections::listInspections($uid);
+        $this->view("tables/inspectionHistory",[
+            'listInspection' => $listInspection
+        ]);
+    }  
+
+
     public function complaintStatuses() {
         new Guard();
         

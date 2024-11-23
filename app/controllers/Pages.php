@@ -370,6 +370,12 @@ class Pages extends Controller
     }  
 
 
+    public function inspectionHistory() {
+        new Guard();
+        $this->view("pages/inspectionHistory");
+    } 
+
+
     public function complaintStatuses() {
         new Guard();
         $this->view("pages/complaintStatuses");
@@ -396,6 +402,7 @@ class Pages extends Controller
         $this->view("pages/companyDepartments");
     } 
 
+
     public function logComplaint() {
         new Guard();  
         $uid = $_SESSION['uid'];
@@ -414,13 +421,8 @@ class Pages extends Controller
         new Guard();  
         $uid = $_SESSION['uid'];
         $uuid = Tools::getUUIDbyid($uid);
-        $clientid = Tools::getClientidbyUUID($uuid);
         $listProperties = Properties::listProperties();
-        $this->view("pages/dailyInspection",
-            [
-                'listProperties' => $listProperties,
-                'clientid' => $clientid
-            ]);
+        $this->view("pages/dailyInspection",['listProperties' => $listProperties]);
     } 
 
 

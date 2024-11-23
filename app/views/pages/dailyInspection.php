@@ -19,17 +19,8 @@ extract($data);
                                 <h4 class="card-title">Fill in the form below</h4>
                             </div>
                             <div class="card-body">
-                                <form class="row" id="needs-validation1" novalidate="" autocomplete="off">
-                                    
-                                    
-                                    <div class="form-group col-md-4 col-sm-12">
-                                        <label class="form-label required">Inspection Date </label>
-                                        <input type="text" class="form-control" id="apartmentNumber" placeholder="Enter Unit/Apartment Number" required>
-                                    </div>
-                                    <div class="form-group col-md-4 col-sm-12">
-                                        <label class="form-label required">Inspection Date</label>
-                                        <input type="text" class="form-control" id="apartmentNumber" placeholder="Enter Unit/Apartment Number" required>
-                                    </div>
+                                <form class="row" id="dailyInspectionForm" novalidate="" autocomplete="off">
+                                    <!-- Property Information -->
                                     <div class="form-group col-md-4 col-sm-12">
                                         <label class="form-label required">Property</label>
                                         <select id="propertyName" class="default-select form-control wide" required>
@@ -37,68 +28,76 @@ extract($data);
                                             <?php foreach ($listProperties as $record): ?>
                                                 <option value="<?= $record->propertyId ?>"><?= $record->propertyName ?></option>
                                             <?php endforeach; ?>
-                                            
                                         </select>
                                     </div>
                                     <div class="form-group col-md-4 col-sm-12">
+                                        <label class="form-label required">Inspection Date</label>
+                                        <input type="date" class="form-control" id="inspectionDate" placeholder="Select inspection date" required>
+                                    </div>
+                                    <div class="form-group col-md-4 col-sm-12">
+                                        <label class="form-label required">Duration of time used (in hours)</label>
+                                        <input type="number" class="form-control" id="timeUsed" placeholder="Enter duration in hours" required>
+                                    </div>
+                                    <div class="form-group col-md-4 col-sm-12">
                                         <label class="form-label required">Unit/Apartment Number</label>
-                                        <input type="text" class="form-control" id="apartmentNumber" placeholder="Enter Unit/Apartment Number" required>
+                                        <input type="text" class="form-control" id="unitNumber" placeholder="Enter unit/apartment number" required>
                                     </div>
                                     <div class="form-group col-md-4 col-sm-12">
                                         <label class="form-label required">Phase</label>
-                                        <input type="text" class="form-control" id="location" placeholder="Enter Location" required>
+                                        <input type="text" class="form-control" id="phase" placeholder="Enter phase/location" required>
                                     </div>
                                     <div class="form-group col-md-4 col-sm-12">
-                                    <label class="form-label required">Select Inspection Type</label>
-                                    <select class="form-control" id="inspectionType" required>
-                                        <option></option>
-                                        <option value="Routine Inspection">Routine Inspection</option>
-                                        <option value="Move-In Inspection">Move-In Inspection</option>
-                                        <option value="Move-Out Inspection">Move-Out Inspection</option>
-                                        <option value="Emergency Inspection">Emergency Inspection</option>
-                                        <option value="Pre-Renovation Inspection">Pre-Renovation Inspection</option>
-                                        <option value="Post-Renovation Inspection">Post-Renovation Inspection</option>
-                                        <option value="Tenant Complaint Inspection">Tenant Complaint Inspection</option>
-                                       
-                                    </select>
-                                </div>
+                                        <label class="form-label required">Select Inspection Type</label>
+                                        <select class="form-control" id="inspectionType" required>
+                                            <option></option>
+                                            <option value="Routine Inspection">Routine Inspection</option>
+                                            <option value="Move-In Inspection">Move-In Inspection</option>
+                                            <option value="Move-Out Inspection">Move-Out Inspection</option>
+                                            <option value="Emergency Inspection">Emergency Inspection</option>
+                                            <option value="Pre-Renovation Inspection">Pre-Renovation Inspection</option>
+                                            <option value="Post-Renovation Inspection">Post-Renovation Inspection</option>
+                                            <option value="Tenant Complaint Inspection">Tenant Complaint Inspection</option>
+                                        </select>
+                                    </div>
 
+                                    <!-- Inspection Details -->
                                     <div class="form-group col-md-4 col-sm-12">
-                                        <label class="form-label required">Locations inspected</label>
-                                        <textarea class="form-control" rows="10" id="previousComplaints" placeholder="Descripe issue details"></textarea>
+                                        <label class="form-label required">Locations Inspected</label>
+                                        <textarea class="form-control" rows="10" id="locationsInspected" placeholder="Describe inspected locations"></textarea>
                                     </div>
                                     <div class="form-group col-md-4 col-sm-12">
                                         <label class="form-label required">General Condition</label>
-                                        <textarea class="form-control" rows="10" id="previousComplaints" placeholder="Descripe issue details"></textarea>
+                                        <textarea class="form-control" rows="10" id="generalCondition" placeholder="Describe general condition"></textarea>
                                     </div>
                                     <div class="form-group col-md-4 col-sm-12">
                                         <label class="form-label required">Safety and Compliance</label>
-                                        <textarea class="form-control" rows="10" id="issueDescription" placeholder="Enter description" required></textarea>
+                                        <textarea class="form-control" rows="10" id="safetyCompliance" placeholder="Describe safety and compliance findings" required></textarea>
                                     </div>
                                     <div class="form-group col-md-4 col-sm-12">
                                         <label class="form-label required">Issues and Repairs</label>
-                                        <textarea class="form-control" rows="10" id="stepsTaken" placeholder="Enter Steps taken" required></textarea>
+                                        <textarea class="form-control" rows="10" id="issuesRepairs" placeholder="Describe issues and repairs" required></textarea>
                                     </div>
                                     <div class="form-group col-md-4 col-sm-12">
                                         <label class="form-label required">Recommendations</label>
-                                        <textarea class="form-control" rows="10" id="stepsTaken" placeholder="Enter Steps taken" required></textarea>
+                                        <textarea class="form-control" rows="10" id="recommendations" placeholder="Enter recommendations" required></textarea>
                                     </div>
                                     <div class="form-group col-md-4 col-sm-12">
                                         <label class="form-label">Additional Comments</label>
-                                        <textarea class="form-control" rows="10" id="additionalComments" placeholder="Enter Comments"></textarea>
-                                    </div>
-                                                      
-                                    <div class="form-group col-md-4 col-sm-12">
-                                            <label class="form-label">Attachments (Optional)</label>
-                                            <input id="uploadVid" type="file"  name="uploadVid[]" multiple/>
-                                            <input type="hidden" id="selected_file" />
-                                    </div>
-                                
-                                    <div class="next-btn py-4 d-flex col-sm-12 justify-content-center">
-                                        <button type="submit" id="saveComplaintDetails" class="btn btn-primary next2 btn-sm">Save</button>
+                                        <textarea class="form-control" rows="10" id="additionalComments" placeholder="Enter additional comments"></textarea>
                                     </div>
 
+                                    <div class="form-group col-md-4 col-sm-12">
+                                        <label class="form-label">Attachments</label>
+                                        <input id="uploadVid" type="file"  name="uploadVid[]" multiple/>
+                                        <input type="hidden" id="selected_file" />
+                                    </div>
+
+                                    <!-- Submit -->
+                                    <div class="next-btn py-4 d-flex col-sm-12 justify-content-center">
+                                        <button type="submit" id="saveInspection" class="btn btn-primary btn-sm">Save</button>
+                                    </div>
                                 </form>
+
                             </div>
                                 
                         </div>
@@ -114,29 +113,12 @@ extract($data);
     $("#inspectionType").select2({
         placeholder:"Select Type"
     });   
-    
-    $("#priorityLevel").select2({
-        placeholder:"Select Priority Level"
-    });
 
-    $("#occurenceDate").flatpickr();
+    $('#propertyName').select2({
+        placeholder: 'Select Property'
+    })
 
-    $("#complaintPriority").select2({
-        placeholder: "Select Priority"
-    });
-
-    $("#contactMethod").select2({
-        placeholder: "Select Method"
-    });
-
-    $("#expectedResolutionTime").select2({
-        placeholder: "Select Period"
-    });
-
-    $("#incidentSeverity").select2({
-        placeholder: "Select Severity"
-    });
-
+    $("#inspectionDate").flatpickr();
 
     $('#uploadVid').uploadifive({
         'auto': false,
@@ -166,50 +148,40 @@ extract($data);
         }
     });
 
-    
-    $('#propertyName').select2({
-        placeholder: 'Select Property'
-    })
-
    
-    //Log Complaint details
-    $("#saveComplaintDetails").on("click", function(event) {
-        event.preventDefault(); 
+    $("#saveInspection").on("click", function(event) {
+        event.preventDefault();
 
-        var clientData = {
+        var inspectionData = {
             propertyName: $("#propertyName").val(),
-            apartmentNumber: $("#apartmentNumber").val(),
-            location: $("#location").val(),
-            complaintType: $("#complaintType").val(),
-            issueCategory: $("#issueCategory").val(),
-            expectedResolutionTime: $("#expectedResolutionTime").val(),
-            incidentSeverity: $("#incidentSeverity").val(),
-            complaintPriority: $("#complaintPriority").val(),
-            contactMethod: $("#contactMethod").val(),
-            previousComplaints: $("#previousComplaints").val(),
-            issueDescription: $("#issueDescription").val(),
-            stepsTaken: $("#stepsTaken").val(),
+            inspectionDate: $("#inspectionDate").val(),
+            timeUsed: $("#timeUsed").val(),
+            unitNumber: $("#unitNumber").val(),
+            phase: $("#phase").val(),
+            inspectionType: $("#inspectionType").val(),
+            locationsInspected: $("#locationsInspected").val(),
+            generalCondition: $("#generalCondition").val(),
+            safetyCompliance: $("#safetyCompliance").val(),
+            issuesRepairs: $("#issuesRepairs").val(),
+            recommendations: $("#recommendations").val(),
             additionalComments: $("#additionalComments").val(),
             selectedFile: $("#selected_file").val(),
             uuid: '<?php echo $uuid; ?>',
-            clientid: '<?php echo $clientid ?>'
         };
-        //alert(clientData.clientid);
 
-        var url = urlroot + "/client/saveComplaintDetails";
+        var url = urlroot + "/inspection/saveInspectionDetails";
 
         var successCallback = function(response) {
-            // Check if a file is selected before uploading
-            if (clientData.selectedFile) {
-                $.notify("Complaint details submitted successfully!", {
+            if (inspectionData.selectedFile) {
+                $.notify("Inspection details submitted successfully!", {
                     position: "top center",
                     className: "success"
                 });
 
-                $('#uploadVid').uploadifive('upload');                
+                $('#uploadVid').uploadifive('upload');
             }
 
-            $.notify("Complaint details submitted successfully!", {
+            $.notify("Inspection details submitted successfully!", {
                 position: "top center",
                 className: "success"
             });
@@ -219,57 +191,58 @@ extract($data);
             }, 500);
         };
 
-        var validateComplaintForm = function(clientData) {
+        var validateInspectionForm = function(inspectionData) {
             var error = '';
-            if (!clientData.propertyName) {
+            if (!inspectionData.propertyName) {
                 error += 'Property is required\n';
                 $("#propertyName").focus();
             }
-            if (!clientData.apartmentNumber) {
+            if (!inspectionData.inspectionDate) {
+                error += 'Inspection Date is required\n';
+                $("#inspectionDate").focus();
+            }
+            if (!inspectionData.timeUsed) {
+                error += 'Duration of time used is required\n';
+                $("#timeUsed").focus();
+            }
+            if (!inspectionData.unitNumber) {
                 error += 'Unit/Apartment Number is required\n';
-                $("#apartmentNumber").focus();
+                $("#unitNumber").focus();
             }
-            if (!clientData.location) {
-                error += 'Exact Location is required\n';
-                $("#location").focus();
+            if (!inspectionData.phase) {
+                error += 'Phase is required\n';
+                $("#phase").focus();
             }
-            if (!clientData.complaintType) {
-                error += 'Complaint Type is required\n';
-                $("#complaintType").focus();
+            if (!inspectionData.inspectionType) {
+                error += 'Inspection Type is required\n';
+                $("#inspectionType").focus();
             }
-            if (!clientData.issueCategory) {
-                error += 'Issue Category is required\n';
-                $("#issueCategory").focus();
+            if (!inspectionData.locationsInspected) {
+                error += 'Locations Inspected is required\n';
+                $("#locationsInspected").focus();
             }
-            if (!clientData.issueDescription) {
-                error += 'Issue Description is required\n';
-                $("#issueDescription").focus();
+            if (!inspectionData.generalCondition) {
+                error += 'General Condition is required\n';
+                $("#generalCondition").focus();
             }
-            if (!clientData.stepsTaken) {
-                error += 'Steps Already Taken to Resolve is required\n';
-                $("#stepsTaken").focus();
+            if (!inspectionData.safetyCompliance) {
+                error += 'Safety and Compliance is required\n';
+                $("#safetyCompliance").focus();
             }
-            if (!clientData.incidentSeverity) {
-                error += 'Incident Severity is required\n';
-                $("#incidentSeverity").focus();
+            if (!inspectionData.issuesRepairs) {
+                error += 'Issues and Repairs is required\n';
+                $("#issuesRepairs").focus();
             }
-            if (!clientData.complaintPriority) {
-                error += 'Complaint Priority is required\n';
-                $("#complaintPriority").focus();
-            }
-            if (!clientData.previousComplaints) {
-                error += 'Previous Compliant indication is required\n';
-                $("#previousComplaints").focus();
-            }
-            if (!clientData.contactMethod) {
-                error += 'Contact Method Preference is required\n';
-                $("#contactMethod").focus();
+            if (!inspectionData.recommendations) {
+                error += 'Recommendations are required\n';
+                $("#recommendations").focus();
             }
             return error;
         };
 
-        saveForm(clientData, url, successCallback, validateComplaintForm);
+        saveForm(inspectionData, url, successCallback, validateInspectionForm);
     });
+
 
 
 
