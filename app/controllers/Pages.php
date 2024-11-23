@@ -263,6 +263,19 @@ class Pages extends Controller
     } 
 
 
+    public function viewInspectionDetail() {
+        new Guard();
+
+        $encryptedId = $_GET['inspectionid'];
+        $decryptedClientId = Tools::unlock($encryptedId);
+        $inspectionDetails = Inspections::inspectionDetails($decryptedClientId);
+
+        $this->view("pages/viewInspectionDetail",[
+            'inspectionDetails' => $inspectionDetails
+        ]);
+    } 
+
+
     public function viewPayment() {
         new Guard();
 

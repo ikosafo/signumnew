@@ -102,4 +102,33 @@ class Inspections extends tableDataObject
             return $resultList;
     }
 
+
+    public static function inspectionDetails($inspectionid) {
+        global $healthdb;
+    
+        $getList = "SELECT * FROM `dailyinspections` WHERE `id` = '$inspectionid'";
+        $healthdb->prepare($getList);
+        $resultRec = $healthdb->singleRecord();
+    
+        return [
+            'propertyid' => $resultRec->propertyid,
+            'inspectionDate' => $resultRec->inspectionDate,
+            'timeUsed' => $resultRec->timeUsed,
+            'unitNumber' => $resultRec->unitNumber,
+            'phase' => $resultRec->phase,
+            'inspectionType' => $resultRec->inspectionType,
+            'locationsInspected' => $resultRec->locationsInspected,
+            'generalCondition' => $resultRec->generalCondition,
+            'safetyCompliance' => $resultRec->safetyCompliance,
+            'issuesRepairs' => $resultRec->issuesRepairs,
+            'recommendations' => $resultRec->recommendations,
+            'additionalComments' => $resultRec->additionalComments,
+            'createdAt' => $resultRec->createdAt,
+            'updatedAt' => $resultRec->updatedAt,
+            'uuid' => $resultRec->uuid,
+            'userid' => $resultRec->id
+            
+        ];
+    }
+
 }

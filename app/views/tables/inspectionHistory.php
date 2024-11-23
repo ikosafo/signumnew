@@ -8,7 +8,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                <table class="table table-responsive-md" id="complaintTable">
+                <table class="table table-responsive-md" id="inspectionTable">
                     <thead>
                         <tr>
                             <th width="10%">NO.</th>
@@ -21,17 +21,17 @@
                     </thead>
                     <tbody>
                         <?php
-                        $no = 1; // Initialize a counter
-                        foreach ($listClientComplaints as $result) { ?>
+                        $no = 1;
+                        foreach ($listInspection as $result) { ?>
                             <tr>
                                 <td><strong class="text-black"><?= $no++ ?></strong></td>
                                 <td><?= Tools::propertyClient($result->propertyid) ?></td>
-                                <td><?= $result->complaintType ?></td>
-                                <td><?= $result->issueCategory ?></td>
-                                <td><?= $result->location ?></td>
+                                <td><?= $result->inspectionType ?></td>
+                                <td><?= $result->inspectionDate ?></td>
+                                <td><?= $result->unitNumber ?></td>
                                 <td>
                                     <div class="d-flex">
-                                        <a href="javascript:void(0);" class="btn btn-primary viewComplaint shadow btn-xs sharp me-1" complaintid='<?= $result->complaintid ?>'><i class="fas fa-eye"></i></a>
+                                        <a href="javascript:void(0);" class="btn btn-primary viewInspectionDetail shadow btn-xs sharp me-1" inspectionid='<?= $result->id ?>'><i class="fas fa-eye"></i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -47,7 +47,7 @@
 <div id="pageDetailsDiv"></div>
 
 <script>
-    $("#complaintTable").DataTable({
+    $("#inspectionTable").DataTable({
         language: {
             paginate: {
             next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
@@ -57,10 +57,10 @@
     });
 
 
-    $(document).on('click', '.viewComplaint', function() {
-        var complaintid = $(this).attr('complaintid');
-        var hash = btoa(btoa(btoa(complaintid)));
-        window.location.href = urlroot + "/pages/viewComplaint?complaintid=" + hash;
+    $(document).on('click', '.viewInspectionDetail', function() {
+        var inspectionid = $(this).attr('inspectionid');
+        var hash = btoa(btoa(btoa(inspectionid)));
+        window.location.href = urlroot + "/pages/viewInspectionDetail?inspectionid=" + hash;
     });
     
 
