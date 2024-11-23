@@ -16,6 +16,13 @@ class Pages extends Controller
     }
 
 
+    public function viewRequests()
+    {
+        new Guard();
+        $this->view("pages/viewRequests");
+    }
+
+
     public function client()
     {
         new Guard();
@@ -32,9 +39,9 @@ class Pages extends Controller
         new Guard();
         $uid = $_SESSION['uid'];
         $uuid = Tools::getUUIDbyid($uid);
-        $clientid = Tools::getClientidbyUUID($uuid);
-        $clientDetails = Clients::clientDetails($clientid);
-        $this->view("pages/worker",['clientDetails' => $clientDetails]);
+       /*  $clientid = Tools::getClientidbyUUID($uuid);
+        $clientDetails = Clients::clientDetails($clientid); */
+        $this->view("pages/worker");
     }
 
 

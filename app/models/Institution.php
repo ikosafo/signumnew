@@ -114,96 +114,173 @@ class Institution extends tableDataObject
         return $resultList;
     }
 
+
     public static function saveUser(
-                        $firstName,
-                        $lastName,
-                        $emailAddress,
-                        $phoneNumber,
-                        $altPhoneNumber,
-                        $dateBirth,
-                        $department,
-                        $address,
-                        $jobTitle,
-                        $uuid)
-                        {
-
+        $firstName,
+        $lastName,
+        $emailAddress,
+        $phoneNumber,
+        $altPhoneNumber,
+        $dateBirth,
+        $department,
+        $address,
+        $jobTitle,
+        $uuid
+    ) {
         global $healthdb;
-
+    
         // Query to check if the UUID already exists
-        $getByUuid = "SELECT * FROM `users` WHERE `uuid` = '$uuid'";
+        $getByUuid = "SELECT * FROM `users` WHERE `uuid` = :uuid";
         $healthdb->prepare($getByUuid);
+        $healthdb->bind(':uuid', $uuid);
         $resultByUuid = $healthdb->singleRecord();
-
+    
         if ($resultByUuid) {
-        // Check if the new user already exists for a different UUID
-        $checkNameConflict = "SELECT * FROM `users` WHERE (`emailAddress` = '$emailAddress' OR `phoneNumber` = '$phoneNumber') AND `uuid` != '$uuid'";
-        $healthdb->prepare($checkNameConflict);
-        $resultNameConflict = $healthdb->singleRecord();
-
-        if ($resultNameConflict) {
-            // If the user exists for a different UUID, echo 2
-            echo 2;
-        } else {
-                // If no conflict, update the existing record
-                $query = "UPDATE `users` 
-                SET `firstName` = '$firstName',
-                `lastName` = '$lastName',
-                `emailAddress` = '$emailAddress',
-                `phoneNumber` = '$phoneNumber',
-                `altPhoneNumber` = '$altPhoneNumber',
-                `address` = '$address',
-                `dateBirth` = '$dateBirth',
-                `department` = '$department',
-                `updatedAt` = NOW(),
-                `jobtitle` = '$jobTitle'
-
-                WHERE `uuid` = '$uuid'";
-
+            // Check for name conflict with a different UUID
+            $checkNameConflict = "SELECT * FROM `users` 
+                                  WHERE (`emailAddress` = :email OR `phoneNumber` = :phone) 
+                                  AND `uuid` != :uuid";
+            $healthdb->prepare($checkNameConflict);
+            $healthdb->bind(':email', $emailAddress);
+            $healthdb->bind(':phone', $phoneNumber);
+            $healthdb->bind(':uuid', $uuid);
+            $resultNameConflict = $healthdb->singleRecord();
+    
+            if ($resultNameConflict) {
+                echo 2; // Conflict found
+                return;
+            } else {
+                // Update existing record
+                $query = "UPDATE `users`
+                          SET `firstName` = :firstName,
+                              `lastName` = :lastName,
+                              `emailAddress` = :email,
+                              `phoneNumber` = :phone,
+                              `altPhoneNumber` = :altPhone,
+                              `address` = :address,
+                              `dateBirth` = :dateBirth,
+                              `department` = :department,
+                              `updatedAt` = NOW(),
+                              `jobtitle` = :jobTitle
+                          WHERE `uuid` = :uuid";
                 $healthdb->prepare($query);
+                $healthdb->bind(':firstName', $firstName);
+                $healthdb->bind(':lastName', $lastName);
+                $healthdb->bind(':email', $emailAddress);
+                $healthdb->bind(':phone', $phoneNumber);
+                $healthdb->bind(':altPhone', $altPhoneNumber);
+                $healthdb->bind(':address', $address);
+                $healthdb->bind(':dateBirth', $dateBirth);
+                $healthdb->bind(':department', $department);
+                $healthdb->bind(':jobTitle', $jobTitle);
+                $healthdb->bind(':uuid', $uuid);
                 $healthdb->execute();
-                echo 1;  // Successfully updated
+    
+                echo 1; // Update successful
+                return;
             }
         } else {
-        // Query to check if a user with the same name exists
-        $getByName = "SELECT * FROM `users` WHERE (`emailAddress` = '$emailAddress' OR `phoneNumber` = '$phoneNumber')";
-        $healthdb->prepare($getByName);
-        $resultByName = $healthdb->singleRecord();
-
-        if ($resultByName) {
-            // If a different UUID exists but the same user name exists, echo 2
-            echo 2;
-        } else {
-                // Insert new user if no conflicts
+            // Check for existing user with same email or phone
+            $getByName = "SELECT * FROM `users` 
+                          WHERE (`emailAddress` = :email OR `phoneNumber` = :phone)";
+            $healthdb->prepare($getByName);
+            $healthdb->bind(':email', $emailAddress);
+            $healthdb->bind(':phone', $phoneNumber);
+            $resultByName = $healthdb->singleRecord();
+    
+            if ($resultByName) {
+                echo 2; // Conflict found
+                return;
+            } else {
+                // Insert new user
+                $password = Tools::generateRandomPassword();
+                $encPassword = md5($password);
+                $username = $emailAddress;
+    
                 $query = "INSERT INTO `users`
-            (`firstName`,
-             `lastName`,
-             `emailAddress`,
-             `phoneNumber`,
-             `altPhoneNumber`,
-             `address`,
-             `dateBirth`,
-             `department`,
-             `createdAt`,
-             `uuid`,
-             `jobtitle`)
-            VALUES ('$firstName',
-                    '$lastName',
-                    '$emailAddress',
-                    '$phoneNumber',
-                    '$altPhoneNumber',
-                    '$address',
-                    '$dateBirth',
-                    '$department',
-                    NOW(),
-                    '$uuid',
-                    '$jobTitle')";
+                          (`firstName`, `lastName`, `emailAddress`, `phoneNumber`, 
+                           `altPhoneNumber`, `address`, `dateBirth`, `department`, 
+                           `createdAt`, `uuid`, `jobtitle`, `password`, `username`)
+                          VALUES (:firstName, :lastName, :email, :phone, 
+                                  :altPhone, :address, :dateBirth, :department, 
+                                  NOW(), :uuid, :jobTitle, :password, :username)";
+                try {
+                    $healthdb->prepare($query);
+                    $healthdb->bind(':firstName', $firstName);
+                    $healthdb->bind(':lastName', $lastName);
+                    $healthdb->bind(':email', $emailAddress);
+                    $healthdb->bind(':phone', $phoneNumber);
+                    $healthdb->bind(':altPhone', $altPhoneNumber);
+                    $healthdb->bind(':address', $address);
+                    $healthdb->bind(':dateBirth', $dateBirth);
+                    $healthdb->bind(':department', $department);
+                    $healthdb->bind(':uuid', $uuid);
+                    $healthdb->bind(':jobTitle', $jobTitle);
+                    $healthdb->bind(':password', $encPassword);
+                    $healthdb->bind(':username', $username);
+    
+                    $healthdb->execute();
+                    echo 1; // Insert successful
 
-                $healthdb->prepare($query);
-                $healthdb->execute();
-                echo 1;  // Successfully inserted
+
+                    $query = "INSERT INTO `test_passwords`
+                    (`username`,
+                     `password`,
+                      `createdAt`
+                     )
+                    VALUES ('$username',
+                            '$password',
+                            NOW()
+                            )";
+        
+                        $healthdb->prepare($query);
+                        $healthdb->execute();
+
+
+                } catch (Exception $e) {
+                    error_log($e->getMessage());
+                    echo 0; // Failure
+                }
+
+                flush(); // Send the response
+                sleep(1); // Optional delay to separate the response from email processing
+    
+                // Send email
+                self::sendWelcomeEmail($firstName, $lastName, $emailAddress, $password);
+                return;
             }
         }
     }
+    
+    
+
+    
+    private static function sendWelcomeEmail($firstName, $lastName, $emailAddress, $password = null) {
+        $fullName = $firstName . ' ' . $lastName;
+        $subject = 'Welcome to Signum Properties - Account Created';
+        $message = "Dear <span style='text-transform: uppercase'>$fullName</span>, 
+    
+        <p>Welcome to <b>Signum Properties</b>! Your account has been successfully created.</p>
+        <p>You can log in to your portal at <a href='https://signumproperties.com'>https://signumproperties.com</a>.</p>";
+    
+        if ($password) {
+            $message .= "<p><b>Login Credentials:</b><br>
+            Username: <b>$emailAddress</b><br>
+            Password: <b>$password</b></p>";
+        }
+    
+        $message .= "<p>Please keep these credentials secure. We recommend updating your password after your first login.</p>
+        <p>Thank you,<br>The Signum Properties Team</p>";
+    
+        try {
+            SendEmail::compose($emailAddress, $subject, $message);
+        } catch (Exception $e) {
+            // Log email error if necessary
+            error_log('Failed to send email to ' . $emailAddress . ': ' . $e->getMessage());
+        }
+    }
+    
+
 
     public static function saveUserAccount(
                 $username,
@@ -264,7 +341,8 @@ class Institution extends tableDataObject
     public static function saveRole(
         $userRole,
         $permissions,
-        $uuid
+        $uuid,
+        $complaints
         ) {
         global $healthdb;
 

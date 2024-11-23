@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-	<title>Admin - Signum Properties Ltd</title>
+	<title>Client - Signum Properties Ltd</title>
  
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

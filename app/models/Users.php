@@ -34,7 +34,6 @@ class Users extends tableDataObject
     }
     
 
-
     public static function getLastLogin(){
         global $healthdb;
     
@@ -47,6 +46,7 @@ class Users extends tableDataObject
         $result = $healthdb->singleRecord();
         return $result->logdate ?? null;
     }
+
 
     public static function getUserStatus() {
         global $healthdb;
@@ -61,31 +61,29 @@ class Users extends tableDataObject
 
 
     public static function deleteAdminUser($userid) {
-
         global $healthdb;
-            $query = "UPDATE `users` 
-            SET `status` = 0,
-            `updatedAt` = NOW()
-            WHERE `id` = '$userid'";
+        $query = "UPDATE `users` 
+        SET `status` = 0,
+        `updatedAt` = NOW()
+        WHERE `id` = '$userid'";
 
-            $healthdb->prepare($query);
-            $healthdb->execute();
-            echo 1;  // Successfully updated
+        $healthdb->prepare($query);
+        $healthdb->execute();
+        echo 1;  // Successfully updated
        
     }
 
     
     public static function deleteUserPermission($id) {
-
         global $healthdb;
-            $query = "UPDATE `permission` 
-            SET `status` = 0,
-            `updatedAt` = NOW()
-            WHERE `id` = '$id'";
+        $query = "UPDATE `permission` 
+        SET `status` = 0,
+        `updatedAt` = NOW()
+        WHERE `id` = '$id'";
 
-            $healthdb->prepare($query);
-            $healthdb->execute();
-            echo 1;  // Successfully updated
+        $healthdb->prepare($query);
+        $healthdb->execute();
+        echo 1;  // Successfully updated
        
     }
 
@@ -162,6 +160,7 @@ class Users extends tableDataObject
         ];
     }
 
+    
     public static function userPermissions($userid) {
         global $healthdb;
     

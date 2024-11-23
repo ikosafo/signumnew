@@ -33,7 +33,7 @@ extract($data);
                                                     </div>
                                                 </div>
                                             </li>
-                                            <li class="step-container step-2">
+                                            <!-- <li class="step-container step-2">
                                                 <div class="media">
                                                     <div class="step-icon">
                                                         <i data-feather="check"></i>
@@ -44,12 +44,12 @@ extract($data);
                                                         <h6>Set up your account credentials</h6>
                                                     </div>
                                                 </div>
-                                            </li>
-                                            <li class="step-container step-3">
+                                            </li> -->
+                                            <li class="step-container step-2">
                                                 <div class="media">
                                                     <div class="step-icon">
                                                         <i data-feather="check"></i>
-                                                        <span>3</span>
+                                                        <span>2</span>
                                                     </div>
                                                     <div class="media-body">
                                                         <h5>Permissions & Access Control</h5>
@@ -110,7 +110,7 @@ extract($data);
                                                 </form>
 
                                             </div>
-                                            <div class="wizard-step-2 d-none">
+                                            <!-- <div class="wizard-step-2 d-none">
                                                 <form class="row" id="needs-validation1" novalidate="" autocomplete="off">
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Username</label>
@@ -152,9 +152,9 @@ extract($data);
                                                     </div>
                                                 </form>
   
-                                            </div>
-                                            <div class="wizard-step-3 d-none">
-                                                <form class="row" id="needs-validation2" novalidate="" autocomplete="off">
+                                            </div> -->
+                                            <div class="wizard-step-2 d-none">
+                                                <form class="row" id="needs-validation1" novalidate="" autocomplete="off">
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">User Role</label><br>
                                                         <select class="default-select form-control wide" id="userRole">
@@ -167,10 +167,8 @@ extract($data);
                                                         </select>
                                                     </div>
 
-                                      
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Permissions</label>
-
                                                         <div class="mb-3">
                                                             <div class="form-check mb-2">
                                                                 <input type="checkbox" class="form-check-input" id="permission_check1" value="Property Management">
@@ -223,10 +221,130 @@ extract($data);
                                                         </div>
                                                     </div>
 
-                                                    
+                                                    <div class="form-group col-md-4 col-sm-12" id="serviceComplaintGroup" style="display: none;">
+                                                        <label class="form-label required">Service-related Complaint</label>
+                                                        <div class="mb-3">
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="complaint1" value="Electrical Issues">
+                                                                <label class="form-check-label" for="complaint1">Electrical Issues</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="complaint2" value="Plumbing Issues">
+                                                                <label class="form-check-label" for="complaint2">Plumbing Issues</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="complaint3" value="Painting/Decorating">
+                                                                <label class="form-check-label" for="complaint3">Painting/Decorating</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="complaint4" value="HVAC">
+                                                                <label class="form-check-label" for="complaint4">HVAC (Heating, Ventilation, and Air Conditioning)</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="complaint5" value="Roofing Issues">
+                                                                <label class="form-check-label" for="complaint5">Roofing Issues</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="complaint6" value="Flooring Issues">
+                                                                <label class="form-check-label" for="complaint6">Flooring Issues</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="complaint7" value="Structural Issues">
+                                                                <label class="form-check-label" for="complaint7">Structural Issues</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="complaint8" value="Pest Control">
+                                                                <label class="form-check-label" for="complaint8">Pest Control</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="complaint9" value="Security Issues">
+                                                                <label class="form-check-label" for="complaint9">Security Issues</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="complaint10" value="Appliance Issues">
+                                                                <label class="form-check-label" for="complaint10">Appliance Issues</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="complaint11" value="Landscaping and Grounds Maintenance">
+                                                                <label class="form-check-label" for="complaint11">Landscaping and Grounds Maintenance</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="complaint12" value="Waste Management">
+                                                                <label class="form-check-label" for="complaint12">Waste Management</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="complaint13" value="Windows and Doors">
+                                                                <label class="form-check-label" for="complaint13">Windows and Doors</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="complaint14" value="Mold and Mildew">
+                                                                <label class="form-check-label" for="complaint14">Mold and Mildew</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="complaint15" value="Fire Safety">
+                                                                <label class="form-check-label" for="complaint15">Fire Safety</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="complaint16" value="Water Damage">
+                                                                <label class="form-check-label" for="complaint16">Water Damage</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="complaint17" value="Insulation Issues">
+                                                                <label class="form-check-label" for="complaint17">Insulation Issues</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="complaint18" value="Fencing and Gates">
+                                                                <label class="form-check-label" for="complaint18">Fencing and Gates</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="complaint19" value="Concrete/Driveway Issues">
+                                                                <label class="form-check-label" for="complaint19">Concrete/Driveway Issues</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="complaint20" value="Noise Complaints">
+                                                                <label class="form-check-label" for="complaint20">Noise Complaints</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="complaint21" value="Lighting and Electrical Fixtures">
+                                                                <label class="form-check-label" for="complaint21">Lighting and Electrical Fixtures</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="complaint22" value="Basement Issues">
+                                                                <label class="form-check-label" for="complaint22">Basement Issues</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="complaint23" value="Elevator Issues">
+                                                                <label class="form-check-label" for="complaint23">Elevator Issues</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="complaint24" value="Garage Issues">
+                                                                <label class="form-check-label" for="complaint24">Garage Issues</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="complaint25" value="Swimming Pool Issues">
+                                                                <label class="form-check-label" for="complaint25">Swimming Pool Issues</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="complaint26" value="Staircase and Railings">
+                                                                <label class="form-check-label" for="complaint26">Staircase and Railings</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="complaint27" value="Parking Issues">
+                                                                <label class="form-check-label" for="complaint27">Parking Issues</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="complaint28" value="Internet and Telecommunications">
+                                                                <label class="form-check-label" for="complaint28">Internet and Telecommunications</label>
+                                                            </div>
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="complaint29" value="Accessibility Issues">
+                                                                <label class="form-check-label" for="complaint29">Accessibility Issues</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
                                                     <div class="next-btn d-flex col-sm-12">
-                                                        <button type="button" class="btn btn-default prev2 btn-sm"><i class="fas fa-arrow-left me-2"></i> Previous</button>
+                                                        <button type="button" class="btn btn-default prev1 btn-sm"><i class="fas fa-arrow-left me-2"></i> Previous</button>
                                                         <button type="submit" id="saveRole" class="btn btn-success btn-sm">Submit <i class="fas fa-arrow-right ms-2"></i></button>
                                                     </div>
                                                 </form>
@@ -246,260 +364,291 @@ extract($data);
 
 <script>
 
-        $(document).ready(function() {
-            $("#phoneNumber, #altPhoneNumber").on("keypress", function(e) {
-                return isNumber(e);
-            });
+    $(document).ready(function() {
+        $("#phoneNumber, #altPhoneNumber").on("keypress", function(e) {
+            return isNumber(e);
         });
+    });
 
-       function isNumber(evt) {
-            evt = evt || window.event;
-            var charCode = evt.which || evt.keyCode;
+    function isNumber(evt) {
+        evt = evt || window.event;
+        var charCode = evt.which || evt.keyCode;
 
-            var inputField = evt.target;
-            if (inputField.value.length >= 10 && (charCode >= 48 && charCode <= 57)) {
-                return false; 
-            }
-            if (charCode == 8 || charCode == 46 || charCode == 9 || (charCode >= 37 && charCode <= 40)) {
-                return true;
-            }
-            if (charCode < 48 || charCode > 57) {
-                return false;
-            }
-
+        var inputField = evt.target;
+        if (inputField.value.length >= 10 && (charCode >= 48 && charCode <= 57)) {
+            return false; 
+        }
+        if (charCode == 8 || charCode == 46 || charCode == 9 || (charCode >= 37 && charCode <= 40)) {
             return true;
         }
+        if (charCode < 48 || charCode > 57) {
+            return false;
+        }
 
-    
-        $("#dateBirth").flatpickr({
-            maxDate: "today"
-        });
+        return true;
+    }
 
-        $("#department").select2({
-            placeholder: "Select Department"
-        });   
+    $("#dateBirth").flatpickr({
+        maxDate: "today"
+    });
 
-       $("#securityQuestion").select2({
-            placeholder: "Select Security Question"
-       });
-       
+    $("#department").select2({
+        placeholder: "Select Department"
+    });   
 
-        $("#saveUser").on("click", function(event) {
-            event.preventDefault(); 
+   /*  $("#securityQuestion").select2({
+        placeholder: "Select Security Question"
+    });
+     */
 
-            var formData = {
-                firstName: $("#firstName").val(),
-                lastName: $("#lastName").val(),
-                emailAddress: $("#emailAddress").val(),
-                phoneNumber: $("#phoneNumber").val(),
-                altPhoneNumber: $("#altPhoneNumber").val(),
-                dateBirth: $("#dateBirth").val(),
-                jobTitle: $("#jobTitle").val(),
-                department: $("#department").val(),
-                address: $("#address").val(),
-                uuid: '<?php echo $uuid; ?>'
-            };
+    $("#saveUser").on("click", function(event) {
+        event.preventDefault(); 
 
-            var url = urlroot + "/user/saveUser";
+        var formData = {
+            firstName: $("#firstName").val(),
+            lastName: $("#lastName").val(),
+            emailAddress: $("#emailAddress").val(),
+            phoneNumber: $("#phoneNumber").val(),
+            altPhoneNumber: $("#altPhoneNumber").val(),
+            dateBirth: $("#dateBirth").val(),
+            jobTitle: $("#jobTitle").val(),
+            department: $("#department").val(),
+            address: $("#address").val(),
+            uuid: '<?php echo $uuid; ?>'
+        };
 
-            var successCallback = function(response) {
-                response = JSON.parse(response);
+        var url = urlroot + "/user/saveUser";
 
-                if (response == 1) {
-                    $("#needs-validation").addClass("was-validated");
-                    $('.step-1').removeClass('active').addClass('disabled');
-                    $('.step-2').addClass('active');
-                    $('.wizard-step-2').addClass('d-block').removeClass('d-none');
-                    $('.wizard-step-1').removeClass('d-block').addClass('d-none');
-                } else {
-                    $.notify("User already exists", {
-                        position: "top center",
-                        className: "error"
-                    });
-                }
-            };
+        var successCallback = function(response) {
+            response = JSON.parse(response);
+            //alert(response);
 
-            var validateForm = function(formData) {
-                var error = '';
+            if (response == 1) {
+                $("#needs-validation").addClass("was-validated");
+                $('.step-1').removeClass('active').addClass('disabled');
+                $('.step-2').addClass('active');
+                $('.wizard-step-2').addClass('d-block').removeClass('d-none');
+                $('.wizard-step-1').removeClass('d-block').addClass('d-none');
+            } else {
+                $.notify("User already exists", {
+                    position: "top center",
+                    className: "error"
+                });
+            }
+        };
 
-                if (!formData.firstName) {
-                    error += 'First Name is required\n';
-                    $("#firstName").focus();
-                }
-                if (!formData.lastName) {
-                    error += 'Last Name is required\n';
-                    $("#lastName").focus();
-                }
-                if (!formData.emailAddress) {
-                    error += 'Email Address is required\n';
+        var validateForm = function(formData) {
+            var error = '';
+
+            if (!formData.firstName) {
+                error += 'First Name is required\n';
+                $("#firstName").focus();
+            }
+            if (!formData.lastName) {
+                error += 'Last Name is required\n';
+                $("#lastName").focus();
+            }
+            if (!formData.emailAddress) {
+                error += 'Email Address is required\n';
+                $("#emailAddress").focus();
+            } else {
+                var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                if (!emailPattern.test(formData.emailAddress)) {
+                    error += 'Invalid Email Address format\n';
                     $("#emailAddress").focus();
-                } else {
-                    var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-                    if (!emailPattern.test(formData.emailAddress)) {
-                        error += 'Invalid Email Address format\n';
-                        $("#emailAddress").focus();
-                    }
                 }
-                if (!formData.phoneNumber) {
-                    error += 'Phone Number is required\n';
+            }
+            if (!formData.phoneNumber) {
+                error += 'Phone Number is required\n';
+                $("#phoneNumber").focus();
+            } else {
+                var phonePattern = /^[0-9]{10}$/; // Regular expression for 10 digits only
+                if (!phonePattern.test(formData.phoneNumber)) {
+                    error += 'Phone Number must be exactly 10 digits\n';
                     $("#phoneNumber").focus();
-                } else {
-                    var phonePattern = /^[0-9]{10}$/; // Regular expression for 10 digits only
-                    if (!phonePattern.test(formData.phoneNumber)) {
-                        error += 'Phone Number must be exactly 10 digits\n';
-                        $("#phoneNumber").focus();
-                    }
                 }
-                if (formData.altPhoneNumber) {
-                    var altPhonePattern = /^[0-9]{10}$/; // Regular expression for 10 digits only
-                    if (!altPhonePattern.test(formData.altPhoneNumber)) {
-                        error += 'Alternative Phone Number must be exactly 10 digits\n';
-                        $("#altPhoneNumber").focus();
-                    }
+            }
+            if (formData.altPhoneNumber) {
+                var altPhonePattern = /^[0-9]{10}$/; // Regular expression for 10 digits only
+                if (!altPhonePattern.test(formData.altPhoneNumber)) {
+                    error += 'Alternative Phone Number must be exactly 10 digits\n';
+                    $("#altPhoneNumber").focus();
                 }
-                if (!formData.dateBirth) {
-                    error += 'Date of Birth is required\n';
-                    $("#dateBirth").focus();
-                }
-                if (!formData.jobTitle) {
-                    error += 'Job Title is required\n';
-                    $("#jobTitle").focus();
-                }
-                if (!formData.department) {
-                    error += 'Department is required\n';
-                    $("#department").focus();
-                }
-                if (!formData.address) {
-                    error += 'Address is required\n';
-                    $("#address").focus();
-                }
-                return error;
-            };
+            }
+            if (!formData.dateBirth) {
+                error += 'Date of Birth is required\n';
+                $("#dateBirth").focus();
+            }
+            if (!formData.jobTitle) {
+                error += 'Job Title is required\n';
+                $("#jobTitle").focus();
+            }
+            if (!formData.department) {
+                error += 'Department is required\n';
+                $("#department").focus();
+            }
+            if (!formData.address) {
+                error += 'Address is required\n';
+                $("#address").focus();
+            }
+            return error;
+        };
 
-            saveForm(formData, url, successCallback, validateForm);
+        saveForm(formData, url, successCallback, validateForm);
+    });
+
+
+    /* $("#saveUserAccount").on("click", function(event) {
+        event.preventDefault();
+
+        var accountData = {
+            username: $("#username").val(),
+            password: $("#password").val(),
+            confirmPassword: $("#confirmPassword").val(),
+            securityQuestion: $("#securityQuestion").val(),
+            securityAnswer: $("#securityAnswer").val(),
+            uuid: '<?php echo $uuid ?>'
+        };
+
+        var url = urlroot + "/user/saveUserAccount";
+
+        var successCallback = function(response) {
+            response = JSON.parse(response);
+
+            if (response == 1) {
+                $("#needs-validation1").addClass("was-validated");
+                $('.step-2').removeClass('active').addClass('disabled');
+                $('.step-3').addClass('active');
+                $('.wizard-step-3').addClass('d-block').removeClass('d-none');
+                $('.wizard-step-2').removeClass('d-block').addClass('d-none');
+            } else {
+                $.notify("Username already exists", {
+                    position: "top center",
+                    className: "error"
+                });
+            }
+
+        };
+
+        var validateAccountForm = function(accountData) {
+            var error = '';
+
+            if (!accountData.username) {
+                error += 'Username is required\n';
+                $("#username").focus();
+            }
+
+            if (!accountData.password) {
+                error += 'Password is required\n';
+                $("#password").focus();
+            } else if (accountData.password.length < 6) {
+                error += 'Password must be at least 6 characters long\n';
+                $("#password").focus();
+            }
+
+            if (!accountData.confirmPassword) {
+                error += 'Confirm Password is required\n';
+                $("#confirmPassword").focus();
+            } else if (accountData.confirmPassword !== accountData.password) {
+                error += 'Passwords do not match\n';
+                $("#confirmPassword").focus();
+            }
+
+            if (!accountData.securityQuestion) {
+                error += 'Security question is required\n';
+                $("#securityQuestion").focus();
+            }
+
+            if (!accountData.securityAnswer) {
+                error += 'Answer to security question is required\n';
+                $("#securityAnswer").focus();
+            }
+            return error;
+        };
+
+        saveForm(accountData, url, successCallback, validateAccountForm);
+    }); */
+
+
+    //Roles
+    $("#saveRole").on("click", function(event) {
+        event.preventDefault(); 
+
+        var userData = {
+            userRole: $("#userRole").val(),
+            permissions: [],
+            complaints: [],
+            uuid: '<?php echo $uuid ?>'
+        };
+
+        $("input[type='checkbox'][id^='permission_check']:checked").each(function() {
+            userData.permissions.push($(this).val());
         });
 
-
-        $("#saveUserAccount").on("click", function(event) {
-            event.preventDefault();
-
-            var accountData = {
-                username: $("#username").val(),
-                password: $("#password").val(),
-                confirmPassword: $("#confirmPassword").val(),
-                securityQuestion: $("#securityQuestion").val(),
-                securityAnswer: $("#securityAnswer").val(),
-                uuid: '<?php echo $uuid ?>'
-            };
-
-            var url = urlroot + "/user/saveUserAccount";
-
-            var successCallback = function(response) {
-                response = JSON.parse(response);
- 
-                if (response == 1) {
-                    $("#needs-validation1").addClass("was-validated");
-                    $('.step-2').removeClass('active').addClass('disabled');
-                    $('.step-3').addClass('active');
-                    $('.wizard-step-3').addClass('d-block').removeClass('d-none');
-                    $('.wizard-step-2').removeClass('d-block').addClass('d-none');
-                } else {
-                    $.notify("Username already exists", {
-                        position: "top center",
-                        className: "error"
-                    });
-                }
-
-            };
-
-            var validateAccountForm = function(accountData) {
-                var error = '';
-
-                if (!accountData.username) {
-                    error += 'Username is required\n';
-                    $("#username").focus();
-                }
-
-                if (!accountData.password) {
-                    error += 'Password is required\n';
-                    $("#password").focus();
-                } else if (accountData.password.length < 6) {
-                    error += 'Password must be at least 6 characters long\n';
-                    $("#password").focus();
-                }
-
-                if (!accountData.confirmPassword) {
-                    error += 'Confirm Password is required\n';
-                    $("#confirmPassword").focus();
-                } else if (accountData.confirmPassword !== accountData.password) {
-                    error += 'Passwords do not match\n';
-                    $("#confirmPassword").focus();
-                }
-
-                if (!accountData.securityQuestion) {
-                    error += 'Security question is required\n';
-                    $("#securityQuestion").focus();
-                }
-
-                if (!accountData.securityAnswer) {
-                    error += 'Answer to security question is required\n';
-                    $("#securityAnswer").focus();
-                }
-                return error;
-            };
-
-            saveForm(accountData, url, successCallback, validateAccountForm);
+        $("input[type='checkbox'][id^='complaint']:checked").each(function () {
+            userData.complaints.push($(this).val());
         });
 
+        userData.complaints = userData.complaints.join(",");
+        //alert('test');
 
-        //Roles
-        $("#saveRole").on("click", function(event) {
-            event.preventDefault(); 
+        var url = urlroot + "/user/saveRole";
 
-            var userData = {
-                userRole: $("#userRole").val(),
-                permissions: [],
-                uuid: '<?php echo $uuid ?>'
-            };
-
-            $("input[type='checkbox'][id^='permission_check']:checked").each(function() {
-                userData.permissions.push($(this).val());
+        var successCallback = function(response) {
+            response = JSON.parse(response);
+            //alert(response);
+            $.notify("User saved", {
+                position: "top center",
+                className: "success"
             });
 
-            var url = urlroot + "/user/saveRole";
+            // Delay the reload to allow the notification to be seen
+            setTimeout(function() {
+                location.reload();
+            }, 500); 
+        };
 
-            var successCallback = function(response) {
-                response = JSON.parse(response);
-                $.notify("User saved", {
-                    position: "top center",
-                    className: "success"
-                });
+        var validateUserAccount = function(userData) {
+                var error = '';
 
-                // Delay the reload to allow the notification to be seen
-                setTimeout(function() {
-                    location.reload();
-                }, 500); 
+                if (!userData.userRole) {
+                    error += 'User Role is required\n';
+                    $("#userRole").focus();
+                }
+
+                if (userData.permissions.length === 0) {
+                    error += 'At least one permission must be selected\n';
+                }
+
+                // Validate complaints only if the User Role is 'Field Worker'
+                if (userData.userRole === 'Field Worker') {
+                    if (userData.complaints.length === 0) {
+                        error += 'At least one service-related complaint must be selected for Field Worker\n';
+                    }
+                } else {
+                    // Ensure no complaints are selected if the userRole is not 'Field Worker'
+                    if (userData.complaints.length > 0) {
+                        error += 'Service-related complaints should not be selected unless the User Role is Field Worker\n';
+                    }
+                }
+
+
+                return error;
             };
 
-            var validateUserAccount = function(userData) {
-                    var error = '';
 
-                    if (!userData.userRole) {
-                        error += 'User Role is required\n';
-                        $("#userRole").focus();
-                    }
-
-                    if (userData.permissions.length === 0) {
-                        error += 'At least one permission must be selected\n';
-                    }
+        saveForm(userData, url, successCallback, validateUserAccount);
+    });
 
 
-                    return error;
-                };
-
-
-            saveForm(userData, url, successCallback, validateUserAccount);
-        });
+    document.getElementById('userRole').addEventListener('change', function () {
+        const serviceComplaintGroup = document.getElementById('serviceComplaintGroup');
+        if (this.value === 'Field Worker') {
+            serviceComplaintGroup.style.display = 'block';
+        } else {
+            serviceComplaintGroup.style.display = 'none';
+        }
+    });
 
 
 </script>

@@ -1,6 +1,5 @@
 <?php include ('includes/headerWorker.php');
 extract($data);
-$uuid = $clientDetails['uuid'];
 ?>
 
 <div class="content-body">
@@ -11,7 +10,7 @@ $uuid = $clientDetails['uuid'];
 					</ol>
                 </div>
                 <!-- row -->
-                <div class="row">
+                <!-- <div class="row">
 					
 					
                     <div class="col-xl-3 col-lg-6 col-sm-6">
@@ -116,7 +115,7 @@ $uuid = $clientDetails['uuid'];
                         </div>
 					</div>
 					
-                </div>
+                </div> -->
             </div>
         </div>
 	

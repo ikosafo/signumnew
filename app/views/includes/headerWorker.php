@@ -152,10 +152,10 @@
 							<span class="nav-text">MAINTENANCE & SUPPORT</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="<?php echo URLROOT ?>/pages/occupancyReports">Occupancy Reports</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/maintenanceReports">Maintenance Reports</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/tenancyReports">Tenant Reports</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/financialReports">Financial Reports</a></li>
+                            <li><a href="<?php echo URLROOT ?>/pages/viewRequests">View Requests</a></li>
+                            <li><a href="<?php echo URLROOT ?>/pages/activeWorkOrders">Active Work Orders</a></li>
+                            <li><a href="<?php echo URLROOT ?>/pages/closedWorkOrders">Closed Work Orders</a></li>
+                            <li><a href="<?php echo URLROOT ?>/pages/financialReports">Maintenance Reports</a></li>
                         </ul>
                     </li>
 					<li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
