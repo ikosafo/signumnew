@@ -338,36 +338,60 @@ class Institution extends tableDataObject
         }
     }
 
+
     public static function saveRole(
         $userRole,
         $permissions,
         $uuid,
         $complaints
-        ) {
+    ) {
         global $healthdb;
-
+        $complaintsString = is_array($complaints) ? implode(', ', $complaints) : $complaints;
+    
         $query = "UPDATE `users` SET 
-                   `accessLevel` = '$userRole',
+                   `accessLevel` = :userRole,
                    `updatedAt` = NOW()
-                    WHERE `uuid` = '$uuid'";
-
-                $healthdb->prepare($query);
-                $healthdb->execute();
-                echo 1;
-
-        $deleteQuery = "DELETE FROM `permission` WHERE `uuid` = '$uuid'";
-        $healthdb->prepare($deleteQuery);
+                   WHERE `uuid` = :uuid";
+    
+        $healthdb->prepare($query);
+        $healthdb->bind(':userRole', $userRole);
+        $healthdb->bind(':uuid', $uuid);
         $healthdb->execute();
-
+    
+        $deleteQuery = "DELETE FROM `permission` WHERE `uuid` = :uuid";
+        $healthdb->prepare($deleteQuery);
+        $healthdb->bind(':uuid', $uuid);
+        $healthdb->execute();
+    
         foreach ($permissions as $permission) {
             $insertQuery = "INSERT INTO `permission` (`permission`, `uuid`) 
-                            VALUES ('$permission', '$uuid')";
-             $healthdb->prepare($insertQuery);
-             $healthdb->execute();
+                            VALUES (:permission, :uuid)";
+            $healthdb->prepare($insertQuery);
+            $healthdb->bind(':permission', $permission);
+            $healthdb->bind(':uuid', $uuid);
+            $healthdb->execute();
         }
 
-        
+
+        $deleteQuery = "DELETE FROM `issuecategories` WHERE `uuid` = :uuid";
+        $healthdb->prepare($deleteQuery);
+        $healthdb->bind(':uuid', $uuid);
+        $healthdb->execute();
+    
+        foreach ($complaints as $category) {
+            $insertQuery = "INSERT INTO `issuecategories` (`category`, `uuid`) 
+                            VALUES (:category, :uuid)";
+            $healthdb->prepare($insertQuery);
+            $healthdb->bind(':category', $category);
+            $healthdb->bind(':uuid', $uuid);
+            $healthdb->execute();
+        }
+    
+        // Indicate success
+        echo 1;
     }
+    
+
 
     public static function userDetails($userid) {
         global $healthdb;

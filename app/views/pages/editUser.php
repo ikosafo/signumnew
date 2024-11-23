@@ -1,6 +1,7 @@
 <?php include ('includes/header.php');
 extract($data);
 $uuid = $userDetails['uuid'];
+
 ?>
 
         <div class="content-body">
@@ -108,194 +109,69 @@ $uuid = $userDetails['uuid'];
 
                                             </div>
                                             <div class="wizard-step-2 d-none">
-                                            <form class="row" id="needs-validation1" novalidate="" autocomplete="off">
+                                                <form class="row" id="needs-validation1" novalidate="" autocomplete="off">
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">User Role</label><br>
                                                         <select class="default-select form-control wide" id="userRole">
                                                             <option value="" disabled selected>Select User Role</option>
-                                                            <option value="Normal">Normal</option>
-                                                            <option value="Administrator">Administrator</option>
-                                                            <option value="Super Administrator">Super Administrator</option>
-                                                            <option value="Field Worker">Field Worker</option>
-                                                            <option value="Site Inspector">Site Inspector</option>
+                                                             <option value="Normal" <?= ($userDetails['accessLevel'] == 'Normal') ? 'selected' : '' ?>>Normal</option>
+                                                            <option value="Administrator" <?= ($userDetails['accessLevel'] == 'Administrator') ? 'selected' : '' ?>>Administrator</option>
+                                                            <option value="Super Administrator" <?= ($userDetails['accessLevel'] == 'Super Administrator') ? 'selected' : '' ?>>Super Administrator</option>
+                                                            <option value="Field Worker" <?= ($userDetails['accessLevel'] == 'Field Worker') ? 'selected' : '' ?>>Field Worker</option>
+                                                            <option value="Site Inspector" <?= ($userDetails['accessLevel'] == 'Site Inspector') ? 'selected' : '' ?>>Site Inspector</option>
                                                         </select>
+                                                    </div>
+
+                                                    <div class="form-group col-md-4 col-sm-12">
+                                                        <label class="form-label required">Assign Service-related Complaint</label>
+                                                        <div class="mb-3">
+                                                            <?php
+                                                            $complaints = [
+                                                                "No Assignment", "Electrical Issues", "Plumbing Issues", "Painting/Decorating", "HVAC",
+                                                                "Roofing Issues", "Flooring Issues", "Structural Issues", "Pest Control", "Security Issues",
+                                                                "Appliance Issues", "Landscaping and Grounds Maintenance", "Waste Management",
+                                                                "Windows and Doors", "Mold and Mildew", "Fire Safety", "Water Damage", "Insulation Issues",
+                                                                "Fencing and Gates", "Concrete/Driveway Issues", "Noise Complaints",
+                                                                "Lighting and Electrical Fixtures", "Basement Issues", "Elevator Issues",
+                                                                "Garage Issues", "Swimming Pool Issues", "Staircase and Railings",
+                                                                "Parking Issues", "Internet and Telecommunications", "Accessibility Issues"
+                                                            ];
+                                                            foreach ($complaints as $complaint) {
+                                                                $isChecked = in_array($complaint, $userComplaints) ? 'checked' : '';
+                                                                echo <<<HTML
+                                                                <div class="form-check mb-2">
+                                                                    <input type="checkbox" class="form-check-input" id="complaint_{$complaint}" value="{$complaint}" {$isChecked}>
+                                                                    <label class="form-check-label" for="complaint_{$complaint}">{$complaint}</label>
+                                                                </div>
+                                                                HTML;
+                                                            }
+                                                            ?>
+                                                        </div>
                                                     </div>
 
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Permissions</label>
                                                         <div class="mb-3">
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="permission_check1" value="Property Management">
-                                                                <label class="form-check-label" for="permission_check1">Property Management</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="permission_check2" value="Client Management">
-                                                                <label class="form-check-label" for="permission_check2">Client Management</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="permission_check3" value="Inspections">
-                                                                <label class="form-check-label" for="permission_check3">Inspections</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="permission_check4" value="Rent Management">
-                                                                <label class="form-check-label" for="permission_check4">Rent Management</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="permission_check5" value="Financials">
-                                                                <label class="form-check-label" for="permission_check5">Financials</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="permission_check6" value="Billings">
-                                                                <label class="form-check-label" for="permission_check6">Billings</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="permission_check7" value="Contracts">
-                                                                <label class="form-check-label" for="permission_check7">Contracts</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="permission_check8" value="Maintenance">
-                                                                <label class="form-check-label" for="permission_check8">Maintenance</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="permission_check9" value="Ticketing">
-                                                                <label class="form-check-label" for="permission_check9">Ticketing</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="permission_check10" value="Reports">
-                                                                <label class="form-check-label" for="permission_check10">Reports</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="permission_check11" value="All Permissions">
-                                                                <label class="form-check-label" for="permission_check11">All Permissions</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="permission_check12" value="No Permission">
-                                                                <label class="form-check-label" for="permission_check12">No Permission</label>
-                                                            </div>
+                                                            <?php
+                                                            $permissions = [
+                                                                "Property Management", "Client Management", "Inspections",
+                                                                "Rent Management", "Financials", "Billings", "Contracts",
+                                                                "Maintenance", "Ticketing", "Reports", "All Permissions", "No Permission"
+                                                            ];
+                                                            foreach ($permissions as $permission) {
+                                                                $isChecked = in_array($permission, $userPermissions) ? 'checked' : '';
+                                                                echo <<<HTML
+                                                                <div class="form-check mb-2">
+                                                                    <input type="checkbox" class="form-check-input" id="permission_check_{$permission}" value="{$permission}" {$isChecked}>
+                                                                    <label class="form-check-label" for="permission_check_{$permission}">{$permission}</label>
+                                                                </div>
+                                                                HTML;
+                                                            }
+                                                            ?>
                                                         </div>
                                                     </div>
 
-                                                    <div class="form-group col-md-4 col-sm-12" id="serviceComplaintGroup" style="display: none;">
-                                                        <label class="form-label required">Service-related Complaint</label>
-                                                        <div class="mb-3">
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="complaint1" value="Electrical Issues">
-                                                                <label class="form-check-label" for="complaint1">Electrical Issues</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="complaint2" value="Plumbing Issues">
-                                                                <label class="form-check-label" for="complaint2">Plumbing Issues</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="complaint3" value="Painting/Decorating">
-                                                                <label class="form-check-label" for="complaint3">Painting/Decorating</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="complaint4" value="HVAC">
-                                                                <label class="form-check-label" for="complaint4">HVAC (Heating, Ventilation, and Air Conditioning)</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="complaint5" value="Roofing Issues">
-                                                                <label class="form-check-label" for="complaint5">Roofing Issues</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="complaint6" value="Flooring Issues">
-                                                                <label class="form-check-label" for="complaint6">Flooring Issues</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="complaint7" value="Structural Issues">
-                                                                <label class="form-check-label" for="complaint7">Structural Issues</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="complaint8" value="Pest Control">
-                                                                <label class="form-check-label" for="complaint8">Pest Control</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="complaint9" value="Security Issues">
-                                                                <label class="form-check-label" for="complaint9">Security Issues</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="complaint10" value="Appliance Issues">
-                                                                <label class="form-check-label" for="complaint10">Appliance Issues</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="complaint11" value="Landscaping and Grounds Maintenance">
-                                                                <label class="form-check-label" for="complaint11">Landscaping and Grounds Maintenance</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="complaint12" value="Waste Management">
-                                                                <label class="form-check-label" for="complaint12">Waste Management</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="complaint13" value="Windows and Doors">
-                                                                <label class="form-check-label" for="complaint13">Windows and Doors</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="complaint14" value="Mold and Mildew">
-                                                                <label class="form-check-label" for="complaint14">Mold and Mildew</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="complaint15" value="Fire Safety">
-                                                                <label class="form-check-label" for="complaint15">Fire Safety</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="complaint16" value="Water Damage">
-                                                                <label class="form-check-label" for="complaint16">Water Damage</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="complaint17" value="Insulation Issues">
-                                                                <label class="form-check-label" for="complaint17">Insulation Issues</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="complaint18" value="Fencing and Gates">
-                                                                <label class="form-check-label" for="complaint18">Fencing and Gates</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="complaint19" value="Concrete/Driveway Issues">
-                                                                <label class="form-check-label" for="complaint19">Concrete/Driveway Issues</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="complaint20" value="Noise Complaints">
-                                                                <label class="form-check-label" for="complaint20">Noise Complaints</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="complaint21" value="Lighting and Electrical Fixtures">
-                                                                <label class="form-check-label" for="complaint21">Lighting and Electrical Fixtures</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="complaint22" value="Basement Issues">
-                                                                <label class="form-check-label" for="complaint22">Basement Issues</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="complaint23" value="Elevator Issues">
-                                                                <label class="form-check-label" for="complaint23">Elevator Issues</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="complaint24" value="Garage Issues">
-                                                                <label class="form-check-label" for="complaint24">Garage Issues</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="complaint25" value="Swimming Pool Issues">
-                                                                <label class="form-check-label" for="complaint25">Swimming Pool Issues</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="complaint26" value="Staircase and Railings">
-                                                                <label class="form-check-label" for="complaint26">Staircase and Railings</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="complaint27" value="Parking Issues">
-                                                                <label class="form-check-label" for="complaint27">Parking Issues</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="complaint28" value="Internet and Telecommunications">
-                                                                <label class="form-check-label" for="complaint28">Internet and Telecommunications</label>
-                                                            </div>
-                                                            <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="complaint29" value="Accessibility Issues">
-                                                                <label class="form-check-label" for="complaint29">Accessibility Issues</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                   
 
                                                     <div class="next-btn d-flex col-sm-12">
                                                         <button type="button" class="btn btn-default prev1 btn-sm"><i class="fas fa-arrow-left me-2"></i> Previous</button>
@@ -358,22 +234,10 @@ navItems.forEach(function(item) {
         maxDate: "today"
     });
 
-    
-    $('#permissions').SumoSelect({
-        placeholder: 'Select options',
-        selectAll: true,
-        search: true,
-        okCancelInMulti: true
-    });
-
     $("#department").select2({
         placeholder: "Select Department"
     });   
 
-    $("#securityQuestion").select2({
-        placeholder: "Select Security Question"
-    });
-    
 
     $("#editUser").on("click", function(event) {
         event.preventDefault(); 
@@ -485,9 +349,12 @@ navItems.forEach(function(item) {
         $("input[type='checkbox'][id^='permission_check']:checked").each(function() {
             userData.permissions.push($(this).val());
         });
-        //alert('test');
+        $("input[type='checkbox'][id^='complaint']:checked").each(function() {
+            userData.complaints.push($(this).val());
+        });
 
         var url = urlroot + "/user/saveRole";
+
 
         var successCallback = function(response) {
             response = JSON.parse(response);
@@ -504,32 +371,35 @@ navItems.forEach(function(item) {
         };
 
         var validateUserAccount = function(userData) {
-                var error = '';
+            var error = '';
 
-                if (!userData.userRole) {
-                    error += 'User Role is required\n';
-                    $("#userRole").focus();
+            if (!userData.userRole) {
+                error += 'User Role is required\n';
+                $("#userRole").focus();
+            }
+            if (userData.permissions.length === 0) {
+                error += 'At least one permission must be selected\n';
+            }
+            if (userData.complaints.length === 0) {
+                error += 'At least one assignment must be selected\n';
+            }
+
+            if (userData.userRole === 'Field Worker') {
+                if (userData.complaints.includes('No Assignment')) {
+                    error += "'No Assignment' cannot be selected for Field Worker\n";
                 }
 
-                if (userData.permissions.length === 0) {
-                    error += 'At least one permission must be selected\n';
+                if (userData.complaints.length === 0) {
+                    error += 'At least one service-related complaint must be selected for Field Worker\n';
                 }
-
-                // Validate complaints only if the User Role is 'Field Worker'
-                if (userData.userRole === 'Field Worker') {
-                    if (userData.complaints.length === 0) {
-                        error += 'At least one service-related complaint must be selected for Field Worker\n';
-                    }
-                } else {
-                    // Ensure no complaints are selected if the userRole is not 'Field Worker'
-                    if (userData.complaints.length > 0) {
-                        error += 'Service-related complaints should not be selected unless the User Role is Field Worker\n';
-                    }
+            } else {
+                if (!userData.complaints.includes('No Assignment')) {
+                    error += "'No Assignment' should be selected for non-Field Worker roles\n";
                 }
+            }
 
-
-                return error;
-            };
+            return error;
+        };
 
 
         saveForm(userData, url, successCallback, validateUserAccount);
@@ -537,14 +407,15 @@ navItems.forEach(function(item) {
 
 
 
-    document.getElementById('userRole').addEventListener('change', function () {
+
+    /* document.getElementById('userRole').addEventListener('change', function () {
         const serviceComplaintGroup = document.getElementById('serviceComplaintGroup');
         if (this.value === 'Field Worker') {
             serviceComplaintGroup.style.display = 'block';
         } else {
             serviceComplaintGroup.style.display = 'none';
         }
-    });
+    }); */
 
 
 </script>

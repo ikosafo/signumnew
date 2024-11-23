@@ -39,11 +39,18 @@ class Pages extends Controller
         new Guard();
         $uid = $_SESSION['uid'];
         $uuid = Tools::getUUIDbyid($uid);
-       /*  $clientid = Tools::getClientidbyUUID($uuid);
-        $clientDetails = Clients::clientDetails($clientid); */
         $this->view("pages/worker");
     }
 
+
+    public function inspector()
+    {
+        new Guard();
+        $uid = $_SESSION['uid'];
+        $uuid = Tools::getUUIDbyid($uid);
+        $this->view("pages/inspector");
+    }
+    
 
     public function addProperty() {
         new Guard();
@@ -89,6 +96,7 @@ class Pages extends Controller
         $userDetails = Institution::userDetails($decryptedUserId);
         $uuid = $userDetails['uuid'];
         $userPermissions = Users::userPermissions($uuid);
+        $userComplaints = Users::userComplaints($uuid);
         $listDepartment = Institution::listDepartment();
 
         $this->view("pages/editUser",[
@@ -96,7 +104,8 @@ class Pages extends Controller
             'listDepartment' => $listDepartment,
             'userid' => $decryptedUserId,
             'userDetails' => $userDetails,
-            'userPermissions' => $userPermissions
+            'userPermissions' => $userPermissions,
+            'userComplaints' => $userComplaints
         ]);
     } 
     
@@ -394,6 +403,20 @@ class Pages extends Controller
         $clientid = Tools::getClientidbyUUID($uuid);
         $listProperties = Properties::listProperties();
         $this->view("pages/logComplaint",
+            [
+                'listProperties' => $listProperties,
+                'clientid' => $clientid
+            ]);
+    } 
+
+
+    public function dailyInspection() {
+        new Guard();  
+        $uid = $_SESSION['uid'];
+        $uuid = Tools::getUUIDbyid($uid);
+        $clientid = Tools::getClientidbyUUID($uuid);
+        $listProperties = Properties::listProperties();
+        $this->view("pages/dailyInspection",
             [
                 'listProperties' => $listProperties,
                 'clientid' => $clientid

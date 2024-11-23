@@ -177,6 +177,24 @@ class Users extends tableDataObject
     
         return $permissions; 
     }
+
+
+    public static function userComplaints($userid) {
+        global $healthdb;
+    
+        $getprofessions = "SELECT `category` FROM `issuecategories` WHERE `uuid` = '$userid' AND `status` = 1";
+        $healthdb->prepare($getprofessions);
+        $results = $healthdb->resultSet();
+        $categories = array();
+
+        if ($results) {
+            foreach ($results as $result) {
+                $categories[] = $result->category; 
+            }
+        }
+    
+        return $categories; 
+    }
     
 
     public static function login($username, $password) {

@@ -221,9 +221,13 @@ extract($data);
                                                         </div>
                                                     </div>
 
-                                                    <div class="form-group col-md-4 col-sm-12" id="serviceComplaintGroup" style="display: none;">
-                                                        <label class="form-label required">Service-related Complaint</label>
+                                                    <div class="form-group col-md-4 col-sm-12" id="serviceComplaintGroup">
+                                                        <label class="form-label required">Assign Service-related Complaint</label>
                                                         <div class="mb-3">
+                                                            <div class="form-check mb-2">
+                                                                <input type="checkbox" class="form-check-input" id="complaint30" value="No Assignment">
+                                                                <label class="form-check-label" for="complaint30">No Assignment</label>
+                                                            </div>
                                                             <div class="form-check mb-2">
                                                                 <input type="checkbox" class="form-check-input" id="complaint1" value="Electrical Issues">
                                                                 <label class="form-check-label" for="complaint1">Electrical Issues</label>
@@ -641,7 +645,7 @@ extract($data);
     });
 
 
-    document.getElementById('userRole').addEventListener('change', function () {
+   /*  document.getElementById('userRole').addEventListener('change', function () {
         const serviceComplaintGroup = document.getElementById('serviceComplaintGroup');
         if (this.value === 'Field Worker') {
             serviceComplaintGroup.style.display = 'block';
@@ -649,6 +653,6 @@ extract($data);
             serviceComplaintGroup.style.display = 'none';
         }
     });
-
+ */
 
 </script>
