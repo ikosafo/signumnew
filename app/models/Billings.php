@@ -274,6 +274,117 @@ class Billings extends tableDataObject
     }
 
 
+    public static function updateMaintenancePayment($reference,$status,$clientid,$amount,$uuid,$billid) {
+        global $healthdb;
+
+        $updatedAmt = $amount / 100;
+
+        $query = "INSERT INTO `payments`
+                    (`amountPaid`,
+                    `datePaid`,
+                    `createdAt`,
+                    `billType`,
+                    `paymentMethod`,
+                    `paymentDescription`,
+                    `serialNumber`,
+                    `paymentStatus`,
+                    `uuid`,
+                    `clientid`,
+                    `receivedBy`
+                )
+                VALUES (
+                    '$updatedAmt',
+                    NOW(),
+                    NOW(),
+                    'Maintenance',
+                    'PayStack',
+                    '$status',
+                    '$reference',
+                    '$status',
+                    '$uuid',
+                    '$clientid',
+                    'Client Portal'
+                )";
+
+                $healthdb->prepare($query);
+                $healthdb->execute();
+                echo 1;  // Successfully inserted
+
+
+                $updateRent = "UPDATE `billing`
+                        SET `updatedAt` = NOW(),
+                        `paymentStatus` = '$status'
+                        WHERE `billid` = '$billid'";
+
+                    $healthdb->prepare($updateRent);
+                    $healthdb->execute();
+                    echo 1;  // Successfully updated
+
+                       // Email details
+                    $subject = "Maintenance Payment Successful";
+                    $fullName = Tools::clientName($clientid);
+                    $emailAddress = Tools::clientEmail($clientid);
+                    $transactionID = 'RNT-' . uniqid();
+                    $paymentDate = date('F j, Y');
+                    $amountPaid = number_format($updatedAmt, 2); // Format amount with 2 decimal places
+
+                    // Validate email address
+                    if (!filter_var($emailAddress, FILTER_VALIDATE_EMAIL)) {
+                        echo "Invalid email address: $emailAddress\n";
+                        return; // Exit if email is invalid
+                    }
+
+                    // Email message
+                    $message = "
+                    <div class='container'>
+                            <div class='header'>
+                                <h1>Payment Receipt</h1>
+                                <p>Thank you for your payment!</p>
+                            </div>
+                            <div class='content'>
+                                <p>Dear $fullName,</p>
+                                <p>We are pleased to confirm the successful payment for your property rent. Below are the payment details:</p>
+                                <table class='details-table'>
+                                    <tr>
+                                        <th>Transaction ID</th>
+                                        <td>$transactionID</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Date of Payment</th>
+                                        <td>$paymentDate</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Amount Paid</th>
+                                        <td>$$amountPaid</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Payment Method</th>
+                                        <td>Paystack</td>
+                                    </tr>
+                                </table>
+                                <p>If you have any questions or need further assistance, please contact us at support@signumproperties.com or call +1 (123) 456-7890.</p>
+                            </div>
+                            <div class='footer'>
+                                <p>&copy; 2024 Signum Properties. All rights reserved.</p>
+                            </div>
+                        </div>";
+
+                    // Send email and handle potential errors
+                    try {
+                        if (SendEmail::compose($emailAddress, $subject, $message)) {
+                            echo "Email sent successfully.\n";
+                        } else {
+                            echo "Failed to send email.\n";
+                        }
+                    } catch (Exception $e) {
+                        echo "Error sending email: " . $e->getMessage() . "\n";
+                    }
+
+                                        
+
+    }
+    
+
     public static function paymentDetails($paymentid) {
         global $healthdb;
     

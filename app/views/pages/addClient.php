@@ -173,9 +173,9 @@ extract($data);
                 className: "success"
             });
 
-           /*  setTimeout(function() {
+            setTimeout(function() {
                 location.reload();
-            }, 500); */
+            }, 1000);
 
         },
         'onSelect': function(file) {
@@ -226,7 +226,15 @@ extract($data);
         var url = urlroot + "/property/saveClientDetails";
 
         var successCallback = function(response) {
-            $('#uploadPic').uploadifive('upload');
+            if (response == '2') {
+                $.notify("Username or email address already exists", {
+                    position: "top center",
+                    className: "error"
+                });
+            } else {
+                $('#uploadPic').uploadifive('upload');
+            }
+           
         };
 
         var validateClientForm = function(clientData) {

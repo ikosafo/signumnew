@@ -86,7 +86,18 @@ class Clients extends tableDataObject
 
         if ($resultEmail) {
             // Email already exists for a different UUID
-            echo "Email already exists for a different client";
+            //echo "Email already exists for a different client";
+            echo 2;
+            return;
+        }
+
+        $chkUsername = "SELECT * FROM `users` WHERE `username` = '$emailAddress' AND `uuid` != '$uuid'";
+        $healthdb->prepare($chkUsername);
+        $resultUsername = $healthdb->singleRecord();
+
+        if ($resultUsername) {
+            //echo "Username or email already exists";
+            echo 2;
             return;
         }
 
@@ -186,19 +197,9 @@ class Clients extends tableDataObject
                     <p>Thank you,<br>The Signum Properties Team</p>";
 
                     SendEmail::compose($emailAddress, $subject, $message);
-                   
-                    $chkUsername = "SELECT * FROM `users` WHERE `username` = '$emailAddress'";
-                    $healthdb->prepare($chkUsername);
-                    $resultUsername = $healthdb->singleRecord();
-
-                    if (!$resultUsername) {
-                        $insertUser = "INSERT INTO `users` (`username`, `password`, `uuid`, `createdAt`,`accessLevel`) VALUES ('$emailAddress', '" . md5($password) . "', '$uuid', NOW(), 'Client')";
-                        $healthdb->prepare($insertUser);
-                        $healthdb->execute();
-                        echo 3; 
-                    } else {
-                        echo "Username already exists.";
-                    }
+                    $insertUser = "INSERT INTO `users` (`dateBirth`,`address`,`emailaddress`,`phoneNumber`,`altPhoneNumber`,`username`, `password`, `uuid`, `createdAt`,`accessLevel`) VALUES ('$birthDate','$residentialAddress','$emailAddress','$phoneNumber','$altPhoneNumber','$emailAddress', '" . md5($password) . "', '$uuid', NOW(), 'Client')";
+                    $healthdb->prepare($insertUser);
+                    $healthdb->execute();
   
         }
 

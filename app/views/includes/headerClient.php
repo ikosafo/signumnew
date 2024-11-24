@@ -174,6 +174,7 @@
 						</a>
                         <ul aria-expanded="false">
                             <li><a href="<?php echo URLROOT ?>/pages/billPaymentClient">Record Rent Payment</a></li>
+                            <li><a href="<?php echo URLROOT ?>/pages/billMaintenanceClient">Record Maintenance Payment</a></li>
                             <li><a href="<?php echo URLROOT ?>/pages/clientPaymentHistory">Payment History</a></li>
                         </ul>
                     </li>

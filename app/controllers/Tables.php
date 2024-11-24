@@ -75,6 +75,17 @@ class Tables extends Controller
         $this->view("tables/billPaymentClient",['listRentDue' => $listRentDue]);
     } 
 
+
+    public function billMaintenanceClient() {
+        new Guard();
+        $uid = $_SESSION['uid'];
+        $uuid = Tools::getUUIDbyid($uid);
+        $clientid = Tools::getClientidbyUUID($uuid);
+        $listMaintenanceDue = Properties::listMaintenanceDue($clientid);
+        $this->view("tables/billMaintenanceClient",['listMaintenanceDue' => $listMaintenanceDue]);
+    } 
+
+    
     public function clientPaymentHistoy() {
         new Guard();
         $uid = $_SESSION['uid'];

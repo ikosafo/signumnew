@@ -58,6 +58,25 @@ class Billing extends PostController
         ]);
     }
 
+
+    public function verifyMaintenancePayment()
+    {
+        $reference = $_POST['reference'];
+        $status = $_POST['status'];
+        $amount = $_POST['amount'];
+        $uid = $_SESSION['uid'];
+        $billid = $_POST['billid'];
+        $uuid = Tools::getUUIDbyid($uid);
+        $clientid = Tools::getClientidbyUUID($uuid);
+        Billings::updateMaintenancePayment($reference,$status,$clientid,$amount,$uuid,$billid);
+        $this->view("billing/verifyMaintenancePayment", [
+            'reference' => $reference,
+            'clientid' => $clientid,
+            'status' => $status
+        ]);
+    }
+
+    
     
 
 }

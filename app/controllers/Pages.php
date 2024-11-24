@@ -225,6 +225,12 @@ class Pages extends Controller
     }  
 
 
+    public function billMaintenanceClient() {
+        new Guard();
+        $this->view("pages/billMaintenanceClient");
+    }  
+
+
     public function clientPaymentHistory() {
         new Guard();
         $this->view("pages/clientPaymentHistory");

@@ -324,101 +324,145 @@ class Properties extends tableDataObject
 
 
     public static function saveRentInfo(
-                            $rentAmount,
-                            $securityDeposit,
-                            $penaltyAmount,
-                            $startDate,
-                            $endDate,
-                            $leaseType,
-                            $bedroomNumber,
-                            $leaseRenewable,
-                            $additionalDescription,
-                            $additionalCharges,
-                            $uuid,
-                            $propertyid,
-                            $clientid
-                                ) {
-
+        $rentAmount,
+        $securityDeposit,
+        $penaltyAmount,
+        $startDate,
+        $endDate,
+        $leaseType,
+        $bedroomNumber,
+        $leaseRenewable,
+        $additionalDescription,
+        $additionalCharges,
+        $uuid,
+        $propertyid,
+        $clientid
+    ) {
         global $healthdb;
-
+    
         $getByUUID = "SELECT * FROM `rentinfo` WHERE `clientid` = '$clientid' AND `uuid` = '$uuid'";
         $healthdb->prepare($getByUUID);
         $resultByUUID = $healthdb->singleRecord();
-
+    
         if ($resultByUUID) {
             $query = "UPDATE `rentinfo`
                 SET 
-                `propertyid` = '$propertyid',
-                `rentAmount` = '$rentAmount',
-                `securityAmount` = '$securityDeposit',
-                `penaltyAmount` = '$penaltyAmount',
-                `startDate` = '$startDate',
-                `endDate` = '$endDate',
-                `leaseType` = '$leaseType',
-                `numberRoom` = '$bedroomNumber',
-                `renewable` = '$leaseRenewable',
-                `description` = '$additionalDescription',
-                `addCharges` = '$additionalCharges',
-                `updatedAt` = NOW()
+                    `propertyid` = '$propertyid',
+                    `rentAmount` = '$rentAmount',
+                    `securityAmount` = '$securityDeposit',
+                    `penaltyAmount` = '$penaltyAmount',
+                    `startDate` = '$startDate',
+                    `endDate` = '$endDate',
+                    `leaseType` = '$leaseType',
+                    `numberRoom` = '$bedroomNumber',
+                    `renewable` = '$leaseRenewable',
+                    `description` = '$additionalDescription',
+                    `addCharges` = '$additionalCharges',
+                    `updatedAt` = NOW()
                 WHERE `uuid` = '$uuid'";
-
-                $healthdb->prepare($query);
-                $healthdb->execute();
-        
-            echo 3; // updated
-        }
-        else {
-            $getByClient = "SELECT * FROM `rentinfo` WHERE `clientid` = '$clientid' AND `endDate` >= now()";
-            $healthdb->prepare($getByClient);
-            $resultByClient = $healthdb->singleRecord();
-
-            if ($resultByClient) {
-                echo 2;
-            } else {
     
-                $query = "INSERT INTO `rentinfo` (
-                    `propertyid`,
-                    `clientid`,
-                    `rentAmount`,
-                    `securityAmount`,
-                    `penaltyAmount`,
-                    `startDate`,
-                    `endDate`,
-                    `leaseType`,
-                    `numberRoom`,
-                    `renewable`,
-                    `description`,
-                    `addCharges`,
-                    `uuid`,
-                    `createdAt`
-                    )
-                    VALUES (
-                    '$propertyid',
-                    '$clientid',
-                    '$rentAmount',
-                    '$securityDeposit',
-                    '$penaltyAmount',
-                    '$startDate',
-                    '$endDate',
-                    '$leaseType',
-                    '$bedroomNumber',
-                    '$leaseRenewable',
-                    '$additionalDescription',
-                    '$additionalCharges',
-                    '$uuid',
-                    NOW()
-                        )";
-
             $healthdb->prepare($query);
             $healthdb->execute();
-            echo 1;  // Successfully inserted
-                                
+    
+            echo 3; // Updated
+        } else {
+            $getByClient = "SELECT * FROM `rentinfo` WHERE `clientid` = '$clientid' AND `endDate` >= NOW()";
+            $healthdb->prepare($getByClient);
+            $resultByClient = $healthdb->singleRecord();
+    
+            if ($resultByClient) {
+                echo 2; // Another active lease exists
+            } else {
+                $query = "INSERT INTO `rentinfo` (
+                        `propertyid`,
+                        `clientid`,
+                        `rentAmount`,
+                        `securityAmount`,
+                        `penaltyAmount`,
+                        `startDate`,
+                        `endDate`,
+                        `leaseType`,
+                        `numberRoom`,
+                        `renewable`,
+                        `description`,
+                        `addCharges`,
+                        `uuid`,
+                        `createdAt`
+                    )
+                    VALUES (
+                        '$propertyid',
+                        '$clientid',
+                        '$rentAmount',
+                        '$securityDeposit',
+                        '$penaltyAmount',
+                        '$startDate',
+                        '$endDate',
+                        '$leaseType',
+                        '$bedroomNumber',
+                        '$leaseRenewable',
+                        '$additionalDescription',
+                        '$additionalCharges',
+                        '$uuid',
+                        NOW()
+                    )";
+    
+                $healthdb->prepare($query);
+                $healthdb->execute();
+    
+                // Add billing rows
+                self::generateMonthlyBills($startDate, $endDate, $uuid, $clientid);
+    
+                echo 1; // Successfully inserted
             }
-            
         }
-
-
     }
+    
+    // Generate monthly billing records
+    public static function generateMonthlyBills($startDate, $endDate, $uuid, $clientid)
+    {
+        global $healthdb;
+
+        $rentAmount = Tools::getMaintenanceFee($clientid);
+    
+        // Convert dates to DateTime objects
+        $start = new DateTime($startDate);
+        $end = new DateTime($endDate);
+    
+        // Set to the first day of the month
+        $start->modify('first day of this month');
+    
+        // Loop through each month until the end date
+        while ($start <= $end) {
+            $dateDue = $start->format('Y-m-d');
+    
+            // Prepare the insert query for billing
+            $query = "INSERT INTO `billing` (
+                    `billType`,
+                    `amountPaid`,
+                    `clientid`,
+                    `createdAt`,
+                    `uuid`,
+                    `description`,
+                    `dateDue`
+                )
+                VALUES (
+                    'Rent',
+                    '$rentAmount', 
+                    '$clientid',
+                    NOW(),
+                    '$uuid',
+                    'Monthly rent due',
+                    '$dateDue'
+                )";
+    
+                $healthdb->prepare($query);
+                $healthdb->execute();
+    
+            // Move to the next month
+            $start->modify('+1 month');
+        }
+    }
+    
 
 
     public static function listPropertyCategory() {
@@ -490,6 +534,16 @@ class Properties extends tableDataObject
         global $healthdb;
 
         $getList = "SELECT * FROM `rentinfo` WHERE `clientid` = '$clientid' AND `status` = 1 ORDER BY `createdAt` DESC, `updatedAt` DESC";
+        $healthdb->prepare($getList);
+        $resultList = $healthdb->resultSet();
+        return $resultList;
+    }
+
+
+    public static function listMaintenanceDue($clientid) {
+        global $healthdb;
+
+        $getList = "SELECT * FROM `billing` WHERE `clientid` = '$clientid' AND `status` = 1 ORDER BY `createdAt` DESC, `updatedAt` DESC";
         $healthdb->prepare($getList);
         $resultList = $healthdb->resultSet();
         return $resultList;

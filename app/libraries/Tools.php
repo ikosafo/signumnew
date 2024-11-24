@@ -276,6 +276,27 @@ class Tools extends tableDataObject{
         return $result;
     }
 
+    public static function getClientProperty($clientid) {
+        global $healthdb;
+
+        $query = "SELECT `propertyid` FROM `clients` WHERE `clientid` = '$clientid'";
+        $healthdb->prepare($query);
+        $result = $healthdb->fetchColumn();
+        return $result;
+    }
+
+
+    
+    public static function getMaintenanceFee($clientid) {
+        global $healthdb;
+
+        $propertyid = Self::getClientProperty($clientid);
+        $query = "SELECT `amount` FROM `maintenancefee` WHERE `propertyid` = '$propertyid'";
+        $healthdb->prepare($query);
+        $result = $healthdb->fetchColumn();
+        return $result;
+    }
+
 
     public static function getNamebyuuid($uuid) {
         global $healthdb;
