@@ -11,7 +11,8 @@ class Tables extends Controller
 
     public function maintenanceFee()
     {
-        $this->view("tables/maintenanceFee");
+        $listMaintenanceFee = Properties::listMaintenanceFee();
+        $this->view("tables/maintenanceFee",['listMaintenanceFee' => $listMaintenanceFee]);
     }
 
     public function companyDepartments()

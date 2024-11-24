@@ -155,6 +155,20 @@ class Properties extends tableDataObject
     }
 
 
+    public static function deleteMaintenanceFee($feeid) {
+        global $healthdb;
+        $query = "UPDATE `maintenancefee` 
+        SET `status` = 0,
+        `updatedAt` = NOW()
+        WHERE `feeid` = '$feeid'";
+
+        $healthdb->prepare($query);
+        $healthdb->execute();
+        echo 1;  // Successfully updated
+       
+    }
+
+
     public static function saveMaintenanceFee($propertyName,$amount) {
 
         global $healthdb;
@@ -417,6 +431,16 @@ class Properties extends tableDataObject
     }
 
 
+    public static function listMaintenanceFee() {
+        global $healthdb;
+
+        $getList = "SELECT * FROM `maintenancefee` where `status` = 1 ORDER BY `feeid` DESC";
+        $healthdb->prepare($getList);
+        $resultList = $healthdb->resultSet();
+        return $resultList;
+    }
+
+    
     public static function listRentInformation() {
         global $healthdb;
 

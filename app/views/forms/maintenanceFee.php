@@ -50,7 +50,7 @@
         var successCallback = function(response) {
             if (response == 1) {
                 $('html, body').animate({
-                    scrollTop: $("#categoryTableDiv").offset().top
+                    scrollTop: $("#pageTableDiv").offset().top
                 }, 200);
                 $.notify("Fee saved", {
                         position: "top center",
