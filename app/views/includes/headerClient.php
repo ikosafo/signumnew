@@ -1,7 +1,3 @@
-<?php if (!$_SESSION['accessLevel'] == 'Client' && !isset($_SESSION['emailaddress'])) {
-        Redirecting::location('auth/login');
-} ?>
-
 <!DOCTYPE html>
 <html lang="en">
 

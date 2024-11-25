@@ -1,7 +1,3 @@
-<?php if (!$_SESSION['accessLevel'] == 'Field Worker') {
-        Redirecting::location('auth/login');
-} ?>
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
