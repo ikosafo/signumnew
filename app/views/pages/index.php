@@ -2,7 +2,7 @@
 
 	<div class="content-body">
 		<!-- row -->
-		<div class="container-fluid">
+		<!-- <div class="container-fluid">
 			<div class="form-head d-md-flex mb-sm-4 mb-3 align-items-start">
 				<div class="me-auto d-lg-block d-block">
 					<h2 class="text-black font-w600">Dashboard</h2>
@@ -399,7 +399,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 	
 <?php include ('includes/footer.php'); ?>

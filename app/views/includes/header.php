@@ -103,7 +103,7 @@ $userPermissions = Tools::getUserPermissions($uuid);?>
                                 <div class="dropdown-menu dropdown-menu-end">
                                     <div id="DZ_W_Notification1" class="widget-media dz-scroll p-3 height380">
 										<ul class="timeline">
-											<li>
+											<!-- <li>
 												<div class="timeline-panel">
 													<div class="media me-2">
 														<img alt="image" width="50" src="<?php echo URLROOT ?>/assets/images/avatar/1.jpg">
@@ -113,7 +113,7 @@ $userPermissions = Tools::getUserPermissions($uuid);?>
 														<small class="d-block">29 July 2020 - 02:26 PM</small>
 													</div>
 												</div>
-											</li>
+											</li> -->
 										</ul>
 									</div>
                                     <a class="all-notification" href="javascript:void(0);">See all notifications <i class="ti-arrow-right"></i></a>
