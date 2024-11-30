@@ -92,16 +92,104 @@ extract($data);
                                         <label class="form-label">Passport Picture</label>
                                         <p><?= Tools::displayImages($clientDetails['uuid']) ?></p>
                                     </div>
-                                    <div class="next-btn py-4 d-flex col-sm-12 justify-content-center">
-                                        <button type="button" id="backList" class="btn btn-primary next2 btn-sm">Back to List</button>
-                                    </div>
-
+                                  
                                 </form>
                             </div>
                                 
                         </div>
                     </div>
                 </div>
+
+                <!-- Payment History -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Payment History</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-responsive-md" id="clientTable">
+                                        <thead>
+                                            <tr>
+                                                <th width="10%">NO.</th>
+                                                <th width="15%">AMOUNT</th>
+                                                <th width="15%">BILL TYPE</th>
+                                                <th width="15%">PAYMENT METHOD</th>
+                                                <th width="15%">SERIAL NUMBER</th>
+                                                <th width="15%">STATUS</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $no = 1; // Initialize a counter
+                                            foreach ($clientPaymentHistoy as $result) { ?>
+                                                <tr>
+                                                    <td><strong class="text-black"><?= $no++ ?></strong></td>
+                                                    <td><?= $result->amountPaid ?></td>
+                                                    <td><?= $result->billType ?></td>
+                                                    <td><?= $result->paymentMethod ?></td>
+                                                    <td><?= $result->serialNumber ?></td>
+                                                    <td><?= $result->paymentStatus ?></td>
+                                                </tr>
+                                            <?php } ?>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                                
+                        </div>
+                    </div>
+                </div>
+
+                  <!-- Issue Resolution -->
+                  <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Issues</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-responsive-md" id="complaintTable">
+                                        <thead>
+                                            <tr>
+                                                <th width="10%">NO.</th>
+                                                <th width="20%">PROPERTY NAME</th>
+                                                <th width="20%">COMPLAINT TYPE</th>
+                                                <th width="20%">CATEGORY</th>
+                                                <th width="20%">LOCATION</th>
+                                                <th width="20%">RESOLUTION</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $no = 1; // Initialize a counter
+                                            foreach ($listClientComplaints as $result) { ?>
+                                                <tr>
+                                                    <td><strong class="text-black"><?= $no++ ?></strong></td>
+                                                    <td><?= Tools::propertyClient($result->propertyid) ?></td>
+                                                    <td><?= $result->complaintType ?></td>
+                                                    <td><?= $result->issueCategory ?></td>
+                                                    <td><?= $result->location ?></td>
+                                                    <td><?= $result->resolution ?></td>
+                                                </tr>
+                                            <?php } ?>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                                
+                        </div>
+                    </div>
+                </div>
+
+                <div class="next-btn py-4 d-flex col-sm-12 justify-content-center">
+                    <button type="button" id="backList" class="btn btn-primary next2 btn-sm">Back to List</button>
+                </div>
+
             </div>
         </div>
 

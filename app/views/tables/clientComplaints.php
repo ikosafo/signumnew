@@ -8,36 +8,36 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                <table class="table table-responsive-md" id="complaintTable">
-                    <thead>
-                        <tr>
-                            <th width="10%">NO.</th>
-                            <th width="20%">PROPERTY NAME</th>
-                            <th width="20%">COMPLAINT TYPE</th>
-                            <th width="20%">CATEGORY</th>
-                            <th width="20%">LOCATION</th>
-                            <th width="10%">ACTION</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $no = 1; // Initialize a counter
-                        foreach ($listClientComplaints as $result) { ?>
+                    <table class="table table-responsive-md" id="complaintTable">
+                        <thead>
                             <tr>
-                                <td><strong class="text-black"><?= $no++ ?></strong></td>
-                                <td><?= Tools::propertyClient($result->propertyid) ?></td>
-                                <td><?= $result->complaintType ?></td>
-                                <td><?= $result->issueCategory ?></td>
-                                <td><?= $result->location ?></td>
-                                <td>
-                                    <div class="d-flex">
-                                        <a href="javascript:void(0);" class="btn btn-primary viewComplaint shadow btn-xs sharp me-1" complaintid='<?= $result->complaintid ?>'><i class="fas fa-eye"></i></a>
-                                    </div>
-                                </td>
+                                <th width="10%">NO.</th>
+                                <th width="20%">PROPERTY NAME</th>
+                                <th width="20%">COMPLAINT TYPE</th>
+                                <th width="20%">CATEGORY</th>
+                                <th width="20%">LOCATION</th>
+                                <th width="10%">ACTION</th>
                             </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $no = 1; // Initialize a counter
+                            foreach ($listClientComplaints as $result) { ?>
+                                <tr>
+                                    <td><strong class="text-black"><?= $no++ ?></strong></td>
+                                    <td><?= Tools::propertyClient($result->propertyid) ?></td>
+                                    <td><?= $result->complaintType ?></td>
+                                    <td><?= $result->issueCategory ?></td>
+                                    <td><?= $result->location ?></td>
+                                    <td>
+                                        <div class="d-flex">
+                                            <a href="javascript:void(0);" class="btn btn-primary viewComplaint shadow btn-xs sharp me-1" complaintid='<?= $result->complaintid ?>'><i class="fas fa-eye"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
 
                 </div>
             </div>

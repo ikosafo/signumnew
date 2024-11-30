@@ -264,6 +264,8 @@ class Pages extends Controller
         $encryptedId = $_GET['clientid'];
         $decryptedClientId = Tools::unlock($encryptedId);
         $clientDetails = Clients::clientDetails($decryptedClientId);
+        $clientPaymentHistoy = Billings::clientPaymentHistoy($decryptedClientId);
+        $listClientComplaints = Complaints::listClientComplaints($decryptedClientId);
         $propertyid = $clientDetails['propertyid'];
         $propertyName = Tools::propertyClient($propertyid);
         $uuid = $clientDetails['uuid'];
@@ -271,7 +273,9 @@ class Pages extends Controller
         $this->view("pages/viewClient",[
             'uuid' => $uuid,
             'clientDetails' => $clientDetails,
-            'propertyName' => $propertyName
+            'propertyName' => $propertyName,
+            'clientPaymentHistoy' => $clientPaymentHistoy,
+            'listClientComplaints' => $listClientComplaints
         ]);
     } 
 
