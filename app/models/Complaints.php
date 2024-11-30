@@ -3,6 +3,17 @@
 class Complaints extends tableDataObject
 {
     const TABLENAME = 'complaints';
+
+
+    public static function getOpenIssueNumber(){
+        global $healthdb;
+    
+        $getnum = "SELECT COUNT(*) as count FROM `complaints` WHERE `status` = 1 AND `resolution` != 'Resolved'";
+        $healthdb->prepare($getnum);
+        $result = $healthdb->singleRecord();
+        return $result->count;
+    }
+
     
     public static function listComplaints($status,$clientid) {
         global $healthdb;

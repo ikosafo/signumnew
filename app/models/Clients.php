@@ -3,6 +3,16 @@
 class Clients extends tableDataObject
 {
     const TABLENAME = 'clients';
+
+
+    public static function getClientNumber(){
+        global $healthdb;
+    
+        $getnum = "SELECT COUNT(*) as count FROM `clients` WHERE `status` = 1";
+        $healthdb->prepare($getnum);
+        $result = $healthdb->singleRecord();
+        return $result->count;
+    }
  
     public static function clientDetails($clientid) {
         global $healthdb;
@@ -196,7 +206,7 @@ class Clients extends tableDataObject
                     <p>Please keep these credentials secure. We recommend updating your password after your first login.</p>
                     <p>Thank you,<br>The Signum Properties Team</p>";
 
-                    SendEmail::compose($emailAddress, $subject, $message);
+                    //SendEmail::compose($emailAddress, $subject, $message);
                     $insertUser = "INSERT INTO `compusers` (`dateBirth`,`address`,`emailaddress`,`phoneNumber`,`altPhoneNumber`,`username`, `password`, `uuid`, `createdAt`,`accessLevel`) VALUES ('$birthDate','$residentialAddress','$emailAddress','$phoneNumber','$altPhoneNumber','$emailAddress', '" . md5($password) . "', '$uuid', NOW(), 'Client')";
                     $healthdb->prepare($insertUser);
                     $healthdb->execute();
@@ -394,7 +404,7 @@ class Clients extends tableDataObject
                 <p>Best regards,</p>
                 <p>Thank you,<br>The Signum Properties Team</p>";
 
-                SendEmail::compose($emailAddress, $subject, $message);
+                //SendEmail::compose($emailAddress, $subject, $message);
                 echo 'Complaint saved successfully with Tracking Number: ' . $issueTrackingNumber;
             }
     }

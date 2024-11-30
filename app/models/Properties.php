@@ -4,6 +4,16 @@ class Properties extends tableDataObject
 {
     const TABLENAME = 'properties';
 
+
+    public static function getPropertyNumber(){
+        global $healthdb;
+    
+        $getnum = "SELECT COUNT(*) as count FROM `properties` WHERE `status` = 1";
+        $healthdb->prepare($getnum);
+        $result = $healthdb->singleRecord();
+        return $result->count;
+    }
+
     public static function saveProperty($propertyName,
                                     $propertyType,
                                     $propertyCategory,

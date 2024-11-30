@@ -27,7 +27,7 @@ $uuid = $userDetails['uuid'];
 								</span>
 								<div class="media-body">
 									<p class="mb-1">Properties</p>
-									<h4 class="mb-0">14</h4>
+									<h4 class="mb-0"><?= htmlspecialchars($getPropertyNumber); ?></h4>
 								</div>
 							</div>
 
@@ -47,7 +47,7 @@ $uuid = $userDetails['uuid'];
 								</span>
 								<div class="media-body">
 									<p class="mb-1">Clients</p>
-									<h4 class="mb-0">6</h4>
+									<h4 class="mb-0"><?= htmlspecialchars($getClientNumber); ?></h4>
 								</div>
 							</div>
 
@@ -67,7 +67,7 @@ $uuid = $userDetails['uuid'];
 								</span>
 								<div class="media-body">
 									<p class="mb-1">Open Issues</p>
-									<h4 class="mb-0">23</h4>
+									<h4 class="mb-0"><?= htmlspecialchars($getOpenIssueNumber); ?></h4>
 								</div>
 							</div>
 						</div>

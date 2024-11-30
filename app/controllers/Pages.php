@@ -15,7 +15,17 @@ class Pages extends Controller
         $uid = $_SESSION['uid'];
         $uuid = Tools::getUUIDbyid($uid);
         $userDetails = Users::userDetails($uuid);
-        $this->view("pages/index",['userDetails' => $userDetails]);
+        $getPropertyNumber = Properties::getPropertyNumber();
+        $getClientNumber = Clients::getClientNumber();
+        $getOpenIssueNumber = Complaints::getOpenIssueNumber();
+        $this->view("pages/index",
+        [
+            'getPropertyNumber' => $getPropertyNumber,
+            'getClientNumber' => $getClientNumber,
+            'getOpenIssueNumber' => $getOpenIssueNumber,
+            'userDetails' => $userDetails,
+            'getClientNumber' => $getClientNumber
+        ]);
     }
 
 
