@@ -52,6 +52,10 @@ $userPermissions = Tools::getUserPermissions($uuid);?>
         </div>
     </div>
 
+	<div id="page-loader" class="loader">
+        <div class="spinner"></div>
+    </div>
+
     <div id="main-wrapper">
         <div class="nav-header">
             <a href="<?php echo URLROOT ?>/pages/client" class="brand-logo">
@@ -176,7 +180,6 @@ $userPermissions = Tools::getUserPermissions($uuid);?>
 							<ul aria-expanded="false">
 								<li><a href="<?php echo URLROOT ?>/pages/addClient">Add Client</a></li>
 								<li><a href="<?php echo URLROOT ?>/pages/listClients">List Clients</a></li>
-								<li><a href="<?php echo URLROOT ?>/pages/clientReport">Client Report</a></li>
 								
 							</ul>
 						</li>

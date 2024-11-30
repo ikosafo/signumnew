@@ -39,6 +39,13 @@
 	<script src="<?php echo URLROOT ?>/public/uploadifive/jquery.uploadifive.min.js"></script>
 
 	<script>
+		window.onload = function () {
+			// Hide the loader and show the content
+			document.getElementById('page-loader').style.display = 'none';
+			document.getElementById('content').style.display = 'block';
+		};
+
+
 		function carouselReview(){
 			jQuery('.testimonial-one').owlCarousel({
 				loop:true,
