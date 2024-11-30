@@ -33,7 +33,7 @@ $userPermissions = Tools::getUserPermissions($uuid);?>
 	<link href="<?php echo URLROOT ?>/public/assets/vendor/datatables/responsive/responsive.css" rel="stylesheet">
 	<link href="<?php echo URLROOT ?>/public/assets/jquery-confirm/css/jquery-confirm.css" rel="stylesheet">
 	<link href="<?php echo URLROOT ?>/public/assets/css/select2.min.css" rel="stylesheet">
-	<link href="<?php echo URLROOT ?>/uploadifive/uploadifive.css" rel="stylesheet">
+	<link href="<?php echo URLROOT ?>/public/uploadifive/uploadifive.css" rel="stylesheet">
 	<link href="<?php echo URLROOT ?>/public/assets/css/custom.css" rel="stylesheet">
 
 	<script>
@@ -162,9 +162,7 @@ $userPermissions = Tools::getUserPermissions($uuid);?>
 							</a>
 							<ul aria-expanded="false">
 								<li><a href="<?php echo URLROOT ?>/pages/addProperty">Add New Property</a></li>
-								<li><a href="<?php echo URLROOT ?>/pages/listProperties">List Properties</a></li>
-								<li><a href="<?php echo URLROOT ?>/pages/searchProperties">Search Property</a></li>
-								<li><a href="<?php echo URLROOT ?>/pages/propertyReports">Property Reports</a></li>           
+								<li><a href="<?php echo URLROOT ?>/pages/listProperties">List Properties</a></li>         
 							</ul>
 						</li>
 					<?php endif ?>
@@ -178,7 +176,6 @@ $userPermissions = Tools::getUserPermissions($uuid);?>
 							<ul aria-expanded="false">
 								<li><a href="<?php echo URLROOT ?>/pages/addClient">Add Client</a></li>
 								<li><a href="<?php echo URLROOT ?>/pages/listClients">List Clients</a></li>
-								<li><a href="<?php echo URLROOT ?>/pages/searchClients">Search Clients</a></li>
 								<li><a href="<?php echo URLROOT ?>/pages/clientReport">Client Report</a></li>
 								
 							</ul>

@@ -115,7 +115,7 @@ class Forms extends PostController
     {
 
         if (!defined('UPLOAD_PATH')) {
-            define('UPLOAD_PATH', 'C:/wamp64/www/property/public/uploads/'); 
+            define('UPLOAD_PATH', 'C:/wamp64/www/signum/public/uploads/'); 
             /* define('UPLOAD_PATH', '/home/ahpcgh/public_html/ahpc/ahpcmis/public/uploads/'); */
         }        
     
@@ -158,7 +158,7 @@ class Forms extends PostController
     {
 
         if (!defined('UPLOAD_PATH')) {
-            define('UPLOAD_PATH', 'C:/wamp64/www/property/public/uploads/');
+            define('UPLOAD_PATH', 'C:/wamp64/www/signum/public/uploads/');
         }        
     
         foreach ($_POST as $name => $value) {

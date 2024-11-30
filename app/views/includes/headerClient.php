@@ -26,7 +26,7 @@
 	<link href="<?php echo URLROOT ?>/public/assets/vendor/datatables/responsive/responsive.css" rel="stylesheet">
 	<link href="<?php echo URLROOT ?>/public/assets/jquery-confirm/css/jquery-confirm.css" rel="stylesheet">
 	<link href="<?php echo URLROOT ?>/public/assets/css/select2.min.css" rel="stylesheet">
-	<link href="<?php echo URLROOT ?>/uploadifive/uploadifive.css" rel="stylesheet">
+	<link href="<?php echo URLROOT ?>/public/uploadifive/uploadifive.css" rel="stylesheet">
 	<link href="<?php echo URLROOT ?>/public/assets/css/custom.css" rel="stylesheet">
 
 	<script>

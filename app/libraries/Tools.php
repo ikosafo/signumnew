@@ -411,7 +411,7 @@ class Tools extends tableDataObject{
         if ($result) {
             $imagesHtml = '';
             foreach ($result as $results) { 
-                $imagesHtml .= '<img class="enlarge-on-hover" src="' . URLROOT . '/uploads/' . htmlspecialchars($results->newname) . '" style="width:95px;height:100px">';
+                $imagesHtml .= '<img class="enlarge-on-hover" src="' . URLROOT . '/public/uploads/' . htmlspecialchars($results->newname) . '" style="width:95px;height:100px">';
             }
             return $imagesHtml.'<br><small style="font-size:8px">Hover to enlarge</small>';
         }

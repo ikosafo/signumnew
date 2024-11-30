@@ -405,15 +405,6 @@ class Pages extends Controller
         ]);
     } 
     
-    
-    public function searchProperties() {
-        new Guard();
-        $listProperties = Properties::listProperties();
-        $this->view("pages/searchProperties",[
-            'listProperties' => $listProperties
-        ]);
-    } 
-
 
     public function listComplaints() {
         new Guard();
