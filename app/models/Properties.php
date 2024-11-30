@@ -138,7 +138,7 @@ class Properties extends tableDataObject
 
         global $healthdb;
 
-        $getName = "SELECT * FROM `propertyCategory` WHERE `categoryName` = '$categoryName' AND `status` = 1";
+        $getName = "SELECT * FROM `propertycategory` WHERE `categoryName` = '$categoryName' AND `status` = 1";
         $healthdb->prepare($getName);
         $resultName = $healthdb->singleRecord();
 
@@ -214,7 +214,7 @@ class Properties extends tableDataObject
 
         global $healthdb;
 
-        $getName = "SELECT * FROM `propertyCategory` WHERE `categoryName` = '$categoryName' AND `status` = 1";
+        $getName = "SELECT * FROM `propertycategory` WHERE `categoryName` = '$categoryName' AND `status` = 1";
         $healthdb->prepare($getName);
         $resultName = $healthdb->singleRecord();
 
@@ -478,7 +478,7 @@ class Properties extends tableDataObject
     public static function listPropertyCategory() {
         global $healthdb;
 
-        $getList = "SELECT * FROM `propertyCategory` where `status` = 1 ORDER BY `categoryId` DESC";
+        $getList = "SELECT * FROM `propertycategory` where `status` = 1 ORDER BY `categoryId` DESC";
         $healthdb->prepare($getList);
         $resultList = $healthdb->resultSet();
         return $resultList;
@@ -508,7 +508,7 @@ class Properties extends tableDataObject
     public static function categoryDetails($catid) {
         global $healthdb;
 
-        $getList = "SELECT * FROM `propertyCategory` where `categoryId` = '$catid'";
+        $getList = "SELECT * FROM `propertycategory` where `categoryId` = '$catid'";
         $healthdb->prepare($getList);
         $resultRec = $healthdb->singleRecord();
         $categoryName = $resultRec->categoryName;
