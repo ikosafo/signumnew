@@ -58,6 +58,13 @@ class Tables extends Controller
         $listRentInformation = Properties::listRentInformation();
         $this->view("tables/addRentInfo",['listRentInformation' => $listRentInformation]);
     }
+
+
+    public function rentDueInfo()
+    {
+        $listRentInformation = Properties::listRentInformation();
+        $this->view("tables/rentDueInfo",['listRentInformation' => $listRentInformation]);
+    }
     
     public function billPayment()
     {

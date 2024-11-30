@@ -7,38 +7,38 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                <table class="table table-responsive-md" id="clientTable">
-                    <thead>
-                        <tr>
-                            <th width="10%">NO.</th>
-                            <th width="15%">AMOUNT</th>
-                            <th width="15%">BILL TYPE</th>
-                            <th width="15%">PAYMENT METHOD</th>
-                            <th width="15%">SERIAL NUMBER</th>
-                            <th width="15%">STATUS</th>
-                            <th width="20%">ACTION</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $no = 1; // Initialize a counter
-                        foreach ($clientPaymentHistoy as $result) { ?>
+                    <table class="table table-responsive-md" id="clientTable">
+                        <thead>
                             <tr>
-                                <td><strong class="text-black"><?= $no++ ?></strong></td>
-                                <td><?= $result->amountPaid ?></td>
-                                <td><?= $result->billType ?></td>
-                                <td><?= $result->paymentMethod ?></td>
-                                <td><?= $result->serialNumber ?></td>
-                                <td><?= $result->paymentStatus ?></td>
-                                <td>
-                                    <div class="d-flex">
-                                        <button type="button" id="printReceeipt" class="printReceipt btn btn-success next2 btn-sm" i_index='<?php echo $result->payid ?>' style="margin-left:10px">Print Receipt</button>
-                                    </div>
-                                </td>
+                                <th width="10%">NO.</th>
+                                <th width="15%">AMOUNT</th>
+                                <th width="15%">BILL TYPE</th>
+                                <th width="15%">PAYMENT METHOD</th>
+                                <th width="15%">SERIAL NUMBER</th>
+                                <th width="15%">STATUS</th>
+                                <th width="20%">ACTION</th>
                             </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $no = 1; // Initialize a counter
+                            foreach ($clientPaymentHistoy as $result) { ?>
+                                <tr>
+                                    <td><strong class="text-black"><?= $no++ ?></strong></td>
+                                    <td><?= $result->amountPaid ?></td>
+                                    <td><?= $result->billType ?></td>
+                                    <td><?= $result->paymentMethod ?></td>
+                                    <td><?= $result->serialNumber ?></td>
+                                    <td><?= $result->paymentStatus ?></td>
+                                    <td>
+                                        <div class="d-flex">
+                                            <button type="button" id="printReceeipt" class="printReceipt btn btn-success next2 btn-sm" i_index='<?php echo $result->payid ?>' style="margin-left:10px">Print Receipt</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
 
                 </div>
             </div>

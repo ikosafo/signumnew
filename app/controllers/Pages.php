@@ -252,6 +252,12 @@ class Pages extends Controller
     }  
 
 
+    public function rentReports() {
+        new Guard();
+        $this->view("pages/rentReports");
+    }  
+
+
     public function clientPaymentHistory() {
         new Guard();
         $this->view("pages/clientPaymentHistory");
