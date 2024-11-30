@@ -18,13 +18,15 @@ class Pages extends Controller
         $getPropertyNumber = Properties::getPropertyNumber();
         $getClientNumber = Clients::getClientNumber();
         $getOpenIssueNumber = Complaints::getOpenIssueNumber();
+        $getBillingGoodStandingNumber = Billings::getBillingGoodStandingNumber();
         $this->view("pages/index",
         [
             'getPropertyNumber' => $getPropertyNumber,
             'getClientNumber' => $getClientNumber,
             'getOpenIssueNumber' => $getOpenIssueNumber,
             'userDetails' => $userDetails,
-            'getClientNumber' => $getClientNumber
+            'getClientNumber' => $getClientNumber,
+            'getBillingGoodStandingNumber' => $getBillingGoodStandingNumber
         ]);
     }
 

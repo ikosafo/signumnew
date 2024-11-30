@@ -3,6 +3,21 @@
 class Billings extends tableDataObject
 {
     const TABLENAME = 'payments';
+
+
+    public static function getBillingGoodStandingNumber(){
+        global $healthdb;
+    
+        $getnum = "SELECT COUNT(*) AS count FROM `billing` WHERE `paymentStatus` = 'success' 
+                AND `status` = 1 
+                AND MONTH(`updatedAt`) = MONTH(CURRENT_DATE()) 
+                AND YEAR(`updatedAt`) = YEAR(CURRENT_DATE())";
+
+        $healthdb->prepare($getnum);
+        $result = $healthdb->singleRecord();
+        return $result->count;
+    }
+
     
     public static function saveBillingOld(
                         $amountPaid,
@@ -331,7 +346,7 @@ class Billings extends tableDataObject
                     </html>";
 
                     // Send email and handle potential errors
-                    try {
+                   /*  try {
                         if (SendEmail::compose($emailAddress, $subject, $message)) {
                             echo "Email sent successfully.\n";
                         } else {
@@ -339,7 +354,7 @@ class Billings extends tableDataObject
                         }
                     } catch (Exception $e) {
                         echo "Error sending email: " . $e->getMessage() . "\n";
-                    }
+                    } */
 
                                         
 
@@ -442,7 +457,7 @@ class Billings extends tableDataObject
                         </div>";
 
                     // Send email and handle potential errors
-                    try {
+                   /*  try {
                         if (SendEmail::compose($emailAddress, $subject, $message)) {
                             echo "Email sent successfully.\n";
                         } else {
@@ -450,7 +465,7 @@ class Billings extends tableDataObject
                         }
                     } catch (Exception $e) {
                         echo "Error sending email: " . $e->getMessage() . "\n";
-                    }
+                    } */
 
                                         
 

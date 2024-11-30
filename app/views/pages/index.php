@@ -82,7 +82,7 @@ $uuid = $userDetails['uuid'];
 								</span>
 								<div class="media-body text-white text-end">
 									<p class="mb-1">Good standing Status</p>
-									<h3 class="text-white">12</h3>
+									<h3 class="text-white"><?= htmlspecialchars($getBillingGoodStandingNumber); ?></h3>
 								</div>
 							</div>
 						</div>
