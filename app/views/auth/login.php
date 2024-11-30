@@ -9,7 +9,7 @@
                             <div class="text-center mb-3">
                                 <a href="<?php echo URLROOT ?>/auth/login">
 									<img class="logo-auth" style="width: 60px;height:60px" 
-									src="<?php echo URLROOT ?>/assets/images/signum_logo.png" alt="">
+									src="<?php echo URLROOT ?>/public/assets/images/signum_logo.png" alt="">
 								</a>
                             </div>
                             <h4 class="text-center mb-4">Sign in your account</h4>

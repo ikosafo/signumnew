@@ -270,7 +270,7 @@ class Tools extends tableDataObject{
     public static function getUUIDbyid($uid) {
         global $healthdb;
 
-        $query = "SELECT `uuid` FROM `users` WHERE `id` = '$uid'";
+        $query = "SELECT `uuid` FROM `compusers` WHERE `id` = '$uid'";
         $healthdb->prepare($query);
         $result = $healthdb->fetchColumn();
         return $result;
@@ -298,10 +298,20 @@ class Tools extends tableDataObject{
     }
 
 
+    public static function lastOutstandingBillid($clientid) {
+        global $healthdb;
+
+        $query = "SELECT `billid` FROM `billing` WHERE `billType` = 'Maintenance' AND `paymentStatus` IS NULL AND `clientid` = '$clientid' ORDER BY billid LIMIT 1";
+        $healthdb->prepare($query);
+        $result = $healthdb->fetchColumn();
+        return $result;
+    }
+
+
     public static function getNamebyuuid($uuid) {
         global $healthdb;
 
-        $query = "SELECT `firstName`,`lastName` FROM `users` WHERE `uuid` = '$uuid'";
+        $query = "SELECT `firstName`,`lastName` FROM `compusers` WHERE `uuid` = '$uuid'";
         $healthdb->prepare($query);
         $result = $healthdb->singleRecord();
         return $result->firstName.' '.$result->lastName;
@@ -638,7 +648,7 @@ class Tools extends tableDataObject{
         global $healthdb;
     
         // Fetch the remaining attempts for the given username
-        $getAttempt = "SELECT `attempts` FROM `users` WHERE `username` = '$username'";
+        $getAttempt = "SELECT `attempts` FROM `compusers` WHERE `username` = '$username'";
         $healthdb->prepare($getAttempt);
         $result = $healthdb->fetchColumn();
     

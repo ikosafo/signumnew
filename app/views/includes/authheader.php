@@ -14,8 +14,8 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo URLROOT ?>/assets/images/signum_logo.png">
-    <link href="<?php echo URLROOT ?>/assets/css/style.css" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo URLROOT ?>/public/assets/images/signum_logo.png">
+    <link href="<?php echo URLROOT ?>/public/assets/css/style.css" rel="stylesheet">
 
     <script>
         var cvhead = <?php echo json_encode(unserialize(JSVARS)); ?>;
@@ -27,7 +27,7 @@
 	body {
 		margin: 0;
 		height: 100vh;
-		background: url('<?php echo URLROOT ?>/assets/images/property/bg.jpg') no-repeat center center fixed; 
+		background: url('<?php echo URLROOT ?>/public/assets/images/property/bg.jpg') no-repeat center center fixed; 
 		background-size: cover;
 	}
 </style>

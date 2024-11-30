@@ -1,20 +1,19 @@
-# Enable Rewrite Engine
-RewriteEngine On
+<IfModule mod_rewrite.c>
+  RewriteEngine on
+  # RewriteRule ^(vendor)($|/) - [L]
 
-# Ensure DirectoryIndex points to the public/index.php file
-DirectoryIndex public/index.php
+  # RewriteRule ^public/ - [NC,L]
+  # RewriteCond %{DOCUMENT_ROOT}/public/$1 -f [NC]
+  # RewriteRule ^(.*)$ /public/$1 [L]
 
-# Redirect all requests to index.php in the public folder
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ public/index.php [L,QSA]
+  # RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
 
-# Handle common file types (optional, improves performance for assets)
-<FilesMatch "\.(html|htm|js|css|jpg|jpeg|png|gif|ico|svg|woff|woff2|ttf|otf|eot|webp|mp4|ogg|ogv|webm|mp3|wav|txt|xml|json)$">
-    Header set Cache-Control "max-age=2592000, public"
-</FilesMatch>
 
-# Prevent access to the .htaccess file itself
-<Files .htaccess>
-    Require all denied
-</Files>
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-f
+  #RewriteCond $1 !^(public)
+  #RewriteRule !^public/ /public%{REQUEST_URI} [L]
+  RewriteRule ^(.*)$ index.php/$1 [L]
+  RewriteRule ^(vendor)($|/) - [L]
+  RewriteRule ^index.php(.*)$ index.php?url=$1 [QSA,L]
+</IfModule>

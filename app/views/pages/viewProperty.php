@@ -32,7 +32,7 @@ extract($data);
                                                         <li class="list-group-item d-flex justify-content-between"><span class="mb-0">Category</span> <strong class="text-black"> <?= Tools::categoryName($propertyDetails['propertyCategory']) ?> </strong></li>
                                                         <li class="list-group-item d-flex justify-content-between"><span class="mb-0">Address</span> <strong class="text-black px-3"> <?= $propertyDetails['propertyAddress'] ?> </strong></li>
                                                         <li class="list-group-item d-flex justify-content-between"><span class="mb-0">Location</span> <strong class="text-black"><?= $propertyDetails['location'] ?></strong></li>
-                                                        <li class="list-group-item d-flex justify-content-between"><span class="mb-0">Number of Units</span> <strong class="text-black"><?= $propertyDetails['numberOfUnits'] ?></strong></li>
+                                                        <li class="list-group-item d-flex justify-content-between"><span class="mb-0">Number of Tenants</span> <strong class="text-black"><?= $propertyDetails['numberOfTenants'] ?></strong></li>
                                                         <li class="list-group-item d-flex justify-content-between"><span class="mb-0">Property Size</span> <strong class="text-black"><?= $propertyDetails['propertySize'] ?></strong></li>
                                                         <li class="list-group-item d-flex justify-content-between"><span class="mb-0">Furnishing Status</span> <strong class="text-black"><?= $propertyDetails['furnishingStatus'] ?></strong></li>
                                                         <li class="list-group-item d-flex justify-content-between"><span class="mb-0">Facilities</span> <strong class="text-black px-3"><?= $propertyDetails['facilities'] ?></strong></li>
@@ -115,40 +115,22 @@ extract($data);
                                             <div class="col-xl-4 col-lg-4 col-sm-12">
                                                 <div class="card overflow-hidden">
                                                     <div class="card-header">
-                                                        <h4 class="card-title">Rental Details</h4> 
+                                                        <h4 class="card-title">Tenants</h4> 
                                                     </div>
                                                     <div class="card-body">
                                                         
                                                         <table class="check-tbl mb-2">
                                                             <tbody>
-                                                                <tr>
-                                                                    <td><strong>Bedrooms Available :</strong></td>
-                                                                    <td class="tb-para"><?= $propertyDetails['numberRooms'] ?></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><strong>Rent Amount :</strong></td>
-                                                                    <td class="tb-para"><?= $propertyDetails['rentAmount'] ?></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><strong>Deposited Amount :</strong></td>
-                                                                    <td class="tb-para"><?= $propertyDetails['depositAmount'] ?></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><strong>Lease Period :</strong></td>
-                                                                    <td class="tb-para"><?= $propertyDetails['leasePeriod'] ?></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><strong>Availability Date :</strong></td>
-                                                                    <td class="tb-para"><?= $propertyDetails['availabilityDate'] ?></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><strong>Utilities Included :</strong></td>
-                                                                    <td class="tb-para"><?= $propertyDetails['utilitiesIncluded'] ?></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><strong>Payment Frequency :</strong></td>
-                                                                    <td class="tb-para"><?= $propertyDetails['paymentFrequency'] ?></td>
-                                                                </tr>
+                                                                                                    <?php
+                                                                $no = 1; // Initialize a counter
+                                                                foreach ($listClientsProp as $result) { ?>
+                                                                    <tr>
+                                                                        <td><strong class="text-black"><?= $no++ ?></strong></td>
+                                                                        <td><?= $result->clientType ?></td>
+                                                                        <td><?= $result->fullName ?></td>
+                                                                    </tr>
+                                                                <?php } ?>
+                                                                
                                                             </tbody>
 
                                                         </table>

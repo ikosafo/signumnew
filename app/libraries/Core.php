@@ -11,7 +11,7 @@ class Core{
 
 
         if(!$url = $this->getUrl()){
-            $url = array("pages","index");
+            $url = array("","pages","index");
         }
 
         /*
@@ -62,29 +62,30 @@ class Core{
             exit;
         }
 
-        if(file_exists('../app/' . $controllerPath . ucwords($url[0]).'.php')){
-            $this->currentController = ucwords($url[0]);
-            unset($url[0]);
+        if(file_exists('app/' . $controllerPath . ucwords($url[1]).'.php')){
+            $this->currentController = ucwords($url[1]);
+            unset($url[1]);
         } else {
             $this->notfound("Couldn't find a matching controller.");
         }
 
-        require_once '../app/' . $controllerPath . $this->currentController.'.php';
+        require_once 'app/' . $controllerPath . $this->currentController.'.php';
 
         $this->currentController = new $this->currentController();
 
-        if(isset($url[1])){
+        if(isset($url[2])){
             // Check to see if method exists in controller
-            $methodtocall = $url[1];
+            $methodtocall = $url[2];
             /*
              * By using is_callable instead of method_exists, we can use the magic
              * method __call() in addition to actually having the methods.
             */
             if(is_callable([$this->currentController, $methodtocall])){
-                $this->currentMethod = $url[1];
+                $this->currentMethod = $url[2];
                 // Unset 1 index
-                unset($url[1]);
+                unset($url[2]);
             } else {
+                exit();
                 $this->notfound("Couldn't find a matching method in a controller.");
             }
         }
@@ -102,7 +103,10 @@ class Core{
             $url = rtrim($_GET['url'], '/');
             $url = filter_var($url, FILTER_SANITIZE_URL);
 
-            return explode('/', $url);
+
+            $out =  explode('/', $url);
+            unset($out[0]);
+            return $out;
         }
     }
 

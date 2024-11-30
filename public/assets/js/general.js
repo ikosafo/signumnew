@@ -12,7 +12,7 @@ function saveForm(formData, url, successCallback, validateForm) {
             data: formData,
             beforeSend: function () {
                 $.blockUI({ 
-                    message: '<h1><img src="/assets/images/busy.gif" alt="loading" /> Just a moment...</h1>' 
+                    message: '<h1><img src="/public/assets/images/busy.gif" alt="loading" /> Just a moment...</h1>' 
                 });
             },
             success: function (response) {
@@ -41,7 +41,7 @@ function loadPage(url, successCallback) {
         url: url,
         beforeSend: function () {
             $.blockUI({ 
-                message: '<h1><img src="/assets/images/busy.gif" alt="loading" /> Just a moment...</h1>' 
+                message: '<h1><img src="/public/assets/images/busy.gif" alt="loading" /> Just a moment...</h1>' 
             });
         },
         success: function (response) {

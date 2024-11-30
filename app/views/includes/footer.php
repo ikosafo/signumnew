@@ -8,35 +8,35 @@
         
     </div>
    
-    <script src="<?php echo URLROOT ?>/assets/vendor/global/global.min.js"></script>
-	<script src="<?php echo URLROOT ?>/assets/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-	<script src="<?php echo URLROOT ?>/assets/vendor/bootstrap-datepicker-master/js/bootstrap-datepicker.min.js"></script>
-	<script src="<?php echo URLROOT ?>/assets/vendor/dropzone/dist/dropzone.js"></script>
-	<script src="<?php echo URLROOT ?>/assets/js/user-wizard.js"></script>
-    <script src="<?php echo URLROOT ?>/assets/js/custom.min.js"></script>
-	<script src="<?php echo URLROOT ?>/assets/js/deznav-init.js"></script>
-    <script src="<?php echo URLROOT ?>/assets/js/general.js"></script>
-    <script src="<?php echo URLROOT ?>/assets/js/notify.js"></script>
-    <script src="<?php echo URLROOT ?>/assets/js/jquery.blockUI.js"></script>
-    <script src="<?php echo URLROOT ?>/assets/js/flatpickr.js"></script>
-    <script src="<?php echo URLROOT ?>/assets/js/jquery.sumoselect.min.js"></script>
-	<script src="<?php echo URLROOT ?>/assets/vendor/chartjs/chart.bundle.min.js"></script>
-	<script src="<?php echo URLROOT ?>/assets/vendor/owl-carousel/owl.carousel.js"></script>
+    <script src="<?php echo URLROOT ?>/public/assets/vendor/global/global.min.js"></script>
+	<script src="<?php echo URLROOT ?>/public/assets/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+	<script src="<?php echo URLROOT ?>/public/assets/vendor/bootstrap-datepicker-master/js/bootstrap-datepicker.min.js"></script>
+	<script src="<?php echo URLROOT ?>/public/assets/vendor/dropzone/dist/dropzone.js"></script>
+	<script src="<?php echo URLROOT ?>/public/assets/js/user-wizard.js"></script>
+    <script src="<?php echo URLROOT ?>/public/assets/js/custom.min.js"></script>
+	<script src="<?php echo URLROOT ?>/public/assets/js/deznav-init.js"></script>
+    <script src="<?php echo URLROOT ?>/public/assets/js/general.js"></script>
+    <script src="<?php echo URLROOT ?>/public/assets/js/notify.js"></script>
+    <script src="<?php echo URLROOT ?>/public/assets/js/jquery.blockUI.js"></script>
+    <script src="<?php echo URLROOT ?>/public/assets/js/flatpickr.js"></script>
+    <script src="<?php echo URLROOT ?>/public/assets/js/jquery.sumoselect.min.js"></script>
+	<script src="<?php echo URLROOT ?>/public/assets/vendor/chartjs/chart.bundle.min.js"></script>
+	<script src="<?php echo URLROOT ?>/public/assets/vendor/owl-carousel/owl.carousel.js"></script>
 		
-	<script src="<?php echo URLROOT ?>/assets/vendor/apexchart/apexchart.js"></script>
-    <script src="<?php echo URLROOT ?>/assets/vendor/jqvmap/js/jquery.vmap.min.js"></script>
-    <script src="<?php echo URLROOT ?>/assets/vendor/jqvmap/js/jquery.vmap.world.js"></script>
-	<script src="<?php echo URLROOT ?>/assets/vendor/jqvmap/js/jquery.vmap.usa.js"></script> 
-    <script src="<?php echo URLROOT ?>/assets/vendor/peity/jquery.peity.min.js"></script>
-	<script src="<?php echo URLROOT ?>/assets/js/dashboard/dashboard-1.js"></script>
-	<script src="<?php echo URLROOT ?>/assets/vendor/datatables/js/jquery.dataTables.min.js"></script>
-	<script src="<?php echo URLROOT ?>/assets/vendor/datatables/responsive/responsive.js"></script>
-	<script src="<?php echo URLROOT ?>/assets/vendor/datatables/responsive/responsive.js"></script>
-	<script src="<?php echo URLROOT ?>/assets/jquery-confirm/js/jquery-confirm.js"></script>
-	<script src="<?php echo URLROOT ?>/assets/js/select2.min.js"></script>
-	<script src="<?php echo URLROOT ?>/assets/js/crypto-js.min.js"></script>
-	<script src="<?php echo URLROOT ?>/assets/js/print.js"></script>
-	<script src="<?php echo URLROOT ?>/uploadifive/jquery.uploadifive.min.js"></script>
+	<script src="<?php echo URLROOT ?>/public/assets/vendor/apexchart/apexchart.js"></script>
+    <script src="<?php echo URLROOT ?>/public/assets/vendor/jqvmap/js/jquery.vmap.min.js"></script>
+    <script src="<?php echo URLROOT ?>/public/assets/vendor/jqvmap/js/jquery.vmap.world.js"></script>
+	<script src="<?php echo URLROOT ?>/public/assets/vendor/jqvmap/js/jquery.vmap.usa.js"></script> 
+    <script src="<?php echo URLROOT ?>/public/assets/vendor/peity/jquery.peity.min.js"></script>
+	<script src="<?php echo URLROOT ?>/public/assets/js/dashboard/dashboard-1.js"></script>
+	<script src="<?php echo URLROOT ?>/public/assets/vendor/datatables/js/jquery.dataTables.min.js"></script>
+	<script src="<?php echo URLROOT ?>/public/assets/vendor/datatables/responsive/responsive.js"></script>
+	<script src="<?php echo URLROOT ?>/public/assets/vendor/datatables/responsive/responsive.js"></script>
+	<script src="<?php echo URLROOT ?>/public/assets/jquery-confirm/js/jquery-confirm.js"></script>
+	<script src="<?php echo URLROOT ?>/public/assets/js/select2.min.js"></script>
+	<script src="<?php echo URLROOT ?>/public/assets/js/crypto-js.min.js"></script>
+	<script src="<?php echo URLROOT ?>/public/assets/js/print.js"></script>
+	<script src="<?php echo URLROOT ?>/public/uploadifive/jquery.uploadifive.min.js"></script>
 
 	<script>
 		function carouselReview(){

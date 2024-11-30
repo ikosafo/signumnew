@@ -10,7 +10,7 @@ ini_set('display_errors', 1);  // Hide all errors from the user
 //error_reporting(E_ALL ^ E_WARNING);
 
 // Load everything we require via composer
-require('../vendor/autoload.php');
+//require('../vendor/autoload.php');
 
 require_once 'helpers/phpexcel/PHPExcel/IOFactory.php';
 require_once 'helpers/phpexcel/PHPExcel/Writer/IWriter.php';

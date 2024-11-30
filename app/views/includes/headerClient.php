@@ -15,19 +15,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo URLROOT ?>/assets/images/signum_logo.png">
-    <link href="<?php echo URLROOT ?>/assets/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
-	<link href="<?php echo URLROOT ?>/assets/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
-    <link href="<?php echo URLROOT ?>/assets/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
-    <link href="<?php echo URLROOT ?>/assets/css/style.css" rel="stylesheet">
-	<link href="<?php echo URLROOT ?>/assets/css/flatpickr.min.css" rel="stylesheet" type="text/css">
-	<link href="<?php echo URLROOT ?>/assets/css/sumoselect.min.css" rel="stylesheet" type="text/css" />
-	<link href="<?php echo URLROOT ?>/assets/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
-	<link href="<?php echo URLROOT ?>/assets/vendor/datatables/responsive/responsive.css" rel="stylesheet">
-	<link href="<?php echo URLROOT ?>/assets/jquery-confirm/css/jquery-confirm.css" rel="stylesheet">
-	<link href="<?php echo URLROOT ?>/assets/css/select2.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo URLROOT ?>/public/assets/images/signum_logo.png">
+    <link href="<?php echo URLROOT ?>/public/assets/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
+	<link href="<?php echo URLROOT ?>/public/assets/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
+    <link href="<?php echo URLROOT ?>/public/assets/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="<?php echo URLROOT ?>/public/assets/css/style.css" rel="stylesheet">
+	<link href="<?php echo URLROOT ?>/public/assets/css/flatpickr.min.css" rel="stylesheet" type="text/css">
+	<link href="<?php echo URLROOT ?>/public/assets/css/sumoselect.min.css" rel="stylesheet" type="text/css" />
+	<link href="<?php echo URLROOT ?>/public/assets/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+	<link href="<?php echo URLROOT ?>/public/assets/vendor/datatables/responsive/responsive.css" rel="stylesheet">
+	<link href="<?php echo URLROOT ?>/public/assets/jquery-confirm/css/jquery-confirm.css" rel="stylesheet">
+	<link href="<?php echo URLROOT ?>/public/assets/css/select2.min.css" rel="stylesheet">
 	<link href="<?php echo URLROOT ?>/uploadifive/uploadifive.css" rel="stylesheet">
-	<link href="<?php echo URLROOT ?>/assets/css/custom.css" rel="stylesheet">
+	<link href="<?php echo URLROOT ?>/public/assets/css/custom.css" rel="stylesheet">
 
 	<script>
 		var cvhead = <?php echo json_encode(unserialize(JSVARS)); ?>;
@@ -48,9 +48,9 @@
     <div id="main-wrapper">
         <div class="nav-header">
             <a href="<?php echo URLROOT ?>/pages/client" class="brand-logo">
-                <img class="logo-abbr" src="<?php echo URLROOT ?>/assets/images/signum_logo.png" alt="/">
-                <img class="logo-compact" src="<?php echo URLROOT ?>/assets/images/signum_logo.png" alt="/">
-                <img class="brand-title" src="<?php echo URLROOT ?>/assets/images/signum_logo.png" alt="/">
+                <img class="logo-abbr" src="<?php echo URLROOT ?>/public/assets/images/signum_logo.png" alt="/">
+                <img class="logo-compact" src="<?php echo URLROOT ?>/public/assets/images/signum_logo.png" alt="/">
+                <img class="brand-title" src="<?php echo URLROOT ?>/public/assets/images/signum_logo.png" alt="/">
             </a>
 
             <div class="nav-control">
@@ -99,7 +99,7 @@
 											<!-- <li>
 												<div class="timeline-panel">
 													<div class="media me-2">
-														<img alt="image" width="50" src="<?php echo URLROOT ?>/assets/images/avatar/1.jpg">
+														<img alt="image" width="50" src="<?php echo URLROOT ?>/public/assets/images/avatar/1.jpg">
 													</div>
 													<div class="media-body">
 														<h6 class="mb-1">Dr sultads Send you Photo</h6>

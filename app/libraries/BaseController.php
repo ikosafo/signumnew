@@ -46,7 +46,7 @@ class BaseController {
          * the application path for our controllers and use it if found; if not found we continue
          * to look for defaults in the base views directory.
          */
-        if(file_exists('../app/applications/'. $viewpath . "/views/" . $view . '.php')) {
+        if(file_exists('app/applications/'. $viewpath . "/views/" . $view . '.php')) {
 
             // Set up our application for easy includes
             set_include_path(get_include_path() . PATH_SEPARATOR . APPROOT . '/applications/' . $viewpath . '/views/');
@@ -55,7 +55,7 @@ class BaseController {
             set_include_path(get_include_path() . PATH_SEPARATOR . APPROOT . '/views/');
             require_once $view . '.php';
 
-        } elseif(file_exists('../app/views/' . $view . '.php')){
+        } elseif(file_exists('app/views/' . $view . '.php')){
 
             set_include_path(get_include_path() . PATH_SEPARATOR . APPROOT . '/views/');
             require_once $view . '.php';
