@@ -28,7 +28,6 @@ $uuid = Tools::generateUUID();
                             <select id="billType" class="default-select form-control wide" required>
                                 <option value="">Select Type</option>
                                 <option value="Rent">Rent</option>
-                                <option value="Maintenance">Maintenance</option>
                                 <option value="Service Charge">Service Charge</option>
                                 <option value="Utilities">Utilities</option>
                                 <option value="Other">Other</option>
@@ -129,9 +128,9 @@ $uuid = Tools::generateUUID();
                 });
             }
 
-            setTimeout(function() {
+           /*  setTimeout(function() {
                 location.reload();
-            }, 500);
+            }, 5000); */
         };
 
         var validateRentForm = function(rentData) {
