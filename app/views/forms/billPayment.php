@@ -128,9 +128,9 @@ $uuid = Tools::generateUUID();
                 });
             }
 
-           /*  setTimeout(function() {
+            setTimeout(function() {
                 location.reload();
-            }, 5000); */
+            }, 5000);
         };
 
         var validateRentForm = function(rentData) {

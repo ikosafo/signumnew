@@ -136,11 +136,6 @@ class Billings extends tableDataObject
                 $updateRent = "UPDATE `billing` SET `updatedAt` = NOW(), `paymentStatus` = 'success' WHERE `billid` = '$lastOutstandingBillid'";
                 $healthdb->prepare($updateRent);
                 $healthdb->execute();
-
-                if (!$healthdb->execute($updateRent)) {
-                    echo "Failed to update maintenance bill.";
-                    return;
-                }
             } else {
                 echo "No outstanding maintenance bill.";
                 return;
