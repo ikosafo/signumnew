@@ -9,7 +9,7 @@ $userPermissions = Tools::getUserPermissions($uuid);?>
 <html lang="en">
 
 <head>
-	<title>Client - Signum Properties Ltd</title>
+	<title>Admin - Signum Properties Ltd</title>
  
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -58,7 +58,7 @@ $userPermissions = Tools::getUserPermissions($uuid);?>
 
     <div id="main-wrapper">
         <div class="nav-header">
-            <a href="<?php echo URLROOT ?>/pages/client" class="brand-logo">
+            <a href="<?php echo URLROOT ?>/pages/index" class="brand-logo">
                 <img class="logo-abbr" src="<?php echo URLROOT ?>/public/assets/images/signum_logo.png" alt="/">
                 <img class="logo-compact" src="<?php echo URLROOT ?>/public/assets/images/signum_logo.png" alt="/">
                 <img class="brand-title" src="<?php echo URLROOT ?>/public/assets/images/signum_logo.png" alt="/">
@@ -132,7 +132,7 @@ $userPermissions = Tools::getUserPermissions($uuid);?>
 									<?= Tools::displayHeaderImages($_SESSION['uuid']) ?>
                                  </a>
                                 <div class="dropdown-menu dropdown-menu-end">
-                                    <a href="<?php echo URLROOT ?>/pages/userProfileClient" class="dropdown-item ai-icon">
+                                    <a href="<?php echo URLROOT ?>/pages/userProfileAdmin" class="dropdown-item ai-icon">
                                         <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                                         <span class="ms-2">Profile </span>
                                     </a>
