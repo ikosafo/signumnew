@@ -214,7 +214,16 @@ class Pages extends Controller
         $this->view("pages/rentInformation",[
             'listProperties' => $listProperties
         ]);
-    }  
+    } 
+    
+    
+    public function rentInvoices() {
+        new Guard();
+        $listProperties = Properties::listProperties();
+        $this->view("pages/rentInvoices",[
+            'listProperties' => $listProperties
+        ]);
+    } 
 
 
     public function billPayments() {

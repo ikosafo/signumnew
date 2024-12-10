@@ -14,6 +14,8 @@
                             <th width="10%">NO.</th>
                             <th width="20%">TENANT</th>
                             <th width="20%">PROPERTY</th>
+                            <th width="20%">START DATE</th>
+                            <th width="20%">END DATE</th>
                             <th width="10%">LEASE TYPE</th>
                             <th width="10%">RENEWABLE</th>
                             <th width="20%">RENT AMOUNT</th>
@@ -28,6 +30,8 @@
                                 <td><strong class="text-black"><?= $no++ ?></strong></td>
                                 <td><?= Tools::clientName($result->clientid) ?></td>
                                 <td><?= Tools::propertyClient($result->propertyid) ?></td>
+                                <td><?= $result->startDate ?></td>
+                                <td><?= $result->endDate ?></td>
                                 <td><?= $result->leaseType ?></td>
                                 <td><?= $result->renewable ?></td>
                                 <td><?= number_format($result->rentAmount,2) ?></td>

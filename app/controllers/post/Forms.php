@@ -79,6 +79,14 @@ class Forms extends PostController
     }  
 
 
+    public function generateInvoice()
+    {
+        $rentid = $_POST['rentid'];
+        $generateRentInvoice = Billings::generateRentInvoice($rentid);
+        $this->view("forms/generateInvoice",['generateRentInvoice' => $generateRentInvoice]);
+    }  
+
+
     public function rentalInformation()
     {
         $clientid = $_POST['clientid'];
