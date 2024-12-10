@@ -35,12 +35,32 @@ class Property extends PostController
 
     }
 
+
     public function saveCategory()
     {
         $categoryName = $_POST['categoryName'];
         $description = $_POST['description'];
         Properties::saveCategory($categoryName,$description);
     }
+
+
+    public function savePhase()
+    {
+        $phaseName = $_POST['phaseName'];
+        $description = $_POST['description'];
+        $uuid = $_POST['uuid'];
+        Properties::savePhase($phaseName,$uuid,$description);
+    }
+
+
+    public function saveActivity()
+    {
+        $activityName = $_POST['activityName'];
+        $description = $_POST['description'];
+        $uuid = $_POST['uuid'];
+        Properties::saveActivity($activityName,$uuid,$description);
+    }
+
 
     public function saveMaintenanceFee()
     {

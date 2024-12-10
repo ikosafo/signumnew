@@ -13,7 +13,7 @@
                 </div>
                 <div class="form-group col-md-6 col-sm-12">
                     <label class="form-label">Description</label>
-                    <textarea name="description" class="form-control" placeholder="Brief description of the property" rows="3"></textarea>
+                    <textarea name="description" class="form-control" placeholder="Brief description of the category" rows="3"></textarea>
                 </div>
                 <div class="col-sm-12 text-center">
                     <button type="submit" id="saveCategory" class="btn btn-primary btn-sm">Add Category</button>

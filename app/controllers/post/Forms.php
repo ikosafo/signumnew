@@ -16,6 +16,22 @@ class Forms extends PostController
     }
 
 
+    public function propertyPhasesEdit()
+    {
+        $phaseid = $_POST['phaseid'];
+        $phaseDetails = Properties::phaseDetails($phaseid);
+        $phaseName = $phaseDetails['phaseName'];
+        $description = $phaseDetails['description'];
+        $uuid = $phaseDetails['uuid'];
+        $this->view("forms/propertyPhasesEdit", [
+            'phaseName' => $phaseName,
+            'description' => $description,
+            'phaseid' => $phaseid,
+            'uuid' => $uuid
+         ]);
+    }
+
+
     public function companyDepartmentsEdit()
     {
         $deptid = $_POST['deptid'];

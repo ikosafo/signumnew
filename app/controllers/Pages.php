@@ -456,6 +456,18 @@ class Pages extends Controller
         new Guard();  
         $this->view("pages/propertyCategories");
     } 
+
+
+    public function propertyActivities() {
+        new Guard();  
+        $this->view("pages/propertyActivities");
+    } 
+
+
+    public function propertyPhases() {
+        new Guard();  
+        $this->view("pages/propertyPhases");
+    } 
     
     
     public function maintenanceFee() {

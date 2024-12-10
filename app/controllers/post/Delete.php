@@ -9,6 +9,12 @@ class Delete extends PostController
         Properties::deleteCategory($catid);
     }
 
+    public function propertyPhase()
+    {
+        $phaseid = $_POST['phaseid'];
+        Properties::deletePhase($phaseid);
+    }
+
     public function companyDepartment()
     {
         $deptid = $_POST['deptid'];

@@ -165,6 +165,103 @@ class Properties extends tableDataObject
     }
 
 
+    public static function savePhase($phaseName, $uuid, $description) {
+
+        global $healthdb;
+    
+        $getName = "SELECT * FROM `propertyphase` WHERE `phaseName` = '$phaseName' AND `uuid` != '$uuid' AND `status` = 1";
+        $healthdb->prepare($getName);
+        $resultName = $healthdb->singleRecord();
+    
+        if ($resultName) {
+            echo 2;
+        } else {
+            // Check if the phaseName exists for the same uuid
+            $getPhase = "SELECT * FROM `propertyphase` WHERE `phaseName` = '$phaseName' AND `uuid` = '$uuid' AND `status` = 1";
+            $healthdb->prepare($getPhase);
+            $resultPhase = $healthdb->singleRecord();
+    
+            if ($resultPhase) {
+                $updateQuery = "UPDATE `propertyphase` 
+                                SET `description` = '$description', 
+                                    `updatedAt` = NOW() 
+                                WHERE `phaseName` = '$phaseName' AND `uuid` = '$uuid'";
+                $healthdb->prepare($updateQuery);
+                $healthdb->execute();
+                echo 3; // Successfully updated
+            } else {
+                // Insert new phase
+                $query = "INSERT INTO `propertyphase`
+                (
+                `phaseName`,
+                `uuid`,
+                `description`,
+                `createdAt`
+                )
+                VALUES (
+                        '$phaseName',
+                        '$uuid',
+                        '$description',
+                        NOW()
+                        )";
+    
+                $healthdb->prepare($query);
+                $healthdb->execute();
+                echo 1; // Successfully inserted
+            }
+        }
+    }
+
+
+    public static function saveActivity($activityName, $uuid, $description) {
+
+        global $healthdb;
+    
+        $getName = "SELECT * FROM `propertyactivity` WHERE `activityName` = '$activityName' AND `uuid` != '$uuid' AND `status` = 1";
+        $healthdb->prepare($getName);
+        $resultName = $healthdb->singleRecord();
+    
+        if ($resultName) {
+            echo 2;
+        } else {
+            // Check if the phaseName exists for the same uuid
+            $getPhase = "SELECT * FROM `propertyactivity` WHERE `activityName` = '$activityName' AND `uuid` = '$uuid' AND `status` = 1";
+            $healthdb->prepare($getPhase);
+            $resultActivity = $healthdb->singleRecord();
+    
+            if ($resultActivity) {
+                $updateQuery = "UPDATE `propertyactivity` 
+                                SET `description` = '$description', 
+                                    `updatedAt` = NOW() 
+                                WHERE `activityName` = '$activityName' AND `uuid` = '$uuid'";
+                $healthdb->prepare($updateQuery);
+                $healthdb->execute();
+                echo 3; // Successfully updated
+            } else {
+                // Insert new phase
+                $query = "INSERT INTO `propertyactivity`
+                (
+                `activityName`,
+                `uuid`,
+                `description`,
+                `createdAt`
+                )
+                VALUES (
+                        '$activityName',
+                        '$uuid',
+                        '$description',
+                        NOW()
+                        )";
+    
+                $healthdb->prepare($query);
+                $healthdb->execute();
+                echo 1; // Successfully inserted
+            }
+        }
+    }
+    
+
+
     public static function deleteMaintenanceFee($feeid) {
         global $healthdb;
         $query = "UPDATE `maintenancefee` 
@@ -244,6 +341,21 @@ class Properties extends tableDataObject
             SET `status` = 0,
             `updatedAt` = NOW()
             WHERE `categoryId` = '$catid'";
+
+            $healthdb->prepare($query);
+            $healthdb->execute();
+            echo 1;  // Successfully updated
+       
+    }
+
+
+    public static function deletePhase($phaseid) {
+
+        global $healthdb;
+            $query = "UPDATE `propertyphase` 
+            SET `status` = 0,
+            `updatedAt` = NOW()
+            WHERE `phaseId` = '$phaseid'";
 
             $healthdb->prepare($query);
             $healthdb->execute();
@@ -485,6 +597,26 @@ class Properties extends tableDataObject
     }
 
 
+    public static function listPropertyActivity() {
+        global $healthdb;
+
+        $getList = "SELECT * FROM `propertyactivity` where `status` = 1 ORDER BY `activityId` DESC";
+        $healthdb->prepare($getList);
+        $resultList = $healthdb->resultSet();
+        return $resultList;
+    }
+
+
+    public static function listPropertyPhase() {
+        global $healthdb;
+
+        $getList = "SELECT * FROM `propertyphase` where `status` = 1 ORDER BY `phaseId` DESC";
+        $healthdb->prepare($getList);
+        $resultList = $healthdb->resultSet();
+        return $resultList;
+    }
+
+
     public static function listMaintenanceFee() {
         global $healthdb;
 
@@ -515,6 +647,23 @@ class Properties extends tableDataObject
         $description = $resultRec->description;
         return [
             'categoryName' => $categoryName,
+            'description' => $description
+        ];
+    }
+
+
+    public static function phaseDetails($phaseid) {
+        global $healthdb;
+
+        $getList = "SELECT * FROM `propertyphase` where `phaseId` = '$phaseid'";
+        $healthdb->prepare($getList);
+        $resultRec = $healthdb->singleRecord();
+        $phaseName = $resultRec->phaseName;
+        $uuid = $resultRec->uuid;
+        $description = $resultRec->description;
+        return [
+            'phaseName' => $phaseName,
+            'uuid' => $uuid,
             'description' => $description
         ];
     }
