@@ -267,6 +267,16 @@ class Tools extends tableDataObject{
     }
 
 
+    public static function propertyPhase($phaseid) {
+        global $healthdb;
+
+        $query = "SELECT `phaseName` FROM `propertyphase` WHERE `phaseId` = '$phaseid'";
+        $healthdb->prepare($query);
+        $result = $healthdb->fetchColumn();
+        return $result;
+    }
+
+
     public static function getUUIDbyid($uid) {
         global $healthdb;
 

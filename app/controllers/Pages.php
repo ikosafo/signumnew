@@ -70,10 +70,26 @@ class Pages extends Controller
     public function addProperty() {
         new Guard();
         $listPropertyCategory = Properties::listPropertyCategory();
+        $getPropertyNumber = Properties::getPropertyNumber();
+        $getApartmentNumber = Properties::getApartmentNumber();
+        $getHouseNumber = Properties::getHouseNumber();
+        $getCommercialNumber = Properties::getCommercialNumber();
+        $getLandNumber = Properties::getLandNumber();
+        $getFurnishedNumber = Properties::getFurnishedNumber();
+        $getUnfurnishedNumber = Properties::getUnfurnishedNumber();
+        $getSemifurnishedNumber = Properties::getSemifurnishedNumber();
         $listUsers = Users::listUsers();
         $this->view("pages/addProperty",[
             'listPropertyCategory' => $listPropertyCategory,
-            'listUsers' => $listUsers
+            'listUsers' => $listUsers,
+            'getPropertyNumber' => $getPropertyNumber,
+            'getApartmentNumber' => $getApartmentNumber,
+            'getHouseNumber' => $getHouseNumber,
+            'getCommercialNumber' => $getCommercialNumber,
+            'getLandNumber' => $getLandNumber,
+            'getFurnishedNumber' => $getFurnishedNumber,
+            'getUnfurnishedNumber' => $getUnfurnishedNumber,
+            'getSemifurnishedNumber' => $getSemifurnishedNumber
         ]);
     }  
 
@@ -193,8 +209,10 @@ class Pages extends Controller
     public function addClient() {
         new Guard();
         $listProperties = Properties::listProperties();
+        $listPhases = Properties::listPhases();
         $this->view("pages/addClient",[
-            'listProperties' => $listProperties
+            'listProperties' => $listProperties,
+            'listPhases' => $listPhases
         ]);
     } 
     

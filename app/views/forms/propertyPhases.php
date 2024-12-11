@@ -39,6 +39,9 @@
 
             var successCallback = function(response) {
                 if (response == 1) {
+                    $('html, body').animate({
+                        scrollTop: $("#phaseTableDiv").offset().top
+                    }, 200);
                     $.notify("Phase saved", {
                             position: "top center",
                             className: "success"

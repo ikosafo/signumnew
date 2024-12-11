@@ -5,7 +5,7 @@ extract($data);
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">Add Phase</h4>
+                <h4 class="card-title">Edit Phase</h4>
             </div>
             <div class="card-body wizard-box">
             <form class="row" id="needs-validation" novalidate="" autocomplete="off">
@@ -42,6 +42,9 @@ extract($data);
 
             var successCallback = function(response) {
                 if (response == 1 || response == 3) {
+                    $('html, body').animate({
+                        scrollTop: $("#phaseTableDiv").offset().top
+                    }, 200);
                     $.notify("Phase updated", {
                             position: "top center",
                             className: "success"

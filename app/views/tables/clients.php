@@ -14,6 +14,7 @@
                             <th width="10%">NO.</th>
                             <th width="20%">CLIENT TYPE</th>
                             <th width="20%">PROPERTY</th>
+                            <th width="20%">PHASE</th>
                             <th width="20%">FULL NAME</th>
                             <th width="20%">EMAIL ADDRESS</th>
                             <th width="20%">TELEPHONE</th>
@@ -28,6 +29,7 @@
                                 <td><strong class="text-black"><?= $no++ ?></strong></td>
                                 <td><?= $result->clientType ?></td>
                                 <td><?= Tools::propertyClient($result->propertyid) ?></td>
+                                <td><?= Tools::propertyClient($result->clientid) ?></td>
                                 <td><?= $result->fullName ?></td>
                                 <td><?= $result->emailAddress ?></td>
                                 <td><?= $result->phoneNumber ?></td>

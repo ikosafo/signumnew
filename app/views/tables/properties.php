@@ -13,6 +13,7 @@
                         <tr>
                             <th width="10%">NO.</th>
                             <th width="20%">PROPERTY NAME</th>
+                            <th width="20%">PROPERTY TYPE</th>
                             <th width="20%">CATEGORY</th>
                             <th width="20%">LOCATION</th>
                             <th width="20%">FURNISHING</th>
@@ -26,6 +27,7 @@
                             <tr>
                                 <td><strong class="text-black"><?= $no++ ?></strong></td>
                                 <td><?= $result->propertyName ?></td>
+                                <td><?= $result->propertyType ?></td>
                                 <td><?= Tools::categoryName($result->propertyCategory) ?></td>
                                 <td><?= $result->location ?></td>
                                 <td><?= $result->furnishingStatus ?></td>

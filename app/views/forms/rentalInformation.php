@@ -15,6 +15,10 @@ $uuid = Tools::generateUUID();
                             <label class="form-label">Property</label>
                             <input type="text" class="form-control" disabled value="<?= strtoupper(Tools::propertyClient($propertyid)); ?>">
                         </div>
+                        <div class="form-group col-md-4 col-sm-12">
+                            <label class="form-label">Phase</label>
+                            <input type="text" class="form-control" disabled value="<?= strtoupper(Tools::propertyPhase($phaseid)); ?>">
+                        </div>
                     </div> 
                     <hr>
 
@@ -117,6 +121,7 @@ $uuid = Tools::generateUUID();
             leaseRenewable: $("#leaseRenewable").val(),
             additionalDescription: $("#description").val(),
             additionalCharges: $("#additionalCharges").val(),
+            phaseid: $("#phaseid").val(),
             uuid: '<?php echo $uuid; ?>',
             propertyid: '<?php echo $propertyid ?>',
             clientid: '<?php echo $clientid ?>'

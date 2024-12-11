@@ -14,6 +14,77 @@ class Properties extends tableDataObject
         return $result->count;
     }
 
+
+    public static function getApartmentNumber(){
+        global $healthdb;
+    
+        $getnum = "SELECT COUNT(*) as count FROM `properties` WHERE `propertyType` = 'Apartment' AND `status` = 1";
+        $healthdb->prepare($getnum);
+        $result = $healthdb->singleRecord();
+        return $result->count;
+    }
+
+
+    public static function getHouseNumber(){
+        global $healthdb;
+    
+        $getnum = "SELECT COUNT(*) as count FROM `properties` WHERE `propertyType` = 'House' AND `status` = 1";
+        $healthdb->prepare($getnum);
+        $result = $healthdb->singleRecord();
+        return $result->count;
+    }
+
+
+    public static function getCommercialNumber(){
+        global $healthdb;
+    
+        $getnum = "SELECT COUNT(*) as count FROM `properties` WHERE `propertyType` = 'Commercial' AND `status` = 1";
+        $healthdb->prepare($getnum);
+        $result = $healthdb->singleRecord();
+        return $result->count;
+    }
+
+
+    public static function getLandNumber(){
+        global $healthdb;
+    
+        $getnum = "SELECT COUNT(*) as count FROM `properties` WHERE `propertyType` = 'Land' AND `status` = 1";
+        $healthdb->prepare($getnum);
+        $result = $healthdb->singleRecord();
+        return $result->count;
+    }
+
+
+    public static function getFurnishedNumber(){
+        global $healthdb;
+    
+        $getnum = "SELECT COUNT(*) as count FROM `properties` WHERE `furnishingStatus` = 'Furnished' AND `status` = 1";
+        $healthdb->prepare($getnum);
+        $result = $healthdb->singleRecord();
+        return $result->count;
+    }
+
+
+    public static function getUnfurnishedNumber(){
+        global $healthdb;
+    
+        $getnum = "SELECT COUNT(*) as count FROM `properties` WHERE `furnishingStatus` = 'Unfurnished' AND `status` = 1";
+        $healthdb->prepare($getnum);
+        $result = $healthdb->singleRecord();
+        return $result->count;
+    }
+
+
+    public static function getSemifurnishedNumber(){
+        global $healthdb;
+    
+        $getnum = "SELECT COUNT(*) as count FROM `properties` WHERE `furnishingStatus` = 'Semi-Furnished' AND `status` = 1";
+        $healthdb->prepare($getnum);
+        $result = $healthdb->singleRecord();
+        return $result->count;
+    }
+    
+
     public static function saveProperty($propertyName,
                                     $propertyType,
                                     $propertyCategory,
@@ -174,23 +245,22 @@ class Properties extends tableDataObject
         $resultName = $healthdb->singleRecord();
     
         if ($resultName) {
-            echo 2;
+            echo 2; 
         } else {
-            // Check if the phaseName exists for the same uuid
-            $getPhase = "SELECT * FROM `propertyphase` WHERE `phaseName` = '$phaseName' AND `uuid` = '$uuid' AND `status` = 1";
+            $getPhase = "SELECT * FROM `propertyphase` WHERE `uuid` = '$uuid' AND `status` = 1";
             $healthdb->prepare($getPhase);
             $resultPhase = $healthdb->singleRecord();
     
             if ($resultPhase) {
                 $updateQuery = "UPDATE `propertyphase` 
-                                SET `description` = '$description', 
+                                SET `phaseName` = '$phaseName',
+                                    `description` = '$description', 
                                     `updatedAt` = NOW() 
-                                WHERE `phaseName` = '$phaseName' AND `uuid` = '$uuid'";
+                                WHERE `uuid` = '$uuid'";
                 $healthdb->prepare($updateQuery);
                 $healthdb->execute();
-                echo 3; // Successfully updated
+                echo 3; 
             } else {
-                // Insert new phase
                 $query = "INSERT INTO `propertyphase`
                 (
                 `phaseName`,
@@ -207,10 +277,11 @@ class Properties extends tableDataObject
     
                 $healthdb->prepare($query);
                 $healthdb->execute();
-                echo 1; // Successfully inserted
+                echo 1;
             }
         }
     }
+    
 
 
     public static function saveActivity($activityName, $uuid, $description) {
@@ -224,21 +295,21 @@ class Properties extends tableDataObject
         if ($resultName) {
             echo 2;
         } else {
-            // Check if the phaseName exists for the same uuid
-            $getPhase = "SELECT * FROM `propertyactivity` WHERE `activityName` = '$activityName' AND `uuid` = '$uuid' AND `status` = 1";
-            $healthdb->prepare($getPhase);
+            $getActivity = "SELECT * FROM `propertyactivity` WHERE `uuid` = '$uuid' AND `status` = 1";
+            $healthdb->prepare($getActivity);
             $resultActivity = $healthdb->singleRecord();
     
             if ($resultActivity) {
                 $updateQuery = "UPDATE `propertyactivity` 
-                                SET `description` = '$description', 
+                                SET `activityName` = '$activityName', 
+                                    `description` = '$description', 
                                     `updatedAt` = NOW() 
-                                WHERE `activityName` = '$activityName' AND `uuid` = '$uuid'";
+                                WHERE `uuid` = '$uuid'";
                 $healthdb->prepare($updateQuery);
                 $healthdb->execute();
                 echo 3; // Successfully updated
             } else {
-                // Insert new phase
+                // Insert new activity
                 $query = "INSERT INTO `propertyactivity`
                 (
                 `activityName`,
@@ -258,8 +329,7 @@ class Properties extends tableDataObject
                 echo 1; // Successfully inserted
             }
         }
-    }
-    
+    }    
 
 
     public static function deleteMaintenanceFee($feeid) {
@@ -276,35 +346,58 @@ class Properties extends tableDataObject
     }
 
 
-    public static function saveMaintenanceFee($propertyName,$amount) {
+    public static function saveMaintenanceFee($phaseName,$activityName,$details,$uuid,$amount) {
 
         global $healthdb;
-
-        $getName = "SELECT * FROM `maintenancefee` WHERE `propertyid` = '$propertyName' AND `status` = 1";
+    
+        $getName = "SELECT * FROM `maintenancefee` WHERE 
+        `phaseid` = '$phaseName' AND `activityid` = '$activityName' AND
+        `details` = '$details' AND `uuid` != '$uuid' AND `status` = 1";
         $healthdb->prepare($getName);
         $resultName = $healthdb->singleRecord();
-
+    
         if ($resultName) {
-            //Already exists
-            echo 2;
-        }
-        else {
-            $query = "INSERT INTO `maintenancefee`
-            (`propertyid`,
-             `amount`,
-              `createdAt`
-             )
-            VALUES ('$propertyName',
-                    '$amount',
-                    NOW()
-                    )";
-
+            echo 2; 
+        } else {
+            $getPhase = "SELECT * FROM `maintenancefee` WHERE `uuid` = '$uuid' AND `status` = 1";
+            $healthdb->prepare($getPhase);
+            $resultPhase = $healthdb->singleRecord();
+    
+            if ($resultPhase) {
+                $updateQuery = "UPDATE `maintenancefee` 
+                                SET `phaseid` = '$phaseName',
+                                    `activityid` = '$activityName',
+                                    `details` = '$details', 
+                                    `amount` = '$amount',
+                                    `updatedAt` = NOW() 
+                                WHERE `uuid` = '$uuid'";
+                $healthdb->prepare($updateQuery);
+                $healthdb->execute();
+                echo 3; 
+            } else {
+                $query = "INSERT INTO `maintenancefee`
+                (
+                `phaseid`,
+                `activityid`,
+                `details`,
+                `amount`,
+                `createdAt`
+                )
+                VALUES (
+                        '$phaseName',
+                        '$activityName',
+                        '$details',
+                        '$amount',
+                        NOW()
+                        )";
+    
                 $healthdb->prepare($query);
                 $healthdb->execute();
-                echo 1;  // Successfully inserted
+                echo 1;
+            }
         }
-       
     }
+    
 
     
     public static function editCategory($categoryName,$description,$catid) {
@@ -356,6 +449,21 @@ class Properties extends tableDataObject
             SET `status` = 0,
             `updatedAt` = NOW()
             WHERE `phaseId` = '$phaseid'";
+
+            $healthdb->prepare($query);
+            $healthdb->execute();
+            echo 1;  // Successfully updated
+       
+    }
+
+
+    public static function deleteActivity($activityid) {
+
+        global $healthdb;
+            $query = "UPDATE `propertyactivity` 
+            SET `status` = 0,
+            `updatedAt` = NOW()
+            WHERE `activityId` = '$activityid'";
 
             $healthdb->prepare($query);
             $healthdb->execute();
@@ -447,6 +555,7 @@ class Properties extends tableDataObject
 
     public static function saveRentInfo(
         $rentAmount,
+        $phaseid,
         $securityDeposit,
         $penaltyAmount,
         $startDate,
@@ -459,7 +568,7 @@ class Properties extends tableDataObject
         $uuid,
         $propertyid,
         $clientid
-    ) {
+        ) {
         global $healthdb;
     
         $getByUUID = "SELECT * FROM `rentinfo` WHERE `clientid` = '$clientid' AND `uuid` = '$uuid'";
@@ -497,6 +606,7 @@ class Properties extends tableDataObject
             } else {
                 $query = "INSERT INTO `rentinfo` (
                         `propertyid`,
+                        `phaseid`,
                         `clientid`,
                         `rentAmount`,
                         `securityAmount`,
@@ -513,6 +623,7 @@ class Properties extends tableDataObject
                     )
                     VALUES (
                         '$propertyid',
+                        '$phaseid',
                         '$clientid',
                         '$rentAmount',
                         '$securityDeposit',
@@ -533,11 +644,85 @@ class Properties extends tableDataObject
     
                 // Add billing rows
                 self::generateMonthlyBills($startDate, $endDate, $uuid, $clientid);
+
+                $subject = 'Rent Agreement Confirmation and Details';
+                $fullName = Tools::clientName($clientid);
+                $emailAddress = Tools::clientEmail($clientid);
+                $propertyName = Tools::propertyClient($propertyid);
+                $phaseName = Tools::propertyPhase($phaseid);
+
+                $message = "<p>Dear $fullName,</p>
+
+                <p>We are pleased to confirm that your rent agreement has been successfully recorded in our system. Below are the details of your rent agreement:</p>
+
+                <table style='border-collapse: collapse; width: 70%;'>
+                    <tr>
+                        <td><strong>Property Name:</strong></td>
+                        <td>$propertyName</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Phase:</strong></td>
+                        <td>$phaseName</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bedroom Number:</strong></td>
+                        <td>$bedroomNumber</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Rent Amount:</strong></td>
+                        <td>$rentAmount</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Security Deposit:</strong></td>
+                        <td>$securityDeposit</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Penalty:</strong></td>
+                        <td>$penaltyAmount</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lease Start Date:</strong></td>
+                        <td>$startDate</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lease End Date:</strong></td>
+                        <td>$endDate</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lease Type:</strong></td>
+                        <td>$leaseType</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Renewable:</strong></td>
+                        <td>$leaseRenewable</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Additional Charges:</strong></td>
+                        <td>$additionalCharges</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Description:</strong></td>
+                        <td>$additionalDescription</td>
+                    </tr>
+                </table>
+
+                <p>Please review these details and notify us immediately if there are any discrepancies. We value your tenancy and are committed to ensuring a smooth rental experience.</p>
+
+                <p>If you have any questions or need further assistance, please contact us at support@signumproperties.com or call +233 557 232 232.</p>
+
+                <p>Thank you for choosing our services, and we look forward to serving you better.</p>
+
+                <p>Best regards,</p>
+                <p>The Signum Properties Team</p>";
+
+
+                SendEmail::compose($emailAddress, $subject, $message);
     
                 echo 1; // Successfully inserted
             }
         }
     }
+   
     
     // Generate monthly billing records
     public static function generateMonthlyBills($startDate, $endDate, $uuid, $clientid)
@@ -669,10 +854,57 @@ class Properties extends tableDataObject
     }
 
 
+    public static function activityDetails($activityid) {
+        global $healthdb;
+
+        $getList = "SELECT * FROM `propertyactivity` where `activityId` = '$activityid'";
+        $healthdb->prepare($getList);
+        $resultRec = $healthdb->singleRecord();
+        $activityName = $resultRec->activityName;
+        $uuid = $resultRec->uuid;
+        $description = $resultRec->description;
+        return [
+            'activityName' => $activityName,
+            'uuid' => $uuid,
+            'description' => $description
+        ];
+    }
+
+
     public static function listProperties() {
         global $healthdb;
 
         $getList = "SELECT * FROM `properties` where `status` = 1 ORDER BY createdAt DESC";
+        $healthdb->prepare($getList);
+        $resultList = $healthdb->resultSet();
+        return $resultList;
+    }
+
+
+    public static function listPhases() {
+        global $healthdb;
+
+        $getList = "SELECT * FROM `propertyphase` where `status` = 1 ORDER BY createdAt DESC";
+        $healthdb->prepare($getList);
+        $resultList = $healthdb->resultSet();
+        return $resultList;
+    }
+    
+
+    public static function listPhase() {
+        global $healthdb;
+
+        $getList = "SELECT * FROM `propertyphase` where `status` = 1 ORDER BY createdAt DESC";
+        $healthdb->prepare($getList);
+        $resultList = $healthdb->resultSet();
+        return $resultList;
+    }
+
+
+    public static function listActivity() {
+        global $healthdb;
+
+        $getList = "SELECT * FROM `propertyactivity` where `status` = 1 ORDER BY createdAt DESC";
         $healthdb->prepare($getList);
         $resultList = $healthdb->resultSet();
         return $resultList;

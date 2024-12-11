@@ -1,4 +1,6 @@
-<?php extract($data); ?>
+<?php extract($data);
+$uuid = Tools::generateUUID();
+?>
 
 <div class="row">
     <div class="col-12">
@@ -9,14 +11,28 @@
             <div class="card-body wizard-box">
             <form class="row" id="needs-validation" novalidate="" autocomplete="off">
                 <div class="form-group col-md-6 col-sm-12">
-                    <label class="form-label required">Property</label>
-                    <select id="propertyName" class="default-select form-control wide" required>
+                    <label class="form-label required">Phase</label>
+                    <select id="phaseName" class="default-select form-control wide" required>
                         <option></option>
-                        <?php foreach ($listProperties as $record): ?>
-                            <option value="<?= $record->propertyId ?>"><?= $record->propertyName ?></option>
+                        <?php foreach ($listPhase as $record): ?>
+                            <option value="<?= $record->phaseId ?>"><?= $record->phaseName ?></option>
                         <?php endforeach; ?>
                         
                     </select>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="form-label required">Activity</label>
+                    <select id="activityName" class="default-select form-control wide" required>
+                        <option></option>
+                        <?php foreach ($listActivity as $record): ?>
+                            <option value="<?= $record->activityId ?>"><?= $record->activityName ?></option>
+                        <?php endforeach; ?>
+                        
+                    </select>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                    <label class="form-label required">Details</label>
+                    <textarea id="details" class="form-control" placeholder="Enter Details" required></textarea>
                 </div>
                 <div class="form-group col-md-6 col-sm-12">
                     <label class="form-label required">Amount</label>
@@ -34,16 +50,23 @@
 
 <script>
 
-    $("#propertyName").select2({
-        placeholder: "Select Property"
+    $("#phaseName").select2({
+        placeholder: "Select Phase"
+    })
+
+    $("#activityName").select2({
+        placeholder: "Select Activity"
     })
 
     $("#saveFee").on("click", function() {
         event.preventDefault(); 
 
         var formData = {
-            propertyName: $("#propertyName").val(),
-            amount: $("#amount").val()
+            phaseName: $("#phaseName").val(),
+            amount: $("#amount").val(),
+            activityName: $("#activityName").val(),
+            details: $("#details").val(),
+            uuid: '<?php echo $uuid ?>'
         };
         var url = urlroot + "/property/saveMaintenanceFee";
 
@@ -65,7 +88,7 @@
                 });
             }
             else {
-                $.notify("Property maintenance fee already exist", {
+                $.notify("Phase maintenance fee already exist", {
                         position: "top center",
                         className: "error"
                 });
@@ -75,9 +98,17 @@
 
         var validateForm = function(formData) {
             var error = '';
-            if (!formData.propertyName) {
-                error += 'Property is required\n';
-                $("#propertyName").focus();
+            if (!formData.phaseName) {
+                error += 'Phase is required\n';
+                $("#phaseName").focus();
+            }
+            if (!formData.activityName) {
+                error += 'Activity is required\n';
+                $("#activityName").focus();
+            }
+            if (!formData.details) {
+                error += 'Detail is required\n';
+                $("#details").focus();
             }
             if (!formData.amount) {
                 error += 'Amount is required\n';

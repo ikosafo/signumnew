@@ -31,6 +31,16 @@ extract($data);
                                         </select>
                                     </div>
                                     <div class="form-group col-md-4 col-sm-12">
+                                        <label class="form-label required">Phase</label>
+                                        <select id="phaseName" class="default-select form-control wide" required>
+                                            <option></option>
+                                            <?php foreach ($listPhases as $record): ?>
+                                                <option value="<?= $record->phaseId ?>"><?= $record->phaseName ?></option>
+                                            <?php endforeach; ?>
+                                            
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-4 col-sm-12">
                                         <label class="form-label required">Client Type</label>
                                         <select class="default-select form-control wide" id="clientType" required>
                                             <option value="">Select Client Type</option>
@@ -195,6 +205,10 @@ extract($data);
         placeholder: 'Select Property'
     })
 
+    $('#phaseName').select2({
+        placeholder: 'Select Phase'
+    })
+
    
     //Client details
     $("#saveClientDetails").on("click", function(event) {
@@ -220,6 +234,7 @@ extract($data);
             uuid: '<?php echo $uuid; ?>',
             selectedFile: $("#selected_file").val(),
             propertyName:  $("#propertyName").val(),
+            phaseName: $("#phaseName").val(),
             contractType: $("#contractType").val()
         };
 
@@ -309,6 +324,10 @@ extract($data);
             if (!clientData.propertyName) {
                 error += 'Property Name is required\n';
                 $("#propertyName").focus();
+            }
+            if (!clientData.phaseName) {
+                error += 'Phase Name is required\n';
+                $("#phaseName").focus();
             }
             if (clientData.clientType == "Property Owner" && !clientData.contractType) {
                 error += 'Contract type is required\n';

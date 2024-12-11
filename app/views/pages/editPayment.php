@@ -52,7 +52,7 @@ $uuid = $propertyDetails['uuid'];
                                             <div class="wizard-step-1 d-block">
                                                 <form class="row" id="needs-validation" novalidate="" autocomplete="off">
                                                     <div class="mb-3 col-md-4 col-sm-12">
-                                                        <label class="form-label required">Property Name/Title/Phase</label>
+                                                        <label class="form-label required">Property Name/Title</label>
                                                         <input type="text" name="propertyName" class="form-control" value="<?= $propertyDetails['propertyName'] ?>" placeholder="Green Valley Apartments" required>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">

@@ -8,22 +8,30 @@ class Forms extends Controller
         $this->view("forms/propertyCategories");
     }
 
+
     public function propertyPhases()
     {
         $this->view("forms/propertyPhases");
     }
+
 
     public function propertyActivities()
     {
         $this->view("forms/propertyActivities");
     }
 
+
     public function maintenanceFee()
     {
-        $listProperties = Properties::listProperties();
-        $this->view("forms/maintenanceFee",['listProperties' => $listProperties]);
+        $listPhase = Properties::listPhase();
+        $listActivity = Properties::listActivity();
+        $this->view("forms/maintenanceFee",[
+            'listPhase' => $listPhase,
+            'listActivity' => $listActivity
+        ]);
     }
 
+    
     public function companyDepartments()
     {
         $this->view("forms/companyDepartments");

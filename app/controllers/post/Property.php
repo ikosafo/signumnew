@@ -64,9 +64,12 @@ class Property extends PostController
 
     public function saveMaintenanceFee()
     {
-        $propertyName = $_POST['propertyName'];
+        $phaseName = $_POST['phaseName'];
+        $activityName = $_POST['activityName'];
         $amount = $_POST['amount'];
-        Properties::saveMaintenanceFee($propertyName,$amount);
+        $details = $_POST['details'];
+        $uuid = $_POST['uuid'];
+        Properties::saveMaintenanceFee($phaseName,$activityName,$details,$uuid,$amount);
     }
 
     public function editCategory()
@@ -99,6 +102,7 @@ class Property extends PostController
         $clientType = $_POST['clientType'];
         $uuid = $_POST['uuid'];
         $propertyId = $_POST['propertyName'];
+        $phaseName = $_POST['phaseName'];
         $contractType = $_POST['contractType'];
         
         Clients::saveClientDetails(
@@ -120,7 +124,8 @@ class Property extends PostController
             $uuid,
             $clientType,
             $propertyId,
-            $contractType
+            $contractType,
+            $phaseName
         );
     }
 
@@ -148,9 +153,11 @@ class Property extends PostController
         );
     }
 
+
     public function saveRentInfo()
     {
         $rentAmount = $_POST['rentAmount'];
+        $phaseid = $_POST['phaseid'];
         $securityDeposit = $_POST['securityDeposit'];
         $penaltyAmount = $_POST['penaltyAmount'];
         $startDate = $_POST['startDate'];
@@ -166,6 +173,7 @@ class Property extends PostController
 
         Properties::saveRentInfo(
             $rentAmount,
+            $phaseid,
             $securityDeposit,
             $penaltyAmount,
             $startDate,

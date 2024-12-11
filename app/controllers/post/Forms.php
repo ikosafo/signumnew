@@ -32,6 +32,23 @@ class Forms extends PostController
     }
 
 
+    public function propertyActivitiesEdit()
+    {
+        $activityid = $_POST['activityid'];
+        $activityDetails = Properties::activityDetails($activityid);
+        $activityName = $activityDetails['activityName'];
+        $description = $activityDetails['description'];
+        $uuid = $activityDetails['uuid'];
+        $this->view("forms/propertyActivitiesEdit", [
+            'activityName' => $activityName,
+            'description' => $description,
+            'activityid' => $activityid,
+            'uuid' => $uuid
+         ]);
+    }
+
+
+
     public function companyDepartmentsEdit()
     {
         $deptid = $_POST['deptid'];

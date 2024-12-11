@@ -15,6 +15,12 @@ class Delete extends PostController
         Properties::deletePhase($phaseid);
     }
 
+    public function propertyActivity()
+    {
+        $activityid = $_POST['activityid'];
+        Properties::deleteActivity($activityid);
+    }
+
     public function companyDepartment()
     {
         $deptid = $_POST['deptid'];

@@ -81,7 +81,8 @@ class Clients extends tableDataObject
                             $uuid,
                             $clientType,
                             $propertyId,
-                            $contractType
+                            $contractType,
+                            $phaseName
                                     ) {
 
         global $healthdb;
@@ -133,6 +134,7 @@ class Clients extends tableDataObject
             `emergencyName` = '$emergencyName',
             `emergencyPhone` = '$emergencyContact',
             `propertyid` = '$propertyId',
+            `phaseid` = '$phaseName',
             `contractType` = '$contractType'
 
             WHERE `uuid` = '$uuid'";
@@ -163,7 +165,8 @@ class Clients extends tableDataObject
              `emergencyName`,
              `emergencyPhone`,
              `propertyid`,
-             `contractType`
+             `contractType`,
+             `phaseid`
              )
             VALUES ('$clientType',
                     '$uuid',
@@ -184,7 +187,8 @@ class Clients extends tableDataObject
                     '$emergencyName',
                     '$emergencyContact',
                     '$propertyId',
-                    '$contractType'
+                    '$contractType',
+                    '$phaseName'
                     )";
 
                     $healthdb->prepare($query);

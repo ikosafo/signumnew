@@ -12,7 +12,8 @@
                     <thead>
                         <tr>
                             <th width="10%">NO.</th>
-                            <th width="30%">PROPERTY</th>
+                            <th width="30%">PHASE</th>
+                            <th width="30%">ACTIVITY</th>
                             <th width="50%">AMOUNT</th>
                             <th width="10%">ACTION</th>
                         </tr>

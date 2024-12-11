@@ -22,7 +22,7 @@ $uuid = $propertyDetails['uuid'];
 								<div class="wizard-step-container">
                                 <form class="row" id="needs-validation" novalidate="" autocomplete="off">
                                                     <div class="mb-3 col-md-4 col-sm-12">
-                                                        <label class="form-label required">Property Name/Title/Phase</label>
+                                                        <label class="form-label required">Property Name/Title</label>
                                                         <input type="text" name="propertyName" class="form-control" value="<?= $propertyDetails['propertyName'] ?>" placeholder="Green Valley Apartments" required>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
@@ -54,7 +54,7 @@ $uuid = $propertyDetails['uuid'];
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Property Category</label>
-                                                        <select name="propertyCategory" id="propertyCategory" class="form-control" required>
+                                                        <select id="propertyCategory" class="default-select form-control wide" required>
                                                             <option disabled>Select Category</option>
                                                             <?php foreach ($listPropertyCategory as $record): ?>
                                                                 <option value="<?= $record->categoryId ?>" 
@@ -154,10 +154,6 @@ $uuid = $propertyDetails['uuid'];
         okCancelInMulti: true
     });
 
-    $("#propertyCategory").select2({
-        placeholder: "Select Category"
-    });
-
     $("#saveProperty").on("click", function() {
         event.preventDefault(); 
 
@@ -212,7 +208,7 @@ $uuid = $propertyDetails['uuid'];
             }
             if (!formData.propertyCategory) {
                 error += 'Property Category is required\n';
-                $("input[name='propertyCategory']").focus();
+                $("#propertyCategory").focus();
             }
             if (!formData.propertyAddress) {
                 error += 'Property Address is required\n';
