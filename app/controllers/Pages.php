@@ -302,13 +302,15 @@ class Pages extends Controller
         $propertyid = $clientDetails['propertyid'];
         $propertyName = Tools::propertyClient($propertyid);
         $uuid = $clientDetails['uuid'];
+        $phaseid = $clientDetails['phaseid'];
 
         $this->view("pages/viewClient",[
             'uuid' => $uuid,
             'clientDetails' => $clientDetails,
             'propertyName' => $propertyName,
             'clientPaymentHistoy' => $clientPaymentHistoy,
-            'listClientComplaints' => $listClientComplaints
+            'listClientComplaints' => $listClientComplaints,
+            'phaseid' => $phaseid
         ]);
     } 
 
@@ -391,13 +393,15 @@ class Pages extends Controller
         $propertyid = $clientDetails['propertyid'];
         $propertyName = Tools::propertyClient($propertyid);
         $listProperties = Properties::listProperties();
+        $listPhases = Properties::listPhases();
         $uuid = $clientDetails['uuid'];
 
         $this->view("pages/editClient",[
             'uuid' => $uuid,
             'clientDetails' => $clientDetails,
             'propertyName' => $propertyName,
-            'listProperties' => $listProperties
+            'listProperties' => $listProperties,
+            'listPhases' => $listPhases
         ]);
     } 
 

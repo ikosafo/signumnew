@@ -13,6 +13,7 @@
                         <tr>
                             <th width="10%">NO.</th>
                             <th width="20%">FULL NAME</th>
+                            <th width="20%">PROPERTY</th>
                             <th width="20%">EMAIL ADDRESS</th>
                             <th width="20%">TELEPHONE</th>
                             <th width="20%">OCCUPATION</th>
@@ -26,6 +27,7 @@
                             <tr>
                                 <td><strong class="text-black"><?= $no++ ?></strong></td>
                                 <td><?= $result->fullName ?></td>
+                                <td><?= Tools::propertyClient($result->propertyid). '<br><small><strong>'. Tools::propertyPhase($result->phaseid) . '</strong></small>' ?></td>
                                 <td><?= $result->emailAddress ?></td>
                                 <td><?= $result->phoneNumber ?></td>
                                 <td><?= $result->occupation ?></td>

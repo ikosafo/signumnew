@@ -25,11 +25,15 @@ extract($data);
                                         <p><?= $propertyName ?></p>
                                     </div>
                                     <div class="form-group col-md-4 col-sm-12">
-                                        <label class="form-label required">Client Type</label>
+                                        <label class="form-label">Phase</label>
+                                        <p><?= Tools::propertyPhase($phaseid) ?></p>
+                                    </div>
+                                    <div class="form-group col-md-4 col-sm-12">
+                                        <label class="form-label">Client Type</label>
                                         <p><?= $clientDetails['clientType'] ?></p>
                                     </div>
                                     <div class="form-group col-md-4 col-sm-12">
-                                        <label class="form-label required">Ownership Type</label>
+                                        <label class="form-label">Ownership Type</label>
                                         <p><?= $clientDetails['ownershipType'] ?></p>
                                     </div>
                                     <div class="form-group col-md-4 col-sm-12">
@@ -81,11 +85,11 @@ extract($data);
                                         <p><?= $clientDetails['employersPhone'] ?></p>
                                     </div>
                                     <div class="form-group col-md-4 col-sm-12">
-                                        <label class="form-label required">Emergency Contact Name</label>
+                                        <label class="form-label">Emergency Contact Name</label>
                                         <p><?= $clientDetails['emergencyName'] ?></p>
                                     </div>
                                     <div class="form-group col-md-4 col-sm-12">
-                                        <label class="form-label required">Emergency Phone Number</label>
+                                        <label class="form-label">Emergency Phone Number</label>
                                         <p><?= $clientDetails['emergencyPhone'] ?></p>
                                     </div>
                                     <div class="form-group col-md-4 col-sm-12">

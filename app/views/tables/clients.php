@@ -29,7 +29,7 @@
                                 <td><strong class="text-black"><?= $no++ ?></strong></td>
                                 <td><?= $result->clientType ?></td>
                                 <td><?= Tools::propertyClient($result->propertyid) ?></td>
-                                <td><?= Tools::propertyClient($result->clientid) ?></td>
+                                <td><?= Tools::propertyPhase($result->phaseid) ?></td>
                                 <td><?= $result->fullName ?></td>
                                 <td><?= $result->emailAddress ?></td>
                                 <td><?= $result->phoneNumber ?></td>

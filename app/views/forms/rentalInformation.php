@@ -66,7 +66,7 @@ $uuid = Tools::generateUUID();
                         <div class="form-group col-md-4 col-sm-12">
                             <label class="form-label required">Lease Renewal Option</label>
                             <select id="leaseRenewable" class="default-select form-control wide" required>
-                                <option value=""></option>
+                                <option value="">Is Lease Renewable?</option>
                                 <option value="Yes">Yes</option>
                                 <option value="No">No</option>
                             </select>
@@ -97,13 +97,14 @@ $uuid = Tools::generateUUID();
 <script>
     $("#startDate").flatpickr();
     $("#endDate").flatpickr();
-    $("#bedroomNumber").select2({
+
+    $("#bedroomNumber").selectpicker({
         placeholder:"Select Number"
     });
-    $("#leaseType").select2({
+    $("#leaseType").selectpicker({
         placeholder:"Select Type"
     });
-    $("#leaseRenewable").select2({
+    $("#leaseRenewable").selectpicker({
         placeholder:"Is Lease Renewable?"
     });
 
@@ -121,7 +122,7 @@ $uuid = Tools::generateUUID();
             leaseRenewable: $("#leaseRenewable").val(),
             additionalDescription: $("#description").val(),
             additionalCharges: $("#additionalCharges").val(),
-            phaseid: $("#phaseid").val(),
+            phaseid: '<?php echo $phaseid; ?>',
             uuid: '<?php echo $uuid; ?>',
             propertyid: '<?php echo $propertyid ?>',
             clientid: '<?php echo $clientid ?>'
@@ -182,6 +183,10 @@ $uuid = Tools::generateUUID();
             if (!rentData.leaseRenewable) {
                 error += 'Lease Renewal Option is required\n';
                 $("#leaseRenewable").focus();
+            }
+            if (!rentData.additionalCharges) {
+                error += 'Additional Charge is required\n';
+                $("#additionalCharges").focus();
             }
 
             // Additional validation for Month-to-month lease

@@ -41,7 +41,8 @@ class Clients extends tableDataObject
             'uuid' => $resultRec->uuid,
             'propertyid' => $resultRec->propertyid,
             'contractType' => $resultRec->contractType,
-            'clientid' => $resultRec->clientid
+            'clientid' => $resultRec->clientid,
+            'phaseid' => $resultRec->phaseid
 
         ];
     }
@@ -210,7 +211,7 @@ class Clients extends tableDataObject
                     <p>Please keep these credentials secure. We recommend updating your password after your first login.</p>
                     <p>Thank you,<br>The Signum Properties Team</p>";
 
-                    //SendEmail::compose($emailAddress, $subject, $message);
+                    SendEmail::compose($emailAddress, $subject, $message);
                     $insertUser = "INSERT INTO `compusers` (`dateBirth`,`address`,`emailaddress`,`phoneNumber`,`altPhoneNumber`,`username`, `password`, `uuid`, `createdAt`,`accessLevel`) VALUES ('$birthDate','$residentialAddress','$emailAddress','$phoneNumber','$altPhoneNumber','$emailAddress', '" . md5($password) . "', '$uuid', NOW(), 'Client')";
                     $healthdb->prepare($insertUser);
                     $healthdb->execute();

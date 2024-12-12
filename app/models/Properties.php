@@ -589,7 +589,8 @@ class Properties extends tableDataObject
                     `renewable` = '$leaseRenewable',
                     `description` = '$additionalDescription',
                     `addCharges` = '$additionalCharges',
-                    `updatedAt` = NOW()
+                    `updatedAt` = NOW(),
+                    `phaseid` = '$phaseid'
                 WHERE `uuid` = '$uuid'";
     
             $healthdb->prepare($query);
@@ -643,7 +644,7 @@ class Properties extends tableDataObject
                 $healthdb->execute();
     
                 // Add billing rows
-                self::generateMonthlyBills($startDate, $endDate, $uuid, $clientid);
+                //self::generateMonthlyBills($startDate, $endDate, $uuid, $clientid);
 
                 $subject = 'Rent Agreement Confirmation and Details';
                 $fullName = Tools::clientName($clientid);

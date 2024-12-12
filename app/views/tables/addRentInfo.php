@@ -28,7 +28,7 @@
                             <tr>
                                 <td><strong class="text-black"><?= $no++ ?></strong></td>
                                 <td><?= Tools::clientName($result->clientid) ?></td>
-                                <td><?= Tools::propertyClient($result->propertyid) ?></td>
+                                <td><?= Tools::propertyClient($result->propertyid). '<br><small><strong>'. Tools::propertyPhase($result->phaseid) . '</strong></small>' ?></td>
                                 <td><?= $result->startDate ?></td>
                                 <td><?= $result->endDate ?></td>
                                 <td><?= number_format($result->rentAmount,2) ?></td>
