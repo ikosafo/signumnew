@@ -205,36 +205,57 @@ class Properties extends tableDataObject
     }
 
 
-    public static function saveCategory($categoryName,$description) {
+    public static function saveCategory($categoryName, $uuid, $description) {
 
         global $healthdb;
-
-        $getName = "SELECT * FROM `propertycategory` WHERE `categoryName` = '$categoryName' AND `status` = 1";
+    
+        $getName = "SELECT * FROM `propertycategory` WHERE `categoryName` = '$categoryName' AND `uuid` != '$uuid' AND `status` = 1";
         $healthdb->prepare($getName);
         $resultName = $healthdb->singleRecord();
-
+    
         if ($resultName) {
-            //Already exists
+            // Category already exists
             echo 2;
-        }
-        else {
-            $query = "INSERT INTO `propertycategory`
-            (`categoryName`,
-             `description`,
-              `createdAt`
-             )
-            VALUES ('$categoryName',
-                    '$description',
-                    NOW()
-                    )";
-
+        } else {
+            // Check if the category with the given UUID exists
+            $getCategory = "SELECT * FROM `propertycategory` WHERE `uuid` = '$uuid' AND `status` = 1";
+            $healthdb->prepare($getCategory);
+            $resultCategory = $healthdb->singleRecord();
+    
+            if ($resultCategory) {
+                // Update existing category
+                $updateQuery = "UPDATE `propertycategory` 
+                                SET `categoryName` = '$categoryName',
+                                    `description` = '$description', 
+                                    `updatedAt` = NOW() 
+                                WHERE `uuid` = '$uuid'";
+                $healthdb->prepare($updateQuery);
+                $healthdb->execute();
+                echo 3;  // Successfully updated
+            } else {
+                // Insert new category
+                $query = "INSERT INTO `propertycategory`
+                (
+                `categoryName`,
+                `uuid`,
+                `description`,
+                `createdAt`
+                )
+                VALUES (
+                        '$categoryName',
+                        '$uuid',
+                        '$description',
+                        NOW()
+                        )";
+    
                 $healthdb->prepare($query);
                 $healthdb->execute();
                 echo 1;  // Successfully inserted
+            }
         }
-       
     }
-
+    
+    
 
     public static function savePhase($phaseName, $uuid, $description) {
 
@@ -281,7 +302,6 @@ class Properties extends tableDataObject
             }
         }
     }
-    
 
 
     public static function saveActivity($activityName, $uuid, $description) {
@@ -833,9 +853,11 @@ class Properties extends tableDataObject
         $resultRec = $healthdb->singleRecord();
         $categoryName = $resultRec->categoryName;
         $description = $resultRec->description;
+        $uuid = $resultRec->uuid;
         return [
             'categoryName' => $categoryName,
-            'description' => $description
+            'description' => $description,
+            'uuid' => $uuid
         ];
     }
 

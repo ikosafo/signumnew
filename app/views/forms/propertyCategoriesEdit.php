@@ -35,17 +35,17 @@
             var formData = {
                 categoryName: $("input[name='categoryName']").val(),
                 description: $("textarea[name='description']").val(),
-                catid: '<?php echo $catid; ?>'
+                uuid: '<?php echo $uuid ?>'
             };
-            var url = urlroot + "/property/editCategory";
+            var url = urlroot + "/property/saveCategory";
 
             var successCallback = function(response) {
                 //alert(response);
-                if (response == 1) {
+                if (response == 1 || response == 3) {
                     $('html, body').animate({
                         scrollTop: $("#categoryTableDiv").offset().top
                     }, 200);
-                    $.notify("Category saved", {
+                    $.notify("Category updated", {
                             position: "top center",
                             className: "success"
                     });

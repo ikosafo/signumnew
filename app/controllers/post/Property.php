@@ -40,7 +40,8 @@ class Property extends PostController
     {
         $categoryName = $_POST['categoryName'];
         $description = $_POST['description'];
-        Properties::saveCategory($categoryName,$description);
+        $uuid = $_POST['uuid'];
+        Properties::saveCategory($categoryName,$uuid,$description);
     }
 
 

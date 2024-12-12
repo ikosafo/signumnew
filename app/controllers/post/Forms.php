@@ -8,10 +8,12 @@ class Forms extends PostController
         $categoryDetails = Properties::categoryDetails($catid);
         $categoryName = $categoryDetails['categoryName'];
         $description = $categoryDetails['description'];
+        $uuid = $categoryDetails['uuid'];
         $this->view("forms/propertyCategoriesEdit", [
             'categoryName' => $categoryName,
             'description' => $description,
             'catid' => $catid,
+            'uuid' => $uuid,
          ]);
     }
 
