@@ -286,6 +286,17 @@ class Tools extends tableDataObject{
         return $result;
     }
 
+
+    public static function getActivityName($activityid) {
+        global $healthdb;
+
+        $query = "SELECT `activityName` FROM `propertyactivity` WHERE `activityId` = '$activityid'";
+        $healthdb->prepare($query);
+        $result = $healthdb->fetchColumn();
+        return $result;
+    }
+    
+
     public static function getClientProperty($clientid) {
         global $healthdb;
 

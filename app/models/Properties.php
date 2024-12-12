@@ -381,6 +381,7 @@ class Properties extends tableDataObject
                 `activityid`,
                 `details`,
                 `amount`,
+                `uuid`,
                 `createdAt`
                 )
                 VALUES (
@@ -388,6 +389,7 @@ class Properties extends tableDataObject
                         '$activityName',
                         '$details',
                         '$amount',
+                        '$uuid',
                         NOW()
                         )";
     
