@@ -82,11 +82,8 @@
         var successCallback = function(response) {
             $('#detailsIssueDiv').html(response);
         };
-        saveForm(formData, url, successCallback);
-       
+        saveForm(formData, url, successCallback);    
     });
 
    
-
-
 </script>

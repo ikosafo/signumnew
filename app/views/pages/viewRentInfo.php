@@ -25,6 +25,10 @@ extract($data);
                                             <label class="form-label">Property</label>
                                             <p><strong style="text-transform: uppercase;"><?= Tools::propertyClient($rentInfo['propertyid']) ?></strong></p>
                                         </div>
+                                        <div class="form-group col-md-4 col-sm-12">
+                                            <label class="form-label">Phase</label>
+                                            <p><strong style="text-transform: uppercase;"><?= strtoupper(Tools::propertyPhase($rentInfo['phaseid'])); ?></strong></p>
+                                        </div>
                                     </div> 
                                     <hr>
 

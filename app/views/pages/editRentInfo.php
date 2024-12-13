@@ -27,9 +27,12 @@ $propertyid = $rentInfo['propertyid'];
                                             <label class="form-label">Property</label>
                                             <input type="text" class="form-control" disabled value="<?= strtoupper(Tools::propertyClient($propertyid)); ?>">
                                         </div>
+                                        <div class="form-group col-md-4 col-sm-12">
+                                            <label class="form-label">Phase</label>
+                                            <input type="text" class="form-control" disabled value="<?= strtoupper(Tools::propertyPhase($rentInfo['phaseid'])); ?>">
+                                        </div>
                                     </div> 
                                     <hr>
-
                                     <div class="row">
                                         <div class="form-group col-md-4 col-sm-12">
                                             <label class="form-label required">Monthly Rent Amount</label>
@@ -121,13 +124,14 @@ $propertyid = $rentInfo['propertyid'];
 
     $("#startDate").flatpickr();
     $("#endDate").flatpickr();
-    $("#bedroomNumber").select2({
+
+    $("#bedroomNumber").selectpicker({
         placeholder:"Select Number"
     });
-    $("#leaseType").select2({
+    $("#leaseType").selectpicker({
         placeholder:"Select Type"
     });
-    $("#leaseRenewable").select2({
+    $("#leaseRenewable").selectpicker({
         placeholder:"Is Lease Renewable?"
     });
 
@@ -210,7 +214,10 @@ $propertyid = $rentInfo['propertyid'];
                 error += 'Lease Renewal Option is required\n';
                 $("#leaseRenewable").focus();
             }
-
+            if (!rentData.additionalCharges) {
+                error += 'Additional Charge is required\n';
+                $("#additionalCharges").focus();
+            }
 
             return error;
         };

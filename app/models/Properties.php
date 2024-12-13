@@ -666,7 +666,7 @@ class Properties extends tableDataObject
                 $healthdb->execute();
     
                 // Add billing rows
-                //self::generateMonthlyBills($startDate, $endDate, $uuid, $clientid);
+                self::generateMonthlyBills($startDate, $endDate, $uuid, $clientid);
 
                 $subject = 'Rent Agreement Confirmation and Details';
                 $fullName = Tools::clientName($clientid);
@@ -747,12 +747,13 @@ class Properties extends tableDataObject
     }
    
     
+
     // Generate monthly billing records
     public static function generateMonthlyBills($startDate, $endDate, $uuid, $clientid)
     {
         global $healthdb;
 
-        $rentAmount = Tools::getMaintenanceFee($clientid);
+        //$rentAmount = Tools::getMaintenanceFee($clientid);
     
         // Convert dates to DateTime objects
         $start = new DateTime($startDate);
@@ -768,7 +769,6 @@ class Properties extends tableDataObject
             // Prepare the insert query for billing
             $query = "INSERT INTO `billing` (
                     `billType`,
-                    `amountPaid`,
                     `clientid`,
                     `createdAt`,
                     `uuid`,
@@ -776,8 +776,7 @@ class Properties extends tableDataObject
                     `dateDue`
                 )
                 VALUES (
-                    'Rent',
-                    '$rentAmount', 
+                    'Maintenance', 
                     '$clientid',
                     NOW(),
                     '$uuid',
@@ -1074,7 +1073,8 @@ class Properties extends tableDataObject
             'addCharges' => $resultRec->addCharges,
             'clientid' => $resultRec->clientid,
             'propertyid' => $resultRec->propertyid,
-            'uuid' => $resultRec->uuid
+            'uuid' => $resultRec->uuid,
+            'phaseid' => $resultRec->phaseid
         ];
     }
 
