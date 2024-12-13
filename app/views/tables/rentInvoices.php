@@ -73,7 +73,7 @@
         $('html, body').animate({
                 scrollTop: $("#detailsIssueDiv").offset().top
         }, 2000);
-        //alert(idIndex);
+        //alert(rentid);
 
         var formData = {
             rentid: rentid

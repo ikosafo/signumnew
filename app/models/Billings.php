@@ -117,6 +117,175 @@ class Billings extends tableDataObject
     }
 
 
+    public static function generateRentInvoice($rentid) {
+        global $healthdb;
+    
+        $clientid = Tools::getClientfromRent($rentid);
+        $subject = "Rent Invoice";
+        $fullName = Tools::clientName($clientid);
+        $emailAddress = Tools::clientEmail($clientid);
+        $rentInfo = Properties::rentInfo($rentid);
+    
+        // Generate the email message
+        $message = "
+        <!DOCTYPE html>
+        <html lang='en'>
+        <head>
+            <meta charset='UTF-8'>
+            <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+            <title>Rent Invoice</title>
+            <style>
+                .receipt-footer {
+                    text-align: center;
+                    margin-top: 20px;
+                    font-size: 12px;
+                    color: #888;
+                }
+                .table {
+                    width: 100%;
+                    margin-bottom: 20px;
+                    border-collapse: collapse;
+                }
+                .table th, .table td {
+                    padding: 8px 12px;
+                    border: 1px solid #ddd;
+                    text-align: left;
+                }
+                .table th {
+                    background-color: #f4f4f4;
+                }
+                .right {
+                    text-align: right;
+                }
+                .center {
+                    text-align: center;
+                }
+                .address-container {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-top: 20px;
+                    margin-bottom: 20px;
+                }
+                .address-section {
+                    width: 48%;
+                    padding: 10px;
+                    background-color: #f9f9f9;
+                    border: 1px solid #ddd;
+                    border-radius: 5px;
+                }
+                .address-section h6 {
+                    margin-top: 0;
+                    font-weight: bold;
+                }
+                .detail-item {
+                    margin-bottom: 5px;
+                }
+                .detail-item span {
+                    display: block;
+                }
+            </style>
+        </head>
+        <body>
+            <div style='font-family: Arial, sans-serif;'>
+                <p>Dear " . $fullName . ",</p>
+                <p>We hope this message finds you well. Please find below the details of your rent invoice for the current period:</p>
+    
+                <!-- Address Section: From and To -->
+                <div class='address-container'>
+                    <div class='address-section'>
+                        <h6>From:</h6>
+                        <div><strong>Signum Properties</strong></div>
+                        <div class='detail-item'>Address: [Your Address Here]</div>
+                        <div class='detail-item'>Email: info@signumproperties.com</div>
+                        <div class='detail-item'>Phone: +233 123 456 7890</div>
+                    </div>
+    
+                    <div class='address-section'>
+                        <h6>To:</h6>
+                        <div><strong>" . Tools::clientName($rentInfo['clientid']) . "</strong></div>
+                        <div class='detail-item'>" . Tools::clientAddress($rentInfo['clientid']) . "</div>
+                        <div class='detail-item'>Email: " . Tools::clientEmail($rentInfo['clientid']) . "</div>
+                        <div class='detail-item'>Phone: " . Tools::clientPhone($rentInfo['clientid']) . "</div>
+                    </div>
+                </div>
+    
+                <!-- Date and Invoice Info Section -->
+                <div class='address-container'>
+                    <div class='address-section'>
+                        <div class='detail-item'><span>Date:</span><span>" . (new DateTime($rentInfo['createdAt']))->format('F j, Y') . "</span></div>
+                        <div class='detail-item'><span>Invoice No:</span><span>" . Tools::generateReceiptNumber($rentInfo['createdAt']) . "</span></div>
+                    </div>
+                    <div class='address-section'>
+                        <div class='detail-item'><span>Customer Name:</span><span>" . Tools::clientName($rentInfo['clientid']) . "</span></div>
+                    </div>
+                </div>
+    
+                <div class='table-responsive'>
+                    <table class='table'>
+                        <thead>
+                            <tr>
+                                <th class='center'>#</th>
+                                <th>Description</th>
+                                <th>Rent Amount</th>
+                                <th>Security</th>
+                                <th>Penalty</th>
+                                <th class='right'>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong class='text-black'>1</strong></td>
+                                <td>Rent</td>
+                                <td>" . number_format($rentInfo['rentAmount'], 2) . "</td>
+                                <td>" . number_format($rentInfo['securityAmount'], 2) . "</td>
+                                <td>" . number_format($rentInfo['penaltyAmount'], 2) . "</td>
+                                <td class='right'><strong>" . number_format($rentInfo['rentAmount'] + $rentInfo['securityAmount'] + $rentInfo['penaltyAmount'], 2) . "</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+    
+                <div class='row'>
+                    <div class='col-lg-4 col-sm-5'> </div>
+                    <div class='col-xl-4 col-lg-4 col-sm-7 ms-auto'>
+                        <table class='table'>
+                            <tbody>
+                                <tr>
+                                    <td class='left'>Subtotal</td>
+                                    <td class='right'>" . number_format($rentInfo['rentAmount'] + $rentInfo['securityAmount'] + $rentInfo['penaltyAmount'], 2) . "</td>
+                                </tr>
+                                <tr>
+                                    <td class='left'><strong class='text-black'>Total</strong></td>
+                                    <td class='right'><strong class='text-black'>" . number_format($rentInfo['rentAmount'] + $rentInfo['securityAmount'] + $rentInfo['penaltyAmount'], 2) . "</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class='receipt-footer'>
+                        <p>This is a computer-generated invoice. No signature required.</p>
+                    </div>
+                </div>
+            </div>
+        </body>
+        </html>";
+    
+        // Send email and handle potential errors
+        try {
+            if (SendEmail::compose($emailAddress, $subject, $message)) {
+                echo "Email sent successfully.\n";
+            } else {
+                echo "Failed to send email.\n";
+            }
+        } catch (Exception $e) {
+            echo "Error sending email: " . $e->getMessage() . "\n";
+        }
+    
+        echo 1;
+    }
+    
+    
+
+
     public static function saveBilling($amountPaid,
                         $billDate,
                         $billType,
@@ -297,7 +466,7 @@ class Billings extends tableDataObject
                         echo "Error sending email: " . $e->getMessage() . "\n";
                     }
 
-                        echo 1; 
+                    echo 1; 
            
         }
     }

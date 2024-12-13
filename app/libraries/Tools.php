@@ -295,6 +295,16 @@ class Tools extends tableDataObject{
         $result = $healthdb->fetchColumn();
         return $result;
     }
+
+
+    public static function getClientfromRent($rentid) {
+        global $healthdb;
+
+        $query = "SELECT `clientid` FROM `rentinfo` WHERE `rentid` = '$rentid'";
+        $healthdb->prepare($query);
+        $result = $healthdb->fetchColumn();
+        return $result;
+    }
     
 
     public static function getClientProperty($clientid) {

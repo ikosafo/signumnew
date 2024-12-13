@@ -1,18 +1,18 @@
 <?php extract($data); ?>
 <style>
-     .receipt-footer {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 12px;
-            color: #888;
-        }
+    .receipt-footer {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 12px;
+        color: #888;
+    }
 </style>
 <div id="print_this">
     <div class="row">
         <div class="col-lg-12">
 
             <div class="card">
-                <div class="card-header"> <strong>PAYMENT RECEIPT</strong>  </div>
+                <div class="card-header text-uppercase"> RENT INVOICE</strong>  </div>
                 <div class="card-body">
                     <div class="row mb-5">
                         <div class="mt-4 col-xl-3 col-lg-3 col-md-6 col-sm-6">
@@ -24,24 +24,24 @@
                         </div>
                         <div class="mt-4 col-xl-3 col-lg-3 col-md-6 col-sm-6">
                             <h6>To:</h6>
-                            <div> <strong><?= Tools::clientName($paymentDetails['clientid']); ?></strong> </div>
-                            <div><?= Tools::clientAddress($paymentDetails['clientid']) ?></div>
-                            <div>Email: <?= Tools::clientEmail($paymentDetails['clientid']) ?></div>
-                            <div>Phone: <?= Tools::clientPhone($paymentDetails['clientid']) ?></div>
+                            <div> <strong><?= Tools::clientName($rentInfo['clientid']); ?></strong> </div>
+                            <div><?= Tools::clientAddress($rentInfo['clientid']) ?></div>
+                            <div>Email: <?= Tools::clientEmail($rentInfo['clientid']) ?></div>
+                            <div>Phone: <?= Tools::clientPhone($rentInfo['clientid']) ?></div>
                         </div>
                         <div class="mt-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 d-flex justify-content-lg-end justify-content-md-start justify-content-xs-start">
                             <div class="row align-items-center">
                                 <div class="col-sm-12"> 
                                     <span>Date:</span>
-                                    <span><?php $date = new DateTime($paymentDetails['datePaid']);
+                                    <span><?php $date = new DateTime($rentInfo['createdAt']);
                                             echo $date->format('F j, Y'); ?></span>
                                     <div class="detail-item">
-                                        <span>Receipt No:</span>
-                                        <span><?= Tools::generateReceiptNumber($paymentDetails['createdAt']) ?></span>
+                                        <span>Invoice No:</span>
+                                        <span><?= Tools::generateReceiptNumber($rentInfo['createdAt']) ?></span>
                                     </div>
                                     <div class="detail-item">
                                         <span>Customer Name:</span>
-                                        <span><?= Tools::clientName($paymentDetails['clientid']); ?></span>
+                                        <span><?= Tools::clientName($rentInfo['clientid']); ?></span>
                                     </div>
                                 </div>
                                 <div class="col-sm-4"> </div>
@@ -54,23 +54,27 @@
                                 <tr>
                                     <th class="center">#</th>
                                     <th>Description</th>
-                                    <th>Payment Method</th>
-                                    <th>Quantity</th>
-                                    <th>Price</th>
+                                    <th>Rent Amount</th>
+                                    <th>Security</th>
+                                    <th>Penalty</th>
                                     <th class="right">Total</th>
                                 </tr>
                             </thead>
                             <tbody>
-                        
+                                <?php
+                                $subtotal = 0;
+                                $rowTotal = $rentInfo['rentAmount'] + $rentInfo['securityAmount'] + $rentInfo['penaltyAmount'];
+                                $subtotal += $rowTotal;
+                                ?>
                                 <tr>
                                     <td><strong class="text-black">1</strong></td>
-                                    <td><?= $paymentDetails['billType'] ?></td>
-                                    <td><?= $paymentDetails['paymentMethod'] ?></td>
-                                    <td>1</td>
-                                    <td><?= $paymentDetails['amountPaid'] ?></td>
-                                    <td><?= $paymentDetails['amountPaid'] ?></td>
+                                    <td>Rent</td>
+                                    <td><?= number_format($rentInfo['rentAmount'], 2) ?></td>
+                                    <td><?= number_format($rentInfo['securityAmount'], 2) ?></td>
+                                    <td><?= number_format($rentInfo['penaltyAmount'], 2) ?></td>
+                                    <td class="right"><strong><?= number_format($rowTotal, 2) ?></strong></td>
                                 </tr>
-                        </tbody>
+                            </tbody>
                         </table>
                     </div>
                     <div class="row">
@@ -79,30 +83,30 @@
                             <table class="table table-clear">
                                 <tbody>
                                     <tr>
-                                        <td class="left"><strong class="text-black">Subtotal</strong></td>
-                                        <td class="right">0.00</td>
+                                        <td class="left">Subtotal</td>
+                                        <td class="right"><?= number_format($subtotal, 2) ?></td>
                                     </tr>
                                     <tr>
                                         <td class="left"><strong class="text-black">Total</strong></td>
-                                        <td class="right"><strong class="text-black"><?= $paymentDetails['amountPaid'] ?></strong></td>
+                                        <td class="right"><strong class="text-black"><?= number_format($rowTotal, 2) ?></strong></td>
                                     </tr>
                                 </tbody>
                             </table>
-                        
                         </div>
                         <div class="receipt-footer">
-                            <p>This is a computer-generated receipt. No signature required.</p>
+                            <p>This is a computer-generated invoice. No signature required.</p>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
     </div> 
 </div> 
 
-<a href="#" id="printbutton" class="btn btn-sm btn-primary font-weight-lighter mr-2 text-small">Print Receipt</a>
+<a href="javascript:void(0);" class="btn btn-sm btn-primary emailInvoice font-weight-lighter mr-2 text-small" rentid='<?= $rentInfo['rentid'] ?>'>Email Invoice</a>
 
-<script>
+<!-- <script>
     function printContent() {
         printJS({
             printable: 'print_this',
@@ -112,5 +116,41 @@
     }
 
     document.getElementById('printbutton').addEventListener('click', printContent);
+ </script> -->
+
+
+
+ <script>
+
+    $(document).on('click', '.emailInvoice', function() {
+        var rentid = $(this).attr('rentid');
+        var url = urlroot + "/billing/generateInvoice";
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { rentid: rentid },
+            success: function(response) {
+                if (response == '1') {
+                    $.notify("Email sent successfully", {
+                        position: "top center",
+                        className: "success"
+                    });
+                } else {
+                    $.notify("Error sending email", {
+                        position: "top center",
+                        className: "error"
+                    });
+                }
+            },
+            error: function() {
+                $.notify("An unexpected error occurred", {
+                    position: "top center",
+                    className: "error"
+                });
+            }
+        });
+    });
+
  </script>
 

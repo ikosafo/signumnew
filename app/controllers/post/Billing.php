@@ -41,6 +41,12 @@ class Billing extends PostController
     }
 
 
+    public function generateInvoice() {
+        $rentid = $_POST['rentid'];
+        Billings::generateRentInvoice($rentid);
+    }
+
+
     public function verifyPayment()
     {
         $reference = $_POST['reference'];

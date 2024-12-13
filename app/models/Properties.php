@@ -1074,7 +1074,9 @@ class Properties extends tableDataObject
             'clientid' => $resultRec->clientid,
             'propertyid' => $resultRec->propertyid,
             'uuid' => $resultRec->uuid,
-            'phaseid' => $resultRec->phaseid
+            'phaseid' => $resultRec->phaseid,
+            'createdAt' => $resultRec->createdAt,
+            'rentid' => $resultRec->rentid
         ];
     }
 
