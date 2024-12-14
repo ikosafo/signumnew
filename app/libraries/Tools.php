@@ -307,6 +307,16 @@ class Tools extends tableDataObject{
     }
 
 
+    public static function getClientfromBilling($billid) {
+        global $healthdb;
+
+        $query = "SELECT `clientid` FROM `billing` WHERE `billid` = '$billid'";
+        $healthdb->prepare($query);
+        $result = $healthdb->fetchColumn();
+        return $result;
+    }
+
+
     public static function getPhasefromClient($clientid) {
         global $healthdb;
 

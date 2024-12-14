@@ -15,7 +15,7 @@ $uuid = Tools::generateUUID();
                             <label class="form-label">Property</label>
                             <input type="text" class="form-control" disabled value="<?= strtoupper(Tools::propertyClient($propertyid)); ?>">
                         </div>
-                    </div> 
+                      </div> 
                     <hr>
 
                     <div class="row">

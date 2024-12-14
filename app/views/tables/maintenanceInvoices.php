@@ -86,5 +86,24 @@
         saveForm(formData, url, successCallback);    
     });
 
+
+    $(document).on('click', '.getBills', function() {
+        var billid = $(this).attr('billid');
+        
+        $('html, body').animate({
+                scrollTop: $("#detailsIssueDiv").offset().top
+        }, 2000);
+        //alert(billid);
+
+        var formData = {
+            billid: billid
+        };
+        var url = "/tables/maintenanceBilling";
+        var successCallback = function(response) {
+            $('#detailsIssueDiv').html(response);
+        };
+        saveForm(formData, url, successCallback);
+    })
+
    
 </script>

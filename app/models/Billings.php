@@ -509,6 +509,24 @@ class Billings extends tableDataObject
     }
 
 
+    public static function maintenanceBilling($billid) {
+        global $healthdb;
+
+        $clientid = Tools::getClientfromBilling($billid);
+
+        $getList = "SELECT * 
+                    FROM `billing` 
+                    WHERE `status` = 1 
+                    AND `clientid` = '$clientid'
+                    AND `billType` = 'Maintenance' 
+                    ORDER BY `createdAt` DESC";
+        $healthdb->prepare($getList);
+        $resultList = $healthdb->resultSet();
+        return $resultList;
+    }
+
+
+
     public static function listClientMaintenance($clientid) {
         global $healthdb;
 

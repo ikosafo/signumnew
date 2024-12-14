@@ -83,7 +83,6 @@ class Tables extends Controller
         $this->view("tables/maintenanceInvoices",['listCurrentMaintenance' => $listCurrentMaintenance]);
     }
 
-
     public function rentDueInfo()
     {
         $listRentInformation = Properties::listRentInformation();

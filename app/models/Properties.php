@@ -780,7 +780,7 @@ class Properties extends tableDataObject
                     '$clientid',
                     NOW(),
                     '$uuid',
-                    'Monthly rent due',
+                    'Monthly maintenance payment',
                     '$dateDue'
                 )";
     
