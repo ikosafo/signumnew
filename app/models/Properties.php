@@ -833,6 +833,16 @@ class Properties extends tableDataObject
         return $resultList;
     }
 
+    public static function getClientNumberPhase($phaseid) {
+        global $healthdb;
+
+        $getnum = "SELECT COUNT(*) AS count FROM `clients` WHERE `phaseid` = '$phaseid' AND `status` = 1";
+        $healthdb->prepare($getnum);
+        $result = $healthdb->singleRecord();
+        return $result->count;
+ 
+    }
+
     
     public static function listRentInformation() {
         global $healthdb;

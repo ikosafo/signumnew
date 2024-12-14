@@ -1,4 +1,36 @@
-<?php extract($data); ?>
+<?php extract($data); 
+
+// Sort $listClientMaintenance by activity
+usort($listClientMaintenance, function ($a, $b) {
+    return strcmp(Tools::getActivityName($a->activityid), Tools::getActivityName($b->activityid));
+});
+
+// Precalculate the number of people per phase
+$phaseCount = [];
+foreach ($listClientMaintenance as $fee) {
+    $phase = Tools::propertyPhase($fee->phaseid);
+    if (!isset($phaseCount[$phase])) {
+        $phaseCount[$phase] = Properties::getClientNumberPhase($fee->phaseid); // Function to get tenant count in phase
+    }
+}
+
+// Calculate totals
+$subtotal = 0;
+$activityTotals = [];
+foreach ($listClientMaintenance as $fee) {
+    $phase = Tools::propertyPhase($fee->phaseid);
+    $tenantCount = $phaseCount[$phase] ?? 1;
+    $individualAmount = $fee->amount / $tenantCount;
+    $subtotal += $individualAmount;
+
+    $activityName = Tools::getActivityName($fee->activityid);
+    if (!isset($activityTotals[$activityName])) {
+        $activityTotals[$activityName] = 0;
+    }
+    $activityTotals[$activityName] += $individualAmount;
+}
+?>
+
 <style>
     .receipt-footer {
         text-align: center;
@@ -49,31 +81,48 @@
                         </div>
                     </div>
                     <div class="table-responsive">
-                        <table class="table table-striped">
+                        <table class="table">
                             <thead>
                                 <tr>
-                                    <th class="center">#</th>
-                                    <th>Description</th>
-                                    <th>Rent Amount</th>
-                                    <th>Security</th>
-                                    <th>Penalty</th>
-                                    <th class="right">Total</th>
+                                    <th>ACTIVITY</th>
+                                    <th>DETAIL</th>
+                                    <th>OPTIONAL <br> SERVICES</th>
+                                    <th>AMOUNT /<br> MONTH</th>
+                                    <th class="right">INDIVIDUAL AMOUNT /<br> MONTH</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                $subtotal = 0;
-                                $rowTotal = $billInfo['rentAmount'] + $billInfo['securityAmount'] + $billInfo['penaltyAmount'];
-                                $subtotal += $rowTotal;
+                              
+                                $currentActivity = '';
+                                $activityRowCount = [];
+                                foreach ($listClientMaintenance as $fee) {
+                                    $activity = Tools::getActivityName($fee->activityid);
+                                    if (!isset($activityRowCount[$activity])) {
+                                        $activityRowCount[$activity] = 0;
+                                    }
+                                    $activityRowCount[$activity]++;
+                                }
+
+                                foreach ($listClientMaintenance as $fee):
+                                    $activity = Tools::getActivityName($fee->activityid);
+                                    $details = $fee->details;
+                                    $totalAmount = $fee->amount;
+                                    $phase = Tools::propertyPhase($fee->phaseid);
+                                    $tenantCount = $phaseCount[$phase] ?? 1; // Default to 1 to avoid division by zero
+                                    $individualAmount = $totalAmount / $tenantCount;
                                 ?>
-                                <tr>
-                                    <td><strong class="text-black">1</strong></td>
-                                    <td>Rent</td>
-                                    <td><?= number_format($billInfo['rentAmount'], 2) ?></td>
-                                    <td><?= number_format($billInfo['securityAmount'], 2) ?></td>
-                                    <td><?= number_format($billInfo['penaltyAmount'], 2) ?></td>
-                                    <td class="right"><strong><?= number_format($rowTotal, 2) ?></strong></td>
-                                </tr>
+                                    <tr>
+                                        <?php if ($currentActivity !== $activity): ?>
+                                            <td rowspan="<?= $activityRowCount[$activity]; ?>"><span><?= $activity; ?></span></td>
+                                            <?php $currentActivity = $activity; ?>
+                                        <?php endif; ?>
+                                        <td><?= $details; ?></td>
+                                        <td></td> <!-- Optional Services Column, Blank -->
+                                        <td><?= number_format($totalAmount, 2); ?></td>
+                                        <td class="right"><?= number_format($individualAmount, 2); ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
@@ -84,11 +133,11 @@
                                 <tbody>
                                     <tr>
                                         <td class="left">Subtotal</td>
-                                        <td class="right"><?= number_format($subtotal, 2) ?></td>
+                                        <td class="right"><?= number_format($subtotal, 2); ?></td>
                                     </tr>
                                     <tr>
                                         <td class="left"><strong class="text-black">Total</strong></td>
-                                        <td class="right"><strong class="text-black"><?= number_format($rowTotal, 2) ?></strong></td>
+                                        <td class="right"><strong class="text-black"><?= number_format($subtotal, 2); ?></strong></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -104,7 +153,7 @@
     </div> 
 </div> 
 
-<a href="javascript:void(0);" class="btn btn-sm btn-primary emailInvoice font-weight-lighter mr-2 text-small" rentid='<?= $billInfo['rentid'] ?>'>Email Invoice to Client</a>
+<a href="javascript:void(0);" class="btn btn-sm btn-primary emailInvoice font-weight-lighter mr-2 text-small" billid='<?= $billInfo['billid'] ?>'>Email Invoice to Client</a>
 
 <!-- <script>
     function printContent() {
@@ -123,13 +172,13 @@
  <script>
 
     $(document).on('click', '.emailInvoice', function() {
-        var rentid = $(this).attr('rentid');
-        var url = urlroot + "/billing/generateInvoice";
+        var billid = $(this).attr('billid');
+        var url = urlroot + "/billing/generateMaintenanceInvoice";
 
         $.ajax({
             type: 'POST',
             url: url,
-            data: { rentid: rentid },
+            data: { billid: billid },
             success: function(response) {
                 if (response == '1') {
                     $.notify("Email sent successfully", {

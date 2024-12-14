@@ -47,6 +47,13 @@ class Billing extends PostController
     }
 
 
+    public function generateMaintenanceInvoice() {
+        $billid = $_POST['billid'];
+        Billings::generateMaintenanceInvoice($billid);
+    }
+
+    
+
     public function verifyPayment()
     {
         $reference = $_POST['reference'];

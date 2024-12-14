@@ -126,7 +126,15 @@ class Forms extends PostController
     {
         $billid = $_POST['billid'];
         $billInfo = Billings::billInfo($billid);
-        $this->view("forms/generateMaintenanceInvoice",['billInfo' => $billInfo]);
+        $clientid = $billInfo['clientid'];
+        $listClientMaintenance = Billings::listClientMaintenance($clientid);
+        $this->view("forms/generateMaintenanceInvoice",
+            [
+                'billInfo' => $billInfo,
+                'listClientMaintenance' => $listClientMaintenance
+
+            ]
+        );
     }  
 
     

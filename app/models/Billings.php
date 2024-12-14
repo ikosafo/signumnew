@@ -278,6 +278,221 @@ class Billings extends tableDataObject
     }
 
 
+    public static function generateMaintenanceInvoice($billid) {
+        global $healthdb;
+    
+        $billInfo = Billings::billInfo($billid);
+        $clientid = $billInfo['clientid'];
+        
+        $subject = "Maintenance Invoice";
+        $fullName = Tools::clientName($clientid);
+        $emailAddress = Tools::clientEmail($clientid);
+        $listClientMaintenance = Billings::listClientMaintenance($clientid);
+
+        // Sort $listClientMaintenance by activity
+        usort($listClientMaintenance, function ($a, $b) {
+            return strcmp(Tools::getActivityName($a->activityid), Tools::getActivityName($b->activityid));
+        });
+    
+        // Precalculate the number of people per phase
+        $phaseCount = [];
+        foreach ($listClientMaintenance as $fee) {
+            $phase = Tools::propertyPhase($fee->phaseid);
+            if (!isset($phaseCount[$phase])) {
+                $phaseCount[$phase] = Properties::getClientNumberPhase($fee->phaseid); // Function to get tenant count in phase
+            }
+        }
+    
+        // Calculate totals
+        $subtotal = 0;
+        $activityTotals = [];
+        foreach ($listClientMaintenance as $fee) {
+            $phase = Tools::propertyPhase($fee->phaseid);
+            $tenantCount = $phaseCount[$phase] ?? 1;
+            $individualAmount = $fee->amount / $tenantCount;
+            $subtotal += $individualAmount;
+    
+            $activityName = Tools::getActivityName($fee->activityid);
+            if (!isset($activityTotals[$activityName])) {
+                $activityTotals[$activityName] = 0;
+            }
+            $activityTotals[$activityName] += $individualAmount;
+        }
+    
+        // Generate the email message
+        $message = "
+        <!DOCTYPE html>
+        <html lang='en'>
+        <head>
+            <meta charset='UTF-8'>
+            <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+            <title>Maintenance Invoice</title>
+            <style>
+               .receipt-footer {
+                    text-align: center;
+                    margin-top: 20px;
+                    font-size: 12px;
+                    color: #888;
+                }
+                .table {
+                    width: 100%;
+                    margin-bottom: 20px;
+                    border-collapse: collapse;
+                }
+                .table th, .table td {
+                    padding: 8px 12px;
+                    border: 1px solid #ddd;
+                    text-align: left;
+                }
+                .table th {
+                    background-color: #f4f4f4;
+                }
+                .right {
+                    text-align: right;
+                }
+                .center {
+                    text-align: center;
+                }
+                .address-container {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-top: 20px;
+                    margin-bottom: 20px;
+                }
+                .address-section {
+                    width: 48%;
+                    padding: 10px;
+                    /* border: 0.2px solid #ddd; */
+                }
+                .address-section h6 {
+                    margin-top: 0;
+                    font-weight: bold;
+                }
+                .detail-item {
+                    margin-bottom: 5px;
+                }
+            </style>
+        </head>
+        <body>
+            <div style='font-family: Arial, sans-serif;'>
+                <p>Dear " . $fullName . ",</p>
+                <p>We hope this message finds you well. Please find below the details of your maintenance invoice for the current period:</p>
+    
+
+                <div class='address-container'>
+                  <div class='address-section'>
+                        <h6>Invoice</h6>
+                        <div class='detail-item'><span>Date:</span><span>" . (new DateTime($billInfo['createdAt']))->format('F j, Y') . "</span></div>
+                        <div class='detail-item'><span>Invoice No:</span><span>" . Tools::generateInvoiceNumber($billInfo['createdAt']) . "</span></div>
+                        <div class='detail-item'><span>Customer Name:</span><span>" . Tools::clientName($billInfo['clientid']) . "</span></div>
+                    </div>
+                </div>
+                <div class='address-container'>
+                    <div class='address-section'>
+                        <h6>From:</h6>
+                        <div><strong>Signum Properties</strong></div>
+                        <div class='detail-item'>Address: [Your Address Here]</div>
+                        <div class='detail-item'>Email: info@signumproperties.com</div>
+                        <div class='detail-item'>Phone: +233 123 456 7890</div>
+                    </div>
+    
+                    <div class='address-section'>
+                        <h6>To:</h6>
+                        <div><strong>" . Tools::clientName($billInfo['clientid']) . "</strong></div>
+                        <div class='detail-item'>" . Tools::clientAddress($billInfo['clientid']) . "</div>
+                        <div class='detail-item'>Email: " . Tools::clientEmail($billInfo['clientid']) . "</div>
+                        <div class='detail-item'>Phone: " . Tools::clientPhone($billInfo['clientid']) . "</div>
+                    </div>
+
+                </div>
+
+    
+                <div class='table-responsive'>
+                    <table class='table'>
+                        <thead>
+                            <tr>
+                                <th>ACTIVITY</th>
+                                <th>DETAIL</th>
+                                <th>OPTIONAL <br> SERVICES</th>
+                                <th>AMOUNT /<br> MONTH</th>
+                                <th class='right'>INDIVIDUAL AMOUNT /<br> MONTH</th>
+                            </tr>
+                        </thead>
+                        <tbody>";
+    
+        $currentActivity = '';
+        $activityRowCount = [];
+        foreach ($listClientMaintenance as $fee) {
+            $activity = Tools::getActivityName($fee->activityid);
+            if (!isset($activityRowCount[$activity])) {
+                $activityRowCount[$activity] = 0;
+            }
+            $activityRowCount[$activity]++;
+        }
+    
+        foreach ($listClientMaintenance as $fee) {
+            $activity = Tools::getActivityName($fee->activityid);
+            $details = $fee->details;
+            $totalAmount = $fee->amount;
+            $phase = Tools::propertyPhase($fee->phaseid);
+            $tenantCount = $phaseCount[$phase] ?? 1; // Default to 1 to avoid division by zero
+            $individualAmount = $totalAmount / $tenantCount;
+    
+            $message .= "
+                <tr>
+                    " . ($currentActivity !== $activity ? "<td rowspan='" . $activityRowCount[$activity] . "'><span>" . $activity . "</span></td>" : "") . "
+                    <td>" . $details . "</td>
+                    <td></td>
+                    <td>" . number_format($totalAmount, 2) . "</td>
+                    <td class='right'>" . number_format($individualAmount, 2) . "</td>
+                </tr>";
+    
+            $currentActivity = $activity;
+        }
+    
+        $message .= "
+                        </tbody>
+                    </table>
+                </div>
+    
+                <div class='row'>
+                    <div class='col-lg-4 col-sm-5'> </div>
+                    <div class='col-xl-4 col-lg-4 col-sm-7 ms-auto'>
+                        <table class='table table-clear'>
+                            <tbody>
+                                <tr>
+                                    <td class='left'>Subtotal</td>
+                                    <td class='right'>" . number_format($subtotal, 2) . "</td>
+                                </tr>
+                                <tr>
+                                    <td class='left'><strong class='text-black'>Total</strong></td>
+                                    <td class='right'><strong class='text-black'>" . number_format($subtotal, 2) . "</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class='receipt-footer'>
+                        <p>This is a computer-generated invoice. No signature required.</p>
+                    </div>
+                </div>
+            </div>
+        </body>
+        </html>";
+    
+        // Send email and handle potential errors
+        try {
+            if (SendEmail::compose($emailAddress, $subject, $message)) {
+                echo 1;
+            } else {
+                echo "Failed to send email.\n";
+            }
+        } catch (Exception $e) {
+            echo "Error sending email: " . $e->getMessage() . "\n";
+        }
+    }
+    
+
+
     public static function listCurrentMaintenance() {
         global $healthdb;
 
@@ -293,6 +508,17 @@ class Billings extends tableDataObject
         return $resultList;
     }
 
+
+    public static function listClientMaintenance($clientid) {
+        global $healthdb;
+
+        $phaseid = Tools::getPhasefromClient($clientid);
+
+        $getList = "SELECT * FROM `maintenancefee` where `status` = 1 AND phaseid = '$phaseid' ORDER BY `feeid` DESC";
+        $healthdb->prepare($getList);
+        $resultList = $healthdb->resultSet();
+        return $resultList;
+    }
 
     public static function clientMaintenanceAmount($phaseid) {
         global $healthdb;
@@ -313,8 +539,6 @@ class Billings extends tableDataObject
         } else {
             return $phaseAmount / $phaseNumber;
         }
-         
-
         
     }
     
