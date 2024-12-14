@@ -807,6 +807,30 @@ class Billings extends tableDataObject
                                         
 
     }
+
+
+    public static function billInfo($billid) {
+        global $healthdb;
+    
+        $getList = "SELECT * FROM `billing` WHERE `billid` = '$billid'";
+        $healthdb->prepare($getList);
+        $resultRec = $healthdb->singleRecord();
+    
+        return [
+            'billid' => $resultRec->billid,
+            'billType' => $resultRec->billType,
+            'amountPaid' => $resultRec->amountPaid,
+            'clientid' => $resultRec->clientid,
+            'paymentStatus' => $resultRec->paymentStatus,
+            'paymentMethod' => $resultRec->paymentMethod,
+            'createdAt' => $resultRec->createdAt,
+            'updatedAt' => $resultRec->updatedAt,
+            'description' => $resultRec->description,
+            'uuid' => $resultRec->uuid,
+            'dateDue' => $resultRec->dateDue,
+            'periodPaid' => $resultRec->periodPaid
+        ];
+    }
     
 
     public static function paymentDetails($paymentid) {

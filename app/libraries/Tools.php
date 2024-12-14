@@ -398,6 +398,16 @@ class Tools extends tableDataObject{
     }
 
 
+    public static function generateInvoiceNumber($createdAt) {
+        $prefix = "M";
+        $timestamp = substr(strtotime($createdAt), -6);
+        $hash = substr(md5($createdAt), 0, 3);
+        $receiptNumber = $prefix . $timestamp . strtoupper($hash); 
+        return $receiptNumber;
+    }
+    
+
+
     public static function clientAddress($clientid) {
         global $healthdb;
 

@@ -122,6 +122,14 @@ class Forms extends PostController
     }  
 
 
+    public function generateMaintenanceInvoice()
+    {
+        $billid = $_POST['billid'];
+        $billInfo = Billings::billInfo($billid);
+        $this->view("forms/generateMaintenanceInvoice",['billInfo' => $billInfo]);
+    }  
+
+    
     public function rentalInformation()
     {
         $clientid = $_POST['clientid'];

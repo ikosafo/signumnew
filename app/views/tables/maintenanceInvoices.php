@@ -35,11 +35,11 @@
                                             <?= "GHC " . number_format(Billings::clientMaintenanceAmount(Tools::getPhasefromClient($result->clientid)), 2) ?>
                                         <?php endif; ?>
                                     </td>
-                                    <td><a href="javascript:void(0);" class="btn btn-sm btn-primary getBills" rentid='<?= $result->billid ?>'>View Bills</a></td>
+                                    <td><a href="javascript:void(0);" class="btn btn-sm btn-primary getBills" billid='<?= $result->billid ?>'>View Bills</a></td>
                                     <td>
                                         <div class="d-flex">
                                             <?php if (!in_array(strtolower($result->paymentStatus), ['success', 'successful'])) { ?>
-                                                <a href="javascript:void(0);" class="btn btn-success generateInvoice" rentid='<?= $result->billid ?>'>Generate Invoice</a>
+                                                <a href="javascript:void(0);" class="btn btn-success generateInvoice" billid='<?= $result->billid ?>'>Generate Invoice</a>
                                             <?php } else { ?>
                                                 <span class="bgl-success text-success rounded p-1 ps-2 pe-2 font-w600 fs-12 d-inline-block mb-2 mb-sm-3">Paid</span>
                                             <?php } ?>
@@ -69,17 +69,17 @@
 
 
     $(document).on('click', '.generateInvoice', function() {
-        var rentid = $(this).attr('rentid');
+        var billid = $(this).attr('billid');
         
         $('html, body').animate({
                 scrollTop: $("#detailsIssueDiv").offset().top
         }, 2000);
-        //alert(rentid);
+        //alert(billid);
 
         var formData = {
-            rentid: rentid
+            billid: billid
         };
-        var url = "/forms/generateInvoice";
+        var url = "/forms/generateMaintenanceInvoice";
         var successCallback = function(response) {
             $('#detailsIssueDiv').html(response);
         };

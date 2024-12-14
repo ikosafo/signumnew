@@ -12,7 +12,7 @@
         <div class="col-lg-12">
 
             <div class="card">
-                <div class="card-header text-uppercase"> RENT INVOICE</strong>  </div>
+                <div class="card-header text-uppercase">MAINTENANCE INVOICE</strong>  </div>
                 <div class="card-body">
                     <div class="row mb-5">
                         <div class="mt-4 col-xl-3 col-lg-3 col-md-6 col-sm-6">
@@ -24,24 +24,24 @@
                         </div>
                         <div class="mt-4 col-xl-3 col-lg-3 col-md-6 col-sm-6">
                             <h6>To:</h6>
-                            <div> <strong><?= Tools::clientName($rentInfo['clientid']); ?></strong> </div>
-                            <div><?= Tools::clientAddress($rentInfo['clientid']) ?></div>
-                            <div>Email: <?= Tools::clientEmail($rentInfo['clientid']) ?></div>
-                            <div>Phone: <?= Tools::clientPhone($rentInfo['clientid']) ?></div>
+                            <div> <strong><?= Tools::clientName($billInfo['clientid']); ?></strong> </div>
+                            <div><?= Tools::clientAddress($billInfo['clientid']) ?></div>
+                            <div>Email: <?= Tools::clientEmail($billInfo['clientid']) ?></div>
+                            <div>Phone: <?= Tools::clientPhone($billInfo['clientid']) ?></div>
                         </div>
                         <div class="mt-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 d-flex justify-content-lg-end justify-content-md-start justify-content-xs-start">
                             <div class="row align-items-center">
                                 <div class="col-sm-12"> 
                                     <span>Date:</span>
-                                    <span><?php $date = new DateTime($rentInfo['createdAt']);
+                                    <span><?php $date = new DateTime($billInfo['createdAt']);
                                             echo $date->format('F j, Y'); ?></span>
                                     <div class="detail-item">
                                         <span>Invoice No:</span>
-                                        <span><?= Tools::generateInvoiceNumber($rentInfo['createdAt']) ?></span>
+                                        <span><?= Tools::generateInvoiceNumber($billInfo['createdAt']) ?></span>
                                     </div>
                                     <div class="detail-item">
                                         <span>Customer Name:</span>
-                                        <span><?= Tools::clientName($rentInfo['clientid']); ?></span>
+                                        <span><?= Tools::clientName($billInfo['clientid']); ?></span>
                                     </div>
                                 </div>
                                 <div class="col-sm-4"> </div>
@@ -63,15 +63,15 @@
                             <tbody>
                                 <?php
                                 $subtotal = 0;
-                                $rowTotal = $rentInfo['rentAmount'] + $rentInfo['securityAmount'] + $rentInfo['penaltyAmount'];
+                                $rowTotal = $billInfo['rentAmount'] + $billInfo['securityAmount'] + $billInfo['penaltyAmount'];
                                 $subtotal += $rowTotal;
                                 ?>
                                 <tr>
                                     <td><strong class="text-black">1</strong></td>
                                     <td>Rent</td>
-                                    <td><?= number_format($rentInfo['rentAmount'], 2) ?></td>
-                                    <td><?= number_format($rentInfo['securityAmount'], 2) ?></td>
-                                    <td><?= number_format($rentInfo['penaltyAmount'], 2) ?></td>
+                                    <td><?= number_format($billInfo['rentAmount'], 2) ?></td>
+                                    <td><?= number_format($billInfo['securityAmount'], 2) ?></td>
+                                    <td><?= number_format($billInfo['penaltyAmount'], 2) ?></td>
                                     <td class="right"><strong><?= number_format($rowTotal, 2) ?></strong></td>
                                 </tr>
                             </tbody>
@@ -104,7 +104,7 @@
     </div> 
 </div> 
 
-<a href="javascript:void(0);" class="btn btn-sm btn-primary emailInvoice font-weight-lighter mr-2 text-small" rentid='<?= $rentInfo['rentid'] ?>'>Email Invoice to Client</a>
+<a href="javascript:void(0);" class="btn btn-sm btn-primary emailInvoice font-weight-lighter mr-2 text-small" rentid='<?= $billInfo['rentid'] ?>'>Email Invoice to Client</a>
 
 <!-- <script>
     function printContent() {
