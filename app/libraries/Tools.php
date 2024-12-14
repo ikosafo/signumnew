@@ -305,6 +305,16 @@ class Tools extends tableDataObject{
         $result = $healthdb->fetchColumn();
         return $result;
     }
+
+
+    public static function getPhasefromClient($clientid) {
+        global $healthdb;
+
+        $query = "SELECT `phaseid` FROM `clients` WHERE `clientid` = '$clientid'";
+        $healthdb->prepare($query);
+        $result = $healthdb->fetchColumn();
+        return $result;
+    }
     
 
     public static function getClientProperty($clientid) {

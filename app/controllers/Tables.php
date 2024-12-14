@@ -77,6 +77,12 @@ class Tables extends Controller
         $this->view("tables/rentInvoices",['listRentInformation' => $listRentInformation]);
     }
 
+    public function maintenanceInvoices()
+    {
+        $listCurrentMaintenance = Billings::listCurrentMaintenance();
+        $this->view("tables/maintenanceInvoices",['listCurrentMaintenance' => $listCurrentMaintenance]);
+    }
+
 
     public function rentDueInfo()
     {

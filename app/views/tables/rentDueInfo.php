@@ -14,11 +14,11 @@
                             <th width="10%">NO.</th>
                             <th width="20%">TENANT</th>
                             <th width="20%">PROPERTY</th>
-                            <th width="20%">START DATE</th>
-                            <th width="20%">END DATE</th>
-                            <th width="10%">LEASE TYPE</th>
-                            <th width="10%">RENEWABLE</th>
-                            <th width="20%">RENT AMOUNT</th>
+                            <th width="20%">START <br> DATE</th>
+                            <th width="20%">END <br> DATE</th>
+                            <th width="10%">LEASE <br> TYPE</th>
+                            <th width="20%">RENT <br> AMOUNT</th>
+                            <th width="20%">PAYMENT <br> STATUS</th>
                             <th width="25%">RENT DUE</th>
                         </tr>
                     </thead>
@@ -29,12 +29,20 @@
                             <tr>
                                 <td><strong class="text-black"><?= $no++ ?></strong></td>
                                 <td><?= Tools::clientName($result->clientid) ?></td>
-                                <td><?= Tools::propertyClient($result->propertyid) ?></td>
+                                <td><?= Tools::propertyClient($result->propertyid). '<br><small><strong>'. Tools::propertyPhase($result->phaseid) . '</strong></small>'  ?></td>
                                 <td><?= $result->startDate ?></td>
                                 <td><?= $result->endDate ?></td>
                                 <td><?= $result->leaseType ?></td>
-                                <td><?= $result->renewable ?></td>
                                 <td><?= number_format($result->rentAmount,2) ?></td>
+                                <td>
+                                        <div class="d-flex">
+                                            <?php if (!in_array(strtolower($result->paymentStatus), ['success', 'successful'])) { ?>
+                                                <span class="bgl-danger text-danger rounded p-1 ps-2 pe-2 font-w600 fs-12 d-inline-block mb-2 mb-sm-3">Not Paid</span>
+                                            <?php } else { ?>
+                                                <span class="bgl-success text-success rounded p-1 ps-2 pe-2 font-w600 fs-12 d-inline-block mb-2 mb-sm-3">Paid</span>
+                                            <?php } ?>
+                                        </div>
+                                    </td>
                                 <td>
                                     <?php 
                                         $endDate = new DateTime($result->endDate);

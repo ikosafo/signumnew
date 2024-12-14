@@ -104,7 +104,7 @@
     </div> 
 </div> 
 
-<a href="javascript:void(0);" class="btn btn-sm btn-primary emailInvoice font-weight-lighter mr-2 text-small" rentid='<?= $rentInfo['rentid'] ?>'>Email Invoice</a>
+<a href="javascript:void(0);" class="btn btn-sm btn-primary emailInvoice font-weight-lighter mr-2 text-small" rentid='<?= $rentInfo['rentid'] ?>'>Email Invoice to Client</a>
 
 <!-- <script>
     function printContent() {
