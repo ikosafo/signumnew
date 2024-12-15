@@ -103,6 +103,13 @@ class Tables extends Controller
     }
 
 
+    public function billPaymentRent()
+    {
+        $listClients = Properties::listClients();
+        $this->view("tables/billPaymentRent",['listClients' => $listClients]);
+    }
+
+
     public function billPaymentClient() {
         new Guard();
         $uid = $_SESSION['uid'];

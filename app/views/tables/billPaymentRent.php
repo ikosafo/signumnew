@@ -66,7 +66,7 @@
 
         var formData = {};
         formData.clientid = clientid; 
-        saveForm(formData, "/forms/billPaymentMaintenance", function(response) {
+        saveForm(formData, "/forms/billPaymentRent", function(response) {
             $('#makePaymentDiv').html(response);
         });
     });

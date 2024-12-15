@@ -538,6 +538,7 @@ class Billings extends tableDataObject
         return $resultList;
     }
 
+
     public static function clientMaintenanceAmount($phaseid) {
         global $healthdb;
 
@@ -559,6 +560,39 @@ class Billings extends tableDataObject
         }
         
     }
+
+
+    public static function clientRentAmount($clientid) {
+        global $healthdb;
+    
+        $getSum = "SELECT rentAmount, securityAmount, penaltyAmount, startDate, endDate, addCharges
+                   FROM `rentinfo` 
+                   WHERE `status` = 1 AND `clientid` = '$clientid' 
+                   ORDER BY rentid DESC 
+                   LIMIT 1";
+        $healthdb->prepare($getSum);
+        $resultSum = $healthdb->singleRecord();
+    
+        if ($resultSum) {
+            // Calculate the number of months between startDate and endDate
+            $startDate = new DateTime($resultSum->startDate);
+            $endDate = new DateTime($resultSum->endDate);
+            $interval = $startDate->diff($endDate);
+            $months = $interval->m + ($interval->y * 12); // Total months (accounting for years)
+    
+            // Multiply monthly rentAmount by the number of months
+            $totalRentAmount = $resultSum->rentAmount * $months;
+    
+            // Calculate the total sum
+            $total = $totalRentAmount + $resultSum->securityAmount + $resultSum->penaltyAmount + $resultSum->addCharges;
+    
+            return $total;
+        }
+    
+        // Return 0 if no result is found
+        return 0;
+    }
+    
     
 
     public static function saveBilling($amountPaid,

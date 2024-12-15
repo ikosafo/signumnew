@@ -263,6 +263,12 @@ class Pages extends Controller
         new Guard();
         $this->view("pages/billPaymentsMaintenance");
     } 
+
+
+    public function billPaymentsRent() {
+        new Guard();
+        $this->view("pages/billPaymentsRent");
+    } 
     
 
     public function scheduleInspection() {

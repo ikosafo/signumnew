@@ -197,7 +197,7 @@ $userPermissions = Tools::getUserPermissions($uuid);?>
 								<li><a href="<?php echo URLROOT ?>/pages/listRentInformation">List Rent Info</a></li>
 								<li><a href="<?php echo URLROOT ?>/pages/rentReports">Rent Due Reports</a></li>
 								<li><a href="<?php echo URLROOT ?>/pages/rentInvoices">Generate Rent Invoices</a></li>
-								<li><a href="<?php echo URLROOT ?>/pages/rentReceipts">Rent Receipts</a></li>
+								<!-- <li><a href="<?php echo URLROOT ?>/pages/rentReceipts">Rent Receipts</a></li> -->
 							</ul>
 						</li>
 					<?php endif ?>
@@ -210,11 +210,12 @@ $userPermissions = Tools::getUserPermissions($uuid);?>
 							</a>
 							<ul aria-expanded="false">
 								<li><a href="<?php echo URLROOT ?>/pages/billPayments">Record Payment</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/billPaymentsRent">Record Rent Payment</a></li>
 								<li><a href="<?php echo URLROOT ?>/pages/billPaymentsMaintenance">Record Maintenance Payment</a></li>
 								<li><a href="<?php echo URLROOT ?>/pages/paymentHistory">Payment History</a></li>
 								<li><a href="<?php echo URLROOT ?>/pages/billReports">Rent Due Reports</a></li>
 								<li><a href="<?php echo URLROOT ?>/pages/billInvoices">Generate Rent Invoices</a></li>
-								<li><a href="<?php echo URLROOT ?>/pages/billReceipts">Rent Receipts</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/billReceipts">Bill Receipts</a></li>
 							</ul>
 						</li>
 					<?php endif ?>

@@ -160,6 +160,14 @@ class Forms extends PostController
         $clientDetails = Clients::clientDetails($clientid);
         $this->view("forms/billPaymentMaintenance", $clientDetails);
     }
+
+
+    public function billPaymentRent()
+    {
+        $clientid = $_POST['clientid'];
+        $clientDetails = Clients::clientDetails($clientid);
+        $this->view("forms/billPaymentRent", $clientDetails);
+    }
     
 
     public function propertyDetails()
