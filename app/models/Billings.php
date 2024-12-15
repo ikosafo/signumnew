@@ -585,6 +585,19 @@ class Billings extends tableDataObject
                 return;
             }
         }
+
+
+        if ($billType === 'Rent') {
+            $lastOutstandingRentid = Tools::lastOutstandingRentid($clientid);          
+            if ($lastOutstandingRentid) {
+                $updateRent = "UPDATE `rentinfo` SET `updatedAt` = NOW(), `paymentStatus` = 'success' WHERE `rentid` = '$lastOutstandingRentid'";
+                $healthdb->prepare($updateRent);
+                $healthdb->execute();
+            } else {
+                echo "No outstanding rent bill.";
+                return;
+            }
+        }
     
         // Check if payment exists
         $getByUUID = "SELECT * FROM `payments` WHERE `uuid` = '$uuid'";

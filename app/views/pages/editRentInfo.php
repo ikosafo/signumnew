@@ -91,8 +91,9 @@ $propertyid = $rentInfo['propertyid'];
                                             <input type="text" class="form-control" value="<?= $rentInfo['addCharges'] ?>" onkeypress="allowTwoDecimalPlaces(event)"  id="additionalCharges" placeholder="Enter fee">
                                         </div>
                                     
-                                        <div class="next-btn py-4 d-flex col-sm-12 justify-content-center">
-                                            <button type="submit" id="editRentDetails" class="btn btn-warning next2 btn-sm">Edit Rent Details</button>
+                                        <div class="col-sm-12 py-4 text-center">
+                                            <button type="submit" id="editRentDetails" class="btn btn-warning btn-sm">Edit Rent Details</button>
+                                            <button type="button" id="backList" class="btn btn-primary btn-sm">Back to List</button>   
                                         </div>
                                     </div>
                                 
@@ -121,6 +122,10 @@ $propertyid = $rentInfo['propertyid'];
             item.closest('li').classList.add('mm-active');
         }
     });
+
+    $('#backList').click(function() {
+        window.location.href = urlroot + '/pages/listRentInformation'
+    })
 
     $("#startDate").flatpickr();
     $("#endDate").flatpickr();
@@ -151,6 +156,7 @@ $propertyid = $rentInfo['propertyid'];
             additionalCharges: $("#additionalCharges").val(),
             uuid: '<?php echo $uuid; ?>',
             propertyid: '<?php echo $propertyid ?>',
+            phaseid: '<?php echo $phaseid; ?>',
             clientid:  '<?php echo $clientid ?>'
         };
 

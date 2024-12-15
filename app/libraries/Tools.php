@@ -359,6 +359,16 @@ class Tools extends tableDataObject{
     }
 
 
+    public static function lastOutstandingRentid($clientid) {
+        global $healthdb;
+
+        $query = "SELECT `rentid` FROM `rentinfo` WHERE `paymentStatus` IS NULL AND `clientid` = '$clientid' ORDER BY rentid LIMIT 1";
+        $healthdb->prepare($query);
+        $result = $healthdb->fetchColumn();
+        return $result;
+    }
+
+
     public static function getNamebyuuid($uuid) {
         global $healthdb;
 

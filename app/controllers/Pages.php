@@ -421,9 +421,11 @@ class Pages extends Controller
         $encryptedId = $_GET['rentid'];
         $decryptedClientId = Tools::unlock($encryptedId);
         $rentInfo = Properties::rentInfo($decryptedClientId);
+        $phaseid = $rentInfo['phaseid'];
 
         $this->view("pages/editRentInfo",[
-            'rentInfo' => $rentInfo
+            'rentInfo' => $rentInfo,
+            'phaseid' => $phaseid
         ]);
     } 
 
