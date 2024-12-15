@@ -54,6 +54,19 @@ class Client extends PostController
         );
     }
 
+
+    public function saveResolutionUpdate() {
+        $resolutionStatus = $_POST['resolutionStatus'];
+        $updateRemarks = $_POST['updateRemarks'];
+        $idIndex = $_POST['idIndex'];
+
+        Clients::saveResolutionUpdate(
+            $resolutionStatus,
+            $updateRemarks,
+            $idIndex
+        );
+    }
+
     
     public function savePassword() {
         $currentPassword = $_POST['currentPassword'];

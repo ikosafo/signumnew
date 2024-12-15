@@ -78,6 +78,10 @@ extract($data);
                                         <p><?= Tools::resolutionStatus($complaintDetails['resolution']) ?></p>
                                     </div>
                                     <div class="form-group col-md-4 col-sm-12">
+                                        <label class="form-label">Resolution Remarks</label>
+                                        <p><?= $complaintDetails['resolutionRemarks'] ?></p>
+                                    </div>
+                                    <div class="form-group col-md-4 col-sm-12">
                                         <label class="form-label">Verification Resolution Status</label>
                                         <p><?= $complaintDetails['verifyRemarks'] ?></p>
                                     </div>

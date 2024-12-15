@@ -89,7 +89,8 @@ class Complaints extends tableDataObject
             'complaintid' => $resultRec->complaintid,
             'resolution' => $resultRec->resolution,
             'verifyRemarks' => $resultRec->verifyRemarks,
-            'verifyFeedback' => $resultRec->verifyFeedback
+            'verifyFeedback' => $resultRec->verifyFeedback,
+            'resolutionRemarks' => $resultRec->resolutionRemarks
         ];
     }
 

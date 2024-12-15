@@ -414,6 +414,7 @@ class Clients extends tableDataObject
             }
     }
 
+
     public static function saveVerification(
             $verifyRemarks,
             $verifyFeedback,
@@ -441,6 +442,32 @@ class Clients extends tableDataObject
             } else {
                 echo 1;  // Successfully inserted
             }
+    }
+
+
+    public static function saveResolutionUpdate($resolutionStatus,$updateRemarks,$idIndex) {
+        global $healthdb;
+
+        $query = "UPDATE `complaints` 
+                        SET `resolution` = :resolutionStatus, 
+                            `resolutionRemarks` = :updateRemarks, 
+                            `updatedAt` = NOW() 
+                        WHERE complaintid = :idIndex";
+
+        $healthdb->prepare($query);
+
+        // Bind the variables using named parameters
+        $healthdb->bind(':resolutionStatus', $resolutionStatus);
+        $healthdb->bind(':updateRemarks', $updateRemarks);
+        $healthdb->bind(':idIndex', $idIndex);
+
+        // Execute the statement and check for errors
+        if (!$healthdb->execute()) {
+            die('Execute error: ' . $healthdb->error);
+        } else {
+            echo 1;  // Successfully inserted
+        }
+
     }
 
 

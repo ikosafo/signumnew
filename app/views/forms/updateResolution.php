@@ -56,14 +56,14 @@ extract($data);
             idIndex: '<?php echo $id_index; ?>'
         };
 
-        var url = urlroot + "/client/saveUpdate";
+        var url = urlroot + "/client/saveResolutionUpdate";
 
         var successCallback = function(response) {
-            //alert(response);
+            alert(response);
              $.notify("Form submitted successfully", {
-                    position: "top center",
-                    className: "success"
-                });
+                position: "top center",
+                className: "success"
+            });
 
             setTimeout(function() {
                 location.reload();
