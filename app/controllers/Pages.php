@@ -285,7 +285,13 @@ class Pages extends Controller
     public function billPaymentClient() {
         new Guard();
         $this->view("pages/billPaymentClient");
-    }  
+    }
+    
+    
+    public function maintenanceRequests() {
+        new Guard();
+        $this->view("pages/maintenanceRequests");
+    }
 
 
     public function billMaintenanceClient() {
@@ -339,6 +345,20 @@ class Pages extends Controller
         $complaintid = $complaintDetails['complaintid'];
 
         $this->view("pages/viewComplaint",[
+            'complaintDetails' => $complaintDetails
+        ]);
+    } 
+
+
+    public function viewTask() {
+        new Guard();
+
+        $encryptedId = $_GET['complaintid'];
+        $decryptedClientId = Tools::unlock($encryptedId);
+        $complaintDetails = Complaints::complaintDetails($decryptedClientId);
+        $complaintid = $complaintDetails['complaintid'];
+
+        $this->view("pages/viewTask",[
             'complaintDetails' => $complaintDetails
         ]);
     } 
@@ -470,6 +490,12 @@ class Pages extends Controller
     }  
 
 
+    public function maintenanceTasks() {
+        new Guard();
+        $this->view("pages/maintenanceTasks");
+    }  
+
+    
     public function inspectionHistory() {
         new Guard();
         $this->view("pages/inspectionHistory");

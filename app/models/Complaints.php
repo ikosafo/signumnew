@@ -36,6 +36,16 @@ class Complaints extends tableDataObject
     }
 
 
+    public static function listMaintenanceTasks() {
+        global $healthdb;
+    
+        $getList = "SELECT * FROM `complaints` WHERE `status` = 1 ORDER BY `createdAt` DESC";
+        $healthdb->prepare($getList);
+        $resultList = $healthdb->resultSet();
+        return $resultList;
+    }
+
+
 
     public static function listClientComplaints($clientid) {
         global $healthdb;

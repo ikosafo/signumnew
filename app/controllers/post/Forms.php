@@ -98,6 +98,13 @@ class Forms extends PostController
     }
 
 
+    public function updateResolution()
+    {
+        $id_index = $_POST['id_index'];
+        $this->view("forms/updateResolution",['id_index' => $id_index]);
+    }
+
+
     public function viewResolution()
     {
         $id_index = $_POST['id_index'];
@@ -167,6 +174,14 @@ class Forms extends PostController
         $clientid = $_POST['clientid'];
         $clientDetails = Clients::clientDetails($clientid);
         $this->view("forms/billPaymentRent", $clientDetails);
+    }
+
+
+    public function maintenanceRequest()
+    {
+        $clientid = $_POST['clientid'];
+        $clientDetails = Clients::clientDetails($clientid);
+        $this->view("forms/maintenanceRequest", $clientDetails);
     }
     
 

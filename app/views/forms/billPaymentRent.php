@@ -119,12 +119,12 @@ $uuid = Tools::generateUUID();
 
                 setTimeout(function() {
                     location.reload();
-                }, 500);
+                }, 1500);
             }
             else {
-                $.notify("Payment updated successfully", {
+                $.notify("No outstanding rent bill", {
                     position: "top center",
-                    className: "success"
+                    className: "error"
                 });
             }
 

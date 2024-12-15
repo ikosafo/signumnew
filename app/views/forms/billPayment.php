@@ -27,7 +27,6 @@ $uuid = Tools::generateUUID();
                             <label class="form-label required">Bill Type</label>
                             <select id="billType" class="default-select form-control wide" required>
                                 <option value="">Select Type</option>
-                                <option value="Rent">Rent</option>
                                 <option value="Service Charge">Service Charge</option>
                                 <option value="Utilities">Utilities</option>
                                 <option value="Other">Other</option>

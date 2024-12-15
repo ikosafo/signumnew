@@ -110,6 +110,13 @@ class Tables extends Controller
     }
 
 
+    public function maintenanceRequest()
+    {
+        $listClients = Properties::listClients();
+        $this->view("tables/maintenanceRequest",['listClients' => $listClients]);
+    }
+
+
     public function billPaymentClient() {
         new Guard();
         $uid = $_SESSION['uid'];
@@ -154,6 +161,16 @@ class Tables extends Controller
         $listClientComplaints = Complaints::listClientComplaints($clientid);
         $this->view("tables/clientComplaints",[
             'listClientComplaints' => $listClientComplaints
+        ]);
+    }  
+
+
+    public function maintenanceTasks() {
+        new Guard();
+        $uid = $_SESSION['uid'];
+        $listMaintenanceTasks = Complaints::listMaintenanceTasks();
+        $this->view("tables/maintenanceTasks",[
+            'listMaintenanceTasks' => $listMaintenanceTasks
         ]);
     }  
 

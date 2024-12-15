@@ -511,12 +511,12 @@ class Tools extends tableDataObject{
                 $fileExtension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
     
                 if (in_array($fileExtension, ['jpg', 'jpeg', 'png', 'gif'])) {
-                    $imageHtml .= '<img class="enlarge-on-hover" src="' . URLROOT . '/uploads/' . $filename . '" style="width:95px;height:100px">';
+                    $imageHtml .= '<img class="enlarge-on-hover" src="' . URLROOT . '/public/uploads/' . $filename . '" style="width:95px;height:100px">';
                     $imageFound = true; 
                 }
                 elseif (in_array($fileExtension, ['mp4', 'webm', 'ogg', '3gpp'])) {
                     $videoHtml .= '<hr><br/><video width="180" height="150" controls>
-                                    <source src="' . URLROOT . '/uploads/' . $filename . '" type="video/' . $fileExtension . '">
+                                    <source src="' . URLROOT . '/public/uploads/' . $filename . '" type="video/' . $fileExtension . '">
                                     Your browser does not support the video tag.
                                   </video>';
                 }
@@ -582,7 +582,7 @@ class Tools extends tableDataObject{
         if ($result) {
             $imagesHtml = '';
             foreach ($result as $results) { 
-                $imagesHtml .= '<img src="' . URLROOT . '/uploads/' . htmlspecialchars($results->newname) . '" width="20">';
+                $imagesHtml .= '<img src="' . URLROOT . '/public/uploads/' . htmlspecialchars($results->newname) . '" width="20">';
             }
             return $imagesHtml.'<br>';
         }

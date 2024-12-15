@@ -116,11 +116,15 @@ $uuid = Tools::generateUUID();
                     position: "top center",
                     className: "success"
                 });
+
+                setTimeout(function() {
+                    location.reload();
+                }, 1500);
             }
             else {
-                $.notify("Payment updated successfully", {
+                $.notify("No outstanding maintenance bill", {
                     position: "top center",
-                    className: "success"
+                    className: "error"
                 });
             }
 

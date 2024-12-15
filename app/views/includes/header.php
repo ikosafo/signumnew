@@ -209,16 +209,47 @@ $userPermissions = Tools::getUserPermissions($uuid);?>
 								
 							</a>
 							<ul aria-expanded="false">
-								<li><a href="<?php echo URLROOT ?>/pages/billPayments">Record Payment</a></li>
 								<li><a href="<?php echo URLROOT ?>/pages/billPaymentsRent">Record Rent Payment</a></li>
 								<li><a href="<?php echo URLROOT ?>/pages/billPaymentsMaintenance">Record Maintenance Payment</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/billPayments">Record Client Payment</a></li>
 								<li><a href="<?php echo URLROOT ?>/pages/paymentHistory">Payment History</a></li>
-								<li><a href="<?php echo URLROOT ?>/pages/billReports">Rent Due Reports</a></li>
+								<!-- <li><a href="<?php echo URLROOT ?>/pages/billReports">Rent Due Reports</a></li>
 								<li><a href="<?php echo URLROOT ?>/pages/billInvoices">Generate Rent Invoices</a></li>
-								<li><a href="<?php echo URLROOT ?>/pages/billReceipts">Bill Receipts</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/billReceipts">Bill Receipts</a></li> -->
 							</ul>
 						</li>
 					<?php endif ?>
+
+					
+
+                   <!--  <li>
+						<a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                            <i class="flaticon-381-battery-5"></i>
+							<span class="nav-text">CONTRACTS</span>
+						</a>
+                        <ul aria-expanded="false">
+                            <li><a href="<?php echo URLROOT ?>/pages/leaseAgreements">Lease Agreements</a></li>
+                            <li><a href="<?php echo URLROOT ?>/pages/contractRenewal">Renew Contracts</a></li>
+                            <li><a href="<?php echo URLROOT ?>/pages/terminateContract">Terminate Contracts</a></li>
+                            <li><a href="<?php echo URLROOT ?>/pages/contractTemplate">Contract Templates</a></li>
+                        </ul>
+                    </li> -->
+
+					<?php if (Tools::hasPermission($userPermissions, 'Maintenance') || Tools::hasPermission($userPermissions, 'All Permissions')): ?>
+						<li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+								<i class="flaticon-plugin"></i>
+								<span class="nav-text">MAINTENANCE</span>
+							</a>
+							<ul aria-expanded="false">
+								<li><a href="<?php echo URLROOT ?>/pages/maintenanceRequests">Log Maintenance Requests</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/maintenanceTasks">Maintenance Tasks</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/tractRepairs">Track Repairs</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/completedMaintenance">Completed Maintenance</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/maintenanceInvoices">Generate Maintenance Invoices</a></li>
+							</ul>
+						</li>
+					<?php endif ?>
+
 
 					<?php if (Tools::hasPermission($userPermissions, 'Inspections') || Tools::hasPermission($userPermissions, 'All Permissions')): ?>
 						<li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -245,34 +276,6 @@ $userPermissions = Tools::getUserPermissions($uuid);?>
 								<li><a href="<?php echo URLROOT ?>/pages/expenseTracking">Expense Tracking</a></li>
 								<li><a href="<?php echo URLROOT ?>/pages/financialStatement">Profit/Loss Statements</a></li>
 								<li><a href="<?php echo URLROOT ?>/pages/budgetPlanning">Budget Planning</a></li>
-							</ul>
-						</li>
-					<?php endif ?>
-
-                   <!--  <li>
-						<a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                            <i class="flaticon-381-battery-5"></i>
-							<span class="nav-text">CONTRACTS</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="<?php echo URLROOT ?>/pages/leaseAgreements">Lease Agreements</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/contractRenewal">Renew Contracts</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/terminateContract">Terminate Contracts</a></li>
-                            <li><a href="<?php echo URLROOT ?>/pages/contractTemplate">Contract Templates</a></li>
-                        </ul>
-                    </li> -->
-
-					<?php if (Tools::hasPermission($userPermissions, 'Maintenance') || Tools::hasPermission($userPermissions, 'All Permissions')): ?>
-						<li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-								<i class="flaticon-plugin"></i>
-								<span class="nav-text">MAINTENANCE</span>
-							</a>
-							<ul aria-expanded="false">
-								<li><a href="<?php echo URLROOT ?>/pages/maintenanceRequests">Log Maintenance Requests</a></li>
-								<li><a href="<?php echo URLROOT ?>/pages/assignMaintenance">Assign Maintenance Tasks</a></li>
-								<li><a href="<?php echo URLROOT ?>/pages/tractRepairs">Track Repairs</a></li>
-								<li><a href="<?php echo URLROOT ?>/pages/completedMaintenance">Completed Maintenance</a></li>
-								<li><a href="<?php echo URLROOT ?>/pages/maintenanceInvoices">Generate Maintenance Invoices</a></li>
 							</ul>
 						</li>
 					<?php endif ?>
