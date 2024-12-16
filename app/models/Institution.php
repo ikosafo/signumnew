@@ -373,50 +373,73 @@ class Institution extends tableDataObject
         $complaints
     ) {
         global $healthdb;
-        $complaintsString = is_array($complaints) ? implode(', ', $complaints) : $complaints;
     
-        $query = "UPDATE `compusers` SET 
-                   `accessLevel` = :userRole,
-                   `updatedAt` = NOW()
-                   WHERE `uuid` = :uuid";
-    
-        $healthdb->prepare($query);
-        $healthdb->bind(':userRole', $userRole);
-        $healthdb->bind(':uuid', $uuid);
-        $healthdb->execute();
-    
-        $deleteQuery = "DELETE FROM `permission` WHERE `uuid` = :uuid";
-        $healthdb->prepare($deleteQuery);
-        $healthdb->bind(':uuid', $uuid);
-        $healthdb->execute();
-    
-        foreach ($permissions as $permission) {
-            $insertQuery = "INSERT INTO `permission` (`permission`, `uuid`) 
-                            VALUES (:permission, :uuid)";
-            $healthdb->prepare($insertQuery);
-            $healthdb->bind(':permission', $permission);
-            $healthdb->bind(':uuid', $uuid);
-            $healthdb->execute();
-        }
-
-
-        $deleteQuery = "DELETE FROM `issuecategories` WHERE `uuid` = :uuid";
-        $healthdb->prepare($deleteQuery);
-        $healthdb->bind(':uuid', $uuid);
-        $healthdb->execute();
-    
-        foreach ($complaints as $category) {
-            $insertQuery = "INSERT INTO `issuecategories` (`category`, `uuid`) 
-                            VALUES (:category, :uuid)";
-            $healthdb->prepare($insertQuery);
-            $healthdb->bind(':category', $category);
-            $healthdb->bind(':uuid', $uuid);
-            $healthdb->execute();
+        // Convert complaints to array if it is not already
+        if (!is_array($complaints)) {
+            $complaints = explode(",", $complaints);
         }
     
-        // Indicate success
-        echo 1;
+        // Log complaints for debugging
+        error_log("Complaints received: " . print_r($complaints, true));
+    
+        try {
+            // Update user role
+            $query = "UPDATE `compusers` SET 
+                       `accessLevel` = :userRole,
+                       `updatedAt` = NOW()
+                       WHERE `uuid` = :uuid";
+            $healthdb->prepare($query);
+            $healthdb->bind(':userRole', $userRole);
+            $healthdb->bind(':uuid', $uuid);
+            $healthdb->execute();
+    
+            // Clear and re-insert permissions
+            $deleteQuery = "DELETE FROM `permission` WHERE `uuid` = :uuid";
+            $healthdb->prepare($deleteQuery);
+            $healthdb->bind(':uuid', $uuid);
+            $healthdb->execute();
+    
+            foreach ($permissions as $permission) {
+                $insertQuery = "INSERT INTO `permission` (`permission`, `uuid`) 
+                                VALUES (:permission, :uuid)";
+                $healthdb->prepare($insertQuery);
+                $healthdb->bind(':permission', $permission);
+                $healthdb->bind(':uuid', $uuid);
+                $healthdb->execute();
+            }
+    
+            // Clear and re-insert issue categories
+            $deleteQuery = "DELETE FROM `issuecategories` WHERE `uuid` = :uuid";
+            $healthdb->prepare($deleteQuery);
+            $healthdb->bind(':uuid', $uuid);
+            $healthdb->execute();
+    
+            if (!empty($complaints)) {
+                foreach ($complaints as $category) {
+                    $insertQuery = "INSERT INTO `issuecategories` (`category`, `uuid`) 
+                                    VALUES (:category, :uuid)";
+                    $healthdb->prepare($insertQuery);
+                    $healthdb->bind(':category', $category);
+                    $healthdb->bind(':uuid', $uuid);
+                    $result = $healthdb->execute();
+    
+                    // Log potential errors
+                    if (!$result) {
+                        error_log("Insert failed for category: $category, UUID: $uuid");
+                    }
+                }
+            }
+    
+            // Indicate success
+            echo json_encode(["status" => 1, "message" => "User role and data saved successfully."]);
+        } catch (Exception $e) {
+            // Handle exceptions and log errors
+            error_log("Error in saveRole: " . $e->getMessage());
+            echo json_encode(["status" => 0, "message" => "Error saving user data."]);
+        }
     }
+    
+    
     
 
 

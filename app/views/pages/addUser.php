@@ -221,7 +221,7 @@ extract($data);
                                                         </div>
                                                     </div>
 
-                                                    <div class="form-group col-md-4 col-sm-12" id="serviceComplaintGroup">
+                                                   <!--  <div class="form-group col-md-4 col-sm-12" id="serviceComplaintGroup">
                                                         <label class="form-label required">Assign Service-related Complaint</label>
                                                         <div class="mb-3">
                                                             <div class="form-check mb-2">
@@ -345,7 +345,28 @@ extract($data);
                                                                 <label class="form-check-label" for="complaint29">Accessibility Issues</label>
                                                             </div>
                                                         </div>
+                                                    </div> -->
+
+                                                    <div class="form-group col-md-4 col-sm-12" id="serviceComplaintGroup2">
+                                                        <label class="form-label required">Assign Service-related Complaint</label>
+                                                        <div class="mb-3">
+                                                            <?php foreach ($listServiceIssues as $issue): ?>
+                                                                <div class="form-check mb-2">
+                                                                    <input 
+                                                                        type="checkbox" 
+                                                                        class="form-check-input" 
+                                                                        id="complaint<?= htmlspecialchars($issue->categoryId) ?>" 
+                                                                        value="<?= htmlspecialchars($issue->categoryName) ?>">
+                                                                    <label 
+                                                                        class="form-check-label" 
+                                                                        for="complaint<?= htmlspecialchars($issue->categoryId) ?>">
+                                                                        <?= htmlspecialchars($issue->categoryName) ?>
+                                                                    </label>
+                                                                </div>
+                                                            <?php endforeach; ?>
+                                                        </div>
                                                     </div>
+                                                 
 
                                                     <div class="next-btn d-flex col-sm-12">
                                                         <button type="button" class="btn btn-default prev1 btn-sm"><i class="fas fa-arrow-left me-2"></i> Previous</button>
@@ -428,16 +449,30 @@ extract($data);
             //alert(response);
 
             if (response == 1) {
+                $.notify("User saved successfully", {
+                    position: "top center",
+                    className: "success"
+                });
                 $("#needs-validation").addClass("was-validated");
                 $('.step-1').removeClass('active').addClass('disabled');
                 $('.step-2').addClass('active');
                 $('.wizard-step-2').addClass('d-block').removeClass('d-none');
                 $('.wizard-step-1').removeClass('d-block').addClass('d-none');
-            } else {
+            } else if (response == 2) {
                 $.notify("User already exists", {
                     position: "top center",
                     className: "error"
                 });
+            } else {
+                $.notify("Error sending mail", {
+                    position: "top center",
+                    className: "error"
+                });
+                $("#needs-validation").addClass("was-validated");
+                $('.step-1').removeClass('active').addClass('disabled');
+                $('.step-2').addClass('active');
+                $('.wizard-step-2').addClass('d-block').removeClass('d-none');
+                $('.wizard-step-1').removeClass('d-block').addClass('d-none');
             }
         };
 
@@ -575,8 +610,8 @@ extract($data);
 
 
     //Roles
-    $("#saveRole").on("click", function(event) {
-        event.preventDefault(); 
+    $("#saveRole").on("click", function (event) {
+        event.preventDefault();
 
         var userData = {
             userRole: $("#userRole").val(),
@@ -585,7 +620,7 @@ extract($data);
             uuid: '<?php echo $uuid ?>'
         };
 
-        $("input[type='checkbox'][id^='permission_check']:checked").each(function() {
+        $("input[type='checkbox'][id^='permission_check']:checked").each(function () {
             userData.permissions.push($(this).val());
         });
 
@@ -593,56 +628,57 @@ extract($data);
             userData.complaints.push($(this).val());
         });
 
-        userData.complaints = userData.complaints.join(",");
-        //alert('test');
+        // Ensure complaints are in array format
+        userData.complaints = userData.complaints;
+
+        console.log("User Data before submission:", userData);
 
         var url = urlroot + "/user/saveRole";
 
-        var successCallback = function(response) {
+        var successCallback = function (response) {
             response = JSON.parse(response);
-            //alert(response);
+            console.log("Response from server:", response);
+
             $.notify("User saved", {
                 position: "top center",
                 className: "success"
             });
 
-            // Delay the reload to allow the notification to be seen
             setTimeout(function() {
                 location.reload();
-            }, 500); 
+            }, 1000);
         };
 
-        var validateUserAccount = function(userData) {
-                var error = '';
+        var validateUserAccount = function (userData) {
+            var error = "";
 
-                if (!userData.userRole) {
-                    error += 'User Role is required\n';
-                    $("#userRole").focus();
+            if (!userData.userRole) {
+                error += "User Role is required\n";
+                $("#userRole").focus();
+            }
+
+            if (userData.permissions.length === 0) {
+                error += "At least one permission must be selected\n";
+            }
+
+            if (userData.userRole === "Field Worker") {
+                if (userData.complaints.length === 0) {
+                    error += "At least one service-related complaint must be selected for Field Worker\n";
                 }
-
-                if (userData.permissions.length === 0) {
-                    error += 'At least one permission must be selected\n';
-                }
-
-                // Validate complaints only if the User Role is 'Field Worker'
-                if (userData.userRole === 'Field Worker') {
-                    if (userData.complaints.length === 0) {
-                        error += 'At least one service-related complaint must be selected for Field Worker\n';
-                    }
+            } else {
+                if (userData.complaints.length > 0) {
+                    error += "Service-related complaints should not be selected unless the User Role is Field Worker\n";
                 } else {
-                    // Ensure no complaints are selected if the userRole is not 'Field Worker'
-                    if (userData.complaints.length > 0) {
-                        error += 'Service-related complaints should not be selected unless the User Role is Field Worker\n';
-                    }
+                    userData.complaints = []; // Ensure complaints is empty for non-Field Worker
                 }
+            }
 
-
-                return error;
-            };
-
+            return error;
+        };
 
         saveForm(userData, url, successCallback, validateUserAccount);
     });
+
 
 
    /*  document.getElementById('userRole').addEventListener('change', function () {

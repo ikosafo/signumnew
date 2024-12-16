@@ -186,4 +186,14 @@ class Complaints extends tableDataObject
         }
     }
 
+
+    public static function listServiceIssues() {
+        global $healthdb;
+
+        $getList = "SELECT * FROM `complaintcategory` where `status` = 1 ORDER BY `categoryId` DESC";
+        $healthdb->prepare($getList);
+        $resultList = $healthdb->resultSet();
+        return $resultList;
+    }
+
 }

@@ -98,9 +98,11 @@ class Pages extends Controller
         new Guard();
         $listUsers = Users::listUsers();
         $listDepartment = Institution::listDepartment();
+        $listServiceIssues = Complaints::listServiceIssues();
         $this->view("pages/addUser",[
             'listUsers' => $listUsers,
-            'listDepartment' => $listDepartment
+            'listDepartment' => $listDepartment,
+            'listServiceIssues' => $listServiceIssues
         ]);
     }  
 
