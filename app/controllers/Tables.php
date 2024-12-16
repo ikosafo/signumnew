@@ -9,6 +9,12 @@ class Tables extends Controller
         $this->view("tables/propertyCategories",['listPropertyCategory' => $listPropertyCategory]);
     }
 
+    public function complaintCategories()
+    {
+        $listComplaintCategory = Complaints::listComplaintCategory();
+        $this->view("tables/complaintCategories",['listComplaintCategory' => $listComplaintCategory]);
+    }
+
     public function propertyActivities()
     {
         $listPropertyActivity = Properties::listPropertyActivity();

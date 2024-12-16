@@ -57,7 +57,38 @@ class Complaints extends tableDataObject
             $resultList = $healthdb->resultSet();
             return $resultList;
     }
+
+
+    public static function categoryDetails($catid) {
+        global $healthdb;
+
+        $getList = "SELECT * FROM `complaintcategory` where `categoryId` = '$catid'";
+        $healthdb->prepare($getList);
+        $resultRec = $healthdb->singleRecord();
+        $categoryName = $resultRec->categoryName;
+        $description = $resultRec->description;
+        $uuid = $resultRec->uuid;
+        return [
+            'categoryName' => $categoryName,
+            'description' => $description,
+            'uuid' => $uuid
+        ];
+    }
     
+
+    public static function deleteCategory($catid) {
+
+        global $healthdb;
+            $query = "UPDATE `complaintcategory` 
+            SET `status` = 0,
+            `updatedAt` = NOW()
+            WHERE `categoryId` = '$catid'";
+
+            $healthdb->prepare($query);
+            $healthdb->execute();
+            echo 1;  // Successfully updated
+       
+    }
 
 
     public static function complaintDetails($complaintid) {
@@ -92,6 +123,67 @@ class Complaints extends tableDataObject
             'verifyFeedback' => $resultRec->verifyFeedback,
             'resolutionRemarks' => $resultRec->resolutionRemarks
         ];
+    }
+
+
+    public static function listComplaintCategory() {
+        global $healthdb;
+
+        $getList = "SELECT * FROM `complaintcategory` where `status` = 1 ORDER BY `categoryId` DESC";
+        $healthdb->prepare($getList);
+        $resultList = $healthdb->resultSet();
+        return $resultList;
+    }
+
+
+    public static function saveCategory($categoryName, $uuid, $description) {
+
+        global $healthdb;
+    
+        $getName = "SELECT * FROM `complaintcategory` WHERE `categoryName` = '$categoryName' AND `uuid` != '$uuid' AND `status` = 1";
+        $healthdb->prepare($getName);
+        $resultName = $healthdb->singleRecord();
+    
+        if ($resultName) {
+            // Category already exists
+            echo 2;
+        } else {
+            // Check if the category with the given UUID exists
+            $getCategory = "SELECT * FROM `complaintcategory` WHERE `uuid` = '$uuid' AND `status` = 1";
+            $healthdb->prepare($getCategory);
+            $resultCategory = $healthdb->singleRecord();
+    
+            if ($resultCategory) {
+                // Update existing category
+                $updateQuery = "UPDATE `complaintcategory` 
+                                SET `categoryName` = '$categoryName',
+                                    `description` = '$description', 
+                                    `updatedAt` = NOW() 
+                                WHERE `uuid` = '$uuid'";
+                $healthdb->prepare($updateQuery);
+                $healthdb->execute();
+                echo 3;  // Successfully updated
+            } else {
+                // Insert new category
+                $query = "INSERT INTO `complaintcategory`
+                (
+                `categoryName`,
+                `uuid`,
+                `description`,
+                `createdAt`
+                )
+                VALUES (
+                        '$categoryName',
+                        '$uuid',
+                        '$description',
+                        NOW()
+                        )";
+    
+                $healthdb->prepare($query);
+                $healthdb->execute();
+                echo 1;  // Successfully inserted
+            }
+        }
     }
 
 }

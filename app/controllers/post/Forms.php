@@ -18,6 +18,22 @@ class Forms extends PostController
     }
 
 
+    public function complaintCategoriesEdit()
+    {
+        $catid = $_POST['catid'];
+        $categoryDetails = Complaints::categoryDetails($catid);
+        $categoryName = $categoryDetails['categoryName'];
+        $description = $categoryDetails['description'];
+        $uuid = $categoryDetails['uuid'];
+        $this->view("forms/complaintCategoriesEdit", [
+            'categoryName' => $categoryName,
+            'description' => $description,
+            'catid' => $catid,
+            'uuid' => $uuid,
+         ]);
+    }
+
+
     public function propertyPhasesEdit()
     {
         $phaseid = $_POST['phaseid'];

@@ -507,6 +507,11 @@ class Pages extends Controller
         $this->view("pages/complaintStatuses");
     }  
 
+    public function trackRepairs() {
+        new Guard();
+        $this->view("pages/trackRepairs");
+    }  
+
 
     public function listRentInformation() {
         new Guard();
@@ -520,7 +525,13 @@ class Pages extends Controller
     public function propertyCategories() {
         new Guard();  
         $this->view("pages/propertyCategories");
-    } 
+    }
+    
+    
+    public function complaintCategories() {
+        new Guard();  
+        $this->view("pages/complaintCategories");
+    }
 
 
     public function propertyActivities() {

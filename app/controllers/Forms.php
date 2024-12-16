@@ -9,6 +9,12 @@ class Forms extends Controller
     }
 
 
+    public function complaintCategories()
+    {
+        $this->view("forms/complaintCategories");
+    }
+
+
     public function propertyPhases()
     {
         $this->view("forms/propertyPhases");

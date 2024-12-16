@@ -82,7 +82,7 @@
     </div>
 </div>
 
-<script src="<?php echo URLROOT ?>/assets/js/inline.js"></script>
+<script src="<?php echo URLROOT ?>/public/assets/js/inline.js"></script>
 
 <script>
     $("#clientTable").DataTable({
@@ -100,6 +100,7 @@
         var amount = $(this).data('amount');
         var rentid = $(this).data('rentid');
         var email = $(this).data('email'); 
+        //alert('test');
 
         var handler = PaystackPop.setup({
             key: 'pk_test_e9c02de44d365f18c863d41a01caa43aba1b1568',

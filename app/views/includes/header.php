@@ -243,7 +243,7 @@ $userPermissions = Tools::getUserPermissions($uuid);?>
 							<ul aria-expanded="false">
 								<li><a href="<?php echo URLROOT ?>/pages/maintenanceRequests">Log Maintenance Requests</a></li>
 								<li><a href="<?php echo URLROOT ?>/pages/maintenanceTasks">Maintenance Tasks</a></li>
-								<li><a href="<?php echo URLROOT ?>/pages/tractRepairs">Track Repairs</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/trackRepairs">Track Repairs</a></li>
 								<li><a href="<?php echo URLROOT ?>/pages/completedMaintenance">Completed Maintenance</a></li>
 								<li><a href="<?php echo URLROOT ?>/pages/maintenanceInvoices">Generate Maintenance Invoices</a></li>
 							</ul>
@@ -321,9 +321,10 @@ $userPermissions = Tools::getUserPermissions($uuid);?>
 								<li><a href="<?php echo URLROOT ?>/pages/propertyPhases">Property Phases</a></li>
 								<li><a href="<?php echo URLROOT ?>/pages/propertyActivities">Property Activities</a></li>
 								<li><a href="<?php echo URLROOT ?>/pages/maintenanceFee">Activity/Maintenance Fee</a></li>
-								<li><a href="<?php echo URLROOT ?>/pages/rentReminders">Rent Reminders</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/complaintCategories">Complaint Categories</a></li>
+								<!-- <li><a href="<?php echo URLROOT ?>/pages/rentReminders">Rent Reminders</a></li>
 								<li><a href="<?php echo URLROOT ?>/pages/notificationSettings">Notification Settings</a></li>
-								<li><a href="<?php echo URLROOT ?>/pages/paymentOptions">Payment Options</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/paymentOptions">Payment Options</a></li> -->
 							</ul>
 						</li>
 					<?php endif ?>

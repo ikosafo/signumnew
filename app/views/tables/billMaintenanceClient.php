@@ -27,7 +27,10 @@
                                 <tr>
                                     <td><strong class="text-black"><?= $no++ ?></strong></td>
                                     <td><?= Tools::propertyClient(Tools::getClientProperty($result->clientid)) ?></td>
-                                    <td><?= number_format($result->amountPaid,2) ?></td>
+                                    <td><?php if (is_null($result->amountPaid)): ?>
+                                            <?= "GHC " . number_format(Billings::clientMaintenanceAmount(Tools::getPhasefromClient($result->clientid)), 2) ?>
+                                        <?php endif; ?>
+                                    </td>
                                     <td><?= $result->paymentMethod ?></td>
                                     <td><?= $result->paymentStatus ?></td>
                                     <td><?= $result->dateDue ?></td>
@@ -47,7 +50,7 @@
                                                 data-clientid="<?= $result->clientid ?>" 
                                                 data-billid="<?= $result->billid ?>" 
                                                 data-email="<?= Tools::clientEmail($result->clientid) ?>" 
-                                                data-amount="<?= ($result->amountPaid) * 100 ?>">Pay Now
+                                                data-amount="<?= (Billings::clientMaintenanceAmount(Tools::getPhasefromClient($result->clientid))) * 100 ?>">Pay Now
                                                 </a>
 
                                             <?php } ?>
@@ -80,7 +83,7 @@
     </div>
 </div>
 
-<script src="<?php echo URLROOT ?>/assets/js/inline.js"></script>
+<script src="<?php echo URLROOT ?>/public/assets/js/inline.js"></script>
 
 <script>
     $("#clientTable").DataTable({
