@@ -21,35 +21,60 @@ class Institution extends tableDataObject
         $resultList = $healthdb->resultSet();
         return $resultList;
     }
-    
-    public static function saveDepartment($departmentName,$description) {
-        global $healthdb;
 
-        $getName = "SELECT * FROM `companydepartments` WHERE `departmentName` = '$departmentName' AND `status` = 1";
+
+    public static function saveDepartment($departmentName, $uuid, $description) {
+
+        global $healthdb;
+    
+        $getName = "SELECT * FROM `companydepartments` WHERE `departmentName` = '$departmentName' AND `uuid` != '$uuid' AND `status` = 1";
         $healthdb->prepare($getName);
         $resultName = $healthdb->singleRecord();
-
+    
         if ($resultName) {
-            //Already exists
+            // Department already exists
             echo 2;
-        }
-        else {
-            $query = "INSERT INTO `companydepartments`
-            (`departmentName`,
-             `description`,
-              `createdAt`
-             )
-            VALUES ('$departmentName',
-                    '$description',
-                    NOW()
-                    )";
-
+        } else {
+            // Check if the department with the given UUID exists
+            $getCategory = "SELECT * FROM `companydepartments` WHERE `uuid` = '$uuid' AND `status` = 1";
+            $healthdb->prepare($getCategory);
+            $resultCategory = $healthdb->singleRecord();
+    
+            if ($resultCategory) {
+                // Update existing department
+                $updateQuery = "UPDATE `companydepartments` 
+                                SET `departmentName` = '$departmentName',
+                                    `description` = '$description', 
+                                    `updatedAt` = NOW() 
+                                WHERE `uuid` = '$uuid'";
+                $healthdb->prepare($updateQuery);
+                $healthdb->execute();
+                echo 3;  // Successfully updated
+            } else {
+                // Insert new department
+                $query = "INSERT INTO `companydepartments`
+                (
+                `departmentName`,
+                `uuid`,
+                `description`,
+                `createdAt`
+                )
+                VALUES (
+                        '$departmentName',
+                        '$uuid',
+                        '$description',
+                        NOW()
+                        )";
+    
                 $healthdb->prepare($query);
                 $healthdb->execute();
                 echo 1;  // Successfully inserted
+            }
         }
-       
     }
+
+    
+    
 
     public static function departmentDetails($deptid) {
         global $healthdb;
@@ -59,9 +84,11 @@ class Institution extends tableDataObject
         $resultRec = $healthdb->singleRecord();
         $departmentName = $resultRec->departmentName;
         $description = $resultRec->description;
+        $uuid = $resultRec->uuid;
         return [
             'departmentName' => $departmentName,
-            'description' => $description
+            'description' => $description,
+            'uuid' => $uuid
         ];
     }
 

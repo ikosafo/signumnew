@@ -7,15 +7,16 @@ class Company extends PostController
     {
         $departmentName = $_POST['departmentName'];
         $description = $_POST['description'];
-        Institution::saveDepartment($departmentName,$description);
+        $uuid = $_POST['uuid'];
+        Institution::saveDepartment($departmentName,$uuid,$description);
     }
 
-    public function editDepartment()
+   /*  public function editDepartment()
     {
         $deptid = $_POST['deptid'];
         $departmentName = $_POST['departmentName'];
         $description = $_POST['description'];
         Institution::editDepartment($departmentName,$description,$deptid);
-    }
+    } */
 
 }

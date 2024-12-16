@@ -35,13 +35,13 @@
             var formData = {
                 departmentName: $("input[name='departmentName']").val(),
                 description: $("textarea[name='description']").val(),
-                deptid: '<?php echo $deptid; ?>'
+                uuid: '<?php echo $uuid ?>'
             };
-            var url = urlroot + "/company/editDepartment";
+            var url = urlroot + "/company/saveDepartment";
 
             var successCallback = function(response) {
                 //alert(response);
-                if (response == 1) {
+                if (response == 1 || response == 3) {
                     $('html, body').animate({
                         scrollTop: $("#departmentTableDiv").offset().top
                     }, 200);

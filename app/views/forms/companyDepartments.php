@@ -1,3 +1,4 @@
+<?php $uuid = Tools::generateUUID(); ?>
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -31,7 +32,8 @@
 
             var formData = {
                 departmentName: $("input[name='departmentName']").val(),
-                description: $("textarea[name='description']").val()
+                description: $("textarea[name='description']").val(),
+                uuid: '<?php echo $uuid ?>'
             };
             var url = urlroot + "/company/saveDepartment";
 

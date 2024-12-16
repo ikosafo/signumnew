@@ -73,10 +73,12 @@ class Forms extends PostController
         $departmentDetails = Institution::departmentDetails($deptid);
         $departmentName = $departmentDetails['departmentName'];
         $description = $departmentDetails['description'];
+        $uuid = $departmentDetails['uuid'];
         $this->view("forms/companyDepartmentsEdit", [
             'departmentName' => $departmentName,
             'description' => $description,
             'deptid' => $deptid,
+            'uuid' => $uuid
          ]);
     }
 
