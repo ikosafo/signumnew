@@ -246,10 +246,10 @@ class Pages extends Controller
     } 
 
 
-    public function maintenanceInvoices() {
+    public function maintenanceInvoice() {
         new Guard();
         $listRentInformation = Properties::listRentInformation();
-        $this->view("pages/maintenanceInvoices",[
+        $this->view("pages/maintenanceInvoice",[
             'listRentInformation' => $listRentInformation
         ]);
     } 

@@ -245,7 +245,7 @@ $userPermissions = Tools::getUserPermissions($uuid);?>
 								<li><a href="<?php echo URLROOT ?>/pages/maintenanceTasks">Maintenance Tasks</a></li>
 								<li><a href="<?php echo URLROOT ?>/pages/trackRepairs">Track Repairs</a></li>
 								<li><a href="<?php echo URLROOT ?>/pages/completedMaintenance">Completed Maintenance</a></li>
-								<li><a href="<?php echo URLROOT ?>/pages/maintenanceInvoices">Generate Maintenance Invoices</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/maintenanceInvoice">Generate Maintenance Invoices</a></li>
 							</ul>
 						</li>
 					<?php endif ?>
