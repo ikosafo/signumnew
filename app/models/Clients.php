@@ -409,7 +409,7 @@ class Clients extends tableDataObject
                 <p>Best regards,</p>
                 <p>Thank you,<br>The Signum Properties Team</p>";
 
-                //SendEmail::compose($emailAddress, $subject, $message);
+                SendEmail::compose($emailAddress, $subject, $message);
                 echo 'Complaint saved successfully with Tracking Number: ' . $issueTrackingNumber;
             }
     }
