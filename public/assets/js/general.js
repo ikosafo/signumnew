@@ -101,8 +101,6 @@ function handlePaste(event) {
     }
 }
 
-
-
 function allowNumbersCommasDecimals(event) {
     const charCode = event.which || event.keyCode;
     const charTyped = String.fromCharCode(charCode);

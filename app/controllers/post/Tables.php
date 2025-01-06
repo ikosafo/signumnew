@@ -8,11 +8,11 @@ class Tables extends PostController
         $clientid = Tools::getClientfromBilling($billid);
         $maintenanceBilling = Billings::maintenanceBilling($billid);
         $this->view("tables/maintenanceBilling",
-        [
-            'maintenanceBilling' => $maintenanceBilling,
-            'clientid' => $clientid
-        ]
-    ); 
+            [
+                'maintenanceBilling' => $maintenanceBilling,
+                'clientid' => $clientid
+            ]
+        ); 
     }
 }
 
